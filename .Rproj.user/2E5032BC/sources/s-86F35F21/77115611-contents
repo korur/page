@@ -1,0 +1,72 @@
+---
+title: "CreatingAndDeployingWebsiteGithubNetlify"
+author: "Serdar Korur"
+date: "9/13/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Simple guide to set up and deploying your Website 2019 Update (RStudio - Git - GitHub - Netlify)
+
+1. Open R Studio
+
+
+### Create an project under your target folder (e.g Website)
+
+devtools::install_github("rstudio/blogdown")
+library(blogdown)
+install_hugo()
+
+Create a new folder Blog in Website folder
+set your directory in R to the repo in Github ==> Blog
+new_site()
+or blogdown::new_site(theme = "gcushen/hugo-academic")
+or
+install_theme("gcushen/hugo-academic", theme_example = TRUE, update_config = TRUE)
+
+
+### Uploading your local git repositroy to Github
+
+BASH commands:
+Choose the folder where your website will be
+cd Website/BLOG
+git init
+git remote add origin https://github.com/korur/Website.git
+git add .
+git commit -m take
+git push origin master
+
+---
+## **git pull**
+If you change something on github page: go to your local .git repository and  
+execute git pull origin master
+
+
+
+on github create CNAME file with your domain name.
+
+
+###Create netlify toml on your local repository
+
+Netlify TOML
+https://gohugo.io/hosting-and-deployment/hosting-on-netlify/
+(works)  
+
+# check your hugo version and update in the toml document
+in Rstudio type blogdown::hugo_version()
+
++++Customization of Hugo Academic++++
+
+go to content folder >> home 
+choose widget >> e.g projects.md >> activate = true >> false
+
+
+###Create a repository on Github
+
+on the config.toml
+add publishDir = "docs"
+and github website address
+
