@@ -2,71 +2,71 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Academic</title>
-    <link>/page/</link>
-      <atom:link href="/page/index.xml" rel="self" type="application/rss+xml" />
+    <link>/</link>
+      <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Academic</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
     <image>
-      <url>/page/img/icon-192.png</url>
+      <url>/img/icon-192.png</url>
       <title>Academic</title>
-      <link>/page/</link>
+      <link>/</link>
     </image>
     
     <item>
       <title>Recent &amp; Upcoming Talks</title>
-      <link>/page/talk/</link>
+      <link>/talk/</link>
       <pubDate>Sat, 01 Jun 2030 13:00:00 +0000</pubDate>
-      <guid>/page/talk/</guid>
+      <guid>/talk/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Posts</title>
-      <link>/page/post/</link>
+      <link>/post/</link>
       <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>/page/post/</guid>
+      <guid>/post/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Publications</title>
-      <link>/page/publication/</link>
+      <link>/publication/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>/page/publication/</guid>
+      <guid>/publication/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Slides</title>
-      <link>/page/slides/</link>
+      <link>/slides/</link>
       <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>/page/slides/</guid>
+      <guid>/slides/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Privacy Policy</title>
-      <link>/page/privacy/</link>
+      <link>/privacy/</link>
       <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
-      <guid>/page/privacy/</guid>
+      <guid>/privacy/</guid>
       <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Terms</title>
-      <link>/page/terms/</link>
+      <link>/terms/</link>
       <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
-      <guid>/page/terms/</guid>
+      <guid>/terms/</guid>
       <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Projects</title>
-      <link>/page/project/</link>
+      <link>/project/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/page/project/</guid>
+      <guid>/project/</guid>
       <description></description>
     </item>
     
@@ -80,9 +80,9 @@
     
     <item>
       <title>Courses</title>
-      <link>/page/courses/</link>
+      <link>/courses/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/page/courses/</guid>
+      <guid>/courses/</guid>
       <description></description>
     </item>
     
