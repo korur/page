@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git | SERDAR KORUR</title>
+    <link>/tags/git/</link>
+      <atom:link href="/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <description>Git</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 15 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/icon-192.png</url>
+      <title>Git</title>
+      <link>/tags/git/</link>
+    </image>
+    
+    <item>
+      <title>Set up and deploy your blog in 5 minutes with Hugo/Blogdown (September 2019 Update)</title>
+      <link>/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/</link>
+      <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/</guid>
+      <description>
+
+
+&lt;div id=&#34;what-tools-you-will-use&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What tools you will use;&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;RStudio&lt;/li&gt;
+&lt;li&gt;Hugo&lt;/li&gt;
+&lt;li&gt;Blogdown&lt;/li&gt;
+&lt;li&gt;Git&lt;/li&gt;
+&lt;li&gt;Github&lt;/li&gt;
+&lt;li&gt;Netlify&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div id=&#34;on-rstudio&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;On RStudio&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Select &lt;strong&gt;Projects menu&lt;/strong&gt; on the top right corner&lt;/li&gt;
+&lt;li&gt;Select &lt;strong&gt;New project &amp;gt; Choose existing directory &amp;gt; Browse to Website folder&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;install-hugo-and-blogdown&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Install Hugo and Blogdown&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;devtools::install_github(“rstudio/blogdown”)&lt;/strong&gt;
+&lt;strong&gt;library(blogdown)&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;install_hugo()&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div id=&#34;build-your-website-locally.&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Build your website locally.&lt;/h4&gt;
+&lt;div id=&#34;for-example-to-create-a-new-site-with-the-academic-theme&#34; class=&#34;section level5&#34;&gt;
+&lt;h5&gt;for example, to create a new site with the academic theme&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;blogdown::new_site(theme = “gcushen/hugo-academic”)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For other themes go to &lt;a href=&#34;http://themes.gohugo.io&#34; class=&#34;uri&#34;&gt;http://themes.gohugo.io&lt;/a&gt;, Choose a theme you like, click homepage and you will be redirected to its github repository.&lt;br /&gt;
+Replace this repository name with “gcushen/hugo-academic” above)&lt;/p&gt;
+&lt;p&gt;Use &lt;strong&gt;list.files()&lt;/strong&gt; to see the files/folders generated.&lt;/p&gt;
+&lt;p&gt;To be able to publish the website on github we need to specify a &lt;strong&gt;docs&lt;/strong&gt; folder instead of the default public folder where the website is created.&lt;/p&gt;
+&lt;p&gt;Open your &lt;strong&gt;config.toml&lt;/strong&gt; file under the Website folder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;baseurl: &#34;https://yourusername.github.io/page/&#34;&lt;/code&gt;&lt;br /&gt;
+&lt;code&gt;publishDir = &#34;docs&#34;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Save the config file. This will rebuild the site and create the docs folder.
+Now you can go back to your folder and delete the public directory.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;on-your-github-account-create-a-new-repository&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;On your Github account create a new repository:&lt;/h3&gt;
+&lt;p&gt;Log in to your Github account and create a new repository.
+Here I called it &lt;code&gt;page&lt;/code&gt;
+Then your remote repository will be at &lt;a href=&#34;https://github.com/yourusername/page.git&#34; class=&#34;uri&#34;&gt;https://github.com/yourusername/page.git&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;on-git-create-your-local-.git-repository&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;On Git: Create your local .git repository&lt;/h3&gt;
+&lt;p&gt;By using pwd and cd commands change your directory to the Website folder&lt;/p&gt;
+&lt;p&gt;git init&lt;br /&gt;
+git remote add origin &lt;a href=&#34;https://github.com/yourusername/page.git&#34; class=&#34;uri&#34;&gt;https://github.com/yourusername/page.git&lt;/a&gt;&lt;br /&gt;
+git add .&lt;br /&gt;
+git commit -m createmywebsite&lt;/p&gt;
+&lt;p&gt;Following command will synchronize all your files to your github repository&lt;/p&gt;
+&lt;p&gt;git push origin master&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;publishing-your-website-on-github-pages&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Publishing your website on Github pages&lt;/h3&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;On your Github repository. Choose settings.&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;Scroll down to Github pages, choose source &amp;gt; master branch/docs folder&lt;/li&gt;
+&lt;li&gt;This will update the pagge
+go to Github pages again click the link:&lt;br /&gt;
+&lt;a href=&#34;https://yourusername.github.io/page/&#34; class=&#34;uri&#34;&gt;https://yourusername.github.io/page/&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Hoorray! In this step your website should be up and running!&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;deploying-your-website-to-netlify&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Deploying your Website to Netlify&lt;/h3&gt;
+&lt;p&gt;If you want to benefit from the advantages like continous deployment you can
+use netlify.&lt;/p&gt;
+&lt;p&gt;On your Netlify account connect with your Github account
+Choose New site from Git.
+Choose Github
+Click on Configure the Netlify app on GitHub.
+Select your Github repository. Save.
+On Netlify pick up that repository.
+On Basic build settings Publish directory should be docs
+Click on show advanced &amp;gt; New Variable &amp;gt; HUGO_VERSION / 0.58.1
+If you dont know your hugo version on Rstudio &amp;gt; type blogdown::hugo_version()
+click deploy
+It will allocate you a weird link. You have to go back to your config.toml and modify
+baseurl to this netlify link.&lt;/p&gt;
+&lt;p&gt;After this step you have to push changes to github from your local git.&lt;/p&gt;
+&lt;p&gt;Similarly to step 4 above.&lt;/p&gt;
+&lt;p&gt;Netlify will detect those changes you pushed to your github repository and your site
+will be published in a few seconds.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;go-to-domain-settings-on-netlify-add-custom-domain-click-verify-yes-add-domain&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Go to domain settings on Netlify &amp;gt; Add custom domain &amp;gt; Click Verify &amp;gt; Yes, add domain&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div id=&#34;go-to-your-domain-provider-e.g-on-go-daddy&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Go to your domain provider e.g on Go Daddy&lt;/h3&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

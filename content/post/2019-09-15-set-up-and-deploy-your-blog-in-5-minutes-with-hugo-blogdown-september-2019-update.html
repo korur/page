@@ -1,0 +1,131 @@
+---
+title: Set up and deploy your blog in 5 minutes with Hugo/Blogdown (September 2019
+  Update)
+author: Serdar Korur
+date: '2019-09-15'
+slug: set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update
+categories: []
+tags:
+  - RStudio
+  - R Markdown
+  - Hugo
+  - Blogdown
+  - Git
+  - Github
+  - Netlify
+  - Domain
+  - Blog
+  - Hugo-academic theme
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2019-09-15T14:37:59+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<div id="what-tools-you-will-use" class="section level3">
+<h3>What tools you will use;</h3>
+<blockquote>
+<ul>
+<li>RStudio</li>
+<li>Hugo</li>
+<li>Blogdown</li>
+<li>Git</li>
+<li>Github</li>
+<li>Netlify</li>
+</ul>
+</blockquote>
+</div>
+<div id="on-rstudio" class="section level3">
+<h3>On RStudio</h3>
+<ul>
+<li>Select <strong>Projects menu</strong> on the top right corner</li>
+<li>Select <strong>New project &gt; Choose existing directory &gt; Browse to Website folder</strong></li>
+</ul>
+<div id="install-hugo-and-blogdown" class="section level4">
+<h4>Install Hugo and Blogdown</h4>
+<blockquote>
+<p><strong>devtools::install_github(“rstudio/blogdown”)</strong>
+<strong>library(blogdown)</strong><br />
+<strong>install_hugo()</strong></p>
+</blockquote>
+</div>
+<div id="build-your-website-locally." class="section level4">
+<h4>Build your website locally.</h4>
+<div id="for-example-to-create-a-new-site-with-the-academic-theme" class="section level5">
+<h5>for example, to create a new site with the academic theme</h5>
+<p><strong>blogdown::new_site(theme = “gcushen/hugo-academic”)</strong></p>
+<p>For other themes go to <a href="http://themes.gohugo.io" class="uri">http://themes.gohugo.io</a>, Choose a theme you like, click homepage and you will be redirected to its github repository.<br />
+Replace this repository name with “gcushen/hugo-academic” above)</p>
+<p>Use <strong>list.files()</strong> to see the files/folders generated.</p>
+<p>To be able to publish the website on github we need to specify a <strong>docs</strong> folder instead of the default public folder where the website is created.</p>
+<p>Open your <strong>config.toml</strong> file under the Website folder</p>
+<p><code>baseurl: "https://yourusername.github.io/page/"</code><br />
+<code>publishDir = "docs"</code></p>
+<p>Save the config file. This will rebuild the site and create the docs folder.
+Now you can go back to your folder and delete the public directory.</p>
+</div>
+</div>
+</div>
+<div id="on-your-github-account-create-a-new-repository" class="section level3">
+<h3>On your Github account create a new repository:</h3>
+<p>Log in to your Github account and create a new repository.
+Here I called it <code>page</code>
+Then your remote repository will be at <a href="https://github.com/yourusername/page.git" class="uri">https://github.com/yourusername/page.git</a></p>
+</div>
+<div id="on-git-create-your-local-.git-repository" class="section level3">
+<h3>On Git: Create your local .git repository</h3>
+<p>By using pwd and cd commands change your directory to the Website folder</p>
+<p>git init<br />
+git remote add origin <a href="https://github.com/yourusername/page.git" class="uri">https://github.com/yourusername/page.git</a><br />
+git add .<br />
+git commit -m createmywebsite</p>
+<p>Following command will synchronize all your files to your github repository</p>
+<p>git push origin master</p>
+</div>
+<div id="publishing-your-website-on-github-pages" class="section level3">
+<h3>Publishing your website on Github pages</h3>
+<ol style="list-style-type: decimal">
+<li>On your Github repository. Choose settings.<br />
+</li>
+<li>Scroll down to Github pages, choose source &gt; master branch/docs folder</li>
+<li>This will update the pagge
+go to Github pages again click the link:<br />
+<a href="https://yourusername.github.io/page/" class="uri">https://yourusername.github.io/page/</a>.</li>
+</ol>
+<p><strong>Hoorray! In this step your website should be up and running!</strong></p>
+</div>
+<div id="deploying-your-website-to-netlify" class="section level3">
+<h3>Deploying your Website to Netlify</h3>
+<p>If you want to benefit from the advantages like continous deployment you can
+use netlify.</p>
+<p>On your Netlify account connect with your Github account
+Choose New site from Git.
+Choose Github
+Click on Configure the Netlify app on GitHub.
+Select your Github repository. Save.
+On Netlify pick up that repository.
+On Basic build settings Publish directory should be docs
+Click on show advanced &gt; New Variable &gt; HUGO_VERSION / 0.58.1
+If you dont know your hugo version on Rstudio &gt; type blogdown::hugo_version()
+click deploy
+It will allocate you a weird link. You have to go back to your config.toml and modify
+baseurl to this netlify link.</p>
+<p>After this step you have to push changes to github from your local git.</p>
+<p>Similarly to step 4 above.</p>
+<p>Netlify will detect those changes you pushed to your github repository and your site
+will be published in a few seconds.</p>
+</div>
+<div id="go-to-domain-settings-on-netlify-add-custom-domain-click-verify-yes-add-domain" class="section level3">
+<h3>Go to domain settings on Netlify &gt; Add custom domain &gt; Click Verify &gt; Yes, add domain</h3>
+</div>
+<div id="go-to-your-domain-provider-e.g-on-go-daddy" class="section level3">
+<h3>Go to your domain provider e.g on Go Daddy</h3>
+</div>

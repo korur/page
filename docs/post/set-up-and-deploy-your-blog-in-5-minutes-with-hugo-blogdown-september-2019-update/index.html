@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.5.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Serdar Korur">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="What tools you will use;RStudioHugoBlogdownGitGithubNetlifyOn RStudioSelect Projects menu on the top right cornerSelect New project &gt; Choose existing directory &gt; Browse to Website folderInstall Hugo and Blogdowndevtools::install_github(“rstudio/blogdown”)library(blogdown)
+install_hugo()
+Build your website locally.for example, to create a new site with the academic themeblogdown::new_site(theme = “gcushen/hugo-academic”)
+For other themes go to http://themes.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.min.54abc5f3f1ddc380a34d4103fd11d77a.css">
+
+  
+
+  
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/">
+
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="SERDAR KORUR">
+  <meta property="og:url" content="/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/">
+  <meta property="og:title" content="Set up and deploy your blog in 5 minutes with Hugo/Blogdown (September 2019 Update) | SERDAR KORUR">
+  <meta property="og:description" content="What tools you will use;RStudioHugoBlogdownGitGithubNetlifyOn RStudioSelect Projects menu on the top right cornerSelect New project &gt; Choose existing directory &gt; Browse to Website folderInstall Hugo and Blogdowndevtools::install_github(“rstudio/blogdown”)library(blogdown)
+install_hugo()
+Build your website locally.for example, to create a new site with the academic themeblogdown::new_site(theme = “gcushen/hugo-academic”)
+For other themes go to http://themes."><meta property="og:image" content="/img/icon-192.png">
+  <meta property="twitter:image" content="/img/icon-192.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-09-15T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2019-09-15T14:37:59&#43;02:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/"
+  },
+  "headline": "Set up and deploy your blog in 5 minutes with Hugo/Blogdown (September 2019 Update)",
+  
+  "datePublished": "2019-09-15T00:00:00Z",
+  "dateModified": "2019-09-15T14:37:59+02:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Serdar Korur"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "SERDAR KORUR",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/img/icon-512.png"
+    }
+  },
+  "description": "What tools you will use;\r\r\rRStudio\rHugo\rBlogdown\rGit\rGithub\rNetlify\r\r\r\rOn RStudio\r\rSelect Projects menu on the top right corner\rSelect New project \u0026gt; Choose existing directory \u0026gt; Browse to Website folder\r\rInstall Hugo and Blogdown\r\rdevtools::install_github(“rstudio/blogdown”)\rlibrary(blogdown)\ninstall_hugo()\n\r\rBuild your website locally.\rfor example, to create a new site with the academic theme\rblogdown::new_site(theme = “gcushen/hugo-academic”)\nFor other themes go to http://themes."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Set up and deploy your blog in 5 minutes with Hugo/Blogdown (September 2019 Update) | SERDAR KORUR</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0 compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">SERDAR KORUR</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav mr-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#hero"><span>Demo</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/courses/"><span>Courses</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+      </ul>
+      <ul class="navbar-nav ml-auto">
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Set up and deploy your blog in 5 minutes with Hugo/Blogdown (September 2019 Update)</h1>
+
+  
+
+  
+    
+
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Sep 15, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    3 min read
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/&amp;text=Set%20up%20and%20deploy%20your%20blog%20in%205%20minutes%20with%20Hugo/Blogdown%20%28September%202019%20Update%29" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/&amp;t=Set%20up%20and%20deploy%20your%20blog%20in%205%20minutes%20with%20Hugo/Blogdown%20%28September%202019%20Update%29" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Set%20up%20and%20deploy%20your%20blog%20in%205%20minutes%20with%20Hugo/Blogdown%20%28September%202019%20Update%29&amp;body=/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/&amp;title=Set%20up%20and%20deploy%20your%20blog%20in%205%20minutes%20with%20Hugo/Blogdown%20%28September%202019%20Update%29" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Set%20up%20and%20deploy%20your%20blog%20in%205%20minutes%20with%20Hugo/Blogdown%20%28September%202019%20Update%29%20/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/&amp;title=Set%20up%20and%20deploy%20your%20blog%20in%205%20minutes%20with%20Hugo/Blogdown%20%28September%202019%20Update%29" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+
+<div id="what-tools-you-will-use" class="section level3">
+<h3>What tools you will use;</h3>
+<blockquote>
+<ul>
+<li>RStudio</li>
+<li>Hugo</li>
+<li>Blogdown</li>
+<li>Git</li>
+<li>Github</li>
+<li>Netlify</li>
+</ul>
+</blockquote>
+</div>
+<div id="on-rstudio" class="section level3">
+<h3>On RStudio</h3>
+<ul>
+<li>Select <strong>Projects menu</strong> on the top right corner</li>
+<li>Select <strong>New project &gt; Choose existing directory &gt; Browse to Website folder</strong></li>
+</ul>
+<div id="install-hugo-and-blogdown" class="section level4">
+<h4>Install Hugo and Blogdown</h4>
+<blockquote>
+<p><strong>devtools::install_github(“rstudio/blogdown”)</strong>
+<strong>library(blogdown)</strong><br />
+<strong>install_hugo()</strong></p>
+</blockquote>
+</div>
+<div id="build-your-website-locally." class="section level4">
+<h4>Build your website locally.</h4>
+<div id="for-example-to-create-a-new-site-with-the-academic-theme" class="section level5">
+<h5>for example, to create a new site with the academic theme</h5>
+<p><strong>blogdown::new_site(theme = “gcushen/hugo-academic”)</strong></p>
+<p>For other themes go to <a href="http://themes.gohugo.io" class="uri">http://themes.gohugo.io</a>, Choose a theme you like, click homepage and you will be redirected to its github repository.<br />
+Replace this repository name with “gcushen/hugo-academic” above)</p>
+<p>Use <strong>list.files()</strong> to see the files/folders generated.</p>
+<p>To be able to publish the website on github we need to specify a <strong>docs</strong> folder instead of the default public folder where the website is created.</p>
+<p>Open your <strong>config.toml</strong> file under the Website folder</p>
+<p><code>baseurl: "https://yourusername.github.io/page/"</code><br />
+<code>publishDir = "docs"</code></p>
+<p>Save the config file. This will rebuild the site and create the docs folder.
+Now you can go back to your folder and delete the public directory.</p>
+</div>
+</div>
+</div>
+<div id="on-your-github-account-create-a-new-repository" class="section level3">
+<h3>On your Github account create a new repository:</h3>
+<p>Log in to your Github account and create a new repository.
+Here I called it <code>page</code>
+Then your remote repository will be at <a href="https://github.com/yourusername/page.git" class="uri">https://github.com/yourusername/page.git</a></p>
+</div>
+<div id="on-git-create-your-local-.git-repository" class="section level3">
+<h3>On Git: Create your local .git repository</h3>
+<p>By using pwd and cd commands change your directory to the Website folder</p>
+<p>git init<br />
+git remote add origin <a href="https://github.com/yourusername/page.git" class="uri">https://github.com/yourusername/page.git</a><br />
+git add .<br />
+git commit -m createmywebsite</p>
+<p>Following command will synchronize all your files to your github repository</p>
+<p>git push origin master</p>
+</div>
+<div id="publishing-your-website-on-github-pages" class="section level3">
+<h3>Publishing your website on Github pages</h3>
+<ol style="list-style-type: decimal">
+<li>On your Github repository. Choose settings.<br />
+</li>
+<li>Scroll down to Github pages, choose source &gt; master branch/docs folder</li>
+<li>This will update the pagge
+go to Github pages again click the link:<br />
+<a href="https://yourusername.github.io/page/" class="uri">https://yourusername.github.io/page/</a>.</li>
+</ol>
+<p><strong>Hoorray! In this step your website should be up and running!</strong></p>
+</div>
+<div id="deploying-your-website-to-netlify" class="section level3">
+<h3>Deploying your Website to Netlify</h3>
+<p>If you want to benefit from the advantages like continous deployment you can
+use netlify.</p>
+<p>On your Netlify account connect with your Github account
+Choose New site from Git.
+Choose Github
+Click on Configure the Netlify app on GitHub.
+Select your Github repository. Save.
+On Netlify pick up that repository.
+On Basic build settings Publish directory should be docs
+Click on show advanced &gt; New Variable &gt; HUGO_VERSION / 0.58.1
+If you dont know your hugo version on Rstudio &gt; type blogdown::hugo_version()
+click deploy
+It will allocate you a weird link. You have to go back to your config.toml and modify
+baseurl to this netlify link.</p>
+<p>After this step you have to push changes to github from your local git.</p>
+<p>Similarly to step 4 above.</p>
+<p>Netlify will detect those changes you pushed to your github repository and your site
+will be published in a few seconds.</p>
+</div>
+<div id="go-to-domain-settings-on-netlify-add-custom-domain-click-verify-yes-add-domain" class="section level3">
+<h3>Go to domain settings on Netlify &gt; Add custom domain &gt; Click Verify &gt; Yes, add domain</h3>
+</div>
+<div id="go-to-your-domain-provider-e.g-on-go-daddy" class="section level3">
+<h3>Go to your domain provider e.g on Go Daddy</h3>
+</div>
+
+    </div>
+
+    
+
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rstudio/">RStudio</a>
+  
+  <a class="badge badge-light" href="/tags/r-markdown/">R Markdown</a>
+  
+  <a class="badge badge-light" href="/tags/hugo/">Hugo</a>
+  
+  <a class="badge badge-light" href="/tags/blogdown/">Blogdown</a>
+  
+  <a class="badge badge-light" href="/tags/git/">Git</a>
+  
+  <a class="badge badge-light" href="/tags/github/">Github</a>
+  
+  <a class="badge badge-light" href="/tags/netlify/">Netlify</a>
+  
+  <a class="badge badge-light" href="/tags/domain/">Domain</a>
+  
+  <a class="badge badge-light" href="/tags/blog/">Blog</a>
+  
+  <a class="badge badge-light" href="/tags/hugo-academic-theme/">Hugo-academic theme</a>
+  
+</div>
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card">
+    
+      
+      <img class="portrait mr-3" src="/authors/admin/avatar_huc20273ad926c00177316852a0ac5eb17_12606_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Serdar Korur</a></h5>
+      <h6 class="card-subtitle">Senior Scientist in Drug Discovery</h6>
+      <p class="card-text">Serdar is a Data Scientist and PhD in Cell Biology</p>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="/#contact" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="https://www.linkedin.com/in/serdar-korur/" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="https://github.com/korur/" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+      
+      
+      <div class="article-widget">
+        <div class="hr-light"></div>
+        <h3>Related</h3>
+        <ul>
+          
+          <li><a href="/post/2015-07-23-r-rmarkdown/">Hello R Markdown</a></li>
+          
+        </ul>
+      </div>
+      
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/r.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.130521ecfc6f534c52c158217bbff718.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+        
+  </p>
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
