@@ -20,9 +20,9 @@
       <description>
 
 
-&lt;div id=&#34;what-tools-you-will-use&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;What tools you will use;&lt;/h3&gt;
-&lt;blockquote&gt;
+&lt;p&gt;Here is an up to date workflow of how I created my Blog on Github and deployed at Netlify.&lt;/p&gt;
+&lt;div id=&#34;tools-we-need-fcc&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Tools we need fcc;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;RStudio&lt;/li&gt;
 &lt;li&gt;Hugo&lt;/li&gt;
@@ -31,7 +31,6 @@
 &lt;li&gt;Github&lt;/li&gt;
 &lt;li&gt;Netlify&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/blockquote&gt;
 &lt;/div&gt;
 &lt;div id=&#34;on-rstudio&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;On RStudio&lt;/h3&gt;

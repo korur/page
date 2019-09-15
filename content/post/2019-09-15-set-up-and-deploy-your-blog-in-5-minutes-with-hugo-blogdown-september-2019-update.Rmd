@@ -28,9 +28,11 @@ image:
 projects: []
 ---
 
-### What tools you will use;  
+Here is an up to date workflow of how I created my Blog on Github and deployed at Netlify.
 
->* RStudio
+### Tools we need  fcc;  
+
+* RStudio
 * Hugo
 * Blogdown
 * Git
