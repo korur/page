@@ -105,7 +105,7 @@ e.g. &lt;a href=&#34;https://yourusername.github.io/page/&#34; class=&#34;uri&#
 &lt;h3&gt;Deploying your Website to Netlify&lt;/h3&gt;
 &lt;p&gt;If you want to benefit from the advantages like continous deployment you can
 use &lt;a href=&#34;https://www.netlify.com/&#34;&gt;Netlify&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Go to your &lt;strong&gt;Netlify&lt;/strong&gt;, Click &lt;code&gt;Get started for free&lt;/code&gt;, and sign up with Github.&lt;/p&gt;
+&lt;p&gt;Go to your &lt;strong&gt;Netlify&lt;/strong&gt;, Click &lt;code&gt;Get started for free&lt;/code&gt; and sign up with Github.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Choose &lt;strong&gt;New site from Git&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;Choose &lt;strong&gt;GitHub&lt;/strong&gt; at the bottom&lt;/li&gt;
@@ -124,9 +124,8 @@ Modify as Key = HUGO_VERSION and Value = 0.58.1&lt;br /&gt;
 &lt;ul&gt;
 &lt;li&gt;Click &lt;strong&gt;Deploy&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;It will allocate you a random link. You have to go back to your config.toml and modify baseurl as we did for Github &lt;a href=&#34;#editconfig&#34;&gt;above&lt;/a&gt; but with this netlify link this time.&lt;/p&gt;
-&lt;p&gt;After this step you have to push changes to github from your local git.&lt;/p&gt;
-&lt;p&gt;Similarly to the steps above without &lt;code&gt;git init&lt;/code&gt; this time.&lt;/p&gt;
+&lt;p&gt;It will allocate you a random link. You have to go back to your config.toml and modify baseurl as we did for Github &lt;a href=&#34;#editconfig&#34;&gt;above&lt;/a&gt; but with this netlify link.&lt;/p&gt;
+&lt;p&gt;After this step you have to push changes to github from your local git. Similarly to the steps above without &lt;code&gt;git init&lt;/code&gt; this time.&lt;/p&gt;
 &lt;p&gt;Netlify will detect those changes you pushed to your github repository and your site will be published in a few seconds.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Hoorray! In this step your website should be up and running on Netlify!&lt;/strong&gt;&lt;/p&gt;
 &lt;/div&gt;
