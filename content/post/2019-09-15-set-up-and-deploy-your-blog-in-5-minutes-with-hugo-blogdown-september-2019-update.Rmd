@@ -129,7 +129,7 @@ e.g.   https://yourusername.github.io/page/.
 If you want to benefit from the advantages like continous deployment you can 
 use [Netlify](https://www.netlify.com/). 
  
-Go to your **Netlify**, Click ```Get started for free```, and sign up with Github.
+Go to your **Netlify**, Click ```Get started for free``` and sign up with Github.
 
 * Choose __New site from Git__
 * Choose __GitHub__ at the bottom
@@ -148,11 +148,9 @@ If you dont know your hugo version; on Rstudio > type
 
 * Click __Deploy__
 
-It will allocate you a random link. You have to go back to your config.toml and modify baseurl as we did for Github [above](#editconfig) but with this netlify link this time.  
+It will allocate you a random link. You have to go back to your config.toml and modify baseurl as we did for Github [above](#editconfig) but with this netlify link.  
 
-After this step you have to push changes to github from your local git.
- 
-Similarly to the steps above without ```git init``` this time.
+After this step you have to push changes to github from your local git. Similarly to the steps above without ```git init``` this time.
 
 Netlify will detect those changes you pushed to your github repository and your site will be published in a few seconds.
 
