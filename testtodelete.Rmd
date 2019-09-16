@@ -1,0 +1,25 @@
+---
+title: "testfirshorcodes"
+author: "Serdar Korur"
+date: "9/16/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r echo=FALSE}
+blogdown::shortcode('alert note', 'test' )
+
+``` 
+# hello
+```{r echo=FALSE}
+blogdown::shortcode('alert note', 'test' )
+
+``` 
+dgdfgd
+fdgdfgdfg
+dgdgd
+##  hello 2
+dsfsf
+sfsdfsf

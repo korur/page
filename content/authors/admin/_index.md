@@ -23,17 +23,17 @@ bio: Serdar is a Data Scientist and PhD in Cell Biology
 interests:
 - Machine learning
 - Personalized medicine
-- Drug Discovery
+- Drug discovery
 - Statistics
 
 education:
   courses:
   - course: PhD in Cell Biology
-    institution: Basel University
-    year: 2009
+    institution: Basel University, Switzerland
+    year: 
   - course: MSc in Molecular Biology and Genetics
-    institution: Bogazici University
-    year: 2004
+    institution: Bogazici University, Turkey
+    year: 
   
 
 # Social/Academic Networking
