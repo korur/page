@@ -43,7 +43,8 @@ It took me many days of work, reading tens of blog posts, YouTube videos and a l
 &lt;/ul&gt;
 &lt;div id=&#34;install-hugo-and-blogdown&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Install Hugo and Blogdown&lt;/h4&gt;
-&lt;p&gt;&lt;code&gt;devtools::install_github(&#34;rstudio/blogdown&#34;)&lt;/code&gt;&lt;br /&gt;
+&lt;p&gt;&lt;code&gt;install.packages(&#34;devtools&#34;)&lt;/code&gt;&lt;br /&gt;
+&lt;code&gt;devtools::install_github(&#34;rstudio/blogdown&#34;)&lt;/code&gt;&lt;br /&gt;
 &lt;code&gt;library(blogdown)&lt;/code&gt;&lt;br /&gt;
 &lt;code&gt;install_hugo()&lt;/code&gt;&lt;/p&gt;
 &lt;/div&gt;

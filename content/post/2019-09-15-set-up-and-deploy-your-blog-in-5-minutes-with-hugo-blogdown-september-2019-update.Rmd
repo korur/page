@@ -53,7 +53,8 @@ Hugo is the actual website builder and [blogdown](https://bookdown.org/yihui/blo
   
   
 #### Install Hugo and Blogdown
- 
+  
+```install.packages("devtools")```   
 ```devtools::install_github("rstudio/blogdown")```  
 ```library(blogdown)```   
 ```install_hugo() ```
