@@ -53,8 +53,8 @@ It took me many days of work, reading tens of blog posts, YouTube videos and a l
 </ul>
 <div id="install-hugo-and-blogdown" class="section level4">
 <h4>Install Hugo and Blogdown</h4>
-<p><code>devtools::install_github("rstudio/blogdown")</code>
-<code>library(blogdown)</code>
+<p><code>devtools::install_github("rstudio/blogdown")</code><br />
+<code>library(blogdown)</code><br />
 <code>install_hugo()</code></p>
 </div>
 <div id="build-your-website-locally." class="section level4">
@@ -144,8 +144,18 @@ Modify as Key = HUGO_VERSION and Value = 0.58.1<br />
 <div id="go-to-your-domain-provider-e.g-on-go-daddy" class="section level4">
 <h4>Go to your domain provider e.g on Go Daddy</h4>
 <p>My Products &gt; Scroll down to your domain &gt; Click DNS</p>
-<p>Create new or modify if existing an A record pointing your root domain to Netlify load balancer’s IP address 104.198.14.52 as in below;
-<img src="/img/Arecord.jpg" alt="arecord" /></p>
+<p>Create new or modify if existing an A record pointing your root domain to Netlify load balancer’s IP address 104.198.14.52 as in below;</p>
+<div class="figure">
+<img src="/img/Arecord.jpg" alt="Arecord" />
+<p class="caption">Arecord</p>
+</div>
+<ul>
+<li>Add a CNAME file as here;</li>
+</ul>
+<div class="figure">
+<img src="/img/netlifyCNAME.jpg" alt="netlifyCNAME" />
+<p class="caption">netlifyCNAME</p>
+</div>
 </div>
 <div id="go-to-domain-settings-on-your-deploy-at-netlify" class="section level4">
 <h4>Go to domain settings on your deploy at Netlify</h4>

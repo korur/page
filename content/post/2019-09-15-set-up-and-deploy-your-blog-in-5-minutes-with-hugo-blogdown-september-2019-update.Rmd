@@ -54,8 +54,8 @@ Hugo is the actual website builder and [blogdown](https://bookdown.org/yihui/blo
   
 #### Install Hugo and Blogdown
  
-```devtools::install_github("rstudio/blogdown")```
-```library(blogdown)```
+```devtools::install_github("rstudio/blogdown")```  
+```library(blogdown)```   
 ```install_hugo() ```
     
   
@@ -162,10 +162,17 @@ Netlify will detect those changes you pushed to your github repository and your 
 
 My Products > Scroll down to your domain > Click DNS  
 
-Create new or modify if existing an A record pointing your root domain to Netlify load balancer’s IP address 104.198.14.52 as in below;
-![arecord](/img/Arecord.jpg) 
+Create new or modify if existing an A record pointing your root domain to Netlify load balancer’s IP address 104.198.14.52 as in below;   
 
-#### Go to domain settings on your deploy at Netlify  
+
+![Arecord](/img/Arecord.jpg)     
+
+
+* Add a CNAME file as here;     
+    
+![netlifyCNAME](/img/netlifyCNAME.jpg)    
+   
+#### Go to domain settings on your deploy at Netlify   
 
 * Add custom domain 
 * Fill in your domain name   
