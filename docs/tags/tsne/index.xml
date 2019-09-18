@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tSNE | SERDAR KORUR</title>
+    <link>/tags/tsne/</link>
+      <atom:link href="/tags/tsne/index.xml" rel="self" type="application/rss+xml" />
+    <description>tSNE</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 17 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/icon-192.png</url>
+      <title>tSNE</title>
+      <link>/tags/tsne/</link>
+    </image>
+    
+    <item>
+      <title>Genomics at superresolution: Advances in sequencing technologies</title>
+      <link>/post/genomics-at-superresolution-advances-in-sequencing-technologies/</link>
+      <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>/post/genomics-at-superresolution-advances-in-sequencing-technologies/</guid>
+      <description>
+
+
+&lt;p&gt;Advances in &lt;strong&gt;microfluidic technologies&lt;/strong&gt; enabled us barcoding single cells in lipid droplets and to &lt;strong&gt;resolve genomes of individual cells&lt;/strong&gt; from a sequencing mixture (e.g, &lt;a href=&#34;https://www.10xgenomics.com/&#34;&gt;10X Genomics&lt;/a&gt;). &lt;strong&gt;Single cell RNA sequencing (scRNAseq)&lt;/strong&gt; offers great opportunities to discover &lt;strong&gt;rare cell populations&lt;/strong&gt; and genes that are specifically expressed in those. There is a high interest and the list of publications growing daily.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You might be a scientist in a biotech exploring your novel targets and those might be a great source to &lt;strong&gt;retrieve specific information.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/Seurat/index.html&#34;&gt;Seurat&lt;/a&gt; package is a great tool to digging into single cell datasets. Learning it will open you access beyond what is shown in the publication. You can find many tutorials in their &lt;a href=&#34;https://satijalab.org/seurat/&#34;&gt;website&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here, I will focus on a recent &lt;a href=&#34;https://www.atsjournals.org/doi/pdf/10.1164/rccm.201712-2410OC&#34;&gt;paper&lt;/a&gt; which explored transcriptome of lung cells from Pulmonary fibrosis patients by scRNAseq.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Pulmonary fibrosis&lt;/strong&gt; is a progressive scarring of the lung tissue leading to death within 2-5 years.&lt;/li&gt;
+&lt;li&gt;Current therapies does not increase the survival but many Biotechs are investigating novel therapies.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The paper utilized 8 healthy and 8 diseased lung samples. Here, I picked up the data from a patient with Polymyositis associated intersitial lung disease to apply main functions.&lt;/p&gt;
+&lt;p&gt;—&amp;gt; &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3489196&#34;&gt;Download Single Cell RNA seq data&lt;/a&gt;&lt;/p&gt;
+&lt;div id=&#34;load-the-packages-we-need&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Load the packages we need&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(Seurat)
+library(dplyr)
+library(ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;importing-the-h5-file&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Importing the h5 file&lt;/h3&gt;
+&lt;p&gt;Here the data comes as an &lt;strong&gt;h5 file.&lt;/strong&gt; But no worries, we can handle that with &lt;strong&gt;Read10X_h5&lt;/strong&gt; function in Seurat.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;MyoILD_01 &amp;lt;- Read10X_h5(&amp;quot;posts_data/GSM3489196_Myositis-ILD_01_filtered_gene_bc_matrices_h5.h5&amp;quot;)
+Fib &amp;lt;- CreateSeuratObject(counts = MyoILD_01, min.cells = 3, project= &amp;quot;FightFibrosis&amp;quot;, min.features = 200)
+Fib&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## An object of class Seurat 
+## 20246 features across 7163 samples within 1 assay 
+## Active assay: RNA (20246 features)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Our Data matrix now contains &lt;strong&gt;20246&lt;/strong&gt; genes and &lt;strong&gt;7163&lt;/strong&gt; cells&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;a-quick-look-at-the-raw-count-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;A Quick look at the raw count data&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Lets examine a few genes in the first thirty cells
+MyoILD_01[c(&amp;quot;SPP1&amp;quot;,&amp;quot;TGFB1&amp;quot;,&amp;quot;CCL2&amp;quot;), 1:30]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 3 x 30 sparse Matrix of class &amp;quot;dgCMatrix&amp;quot;
+##                                                                    
+## SPP1  1 . . 2 . . . 33 . . 1 . . . . . . . . . . . . . . . 9 . . 20
+## TGFB1 . . . . 1 . .  . . . . . . . 1 . 3 . . . . . . . 1 2 . . .  .
+## CCL2  5 . . 2 . . .  . . . . . . . . . . . . . . . . . . . . . .  .&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;standard-pre-processing-workflow-for-scrna-seq-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Standard pre-processing workflow for scRNA-seq data&lt;/h3&gt;
+&lt;p&gt;Pre-processing involves filtration of cells based on Quality control metrics (e.g .mitochondrial contamination, Coverage). We will proceed by normalization and identification of the highly variable features then at the end we will scale the data.&lt;/p&gt;
+&lt;div id=&#34;qc-and-selecting-cells-for-further-analysis&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;QC and selecting cells for further analysis&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s add Mitochondrial stats to Fib data. [[ operator can add columns to object metadata. 
+
+Fib[[&amp;quot;percent.mt&amp;quot;]] &amp;lt;- PercentageFeatureSet(object = Fib, pattern = &amp;quot;^MT-&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Quick look at the Quality control metrics for the first 5 cells
+head(x = Fib@meta.data, 5)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                       orig.ident nCount_RNA nFeature_RNA percent.mt
+## AAACCTGAGATCCCGC-1 FightFibrosis       2257         1010   4.386354
+## AAACCTGAGCAGCCTC-1 FightFibrosis       3367          713  66.914167
+## AAACCTGAGCCAGAAC-1 FightFibrosis       7354         1943   3.929834
+## AAACCTGAGGGATGGG-1 FightFibrosis       9323         2786   8.430763
+## AAACCTGAGTCGTACT-1 FightFibrosis       2937         1125   6.775621&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;violin-plots-to-visualize-qc-metrics&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Violin plots to visualize QC metrics&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Visualize QC metrics as a violin plot
+VlnPlot(object = Fib, features = c(&amp;quot;nFeature_RNA&amp;quot;, &amp;quot;nCount_RNA&amp;quot;, &amp;quot;percent.mt&amp;quot;),
+        ncol = 3)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/qc2-1.png&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We will use FeatureScatter to visualize feature-feature relationships like 
+# RNA counts or percentage of mitochondiral contamination
+
+plot1 &amp;lt;- FeatureScatter(object = Fib, feature1 = &amp;quot;nCount_RNA&amp;quot;, feature2 = &amp;quot;percent.mt&amp;quot;) 
+plot2 &amp;lt;- FeatureScatter(object = Fib, feature1 = &amp;quot;nCount_RNA&amp;quot;, feature2 = &amp;quot;nFeature_RNA&amp;quot;) 
+CombinePlots(plots = list(plot1,plot2))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/qc2-2.png&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# As you see on the left plot cells with high percentage of mitochondrial genes
+# have very low numbers of RNA indicating that they are low quality/dead cells.
+# Let&amp;#39;s remove them.
+Fib &amp;lt;- subset(x = Fib, subset = nFeature_RNA &amp;gt; 200 &amp;amp; nFeature_RNA &amp;lt; 4000 &amp;amp; 
+              percent.mt &amp;lt; 12.5)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;normalize-the-data&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Normalize the data&lt;/h4&gt;
+&lt;p&gt;Log normalization helps to reduce the influences of the outliers.
+Normalized values will be stored in &lt;code&gt;Fib[[&#34;RNA&#34;]]@data&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- NormalizeData(object = Fib, normalization.method = &amp;quot;LogNormalize&amp;quot;, 
+                     scale.factor = 1e4)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;identify-highly-variable-features&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Identify highly variable features&lt;/h4&gt;
+&lt;p&gt;Let’s calculate the features that exhibit high cell-to-cell variation in the dataset. Focusing on those genes will help to highlight biological signal.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- FindVariableFeatures(object = Fib, selection.method = &amp;#39;vst&amp;#39;, nfeatures = 2000)
+
+# Identify the 10 most highly variable genes
+top10 &amp;lt;- head(x = VariableFeatures(object = Fib), 10)
+top10&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;SCGB1A1&amp;quot; &amp;quot;SCGB3A1&amp;quot; &amp;quot;SFTPC&amp;quot;   &amp;quot;SCGB3A2&amp;quot; &amp;quot;HBB&amp;quot;     &amp;quot;PLA2G2A&amp;quot; &amp;quot;MT1G&amp;quot;   
+##  [8] &amp;quot;TPSB2&amp;quot;   &amp;quot;FABP4&amp;quot;   &amp;quot;MT1H&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot variable features with and without labels
+plot1 &amp;lt;- VariableFeaturePlot(object = Fib)
+plot2 &amp;lt;- LabelPoints(plot = plot1, points = top10, repel = TRUE)
+CombinePlots(plots = list(plot1, plot2))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/var_features-1.png&#34; width=&#34;1056&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;scale-the-data&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Scale the data&lt;/h4&gt;
+&lt;p&gt;Next, apply a linear transformation that is a standard pre-processing step prior to dimensional reduction techniques like PCA. The &lt;code&gt;ScaleData&lt;/code&gt; function:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Highly-expressed genes might dominate downstream analyses since their expression range is much higher than most other genes.&lt;/strong&gt; In order to prevent this we need to;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;shift the expression of each gene, so that the mean expression across cells is 0&lt;/li&gt;
+&lt;li&gt;scale the expression of each gene, so that the variance across cells is;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;by using the &lt;code&gt;scale data&lt;/code&gt; function&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;all.genes &amp;lt;- rownames(x = Fib)
+Fib &amp;lt;- ScaleData(object = Fib, features = all.genes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Another factor that can influence downstream analyses is cell cycle status, 
+# cells that arenormally cycling but in different phases of cell cycle might appear 
+# as separate populations.
+# Seurat is preloaded with list of cell cycle markers, from Tirosh et al, 2015, 
+# segregate this list into markers of G2/M phase and markers of S phase
+s.genes &amp;lt;- cc.genes$s.genes
+g2m.genes &amp;lt;- cc.genes$g2m.genes
+Fib &amp;lt;- CellCycleScoring(Fib, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
+
+# We can view cell cycle scores and phase assignments with
+head(Fib[[]])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                       orig.ident nCount_RNA nFeature_RNA percent.mt
+## AAACCTGAGATCCCGC-1 FightFibrosis       2257         1010   4.386354
+## AAACCTGAGCCAGAAC-1 FightFibrosis       7354         1943   3.929834
+## AAACCTGAGGGATGGG-1 FightFibrosis       9323         2786   8.430763
+## AAACCTGAGTCGTACT-1 FightFibrosis       2937         1125   6.775621
+## AAACCTGAGTCGTTTG-1 FightFibrosis       5447         1719   4.149073
+## AAACCTGCAAGTCTAC-1 FightFibrosis       6453         1836   2.773904
+##                         S.Score    G2M.Score Phase     old.ident
+## AAACCTGAGATCCCGC-1  0.006739441 -0.016659228     S FightFibrosis
+## AAACCTGAGCCAGAAC-1 -0.040762255 -0.010151464    G1 FightFibrosis
+## AAACCTGAGGGATGGG-1 -0.048223904 -0.025580453    G1 FightFibrosis
+## AAACCTGAGTCGTACT-1  0.076114887  0.009717348     S FightFibrosis
+## AAACCTGAGTCGTTTG-1 -0.045171005 -0.053868788    G1 FightFibrosis
+## AAACCTGCAAGTCTAC-1  0.003354484 -0.009033119     S FightFibrosis&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Regress out cell cycle scores during data scaling
+Fib &amp;lt;- ScaleData(Fib, vars.to.regress = c(&amp;quot;S.Score&amp;quot;, &amp;quot;G2M.Score&amp;quot;), features = rownames(Fib))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;perform-linear-dimensional-reduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Perform linear dimensional reduction&lt;/h3&gt;
+&lt;p&gt;Each gene creates another dimension in our dataset, but most of those does not play a role in differenting subgroups of cells. Principal components analyses (PCA) reduces the dimensions of our data into main compoments which explains most of the variation.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- RunPCA(object = Fib, features = VariableFeatures(object = Fib), 
+              ndims.print = 10, nfeatures.print = 10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## PC_ 10 
+## Positive:  VCAN, MCEMP1, S100A8, FCN1, CD2, IL32, S100A6, TIMP1, CCL5, CD3D 
+## Negative:  CHIT1, A2M, CHCHD6, AC079767.4, SEPP1, ALOX15B, GPNMB, DNASE2B, LIPA, SLC40A1&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;visualize-the-pca-results&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Visualize the PCA results&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Examine and visualize PCA results a few different ways
+print(x = Fib[[&amp;#39;pca&amp;#39;]], dims = 1:5, nfeatures = 5)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## PC_ 1 
+## Positive:  TMSB4X, TYROBP, FTL, FCER1G, VIM 
+## Negative:  RSPH1, C9orf24, TMEM190, C20orf85, FAM183A 
+## PC_ 2 
+## Positive:  FTH1, CTSS, TYROBP, B2M, FCER1G 
+## Negative:  GPRC5A, SFTPB, CEACAM6, HOPX, MUC1 
+## PC_ 3 
+## Positive:  PLA2G2A, GFPT2, MEDAG, COL3A1, COL1A2 
+## Negative:  SFTPB, SFTPA2, SFTA2, SFTPA1, SLC34A2 
+## PC_ 4 
+## Positive:  SFTPC, NAPSA, SFTPD, LRRK2, LAMP3 
+## Negative:  S100A2, KRT19, KRT5, AKR1C1, BPIFB1 
+## PC_ 5 
+## Positive:  CPA3, TPSAB1, TPSB2, MS4A2, GATA2 
+## Negative:  S100A6, CSTB, S100A10, GCHFR, TXN&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VizDimLoadings(object = Fib, dims = 1:2, reduction = &amp;#39;pca&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/pca_viz-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;DimPlot(object = Fib, reduction = &amp;#39;pca&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/pca_viz-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;DimHeatmap(object = Fib, dims = 1:9, cells = 500, balanced = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/multi-heatmap-1.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-is-the-dimensionality-of-out-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What is the ‘dimensionality’ of out data&lt;/h3&gt;
+&lt;p&gt;For clustering analyses we will choose the principal compoments which explain most of the variation in our data. &lt;code&gt;Elbow plot&lt;/code&gt; uses a ranking of principle components based on the percentage explained by each one.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ElbowPlot(object = Fib)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/elbow_plot-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We did not get a clear elbow shape here, but after 10th principal compoment additional dimensions does not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;cluster-the-cells&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Cluster the cells&lt;/h3&gt;
+&lt;p&gt;A graph-based clustering approach will be performed, building upon initial strategies in (&lt;a href=&#34;http://www.cell.com/abstract/S0092-8674(15)00549-8&#34;&gt;Macosko &lt;em&gt;et al&lt;/em&gt;&lt;/a&gt;).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- FindNeighbors(object = Fib, dims = 1:10)
+Fib &amp;lt;- FindClusters(object = Fib, resolution = 0.5)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+## 
+## Number of nodes: 6320
+## Number of edges: 196713
+## 
+## Running Louvain algorithm...
+## Maximum modularity in 10 random starts: 0.8872
+## Number of communities: 15
+## Elapsed time: 0 seconds&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Look at cluster IDs of the first 5 cells
+head(Idents(Fib), 5)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## AAACCTGAGATCCCGC-1 AAACCTGAGCCAGAAC-1 AAACCTGAGGGATGGG-1 
+##                  2                  2                  8 
+## AAACCTGAGTCGTACT-1 AAACCTGAGTCGTTTG-1 
+##                  0                 10 
+## Levels: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;tsne-plot&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;TSNE plot&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- RunTSNE(object = Fib, dims = 1:6)
+DimPlot(object = Fib, reduction = &amp;#39;tsne&amp;#39;, label = TRUE, label.size = 5)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/TSNE%20plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how-to-find-genes-that-differentiate-each-cluster&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;How to find genes that differentiate each cluster?&lt;/h3&gt;
+&lt;p&gt;We can use &lt;code&gt;FindMarkers()&lt;/code&gt; function to search for cluster biomarkers.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Find all markers of cluster 0
+cluster0.markers &amp;lt;- FindMarkers(object = Fib, ident.1 = 0, min.pct = 0.25)
+head(x = cluster0.markers, n = 10)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##          p_val avg_logFC pct.1 pct.2 p_val_adj
+## GPNMB        0 1.0814399 0.947 0.450         0
+## CSTB         0 1.0377160 0.994 0.892         0
+## FTL          0 1.0160962 1.000 0.998         0
+## APOC1        0 0.9919471 0.991 0.819         0
+## SH3BGRL3     0 0.9252345 0.990 0.798         0
+## CTSD         0 0.9105122 0.995 0.836         0
+## FTH1         0 0.8873914 1.000 0.997         0
+## PSAP         0 0.8835586 1.000 0.876         0
+## CTSB         0 0.8773872 0.986 0.752         0
+## LGALS1       0 0.8622147 0.992 0.637         0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Find markers for every cluster compared to all remaining cells, report only 
+# the positive ones
+Fib.markers &amp;lt;- FindAllMarkers(object = Fib, only.pos = TRUE, min.pct = 0.25, 
+                              logfc.threshold = 0.25)
+
+# Make a table containing markers for each cluster set. 
+# We will use this table to assign cell types to clusters.
+Fib.markers %&amp;gt;% group_by(cluster) %&amp;gt;% top_n(n = 5, wt = avg_logFC) %&amp;gt;% 
+  print(n = 85)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 75 x 7
+## # Groups:   cluster [15]
+##        p_val avg_logFC pct.1 pct.2 p_val_adj cluster gene    
+##        &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt;   &amp;lt;chr&amp;gt;   
+##  1 0.            1.08  0.947 0.45  0.        0       GPNMB   
+##  2 2.60e-293     1.13  0.935 0.582 5.27e-289 0       FABP5   
+##  3 8.54e-289     1.12  0.814 0.365 1.73e-284 0       CTSL    
+##  4 3.43e-188     1.43  0.46  0.133 6.95e-184 0       SPP1    
+##  5 2.78e-110     1.37  0.288 0.078 5.64e-106 0       CCL2    
+##  6 2.69e-231     1.33  0.996 0.658 5.45e-227 1       APOE    
+##  7 1.91e-204     1.02  0.926 0.403 3.86e-200 1       MS4A6A  
+##  8 1.35e-174     0.918 0.932 0.423 2.74e-170 1       C1QC    
+##  9 1.59e-119     1.07  0.86  0.457 3.22e-115 1       CCL18   
+## 10 1.56e- 56     0.916 0.576 0.311 3.15e- 52 1       SEPP1   
+## 11 0.            2.26  0.663 0.108 0.        2       FABP4   
+## 12 0.            1.43  0.846 0.165 0.        2       MCEMP1  
+## 13 5.19e-222     1.24  0.969 0.496 1.05e-217 2       GCHFR   
+## 14 4.41e-218     1.36  0.98  0.505 8.93e-214 2       C1QA    
+## 15 4.43e-210     1.35  0.967 0.483 8.97e-206 2       C1QB    
+## 16 0.            3.18  0.964 0.339 0.        3       SCGB3A2 
+## 17 0.            2.01  0.995 0.376 0.        3       SFTPB   
+## 18 0.            1.73  0.943 0.188 0.        3       CEACAM6 
+## 19 2.27e-273     2.23  0.929 0.364 4.59e-269 3       SFTPA2  
+## 20 8.38e-271     1.72  0.813 0.203 1.70e-266 3       SFTPA1  
+## 21 0.            2.70  0.896 0.035 0.        4       C9orf24 
+## 22 0.            2.46  0.87  0.026 0.        4       TMEM190 
+## 23 0.            2.44  0.892 0.026 0.        4       RSPH1   
+## 24 0.            2.42  0.868 0.025 0.        4       C20orf85
+## 25 0.            2.39  0.907 0.104 0.        4       TPPP3   
+## 26 0.            2.76  0.975 0.227 0.        5       S100A2  
+## 27 0.            2.19  0.797 0.083 0.        5       KRT15   
+## 28 0.            1.72  0.684 0.048 0.        5       KRT5    
+## 29 6.72e-278     1.93  0.471 0.035 1.36e-273 5       MMP1    
+## 30 9.96e-220     1.75  0.925 0.319 2.02e-215 5       AQP3    
+## 31 0.            2.45  0.737 0.077 0.        6       BPIFB1  
+## 32 6.07e-262     2.14  0.984 0.305 1.23e-257 6       WFDC2   
+## 33 2.03e-221     2.21  0.982 0.385 4.11e-217 6       SLPI    
+## 34 1.17e-163     3.21  0.948 0.624 2.36e-159 6       SCGB3A1 
+## 35 8.07e-152     2.91  0.797 0.293 1.63e-147 6       SCGB1A1 
+## 36 0.            2.57  0.797 0.072 0.        7       S100B   
+## 37 9.62e-289     1.76  0.829 0.156 1.95e-284 7       FAM26F  
+## 38 2.50e-224     2.18  1     0.728 5.06e-220 7       HLA-DPB1
+## 39 2.51e-213     1.99  0.992 0.658 5.07e-209 7       HLA-DPA1
+## 40 1.75e-191     1.71  0.955 0.449 3.55e-187 7       HLA-DQA1
+## 41 4.11e- 50     1.01  0.546 0.231 8.31e- 46 8       STMN1   
+## 42 1.29e- 41     0.917 0.819 0.529 2.60e- 37 8       TUBA1B  
+## 43 1.29e- 40     0.915 0.807 0.517 2.61e- 36 8       TUBB    
+## 44 1.32e- 29     0.973 0.825 0.615 2.67e- 25 8       H2AFZ   
+## 45 5.14e- 29     1.16  0.77  0.503 1.04e- 24 8       HIST1H4C
+## 46 0.            2.28  0.984 0.113 0.        9       NAPSA   
+## 47 3.65e-299     2.20  0.984 0.159 7.39e-295 9       SFTA2   
+## 48 8.60e-252     2.99  1     0.226 1.74e-247 9       SFTPA1  
+## 49 3.66e-220     4.21  0.961 0.265 7.42e-216 9       SFTPC   
+## 50 4.19e-168     2.33  0.992 0.39  8.47e-164 9       SFTPA2  
+## 51 0.            2.61  0.570 0.01  0.        10      COL3A1  
+## 52 0.            2.56  0.604 0.005 0.        10      SPARCL1 
+## 53 0.            2.42  0.456 0.005 0.        10      PLA2G2A 
+## 54 0.            2.40  0.544 0.005 0.        10      COL1A2  
+## 55 1.09e-278     2.57  0.537 0.02  2.20e-274 10      COL1A1  
+## 56 0.            4.23  0.993 0.035 0.        11      TPSB2   
+## 57 0.            3.74  0.993 0.02  0.        11      TPSAB1  
+## 58 0.            3.32  1     0.02  0.        11      CPA3    
+## 59 0.            2.78  0.911 0.017 0.        11      MS4A2   
+## 60 0.            2.33  0.856 0.016 0.        11      KIT     
+## 61 1.98e-262     2.08  0.624 0.023 4.01e-258 12      FCN1    
+## 62 5.17e- 70     1.95  0.475 0.059 1.05e- 65 12      IL1R2   
+## 63 2.47e- 66     1.98  0.634 0.119 5.01e- 62 12      VCAN    
+## 64 4.37e- 58     3.03  0.812 0.258 8.85e- 54 12      S100A8  
+## 65 2.45e- 46     2.67  0.901 0.466 4.96e- 42 12      S100A9  
+## 66 2.37e- 68     2.24  0.593 0.055 4.80e- 64 13      IL32    
+## 67 1.03e- 66     2.00  0.296 0.013 2.08e- 62 13      KLRB1   
+## 68 4.82e- 52     3.79  0.259 0.013 9.77e- 48 13      IGHG1   
+## 69 3.98e- 44     3.37  0.259 0.015 8.06e- 40 13      IGHG4   
+## 70 3.42e- 42     2.22  0.352 0.03  6.92e- 38 13      CCL5    
+## 71 6.32e-208     1.85  0.978 0.036 1.28e-203 14      CPA3    
+## 72 1.19e-176     1.28  0.822 0.03  2.41e-172 14      KIT     
+## 73 3.11e-176     1.40  0.844 0.032 6.30e-172 14      MS4A2   
+## 74 7.63e-172     1.75  0.889 0.036 1.54e-167 14      TPSAB1  
+## 75 2.72e-158     2.05  0.978 0.051 5.50e-154 14      TPSB2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For more details consult to &lt;a href=&#34;http://satijalab01.nygenome.org/seurat/v3.0/de_vignette.html&#34;&gt;DE vignette&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Assigning Cell ids
+
+# According to the table above I generated a cluster id vector to assign cell type
+# to each cluster. I have a group NA which I could not assign a cell type, 
+# which is probably a technical artifact from cell cycle regression since the top genes
+# expressed in this population are cell cycle related.
+# I also found 3 types of macrophages and 2 types of mast cells in this patient. 
+new.cluster.ids &amp;lt;- c(&amp;quot;Macrophages(1)&amp;quot;, &amp;quot;Macrophages(2)&amp;quot;, &amp;quot;Macrophages(3)&amp;quot;,
+                     &amp;quot;AT2(1) Cells&amp;quot;, &amp;quot;Cliated Cells&amp;quot;, &amp;quot;Basal Cells&amp;quot;, &amp;quot;Club Cells&amp;quot;, 
+                     &amp;quot;Dendritic Cells&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;AT2(2) Cells&amp;quot;, &amp;quot;Fibroblasts&amp;quot;, 
+                     &amp;quot;Mast(1) Cells&amp;quot;, &amp;quot;Monocytes&amp;quot;, &amp;quot;T/NKT Cells&amp;quot;, &amp;quot;Mast(2) Cells&amp;quot;)
+names(new.cluster.ids) &amp;lt;- levels(Fib)
+Fib &amp;lt;- RenameIdents(Fib, new.cluster.ids)
+DimPlot(Fib, reduction = &amp;quot;tsne&amp;quot;, label = TRUE, label.size = 8, pt.size = 1.0) + NoLegend()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/tsnewithcellids-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s look at the epxression of a few genes of interest accross different subtypes
+VlnPlot(Fib, features = c(&amp;quot;SPP1&amp;quot;, &amp;quot;CHIT1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/differentfeautures-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features = c(&amp;quot;SPP1&amp;quot;, &amp;quot;APOE&amp;quot;, &amp;quot;SCGB3A2&amp;quot;, &amp;quot;C9orf24&amp;quot;, &amp;quot;S100A2&amp;quot;, &amp;quot;BPIFB1&amp;quot;, &amp;quot;S100B&amp;quot;, &amp;quot;COL3A1&amp;quot;, &amp;quot;FCN1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/differentfeautures-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-cells-biotech-companies-are-targeting-in-lung&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What cells &lt;code&gt;Biotech&lt;/code&gt; Companies are targeting in lung?&lt;/h3&gt;
+&lt;div id=&#34;fibrinogen&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Fibrinogen&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#### Fibrinogens lead compound pamrevlumab blocks CTGF. Let&amp;#39;s have a look which cells produce it.  
+
+VlnPlot(Fib, features =c(&amp;quot;CTGF&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/Fibrinogen-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features = c(&amp;quot;CTGF&amp;quot;), pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/Fibrinogen-2.png&#34; width=&#34;672&#34; /&gt;
+Main source for the &lt;code&gt;CTGF&lt;/code&gt; production here seems the &lt;code&gt;Ciliated cells.&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;galapagos&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Galapagos&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Galapagos GLPG1690 has entered Phase 3 clinical trials and it targets Autotaxin (ENPP2). 
+VlnPlot(Fib, features =  c(&amp;quot;ENPP2&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1690-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;ENPP2&amp;quot;),  pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1690-2.png&#34; width=&#34;672&#34; /&gt;
+We see a low expression of &lt;code&gt;ENPP&lt;/code&gt; mainly in Macrophages, Dendritic cells and Fibroblasts.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Galapagos GLPG1205 has entered Phase 2 clinical trials and it targets GPR84. 
+VlnPlot(Fib, features =  c(&amp;quot;GPR84&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1205-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;GPR84&amp;quot;), pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1205-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Gpr84&lt;/code&gt; has very low expression throughout the lung cells of this patient. The gene is mainly expressed in Type 1 Macrophages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bristol-myers-squibb-bms-986020&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Bristol-Myers-Squibb: &lt;code&gt;BMS-986020&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;BMS-986020 is an anti-fibrotic drug being developed by Bristol-Myers Squibb, and is a lysophosphatidic acid (LPA) receptor antagonist.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s look at the epxression of a LPAR1
+VlnPlot(Fib, features = c(&amp;quot;LPAR1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/LPAR1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =c(&amp;quot;LPAR1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/LPAR1-2.png&#34; width=&#34;672&#34; /&gt;
+It is expressed at low levels but consistently on many types of lung cells.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;roche-nintedanib&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Roche &lt;code&gt;nintedanib&lt;/code&gt;&lt;/h4&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Nintedanib is one of the two new medicines approved for IPF patients. It targets multiple receptor tyrosine kinase receptors such as VEGF, FGF and PDGF. 
+VlnPlot(Fib, features = c(&amp;quot;VEGFA&amp;quot;, &amp;quot;PDGFA&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/nintedanib-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;VEGFA&amp;quot;, &amp;quot;PDGFA&amp;quot;), pt.size=1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/nintedanib-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;VEGFA, PDGFA is highly expressed in multiple types of lung microenvironment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

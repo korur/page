@@ -33,6 +33,66 @@
   </url>
   
   <url>
+    <loc>/tags/clustering/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/genomics-at-superresolution-advances-in-sequencing-technologies/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/h5-file/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ipf/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/pca/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r-markdown/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/scrna-seq/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/seurat/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/tsne/</loc>
+    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/blog/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
@@ -73,27 +133,12 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2019-09-15T14:37:59+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r-markdown/</loc>
-    <lastmod>2019-09-15T14:37:59+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/rstudio/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   
   <url>
     <loc>/post/set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update/</loc>
-    <lastmod>2019-09-15T14:37:59+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   
