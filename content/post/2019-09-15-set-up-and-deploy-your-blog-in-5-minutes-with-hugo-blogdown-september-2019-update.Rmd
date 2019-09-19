@@ -46,31 +46,24 @@ Here is an up to date workflow of **how I created my Blog on Github and deployed
 
 Hugo is the actual website builder and [blogdown](https://bookdown.org/yihui/blogdown/) is an R package that allows us to use Hugo in R environment.   
 
-### On RStudio
+### On RStudio: Build your website locally.
   
-* Select **Projects** menu on the top right corner 
-* Select **New Project > Choose existing directory > Browse to Website folder**
-  
-  
-#### Install Hugo and Blogdown
-  
-```install.packages("devtools")```   
-```devtools::install_github("rstudio/blogdown")```  
-```library(blogdown)```   
-```install_hugo() ```
-    
-  
-#### Build your website locally. 
-  
-For example, to create a new site with the academic theme;  
-  
-```blogdown::new_site(theme = "gcushen/hugo-academic")```  
+* Select **File** menu  
+* Select **New Project -> New Directory -> Website using blogdown**
+
+For example, to create a new site with the academic theme replace default lithium ```Hugo theme``` with **gcushen/hugo-academic**
  
 For other themes go to http://themes.gohugo.io, choose a theme you like, click homepage and you will be redirected to its github repository.    
-Replace this **repository name** with "**gcushen/hugo-academic**" above)  
+Replace its **repository name** with "**gcushen/hugo-academic**" above)  
   
-Use **list.files()** to see the files/folders generated.
-  
+`blogdown::serve_site()`
+
+command will create the website and it should be visible on the viewer pane.
+
+Use **list.files()** to see the files/folders generated.  
+
+#### Prepare for GitHub compatibility
+
 To be able to publish the website on github we need to specify a **docs** folder instead of the default public folder where the website is created.
   
 Open your **config.toml** file under the Website folder, and add the lines; <a id="editconfig"></a>  

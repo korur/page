@@ -45,26 +45,21 @@ It took me many days of work, reading tens of blog posts, YouTube videos and a l
 </ul>
 <p>Hugo is the actual website builder and <a href="https://bookdown.org/yihui/blogdown/">blogdown</a> is an R package that allows us to use Hugo in R environment.</p>
 </div>
-<div id="on-rstudio" class="section level3">
-<h3>On RStudio</h3>
+<div id="on-rstudio-build-your-website-locally." class="section level3">
+<h3>On RStudio: Build your website locally.</h3>
 <ul>
-<li>Select <strong>Projects</strong> menu on the top right corner</li>
-<li>Select <strong>New Project &gt; Choose existing directory &gt; Browse to Website folder</strong></li>
+<li>Select <strong>File</strong> menu<br />
+</li>
+<li>Select <strong>New Project -&gt; New Directory -&gt; Website using blogdown</strong></li>
 </ul>
-<div id="install-hugo-and-blogdown" class="section level4">
-<h4>Install Hugo and Blogdown</h4>
-<p><code>install.packages("devtools")</code><br />
-<code>devtools::install_github("rstudio/blogdown")</code><br />
-<code>library(blogdown)</code><br />
-<code>install_hugo()</code></p>
-</div>
-<div id="build-your-website-locally." class="section level4">
-<h4>Build your website locally.</h4>
-<p>For example, to create a new site with the academic theme;</p>
-<p><code>blogdown::new_site(theme = "gcushen/hugo-academic")</code></p>
+<p>For example, to create a new site with the academic theme replace default lithium <code>Hugo theme</code> with <strong>gcushen/hugo-academic</strong></p>
 <p>For other themes go to <a href="http://themes.gohugo.io" class="uri">http://themes.gohugo.io</a>, choose a theme you like, click homepage and you will be redirected to its github repository.<br />
-Replace this <strong>repository name</strong> with “<strong>gcushen/hugo-academic</strong>” above)</p>
+Replace its <strong>repository name</strong> with “<strong>gcushen/hugo-academic</strong>” above)</p>
+<p><code>blogdown::serve_site()</code></p>
+<p>command will create the website and it should be visible on the viewer pane.</p>
 <p>Use <strong>list.files()</strong> to see the files/folders generated.</p>
+<div id="prepare-for-github-compatibility" class="section level4">
+<h4>Prepare for GitHub compatibility</h4>
 <p>To be able to publish the website on github we need to specify a <strong>docs</strong> folder instead of the default public folder where the website is created.</p>
 <p>Open your <strong>config.toml</strong> file under the Website folder, and add the lines; <a id="editconfig"></a></p>
 <p><code>baseurl: "https://yourusername.github.io/page/"</code><br />
