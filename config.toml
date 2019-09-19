@@ -9,7 +9,7 @@ title = "SERDAR KORUR"
 
 # The URL of your site.
 # End your URL with a `/` trailing slash, e.g. `https://example.com/`.
-baseurl = "https://sleepy-sammet-105602.netlify.com"
+baseurl = "https://dataatomic.netlify.com"
 publishDir = "docs"
 
 # Enter a copyright notice to display in the site footer.
