@@ -26,19 +26,19 @@ image:
 projects: []
 ---
 
-Advances in **microfluidic technologies** enabled us barcoding single cells in lipid droplets and to **resolve genomes of individual cells** from a sequencing mixture (e.g, [10X Genomics](https://www.10xgenomics.com/)). **Single cell RNA sequencing (scRNAseq)** offers great opportunities to discover **rare cell populations**  and genes that are specifically expressed in those. There is a high interest and the list of publications growing daily.  
+Advances in **microfluidic technologies** enabled us barcoding single cells in lipid droplets and to **resolve genomes of individual cells** from a sequencing mixture (e.g, [10X Genomics](https://www.10xgenomics.com/)). **Single cell RNA sequencing (scRNAseq)** offers opportunities to discover **rare cell populations**  and genes that are specifically expressed in those. Interest is high and the list of publications growing daily.  
 
-* You might be a scientist in a biotech exploring your novel targets and those might be a great source to **retrieve specific information.**
+* You might be a scientist in a biotech exploring novel targets and those might be a great source to **retrieve specific information.**
 
-[Seurat](https://cran.r-project.org/web/packages/Seurat/index.html) package is a great tool to digging into single cell datasets. Learning it will open you access beyond what is shown in the publication. You can find many tutorials in their [website](https://satijalab.org/seurat/).
+[Seurat](https://cran.r-project.org/web/packages/Seurat/index.html) package is a great tool for digging into single cell datasets. Learning it will open you access beyond what is shown in the publications. You can find many tutorials in their [website](https://satijalab.org/seurat/).
 
 
 Here, I will focus on a recent [paper](https://www.atsjournals.org/doi/pdf/10.1164/rccm.201712-2410OC) which explored transcriptome of lung cells from Pulmonary fibrosis patients by scRNAseq.
 
 * **Pulmonary fibrosis** is a progressive scarring of the lung tissue leading to death within 2-5 years.
-* Current therapies does not increase the survival but many Biotechs are investigating novel therapies. 
+* **Current therapies does not increase the survival** but novel therapies are underway. 
 
-The paper utilized 8 healthy and 8 diseased lung samples. Here, I picked up the data from a patient with Polymyositis associated intersitial lung disease to apply main functions. 
+Here, I picked up data from a patient with Polymyositis associated intersitial lung disease. 
 
  ---> [Download Single Cell RNA seq data](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3489196)
 
@@ -53,7 +53,7 @@ library(ggplot2)
 ```
 
 ### Importing the h5 file
-Here the data comes as an **h5 file.** But no worries, we can handle that with **Read10X_h5** function in Seurat.
+Here the data comes as an **h5 file.** But no worries, we can handle that with **Read10X_h5** function in Seurat. Since the file is directly under my working directory I can apply `Read10X_h5("Filename.h5")`
 ```{r  warning=FALSE}
 MyoILD_01 <- Read10X_h5("posts_data/GSM3489196_Myositis-ILD_01_filtered_gene_bc_matrices_h5.h5")
 Fib <- CreateSeuratObject(counts = MyoILD_01, min.cells = 3, project= "FightFibrosis", min.features = 200)
@@ -81,7 +81,8 @@ Pre-processing involves filtration of cells based on Quality control metrics (e.
 #### QC and selecting cells for further analysis
 
 ```{r mito, fig.height=7, fig.width=13}
-# Let's add Mitochondrial stats to Fib data. [[ operator can add columns to object metadata. 
+# Let's add Mitochondrial stats to Fib data. [[ operator can add 
+# columns to object metadata. 
 
 Fib[["percent.mt"]] <- PercentageFeatureSet(object = Fib, pattern = "^MT-")
 ```
@@ -126,7 +127,7 @@ Fib <- NormalizeData(object = Fib, normalization.method = "LogNormalize",
 
 Let's calculate the features that exhibit high cell-to-cell variation in the dataset. Focusing on those genes will help to highlight biological signal.
 ```{r var_features, fig.height=5, fig.width=11, warning = FALSE, message=FALSE}
-Fib <- FindVariableFeatures(object = Fib, selection.method = 'vst', nfeatures = 2000)
+Fib <- FindVariableFeatures(object = Fib, selection.method = 'vst',  nfeatures = 2000)
 
 # Identify the 10 most highly variable genes
 top10 <- head(x = VariableFeatures(object = Fib), 10)
@@ -146,7 +147,7 @@ Next, apply a linear transformation  that is a standard pre-processing step prio
 * shift the expression of each gene, so that the mean expression across cells is 0
 * scale the expression of each gene, so that the variance across cells is;
 
-by using the `scale data` function
+Apply the `ScaleData` function
 
 
 ```{r scaledata, warning = FALSE, message=FALSE}
@@ -157,10 +158,10 @@ Fib <- ScaleData(object = Fib, features = all.genes)
 
 ```{r regress, cache=TRUE, warning = FALSE, message=FALSE}
 # Another factor that can influence downstream analyses is cell cycle status, 
-# cells that arenormally cycling but in different phases of cell cycle might appear 
-# as separate populations.
-# Seurat is preloaded with list of cell cycle markers, from Tirosh et al, 2015, 
+# cells that arenormally cycling but in different phases of cell cycle # might appear as separate populations.
+# Seurat is preloaded with list of cell cycle markers, from Tirosh et al. 2015, 
 # segregate this list into markers of G2/M phase and markers of S phase
+
 s.genes <- cc.genes$s.genes
 g2m.genes <- cc.genes$g2m.genes
 Fib <- CellCycleScoring(Fib, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
@@ -169,13 +170,14 @@ Fib <- CellCycleScoring(Fib, s.features = s.genes, g2m.features = g2m.genes, set
 head(Fib[[]])
 
 # Regress out cell cycle scores during data scaling
-Fib <- ScaleData(Fib, vars.to.regress = c("S.Score", "G2M.Score"), features = rownames(Fib))
+Fib <- ScaleData(Fib, vars.to.regress = 
+                   c("S.Score", "G2M.Score"),  features =rownames(Fib))
 ```
 
 
 ### Perform linear dimensional reduction
 
-Each gene creates another dimension in our dataset, but most of those does not play a role in differenting subgroups of cells. Principal components analyses (PCA) reduces the dimensions of our data into main compoments which explains most of the variation. 
+Each gene creates another dimension in our dataset, but most of those does not play a role in differenting subgroups of cells. Principal components analyses (PCA) helps us by reducing the dimensions of our data into compoments which explains most of the variation. 
 
 
 
@@ -197,19 +199,19 @@ DimHeatmap(object = Fib, dims = 1:9, cells = 500, balanced = TRUE)
 ```
 
 
-### What is the 'dimensionality' of out data
+### What is the 'dimensionality' of the data?
 
-For clustering analyses we will choose the principal compoments which explain most of the variation in our data. `Elbow plot` uses a ranking of principle components based on the percentage explained by each one. 
+For clustering analyses we will choose the principal components which explain most of the variation in our data. `Elbow plot` uses a ranking of principle components based on the percentage explained by each one. 
 
 ```{r elbow_plot, fig.height=6, fig.width=10}
 ElbowPlot(object = Fib)
 ```
 
-We did not get a clear elbow shape here, but after 10th principal compoment additional dimensions does not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.
+We did not get a clear elbow shape here, but after 10th principal component additional dimensions does not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.
 
 ### Cluster the cells
 
-A graph-based clustering approach will be performed, building upon initial strategies in ([Macosko *et al*](http://www.cell.com/abstract/S0092-8674(15)00549-8)).
+A graph-based clustering approach will be performed, built upon initial strategies in ([Macosko *et al*](http://www.cell.com/abstract/S0092-8674(15)00549-8)).
 ```{r cluster, fig.height=5, fig.width=7, message=FALSE, warning = FALSE}
 Fib <- FindNeighbors(object = Fib, dims = 1:10)
 Fib <- FindClusters(object = Fib, resolution = 0.5)
@@ -250,15 +252,11 @@ Fib.markers %>% group_by(cluster) %>% top_n(n = 5, wt = avg_logFC) %>%
 For more details consult to [DE vignette](http://satijalab01.nygenome.org/seurat/v3.0/de_vignette.html).
 
 
+According to the table above I generated a cluster id vector to assign cell type to each cluster. I have a group NA which I could not assign a cell type, which is probably a technical artifact from cell cycle regression since the top genes expressed in this population are cell cycle related. I also found 3 subpopulations of macrophages and 2 types of mast cells in thiS patient. 
 
 ```{r tsnewithcellids, fig.height=8, fig.width=15}
 # Assigning Cell ids
 
-# According to the table above I generated a cluster id vector to assign cell type
-# to each cluster. I have a group NA which I could not assign a cell type, 
-# which is probably a technical artifact from cell cycle regression since the top genes
-# expressed in this population are cell cycle related.
-# I also found 3 types of macrophages and 2 types of mast cells in this patient. 
 new.cluster.ids <- c("Macrophages(1)", "Macrophages(2)", "Macrophages(3)",
                      "AT2(1) Cells", "Cliated Cells", "Basal Cells", "Club Cells", 
                      "Dendritic Cells", "NA", "AT2(2) Cells", "Fibroblasts", 
@@ -272,18 +270,18 @@ DimPlot(Fib, reduction = "tsne", label = TRUE, label.size = 8, pt.size = 1.0) + 
 
 ```{r differentfeautures}
 
-# Let's look at the epxression of a few genes of interest accross different subtypes
+# Let's look at the expression of a few genes of interest accross different subtypes
 VlnPlot(Fib, features = c("SPP1", "CHIT1"))
 
 FeaturePlot(Fib, features = c("SPP1", "APOE", "SCGB3A2", "C9orf24", "S100A2", "BPIFB1", "S100B", "COL3A1", "FCN1"))
 ```
 
-### What cells `Biotech` Companies are targeting in lung?
+### What cells `Biotech` Companies are targeting in lung fibrosis?
 
 #### Fibrinogen
 
 ```{r Fibrinogen}
-#### Fibrinogens lead compound pamrevlumab blocks CTGF. Let's have a look which cells produce it.  
+# Fibrinogens lead compound pamrevlumab blocks CTGF. Let's have a look # which cells produce it.  
 
 VlnPlot(Fib, features =c("CTGF"))
         
@@ -295,7 +293,7 @@ Main source for the `CTGF` production here seems the ``Ciliated cells.``
 
 ```{r GLPG1690}
 
-# Galapagos GLPG1690 has entered Phase 3 clinical trials and it targets Autotaxin (ENPP2). 
+# Galapagos GLPG1690 has entered Phase 3 clinical trials and it targets # Autotaxin (ENPP2). 
 VlnPlot(Fib, features =  c("ENPP2"))
 
 FeaturePlot(Fib, features =  c("ENPP2"),  pt.size = 1)
@@ -320,7 +318,7 @@ BMS-986020 is an anti-fibrotic drug being developed by Bristol-Myers Squibb, and
 # Let's look at the epxression of a LPAR1
 VlnPlot(Fib, features = c("LPAR1"))
 
-FeaturePlot(Fib, features =c("LPAR1"))
+FeaturePlot(Fib, features =c("LPAR1"),  pt.size = 1)
 ```
 It is expressed at low levels but consistently on many types of lung cells.
 
@@ -328,13 +326,15 @@ It is expressed at low levels but consistently on many types of lung cells.
 
 ```{r nintedanib}
 
-# Nintedanib is one of the two new medicines approved for IPF patients. It targets multiple receptor tyrosine kinase receptors such as VEGF, FGF and PDGF. 
+# Nintedanib is one of the two new medicines approved for IPF patients.
+# It targets multiple receptor tyrosine kinase receptors such as VEGF, 
+# FGF and PDGF. 
 VlnPlot(Fib, features = c("VEGFA", "PDGFA"))
 
-FeaturePlot(Fib, features =  c("VEGFA", "PDGFA"), pt.size=1)
+FeaturePlot(Fib, features =  c("VEGFA", "PDGFA"), pt.size = 1)
 ```
 
-VEGFA, PDGFA is highly expressed in multiple types of lung microenvironment.
+VEGFA, PDGFA is highly expressed in multiple types of cells in the lung microenvironment.
 
 
 

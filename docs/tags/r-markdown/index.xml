@@ -20,17 +20,17 @@
       <description>
 
 
-&lt;p&gt;Advances in &lt;strong&gt;microfluidic technologies&lt;/strong&gt; enabled us barcoding single cells in lipid droplets and to &lt;strong&gt;resolve genomes of individual cells&lt;/strong&gt; from a sequencing mixture (e.g, &lt;a href=&#34;https://www.10xgenomics.com/&#34;&gt;10X Genomics&lt;/a&gt;). &lt;strong&gt;Single cell RNA sequencing (scRNAseq)&lt;/strong&gt; offers great opportunities to discover &lt;strong&gt;rare cell populations&lt;/strong&gt; and genes that are specifically expressed in those. There is a high interest and the list of publications growing daily.&lt;/p&gt;
+&lt;p&gt;Advances in &lt;strong&gt;microfluidic technologies&lt;/strong&gt; enabled us barcoding single cells in lipid droplets and to &lt;strong&gt;resolve genomes of individual cells&lt;/strong&gt; from a sequencing mixture (e.g, &lt;a href=&#34;https://www.10xgenomics.com/&#34;&gt;10X Genomics&lt;/a&gt;). &lt;strong&gt;Single cell RNA sequencing (scRNAseq)&lt;/strong&gt; offers opportunities to discover &lt;strong&gt;rare cell populations&lt;/strong&gt; and genes that are specifically expressed in those. Interest is high and the list of publications growing daily.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;You might be a scientist in a biotech exploring your novel targets and those might be a great source to &lt;strong&gt;retrieve specific information.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;You might be a scientist in a biotech exploring novel targets and those might be a great source to &lt;strong&gt;retrieve specific information.&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/Seurat/index.html&#34;&gt;Seurat&lt;/a&gt; package is a great tool to digging into single cell datasets. Learning it will open you access beyond what is shown in the publication. You can find many tutorials in their &lt;a href=&#34;https://satijalab.org/seurat/&#34;&gt;website&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/Seurat/index.html&#34;&gt;Seurat&lt;/a&gt; package is a great tool for digging into single cell datasets. Learning it will open you access beyond what is shown in the publications. You can find many tutorials in their &lt;a href=&#34;https://satijalab.org/seurat/&#34;&gt;website&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Here, I will focus on a recent &lt;a href=&#34;https://www.atsjournals.org/doi/pdf/10.1164/rccm.201712-2410OC&#34;&gt;paper&lt;/a&gt; which explored transcriptome of lung cells from Pulmonary fibrosis patients by scRNAseq.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Pulmonary fibrosis&lt;/strong&gt; is a progressive scarring of the lung tissue leading to death within 2-5 years.&lt;/li&gt;
-&lt;li&gt;Current therapies does not increase the survival but many Biotechs are investigating novel therapies.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Current therapies does not increase the survival&lt;/strong&gt; but novel therapies are underway.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The paper utilized 8 healthy and 8 diseased lung samples. Here, I picked up the data from a patient with Polymyositis associated intersitial lung disease to apply main functions.&lt;/p&gt;
+&lt;p&gt;Here, I picked up data from a patient with Polymyositis associated intersitial lung disease.&lt;/p&gt;
 &lt;p&gt;—&amp;gt; &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3489196&#34;&gt;Download Single Cell RNA seq data&lt;/a&gt;&lt;/p&gt;
 &lt;div id=&#34;load-the-packages-we-need&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Load the packages we need&lt;/h3&gt;
@@ -40,7 +40,7 @@ library(ggplot2)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;importing-the-h5-file&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Importing the h5 file&lt;/h3&gt;
-&lt;p&gt;Here the data comes as an &lt;strong&gt;h5 file.&lt;/strong&gt; But no worries, we can handle that with &lt;strong&gt;Read10X_h5&lt;/strong&gt; function in Seurat.&lt;/p&gt;
+&lt;p&gt;Here the data comes as an &lt;strong&gt;h5 file.&lt;/strong&gt; But no worries, we can handle that with &lt;strong&gt;Read10X_h5&lt;/strong&gt; function in Seurat. Since the file is directly under my working directory I can apply &lt;code&gt;Read10X_h5(&#34;Filename.h5&#34;)&lt;/code&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;MyoILD_01 &amp;lt;- Read10X_h5(&amp;quot;posts_data/GSM3489196_Myositis-ILD_01_filtered_gene_bc_matrices_h5.h5&amp;quot;)
 Fib &amp;lt;- CreateSeuratObject(counts = MyoILD_01, min.cells = 3, project= &amp;quot;FightFibrosis&amp;quot;, min.features = 200)
 Fib&lt;/code&gt;&lt;/pre&gt;
@@ -64,7 +64,8 @@ MyoILD_01[c(&amp;quot;SPP1&amp;quot;,&amp;quot;TGFB1&amp;quot;,&amp;quot;CCL2&am
 &lt;p&gt;Pre-processing involves filtration of cells based on Quality control metrics (e.g .mitochondrial contamination, Coverage). We will proceed by normalization and identification of the highly variable features then at the end we will scale the data.&lt;/p&gt;
 &lt;div id=&#34;qc-and-selecting-cells-for-further-analysis&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;QC and selecting cells for further analysis&lt;/h4&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s add Mitochondrial stats to Fib data. [[ operator can add columns to object metadata. 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s add Mitochondrial stats to Fib data. [[ operator can add 
+# columns to object metadata. 
 
 Fib[[&amp;quot;percent.mt&amp;quot;]] &amp;lt;- PercentageFeatureSet(object = Fib, pattern = &amp;quot;^MT-&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Quick look at the Quality control metrics for the first 5 cells
@@ -105,7 +106,7 @@ Normalized values will be stored in &lt;code&gt;Fib[[&#34;RNA&#34;]]@data&lt;/co
 &lt;div id=&#34;identify-highly-variable-features&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Identify highly variable features&lt;/h4&gt;
 &lt;p&gt;Let’s calculate the features that exhibit high cell-to-cell variation in the dataset. Focusing on those genes will help to highlight biological signal.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- FindVariableFeatures(object = Fib, selection.method = &amp;#39;vst&amp;#39;, nfeatures = 2000)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- FindVariableFeatures(object = Fib, selection.method = &amp;#39;vst&amp;#39;,  nfeatures = 2000)
 
 # Identify the 10 most highly variable genes
 top10 &amp;lt;- head(x = VariableFeatures(object = Fib), 10)
@@ -126,14 +127,14 @@ CombinePlots(plots = list(plot1, plot2))&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;shift the expression of each gene, so that the mean expression across cells is 0&lt;/li&gt;
 &lt;li&gt;scale the expression of each gene, so that the variance across cells is;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;by using the &lt;code&gt;scale data&lt;/code&gt; function&lt;/p&gt;
+&lt;p&gt;Apply the &lt;code&gt;ScaleData&lt;/code&gt; function&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;all.genes &amp;lt;- rownames(x = Fib)
 Fib &amp;lt;- ScaleData(object = Fib, features = all.genes)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Another factor that can influence downstream analyses is cell cycle status, 
-# cells that arenormally cycling but in different phases of cell cycle might appear 
-# as separate populations.
-# Seurat is preloaded with list of cell cycle markers, from Tirosh et al, 2015, 
+# cells that arenormally cycling but in different phases of cell cycle # might appear as separate populations.
+# Seurat is preloaded with list of cell cycle markers, from Tirosh et al. 2015, 
 # segregate this list into markers of G2/M phase and markers of S phase
+
 s.genes &amp;lt;- cc.genes$s.genes
 g2m.genes &amp;lt;- cc.genes$g2m.genes
 Fib &amp;lt;- CellCycleScoring(Fib, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
@@ -155,12 +156,13 @@ head(Fib[[]])&lt;/code&gt;&lt;/pre&gt;
 ## AAACCTGAGTCGTTTG-1 -0.045171005 -0.053868788    G1 FightFibrosis
 ## AAACCTGCAAGTCTAC-1  0.003354484 -0.009033119     S FightFibrosis&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Regress out cell cycle scores during data scaling
-Fib &amp;lt;- ScaleData(Fib, vars.to.regress = c(&amp;quot;S.Score&amp;quot;, &amp;quot;G2M.Score&amp;quot;), features = rownames(Fib))&lt;/code&gt;&lt;/pre&gt;
+Fib &amp;lt;- ScaleData(Fib, vars.to.regress = 
+                   c(&amp;quot;S.Score&amp;quot;, &amp;quot;G2M.Score&amp;quot;),  features =rownames(Fib))&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;perform-linear-dimensional-reduction&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Perform linear dimensional reduction&lt;/h3&gt;
-&lt;p&gt;Each gene creates another dimension in our dataset, but most of those does not play a role in differenting subgroups of cells. Principal components analyses (PCA) reduces the dimensions of our data into main compoments which explains most of the variation.&lt;/p&gt;
+&lt;p&gt;Each gene creates another dimension in our dataset, but most of those does not play a role in differenting subgroups of cells. Principal components analyses (PCA) helps us by reducing the dimensions of our data into compoments which explains most of the variation.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- RunPCA(object = Fib, features = VariableFeatures(object = Fib), 
               ndims.print = 10, nfeatures.print = 10)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## PC_ 10 
@@ -193,16 +195,16 @@ print(x = Fib[[&amp;#39;pca&amp;#39;]], dims = 1:5, nfeatures = 5)&lt;/code&gt;&
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/multi-heatmap-1.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;what-is-the-dimensionality-of-out-data&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;What is the ‘dimensionality’ of out data&lt;/h3&gt;
-&lt;p&gt;For clustering analyses we will choose the principal compoments which explain most of the variation in our data. &lt;code&gt;Elbow plot&lt;/code&gt; uses a ranking of principle components based on the percentage explained by each one.&lt;/p&gt;
+&lt;div id=&#34;what-is-the-dimensionality-of-the-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What is the ‘dimensionality’ of the data?&lt;/h3&gt;
+&lt;p&gt;For clustering analyses we will choose the principal components which explain most of the variation in our data. &lt;code&gt;Elbow plot&lt;/code&gt; uses a ranking of principle components based on the percentage explained by each one.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ElbowPlot(object = Fib)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/elbow_plot-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;We did not get a clear elbow shape here, but after 10th principal compoment additional dimensions does not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.&lt;/p&gt;
+&lt;p&gt;We did not get a clear elbow shape here, but after 10th principal component additional dimensions does not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;cluster-the-cells&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Cluster the cells&lt;/h3&gt;
-&lt;p&gt;A graph-based clustering approach will be performed, building upon initial strategies in (&lt;a href=&#34;http://www.cell.com/abstract/S0092-8674(15)00549-8&#34;&gt;Macosko &lt;em&gt;et al&lt;/em&gt;&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;A graph-based clustering approach will be performed, built upon initial strategies in (&lt;a href=&#34;http://www.cell.com/abstract/S0092-8674(15)00549-8&#34;&gt;Macosko &lt;em&gt;et al&lt;/em&gt;&lt;/a&gt;).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- FindNeighbors(object = Fib, dims = 1:10)
 Fib &amp;lt;- FindClusters(object = Fib, resolution = 0.5)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
@@ -334,13 +336,9 @@ Fib.markers %&amp;gt;% group_by(cluster) %&amp;gt;% top_n(n = 5, wt = avg_logFC)
 ## 74 7.63e-172     1.75  0.889 0.036 1.54e-167 14      TPSAB1  
 ## 75 2.72e-158     2.05  0.978 0.051 5.50e-154 14      TPSB2&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;For more details consult to &lt;a href=&#34;http://satijalab01.nygenome.org/seurat/v3.0/de_vignette.html&#34;&gt;DE vignette&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;According to the table above I generated a cluster id vector to assign cell type to each cluster. I have a group NA which I could not assign a cell type, which is probably a technical artifact from cell cycle regression since the top genes expressed in this population are cell cycle related. I also found 3 subpopulations of macrophages and 2 types of mast cells in thiS patient.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Assigning Cell ids
 
-# According to the table above I generated a cluster id vector to assign cell type
-# to each cluster. I have a group NA which I could not assign a cell type, 
-# which is probably a technical artifact from cell cycle regression since the top genes
-# expressed in this population are cell cycle related.
-# I also found 3 types of macrophages and 2 types of mast cells in this patient. 
 new.cluster.ids &amp;lt;- c(&amp;quot;Macrophages(1)&amp;quot;, &amp;quot;Macrophages(2)&amp;quot;, &amp;quot;Macrophages(3)&amp;quot;,
                      &amp;quot;AT2(1) Cells&amp;quot;, &amp;quot;Cliated Cells&amp;quot;, &amp;quot;Basal Cells&amp;quot;, &amp;quot;Club Cells&amp;quot;, 
                      &amp;quot;Dendritic Cells&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;AT2(2) Cells&amp;quot;, &amp;quot;Fibroblasts&amp;quot;, 
@@ -349,17 +347,17 @@ names(new.cluster.ids) &amp;lt;- levels(Fib)
 Fib &amp;lt;- RenameIdents(Fib, new.cluster.ids)
 DimPlot(Fib, reduction = &amp;quot;tsne&amp;quot;, label = TRUE, label.size = 8, pt.size = 1.0) + NoLegend()&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/tsnewithcellids-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s look at the epxression of a few genes of interest accross different subtypes
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s look at the expression of a few genes of interest accross different subtypes
 VlnPlot(Fib, features = c(&amp;quot;SPP1&amp;quot;, &amp;quot;CHIT1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/differentfeautures-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features = c(&amp;quot;SPP1&amp;quot;, &amp;quot;APOE&amp;quot;, &amp;quot;SCGB3A2&amp;quot;, &amp;quot;C9orf24&amp;quot;, &amp;quot;S100A2&amp;quot;, &amp;quot;BPIFB1&amp;quot;, &amp;quot;S100B&amp;quot;, &amp;quot;COL3A1&amp;quot;, &amp;quot;FCN1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/differentfeautures-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;what-cells-biotech-companies-are-targeting-in-lung&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;What cells &lt;code&gt;Biotech&lt;/code&gt; Companies are targeting in lung?&lt;/h3&gt;
+&lt;div id=&#34;what-cells-biotech-companies-are-targeting-in-lung-fibrosis&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What cells &lt;code&gt;Biotech&lt;/code&gt; Companies are targeting in lung fibrosis?&lt;/h3&gt;
 &lt;div id=&#34;fibrinogen&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Fibrinogen&lt;/h4&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#### Fibrinogens lead compound pamrevlumab blocks CTGF. Let&amp;#39;s have a look which cells produce it.  
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Fibrinogens lead compound pamrevlumab blocks CTGF. Let&amp;#39;s have a look # which cells produce it.  
 
 VlnPlot(Fib, features =c(&amp;quot;CTGF&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/Fibrinogen-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
@@ -369,7 +367,7 @@ Main source for the &lt;code&gt;CTGF&lt;/code&gt; production here seems the &lt;
 &lt;/div&gt;
 &lt;div id=&#34;galapagos&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Galapagos&lt;/h4&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Galapagos GLPG1690 has entered Phase 3 clinical trials and it targets Autotaxin (ENPP2). 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Galapagos GLPG1690 has entered Phase 3 clinical trials and it targets # Autotaxin (ENPP2). 
 VlnPlot(Fib, features =  c(&amp;quot;ENPP2&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1690-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;ENPP2&amp;quot;),  pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
@@ -388,18 +386,20 @@ VlnPlot(Fib, features =  c(&amp;quot;GPR84&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s look at the epxression of a LPAR1
 VlnPlot(Fib, features = c(&amp;quot;LPAR1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/LPAR1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =c(&amp;quot;LPAR1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =c(&amp;quot;LPAR1&amp;quot;),  pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/LPAR1-2.png&#34; width=&#34;672&#34; /&gt;
 It is expressed at low levels but consistently on many types of lung cells.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;roche-nintedanib&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Roche &lt;code&gt;nintedanib&lt;/code&gt;&lt;/h4&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Nintedanib is one of the two new medicines approved for IPF patients. It targets multiple receptor tyrosine kinase receptors such as VEGF, FGF and PDGF. 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Nintedanib is one of the two new medicines approved for IPF patients.
+# It targets multiple receptor tyrosine kinase receptors such as VEGF, 
+# FGF and PDGF. 
 VlnPlot(Fib, features = c(&amp;quot;VEGFA&amp;quot;, &amp;quot;PDGFA&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/nintedanib-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;VEGFA&amp;quot;, &amp;quot;PDGFA&amp;quot;), pt.size=1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;VEGFA&amp;quot;, &amp;quot;PDGFA&amp;quot;), pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/nintedanib-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;VEGFA, PDGFA is highly expressed in multiple types of lung microenvironment.&lt;/p&gt;
+&lt;p&gt;VEGFA, PDGFA is highly expressed in multiple types of cells in the lung microenvironment.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
