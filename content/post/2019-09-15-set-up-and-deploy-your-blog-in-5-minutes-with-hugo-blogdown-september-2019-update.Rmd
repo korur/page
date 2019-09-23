@@ -28,7 +28,6 @@ image:
 projects: []
 ---
 
-
 This guide will help you to get your website online in a few minutes. Then, customize and add your own material in RStudio environment, push it to your Github repository and benefit from the continous deployment feature of Netlify. 
 It took me many days of work, reading tens of blog posts, YouTube videos and a lot of testing to figure out all of this. 
    

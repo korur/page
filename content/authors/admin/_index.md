@@ -66,4 +66,11 @@ user_groups:
 - Visitors
 ---
 
-Hello, I am Serdar! here is my campground for Data science projects. Let's explore the world of Data and the stories they tell. 
+Things get easier after the first step. Because the mind actually stops wandering and starts building things. How can you run a marathon if you don't know where the start line is?
+
+Hi, I am Serdar! here is my camp for Data science projects.
+
+It is about the challenges I faced and the lessons learned in my journey.  There were situations it was not easy to find the relevant guides or ways of doing.  So I had to figure out from scratch. I share them too. Most done in R. Some Python.
+
+
+Let’s explore the stories of data. 
