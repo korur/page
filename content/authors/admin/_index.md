@@ -66,11 +66,13 @@ user_groups:
 - Visitors
 ---
 
+
 Things get easier after the first step. Because the mind actually stops wandering and starts building things. How can you run a marathon if you don't know where the start line is?
+
+Whatever your ambition is take that first step now. Imagining creates the vision. Doing creates the product. 
 
 Hi, I am Serdar! here is my camp for Data science projects.
 
-It is about the challenges I faced and the lessons learned in my journey.  There were situations it was not easy to find the relevant guides or ways of doing.  So I had to figure out from scratch. I share them too. Most done in R. Some Python.
+Here, I try to solve problems that I find interesting using Data Science. It is my starting line. What is more is the challenges I faced and the lessons learned in my journey.  There were situations it was not easy to find the relevant guides or ways of doing. So I had to figure out from scratch. I share them too. And doing so spark new ideas as well! Most done in R. Some Python.
 
-
-Let’s explore the stories of data. 
+Let’s dive in. 
