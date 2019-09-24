@@ -3,7 +3,7 @@ title: Set up and deploy your blog in 5 minutes on Netlify with Hugo and blogdow
   Update)
 author: Serdar Korur
 date: '2019-09-15'
-slug: set-up-and-deploy-your-blog-in-5-minutes-with-hugo-blogdown-september-2019-update
+slug: deploy-your-blog-in-5-minutes
 categories: []
 tags:
   - RStudio
