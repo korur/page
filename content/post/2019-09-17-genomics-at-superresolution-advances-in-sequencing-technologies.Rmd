@@ -1,11 +1,11 @@
 ---
-title: 'Genomics at superresolution: Advances in sequencing technologies'
+title: 'Genomics at superresolution: Mapping Drug targets on single cell resolution in Fibrosis'
 author: ''
 date: '2019-09-17'
 slug: genomics-at-superresolution
 categories: []
 tags:
-  - scRNA seq
+  - scRNA-seq
   - Seurat
   - h5 file
   - R
@@ -26,25 +26,37 @@ image:
 projects: []
 ---
 
-Advances in **microfluidic technologies** enabled us barcoding single cells in lipid droplets and to **resolve genomes of individual cells** from a sequencing mixture (e.g, [10X Genomics](https://www.10xgenomics.com/)). **Single cell RNA sequencing (scRNAseq)** offers opportunities to discover **rare cell populations**  and genes that are specifically expressed in those. Interest is high and the list of publications growing daily.  
+Advances in **microfluidic technologies** enabled us to barcode single cells in lipid droplets and to **resolve genomes of individual cells** from a sequencing mixture (e.g, [10X Genomics](https://www.10xgenomics.com/)). By using **Single cell RNA sequencing (scRNA-seq)** we can discover **rare cell populations**  and genes that are specifically acting in those. Potential is high and the list of publications growing daily.  
 
-* You might be a scientist in a biotech exploring novel targets and those might be a great source to **retrieve specific information.**
+* If you are a scientist in a biotech exploring novel targets those might be a great source to **gather specific information**.
 
-[Seurat](https://cran.r-project.org/web/packages/Seurat/index.html) package is a great tool for digging into single cell datasets. Learning it will open you access beyond what is shown in the publications. You can find many tutorials in their [website](https://satijalab.org/seurat/).
+[Seurat](https://cran.r-project.org/web/packages/Seurat/index.html) package is a great tool for digging into single cell datasets. It will open you access beyond what is in the publications. You can find many tutorials in their [website](https://satijalab.org/seurat/).
 
 
 Here, I will focus on a recent [paper](https://www.atsjournals.org/doi/pdf/10.1164/rccm.201712-2410OC) which explored transcriptome of lung cells from Pulmonary fibrosis patients by scRNAseq.
 
-* **Pulmonary fibrosis** is a progressive scarring of the lung tissue leading to death within 2-5 years.
-* **Current therapies does not increase the survival** but novel therapies are underway. 
+* **Pulmonary fibrosis** is a progressive scarring of the lung tissue leading to death within 3-4 years.
+* **Current therapies does not increase the survival** 
+* Many Biotech companies are developing **novel drugs**
 
-Here, I picked up data from a patient with Polymyositis associated intersitial lung disease. 
+{{% alert note %}}
+What types of cells those drugs are acting on? 
+{{% /alert %}}
 
- ---> [Download Single Cell RNA seq data](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3489196)
+Our workflow will be in three steps
+
+1. Basic Seurat workflow
+2. Identify cell types on a tSNE plot
+3. Visualize drug targets on single cell plots
+
+I picked up scRNA-seq data from a patient with Polymyositis associated intersitial lung disease. 
+
+---> [Download Single Cell RNA seq data](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3489196)
 
 
-### Load the packages we need
+### Seurat Workflow
 
+Load the packages that will be used.
 ```{r, loading_packages, warning=FALSE, message=FALSE}
 library(Seurat)
 library(dplyr)
@@ -278,10 +290,13 @@ FeaturePlot(Fib, features = c("SPP1", "APOE", "SCGB3A2", "C9orf24", "S100A2", "B
 
 ### What cells `Biotech` Companies are targeting in lung fibrosis?
 
+Novel therapies in pulmonary fibrosis are urgently needed. Let's look at few promising drugs currently in clinical trials.
+
 #### Fibrinogen
 
+Fibrinoge's lead compound pamrevlumab blocks CTGF. Let's have a look which cells produce it.  
+
 ```{r Fibrinogen}
-# Fibrinogens lead compound pamrevlumab blocks CTGF. Let's have a look # which cells produce it.  
 
 VlnPlot(Fib, features =c("CTGF"))
         
@@ -291,31 +306,33 @@ Main source for the `CTGF` production here seems the ``Ciliated cells.``
 
 #### Galapagos
 
+Galapagos GLPG1690 has entered Phase 3 clinical trials and it targets Autotaxin (ENPP2). 
+
 ```{r GLPG1690}
 
-# Galapagos GLPG1690 has entered Phase 3 clinical trials and it targets # Autotaxin (ENPP2). 
 VlnPlot(Fib, features =  c("ENPP2"))
 
 FeaturePlot(Fib, features =  c("ENPP2"),  pt.size = 1)
 ```
 We see a low expression of `ENPP` mainly in Macrophages, Dendritic cells and Fibroblasts. 
 
+The other clinical candidate of Galapagos is GLPG1205 which targets GPR84. It has entered Phase 2 clinical trials.
 ```{r GLPG1205}
 
-# Galapagos GLPG1205 has entered Phase 2 clinical trials and it targets GPR84. 
 VlnPlot(Fib, features =  c("GPR84"))
 
 FeaturePlot(Fib, features =  c("GPR84"), pt.size = 1)
 ```
 
-`Gpr84` has very low expression throughout the lung cells of this patient. The gene is mainly expressed in Type 1 Macrophages. 
+`GPR84` has very low expression throughout the lung cells of this patient. The gene is mainly expressed in Type 1 Macrophages. 
 
 #### Bristol-Myers-Squibb: `BMS-986020`
 BMS-986020 is an anti-fibrotic drug being developed by Bristol-Myers Squibb, and is a lysophosphatidic acid (LPA) receptor antagonist. 
 
+Let's look at the expression of a LPAR1.
 ```{r LPAR1}
 
-# Let's look at the epxression of a LPAR1
+
 VlnPlot(Fib, features = c("LPAR1"))
 
 FeaturePlot(Fib, features =c("LPAR1"),  pt.size = 1)
@@ -324,11 +341,9 @@ It is expressed at low levels but consistently on many types of lung cells.
 
 #### Roche `nintedanib`
 
+Nintedanib is one of the two new medicines approved for IPF patients. It targets multiple receptor tyrosine kinase receptors such as VEGF, FGF and PDGF.
 ```{r nintedanib}
 
-# Nintedanib is one of the two new medicines approved for IPF patients.
-# It targets multiple receptor tyrosine kinase receptors such as VEGF, 
-# FGF and PDGF. 
 VlnPlot(Fib, features = c("VEGFA", "PDGFA"))
 
 FeaturePlot(Fib, features =  c("VEGFA", "PDGFA"), pt.size = 1)
@@ -336,5 +351,8 @@ FeaturePlot(Fib, features =  c("VEGFA", "PDGFA"), pt.size = 1)
 
 VEGFA, PDGFA is highly expressed in multiple types of cells in the lung microenvironment.
 
+### Final thoughts
 
+Seurat package allowed us to cluster different types of lung cells so that we can visualize their specific gene expression. We used those plots to see which cells express the drug targets in clinical trials or in use.  
+Although changes associated with fibrosis are well defined the causal factors are not known. Reflecting this we saw that those **drugs target many different components of the lung microenvironment.** The conquest is on and we hope promising therapies arrive soon.
 

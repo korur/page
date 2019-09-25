@@ -43,6 +43,7 @@ Here is an up to date workflow of **how I created my Blog on Github and deployed
 * Github
 * Netlify
 
+
 Hugo is the actual website builder and [blogdown](https://bookdown.org/yihui/blogdown/) is an R package that allows us to use Hugo in R environment.   
 
 ### On RStudio: Build your website locally.

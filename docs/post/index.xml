@@ -13,27 +13,41 @@
     </image>
     
     <item>
-      <title>Genomics at superresolution: Advances in sequencing technologies</title>
+      <title>Genomics at superresolution: Mapping Drug targets on single cell resolution in Fibrosis</title>
       <link>/2019/09/17/genomics-at-superresolution/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
       <guid>/2019/09/17/genomics-at-superresolution/</guid>
       <description>
 
 
-&lt;p&gt;Advances in &lt;strong&gt;microfluidic technologies&lt;/strong&gt; enabled us barcoding single cells in lipid droplets and to &lt;strong&gt;resolve genomes of individual cells&lt;/strong&gt; from a sequencing mixture (e.g, &lt;a href=&#34;https://www.10xgenomics.com/&#34;&gt;10X Genomics&lt;/a&gt;). &lt;strong&gt;Single cell RNA sequencing (scRNAseq)&lt;/strong&gt; offers opportunities to discover &lt;strong&gt;rare cell populations&lt;/strong&gt; and genes that are specifically expressed in those. Interest is high and the list of publications growing daily.&lt;/p&gt;
+&lt;p&gt;Advances in &lt;strong&gt;microfluidic technologies&lt;/strong&gt; enabled us to barcode single cells in lipid droplets and to &lt;strong&gt;resolve genomes of individual cells&lt;/strong&gt; from a sequencing mixture (e.g, &lt;a href=&#34;https://www.10xgenomics.com/&#34;&gt;10X Genomics&lt;/a&gt;). By using &lt;strong&gt;Single cell RNA sequencing (scRNA-seq)&lt;/strong&gt; we can discover &lt;strong&gt;rare cell populations&lt;/strong&gt; and genes that are specifically acting in those. Potential is high and the list of publications growing daily.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;You might be a scientist in a biotech exploring novel targets and those might be a great source to &lt;strong&gt;retrieve specific information.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;If you are a scientist in a biotech exploring novel targets those might be a great source to &lt;strong&gt;gather specific information&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/Seurat/index.html&#34;&gt;Seurat&lt;/a&gt; package is a great tool for digging into single cell datasets. Learning it will open you access beyond what is shown in the publications. You can find many tutorials in their &lt;a href=&#34;https://satijalab.org/seurat/&#34;&gt;website&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/Seurat/index.html&#34;&gt;Seurat&lt;/a&gt; package is a great tool for digging into single cell datasets. It will open you access beyond what is in the publications. You can find many tutorials in their &lt;a href=&#34;https://satijalab.org/seurat/&#34;&gt;website&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Here, I will focus on a recent &lt;a href=&#34;https://www.atsjournals.org/doi/pdf/10.1164/rccm.201712-2410OC&#34;&gt;paper&lt;/a&gt; which explored transcriptome of lung cells from Pulmonary fibrosis patients by scRNAseq.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Pulmonary fibrosis&lt;/strong&gt; is a progressive scarring of the lung tissue leading to death within 2-5 years.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Current therapies does not increase the survival&lt;/strong&gt; but novel therapies are underway.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Pulmonary fibrosis&lt;/strong&gt; is a progressive scarring of the lung tissue leading to death within 3-4 years.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Current therapies does not increase the survival&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Many Biotech companies are developing &lt;strong&gt;novel drugs&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Here, I picked up data from a patient with Polymyositis associated intersitial lung disease.&lt;/p&gt;
+&lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    What types of cells those drugs are acting on?
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;p&gt;Our workflow will be in three steps&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Basic Seurat workflow&lt;/li&gt;
+&lt;li&gt;Identify cell types on a tSNE plot&lt;/li&gt;
+&lt;li&gt;Visualize drug targets on single cell plots&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I picked up scRNA-seq data from a patient with Polymyositis associated intersitial lung disease.&lt;/p&gt;
 &lt;p&gt;—&amp;gt; &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3489196&#34;&gt;Download Single Cell RNA seq data&lt;/a&gt;&lt;/p&gt;
-&lt;div id=&#34;load-the-packages-we-need&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Load the packages we need&lt;/h3&gt;
+&lt;div id=&#34;seurat-workflow&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Seurat Workflow&lt;/h3&gt;
+&lt;p&gt;Load the packages that will be used.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(Seurat)
 library(dplyr)
 library(ggplot2)&lt;/code&gt;&lt;/pre&gt;
@@ -355,11 +369,11 @@ VlnPlot(Fib, features = c(&amp;quot;SPP1&amp;quot;, &amp;quot;CHIT1&amp;quot;))&
 &lt;/div&gt;
 &lt;div id=&#34;what-cells-biotech-companies-are-targeting-in-lung-fibrosis&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;What cells &lt;code&gt;Biotech&lt;/code&gt; Companies are targeting in lung fibrosis?&lt;/h3&gt;
+&lt;p&gt;Novel therapies in pulmonary fibrosis are urgently needed. Let’s look at few promising drugs currently in clinical trials.&lt;/p&gt;
 &lt;div id=&#34;fibrinogen&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Fibrinogen&lt;/h4&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Fibrinogens lead compound pamrevlumab blocks CTGF. Let&amp;#39;s have a look # which cells produce it.  
-
-VlnPlot(Fib, features =c(&amp;quot;CTGF&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Fibrinoge’s lead compound pamrevlumab blocks CTGF. Let’s have a look which cells produce it.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VlnPlot(Fib, features =c(&amp;quot;CTGF&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/Fibrinogen-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features = c(&amp;quot;CTGF&amp;quot;), pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/Fibrinogen-2.png&#34; width=&#34;672&#34; /&gt;
@@ -367,24 +381,24 @@ Main source for the &lt;code&gt;CTGF&lt;/code&gt; production here seems the &lt;
 &lt;/div&gt;
 &lt;div id=&#34;galapagos&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Galapagos&lt;/h4&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Galapagos GLPG1690 has entered Phase 3 clinical trials and it targets # Autotaxin (ENPP2). 
-VlnPlot(Fib, features =  c(&amp;quot;ENPP2&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Galapagos GLPG1690 has entered Phase 3 clinical trials and it targets Autotaxin (ENPP2).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VlnPlot(Fib, features =  c(&amp;quot;ENPP2&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1690-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;ENPP2&amp;quot;),  pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1690-2.png&#34; width=&#34;672&#34; /&gt;
 We see a low expression of &lt;code&gt;ENPP&lt;/code&gt; mainly in Macrophages, Dendritic cells and Fibroblasts.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Galapagos GLPG1205 has entered Phase 2 clinical trials and it targets GPR84. 
-VlnPlot(Fib, features =  c(&amp;quot;GPR84&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The other clinical candidate of Galapagos is GLPG1205 which targets GPR84. It has entered Phase 2 clinical trials.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VlnPlot(Fib, features =  c(&amp;quot;GPR84&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1205-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;GPR84&amp;quot;), pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1205-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;Gpr84&lt;/code&gt; has very low expression throughout the lung cells of this patient. The gene is mainly expressed in Type 1 Macrophages.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GPR84&lt;/code&gt; has very low expression throughout the lung cells of this patient. The gene is mainly expressed in Type 1 Macrophages.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;bristol-myers-squibb-bms-986020&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Bristol-Myers-Squibb: &lt;code&gt;BMS-986020&lt;/code&gt;&lt;/h4&gt;
 &lt;p&gt;BMS-986020 is an anti-fibrotic drug being developed by Bristol-Myers Squibb, and is a lysophosphatidic acid (LPA) receptor antagonist.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s look at the epxression of a LPAR1
-VlnPlot(Fib, features = c(&amp;quot;LPAR1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s look at the expression of a LPAR1.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VlnPlot(Fib, features = c(&amp;quot;LPAR1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/LPAR1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =c(&amp;quot;LPAR1&amp;quot;),  pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/LPAR1-2.png&#34; width=&#34;672&#34; /&gt;
@@ -392,15 +406,18 @@ It is expressed at low levels but consistently on many types of lung cells.&lt;/
 &lt;/div&gt;
 &lt;div id=&#34;roche-nintedanib&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Roche &lt;code&gt;nintedanib&lt;/code&gt;&lt;/h4&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Nintedanib is one of the two new medicines approved for IPF patients.
-# It targets multiple receptor tyrosine kinase receptors such as VEGF, 
-# FGF and PDGF. 
-VlnPlot(Fib, features = c(&amp;quot;VEGFA&amp;quot;, &amp;quot;PDGFA&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nintedanib is one of the two new medicines approved for IPF patients. It targets multiple receptor tyrosine kinase receptors such as VEGF, FGF and PDGF.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VlnPlot(Fib, features = c(&amp;quot;VEGFA&amp;quot;, &amp;quot;PDGFA&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/nintedanib-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;VEGFA&amp;quot;, &amp;quot;PDGFA&amp;quot;), pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/nintedanib-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;VEGFA, PDGFA is highly expressed in multiple types of cells in the lung microenvironment.&lt;/p&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;final-thoughts&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Final thoughts&lt;/h3&gt;
+&lt;p&gt;Seurat package allowed us to cluster different types of lung cells so that we can visualize their specific gene expression. We used those plots to see which cells express the drug targets in clinical trials or in use.&lt;br /&gt;
+Although changes associated with fibrosis are well defined the causal factors are not known. Reflecting this we saw that those &lt;strong&gt;drugs target many different components of the lung microenvironment.&lt;/strong&gt; The conquest is on and we hope promising therapies arrive soon.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
