@@ -33,6 +33,41 @@
   </url>
   
   <url>
+    <loc>/post/</loc>
+    <lastmod>2019-09-25T10:02:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r-markdown/</loc>
+    <lastmod>2019-09-25T10:02:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rstudio/</loc>
+    <lastmod>2019-09-25T10:02:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/stringr/</loc>
+    <lastmod>2019-09-25T10:02:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-09-25T10:02:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/text-mining/</loc>
+    <lastmod>2019-09-25T10:02:47+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2019/09/25/text-mining-extracting-single-elements/</loc>
+    <lastmod>2019-09-25T10:02:47+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/clustering/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
@@ -58,17 +93,7 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/r/</loc>
-    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r-markdown/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
@@ -79,11 +104,6 @@
   
   <url>
     <loc>/tags/seurat/</loc>
-    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
@@ -129,11 +149,6 @@
   
   <url>
     <loc>/tags/netlify/</loc>
-    <lastmod>2019-09-15T14:37:59+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/rstudio/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   

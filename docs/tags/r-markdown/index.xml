@@ -5,12 +5,202 @@
     <link>/tags/r-markdown/</link>
       <atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     <description>R Markdown</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 17 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 25 Sep 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/icon-192.png</url>
       <title>R Markdown</title>
       <link>/tags/r-markdown/</link>
     </image>
+    
+    <item>
+      <title>Text mining: Extracting single elements from a Book</title>
+      <link>/2019/09/25/text-mining-extracting-single-elements/</link>
+      <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>/2019/09/25/text-mining-extracting-single-elements/</guid>
+      <description>
+
+
+&lt;p&gt;My ambitious goal is eventually to write a machine learning algorithm that can predict Poets. But let’s start with something simpler.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Project Gutenberg is a library of over 60,000 free eBooks.&lt;/code&gt;&lt;br /&gt;
+I will use their &lt;a href=&#34;https://www.gutenberg.org/&#34;&gt;website&lt;/a&gt; to download a Poem book from D. H. Lawrence.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The goal here is to isolate each poem individually for text mining analysis later.&lt;/strong&gt; My quick search to find a solution on internet was not successful so I decided to figure out myself.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I will use the table of contents section to &lt;strong&gt;fish out each poem separately&lt;/strong&gt; by writing some looping functions.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;install-the-required-packages&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Install the required packages&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dplyr)
+library(stringr)
+library(stringi)
+library(tm)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;copy-the-book-from-dh-lawrence-new-poems&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Copy the book from DH Lawrence “New Poems”&lt;/h3&gt;
+&lt;p&gt;Since there were some mistakes in the .txt version of the book I copied the text from the html version at &lt;a href=&#34;http://www.gutenberg.org/files/22726/22726-h/22726-h.htm&#34;&gt;gutenbergr website&lt;/a&gt; and pasted it in a txt file and save it in my working directory.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lawrence &amp;lt;- readLines(&amp;quot;posts_data/lawrence_new_poems.txt&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The whole book consists of &lt;code&gt;2181&lt;/code&gt; lines of text. With square brackets [ ] we can view the lines we are interested.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lawrence[1:5]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;&amp;quot;                                                                    
+## [2] &amp;quot;The Project Gutenberg EBook of New Poems, by D. H. Lawrence&amp;quot;         
+## [3] &amp;quot;&amp;quot;                                                                    
+## [4] &amp;quot;This eBook is for the use of anyone anywhere at no cost and with&amp;quot;    
+## [5] &amp;quot;almost no restrictions whatsoever.  You may copy it, give it away or&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The book has 42 poems in total. Table of contents starts with the line “CONTENTS” and ends with the line “ON THAT DAY”&lt;/p&gt;
+&lt;p&gt;I will use those lines to extract the Table of Contents (TOC). Stringr package comes in handy here. &lt;strong&gt;str_which()&lt;/strong&gt; function returns line index numbers for a given term.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;start &amp;lt;- str_which(lawrence, pattern = fixed(&amp;quot;CONTENTS&amp;quot;))
+start&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 53&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lawrence[start]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;CONTENTS&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We are choosing first appearance of &amp;quot;ON THAT DAY&amp;quot; with [1] since it appears twice, firt in contents than in the poem title.
+end &amp;lt;-  str_which(lawrence, pattern = fixed(&amp;quot;ON THAT DAY&amp;quot;))[1]
+end&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 137&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lawrence[end]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;ON THAT DAY&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Slicing the lines from &lt;code&gt;54&lt;/code&gt; to &lt;code&gt;137&lt;/code&gt; will give us the TOC.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;TOC &amp;lt;- lawrence[(start+1):(end)]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To remove empty spaces I will use here &lt;strong&gt;stri_remove_empty()&lt;/strong&gt; function from &lt;strong&gt;stringi&lt;/strong&gt; package.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;TOC &amp;lt;- stri_remove_empty(TOC)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s look at how the clean TOC looks.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;TOC &lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;APPREHENSION&amp;quot;               &amp;quot;COMING AWAKE&amp;quot;              
+##  [3] &amp;quot;FROM A COLLEGE WINDOW&amp;quot;      &amp;quot;FLAPPER&amp;quot;                   
+##  [5] &amp;quot;BIRDCAGE WALK&amp;quot;              &amp;quot;LETTER FROM TOWN: THE&amp;quot;     
+##  [7] &amp;quot;FLAT SUBURBS, S.W., IN THE&amp;quot; &amp;quot;THIEF IN THE NIGHT&amp;quot;        
+##  [9] &amp;quot;LETTER FROM TOWN: ON A&amp;quot;     &amp;quot;SUBURBS ON A HAZY DAY&amp;quot;     
+## [11] &amp;quot;HYDE PARK AT NIGHT, BEFORE&amp;quot; &amp;quot;GIPSY&amp;quot;                     
+## [13] &amp;quot;TWO-FOLD&amp;quot;                   &amp;quot;UNDER THE OAK&amp;quot;             
+## [15] &amp;quot;SIGH NO MORE&amp;quot;               &amp;quot;LOVE STORM&amp;quot;                
+## [17] &amp;quot;PARLIAMENT HILL IN THE&amp;quot;     &amp;quot;PICCADILLY CIRCUS AT NIGHT&amp;quot;
+## [19] &amp;quot;TARANTELLA&amp;quot;                 &amp;quot;IN CHURCH&amp;quot;                 
+## [21] &amp;quot;PIANO&amp;quot;                      &amp;quot;EMBANKMENT AT NIGHT,&amp;quot;      
+## [23] &amp;quot;PHANTASMAGORIA&amp;quot;             &amp;quot;NEXT MORNING&amp;quot;              
+## [25] &amp;quot;PALIMPSEST OF TWILIGHT&amp;quot;     &amp;quot;EMBANKMENT AT NIGHT,&amp;quot;      
+## [27] &amp;quot;WINTER IN THE BOULEVARD&amp;quot;    &amp;quot;SCHOOL ON THE OUTSKIRTS&amp;quot;   
+## [29] &amp;quot;SICKNESS&amp;quot;                   &amp;quot;EVERLASTING FLOWERS&amp;quot;       
+## [31] &amp;quot;THE NORTH COUNTRY&amp;quot;          &amp;quot;BITTERNESS OF DEATH&amp;quot;       
+## [33] &amp;quot;SEVEN SEALS&amp;quot;                &amp;quot;READING A LETTER&amp;quot;          
+## [35] &amp;quot;TWENTY YEARS AGO&amp;quot;           &amp;quot;INTIME&amp;quot;                    
+## [37] &amp;quot;TWO WIVES&amp;quot;                  &amp;quot;HEIMWEH&amp;quot;                   
+## [39] &amp;quot;DEBACLE&amp;quot;                    &amp;quot;NARCISSUS&amp;quot;                 
+## [41] &amp;quot;AUTUMN SUNSHINE&amp;quot;            &amp;quot;ON THAT DAY&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we will extract main text containing only those 42 poems without metadata. We need to slice the document starting from the end of the contents &lt;code&gt;(end)&lt;/code&gt; section till end of the last poem.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# After the last poem some metadata starts with &amp;quot;End of the Project...&amp;quot;
+# We will slice until this line
+end_main &amp;lt;- str_which(lawrence, &amp;quot;End of the Project Gutenberg EBook of New Poems, by D. H. Lawrence&amp;quot;)
+# Capture main text
+lawrence_body &amp;lt;- lawrence[(end+1):(end_main -1)]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Write a for loop to get the index numbers of the first line of each poem.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# First initiate an empty list
+index &amp;lt;- list()
+# For loop
+for (i in 1:42) {
+index[[i]] &amp;lt;- str_which(lawrence_body, pattern = TOC[i])
+}
+
+index&amp;lt;- unlist(index)
+index&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1]    9   37   59   82  110  126  164  192  209  253  276  314  332  347
+## [15]  387  428  473  496  536  570  593  621  768  664  707  745  621  768
+## [29]  901  933  958  990 1057 1100 1193 1253 1286 1313 1376 1502 1527 1571
+## [43] 1606 1644&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What does this &lt;code&gt;for loop&lt;/code&gt; do?
+It uses each title in TOC as a pattern inside a &lt;strong&gt;str_which()&lt;/strong&gt; function to find the index number where it detects the pattern. For example TOC[1] will use the title of first poem as a pattern and it will return the line number where that poem starts. At the end, we will have a list of starting lines of each poem.
+Selecting the lines from the beginning of the first poem until the beginning of the second poem will extract us the first poem. By iterating everything by +1 we will capture all 42 poems.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;TOC[1]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;APPREHENSION&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we have the index numbers matching the title of each poem we can use them to extract poems separetely.
+Since the title EMBANKMENT AT NIGHT repeated twice in the contents we have to remove first apperance of index 768 and second appearence of 621&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;index &amp;lt;- index[-c(23,27)]
+index&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1]    9   37   59   82  110  126  164  192  209  253  276  314  332  347
+## [15]  387  428  473  496  536  570  593  621  664  707  745  768  901  933
+## [29]  958  990 1057 1100 1193 1253 1286 1313 1376 1502 1527 1571 1606 1644&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;length(index)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 42&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Not to miss the last poem, I have to add the line index of the end of the main text
+index[43] &amp;lt;- end_main -1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now it’s time for the trick. Finally we can capture each 42 poem separetly in a list by using a second for loop&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create an empty list: poems
+poems &amp;lt;- list()
+for (i in 1:42) {
+    
+    poems[[i]] &amp;lt;- lawrence_body[(index[i]:index[i+1]-1)]  
+}
+# Visualize the first poem
+writeLines(poems[[1]])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## APPREHENSION
+## AND all hours long, the town
+##        Roars like a beast in a cave
+##      That is wounded there
+##      And like to drown;
+##        While days rush, wave after wave
+##      On its lair.
+## 
+##      An invisible woe unseals
+##        The flood, so it passes beyond
+##      All bounds: the great old city
+##      Recumbent roars as it feels
+##        The foamy paw of the pond
+##      Reach from immensity.
+## 
+##      But all that it can do
+##        Now, as the tide rises,
+##      Is to listen and hear the grim
+##      Waves crash like thunder through
+##        The splintered streets, hear noises
+##      Roll hollow in the interim.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s check if we got what we wanted&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;str(poems)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## List of 42
+##  $ : chr [1:29] &amp;quot;&amp;quot; &amp;quot;APPREHENSION&amp;quot; &amp;quot;AND all hours long, the town&amp;quot; &amp;quot;       Roars like a beast in a cave&amp;quot; ...
+##  $ : chr [1:23] &amp;quot;&amp;quot; &amp;quot;COMING AWAKE&amp;quot; &amp;quot;WHEN I woke, the lake-lights were quivering on the&amp;quot; &amp;quot;          wall,&amp;quot; ...
+##  $ : chr [1:24] &amp;quot;&amp;quot; &amp;quot;FROM A COLLEGE WINDOW&amp;quot; &amp;quot;THE glimmer of the limes, sun-heavy, sleeping,&amp;quot; &amp;quot;        Goes trembling past me up the College wall.&amp;quot; ...
+##  $ : chr [1:29] &amp;quot;&amp;quot; &amp;quot;FLAPPER&amp;quot; &amp;quot;LOVE has crept out of her sealéd heart&amp;quot; &amp;quot;       As a field-bee, black and amber,&amp;quot; ...
+##  $ : chr [1:17] &amp;quot;&amp;quot; &amp;quot;BIRDCAGE WALK&amp;quot; &amp;quot;WHEN the wind blows her veil&amp;quot; &amp;quot;       And uncovers her laughter&amp;quot; ...
+##  $ : chr [1:39] &amp;quot;&amp;quot; &amp;quot;LETTER FROM TOWN: THE&amp;quot; &amp;quot;ALMOND TREE&amp;quot; &amp;quot;YOU promised to send me some violets. Did you&amp;quot; ...
+##  $ : chr [1:29] &amp;quot;&amp;quot; &amp;quot;FLAT SUBURBS, S.W., IN THE&amp;quot; &amp;quot;MORNING&amp;quot; &amp;quot;THE new red houses spring like plants&amp;quot; ...
+##  $ : chr [1:18] &amp;quot;&amp;quot; &amp;quot;THIEF IN THE NIGHT&amp;quot; &amp;quot;LAST night a thief came to me&amp;quot; &amp;quot;       And struck at me with something dark.&amp;quot; ...
+##  $ : chr [1:45] &amp;quot;&amp;quot; &amp;quot;LETTER FROM TOWN: ON A&amp;quot; &amp;quot;GREY EVENING IN MARCH&amp;quot; &amp;quot;THE clouds are pushing in grey reluctance slowly&amp;quot; ...
+##  $ : chr [1:24] &amp;quot;&amp;quot; &amp;quot;SUBURBS ON A HAZY DAY&amp;quot; &amp;quot;     O STIFFLY shapen houses that change not,&amp;quot; &amp;quot;       What conjuror&amp;#39;s cloth was thrown across you,&amp;quot; ...
+##  $ : chr [1:39] &amp;quot;&amp;quot; &amp;quot;HYDE PARK AT NIGHT, BEFORE&amp;quot; &amp;quot;THE WAR&amp;quot; &amp;quot;     Clerks.&amp;quot; ...
+##  $ : chr [1:19] &amp;quot;&amp;quot; &amp;quot;GIPSY&amp;quot; &amp;quot;     I, THE man with the red scarf,&amp;quot; &amp;quot;        Will give thee what I have, this last week&amp;#39;s earn-&amp;quot; ...
+##  $ : chr [1:16] &amp;quot;&amp;quot; &amp;quot;TWO-FOLD&amp;quot; &amp;quot;     How gorgeous that shock of red lilies, and larkspur&amp;quot; &amp;quot;         cleaving&amp;quot; ...
+##  $ : chr [1:41] &amp;quot;&amp;quot; &amp;quot;UNDER THE OAK&amp;quot; &amp;quot;     You, if you were sensible,&amp;quot; &amp;quot;     When I tell you the stars flash signals, each one&amp;quot; ...
+##  $ : chr [1:42] &amp;quot;&amp;quot; &amp;quot;SIGH NO MORE&amp;quot; &amp;quot;THE cuckoo and the coo-dove&amp;#39;s ceaseless calling,&amp;quot; &amp;quot;                    Calling,&amp;quot; ...
+##  $ : chr [1:46] &amp;quot;&amp;quot; &amp;quot;LOVE STORM&amp;quot; &amp;quot;MANY roses in the wind&amp;quot; &amp;quot;     Are tapping at the window-sash.&amp;quot; ...
+##  $ : chr [1:24] &amp;quot;&amp;quot; &amp;quot;PARLIAMENT HILL IN THE&amp;quot; &amp;quot;EVENING&amp;quot; &amp;quot;THE houses fade in a melt of mist&amp;quot; ...
+##  $ : chr [1:41] &amp;quot;&amp;quot; &amp;quot;PICCADILLY CIRCUS AT NIGHT&amp;quot; &amp;quot;     Street-Walkers.&amp;quot; &amp;quot;WHEN into the night the yellow light is roused like&amp;quot; ...
+##  $ : chr [1:35] &amp;quot;&amp;quot; &amp;quot;TARANTELLA&amp;quot; &amp;quot;SAD as he sits on the white sea-stone&amp;quot; &amp;quot;     And the suave sea chuckles, and turns to the moon,&amp;quot; ...
+##  $ : chr [1:24] &amp;quot;&amp;quot; &amp;quot;IN CHURCH&amp;quot; &amp;quot;IN the choir the boys are singing the hymn.&amp;quot; &amp;quot;             The morning light on their lips&amp;quot; ...
+##  $ : chr [1:29] &amp;quot;&amp;quot; &amp;quot;PIANO&amp;quot; &amp;quot;     Softly, in the dusk, a woman is singing to me;&amp;quot; &amp;quot;     Taking me back down the vista of years, till I see&amp;quot; ...
+##  $ : chr [1:44] &amp;quot;&amp;quot; &amp;quot;EMBANKMENT AT NIGHT,&amp;quot; &amp;quot;BEFORE THE WAR&amp;quot; &amp;quot;     Charity.&amp;quot; ...
+##  $ : chr [1:44] &amp;quot;&amp;quot; &amp;quot;PHANTASMAGORIA&amp;quot; &amp;quot;RIGID sleeps the house in darkness, I alone&amp;quot; &amp;quot;     Like a thing unwarrantable cross the hall&amp;quot; ...
+##  $ : chr [1:39] &amp;quot;&amp;quot; &amp;quot;NEXT MORNING&amp;quot; &amp;quot;     How have I wandered here to this vaulted room&amp;quot; &amp;quot;     In the house of life?—the floor was ruffled with gold&amp;quot; ...
+##  $ : chr [1:24] &amp;quot;&amp;quot; &amp;quot;PALIMPSEST OF TWILIGHT&amp;quot; &amp;quot;DARKNESS comes out of the earth&amp;quot; &amp;quot;       And swallows dip into the pallor of the west;&amp;quot; ...
+##  $ : chr [1:134] &amp;quot;&amp;quot; &amp;quot;EMBANKMENT AT NIGHT,&amp;quot; &amp;quot;BEFORE THE WAR&amp;quot; &amp;quot;     Outcasts.&amp;quot; ...
+##  $ : chr [1:33] &amp;quot;&amp;quot; &amp;quot;WINTER IN THE BOULEVARD&amp;quot; &amp;quot;THE frost has settled down upon the trees&amp;quot; &amp;quot;     And ruthlessly strangled off the fantasies&amp;quot; ...
+##  $ : chr [1:26] &amp;quot;&amp;quot; &amp;quot;SCHOOL ON THE OUTSKIRTS&amp;quot; &amp;quot;     How different, in the middle of snows, the great&amp;quot; &amp;quot;          school rises red!&amp;quot; ...
+##  $ : chr [1:33] &amp;quot;&amp;quot; &amp;quot;SICKNESS&amp;quot; &amp;quot;WAVING slowly before me, pushed into the dark,&amp;quot; &amp;quot;     Unseen my hands explore the silence, drawing the&amp;quot; ...
+##  $ : chr [1:68] &amp;quot;&amp;quot; &amp;quot;EVERLASTING FLOWERS&amp;quot; &amp;quot;WHO do you think stands watching&amp;quot; &amp;quot;       The snow-tops shining rosy&amp;quot; ...
+##  $ : chr [1:44] &amp;quot;&amp;quot; &amp;quot;THE NORTH COUNTRY&amp;quot; &amp;quot;IN another country, black poplars shake them-&amp;quot; &amp;quot;         selves over a pond,&amp;quot; ...
+##  $ : chr [1:94] &amp;quot;&amp;quot; &amp;quot;BITTERNESS OF DEATH&amp;quot; &amp;quot;     I&amp;quot; &amp;quot;AH, stern, cold man,&amp;quot; ...
+##  $ : chr [1:61] &amp;quot;&amp;quot; &amp;quot;SEVEN SEALS&amp;quot; &amp;quot;SINCE this is the last night I keep you home,&amp;quot; &amp;quot;     Come, I will consecrate you for the journey.&amp;quot; ...
+##  $ : chr [1:34] &amp;quot;&amp;quot; &amp;quot;READING A LETTER&amp;quot; &amp;quot;SHE sits on the recreation ground&amp;quot; &amp;quot;       Under an oak whose yellow buds dot the pale&amp;quot; ...
+##  $ : chr [1:28] &amp;quot;&amp;quot; &amp;quot;TWENTY YEARS AGO&amp;quot; &amp;quot;ROUND the house were lilacs and strawberries&amp;quot; &amp;quot;       And foal-foots spangling the paths,&amp;quot; ...
+##  $ : chr [1:64] &amp;quot;&amp;quot; &amp;quot;INTIME&amp;quot; &amp;quot;RETURNING, I find her just the same,&amp;quot; &amp;quot;     At just the same old delicate game.&amp;quot; ...
+##  $ : chr [1:127] &amp;quot;&amp;quot; &amp;quot;TWO WIVES&amp;quot; &amp;quot;     I&amp;quot; &amp;quot;INTO the shadow-white chamber silts the white&amp;quot; ...
+##  $ : chr [1:26] &amp;quot;&amp;quot; &amp;quot;HEIMWEH&amp;quot; &amp;quot;FAR-OFF the lily-statues stand white-ranked in the&amp;quot; &amp;quot;         garden at home.&amp;quot; ...
+##  $ : chr [1:45] &amp;quot;&amp;quot; &amp;quot;DEBACLE&amp;quot; &amp;quot;THE trees in trouble because of autumn,&amp;quot; &amp;quot;       And scarlet berries falling from the bush,&amp;quot; ...
+##  $ : chr [1:36] &amp;quot;&amp;quot; &amp;quot;NARCISSUS&amp;quot; &amp;quot;WHERE the minnows trace&amp;quot; &amp;quot;     A glinting web quick hid in the gloom of the brook,&amp;quot; ...
+##  $ : chr [1:39] &amp;quot;&amp;quot; &amp;quot;AUTUMN SUNSHINE&amp;quot; &amp;quot;THE sun sets out the autumn crocuses&amp;quot; &amp;quot;       And fills them up a pouring measure&amp;quot; ...
+##  $ : chr [1:173] &amp;quot;&amp;quot; &amp;quot;ON THAT DAY&amp;quot; &amp;quot;   ON that day&amp;quot; &amp;quot;     I shall put roses on roses, and cover your grave&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;–to be continued&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Genomics at superresolution: Mapping Drug targets on single cell resolution in Fibrosis</title>

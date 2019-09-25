@@ -1,0 +1,204 @@
+---
+title: 'Text mining: Extracting single elements from a Book'
+author: ''
+date: '2019-09-25'
+slug: text-mining-extracting-single-elements
+categories: []
+tags:
+  - RStudio
+  - R Markdown
+  - Text mining
+  - Stringr
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2019-09-25T10:02:47+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<p>My ambitious goal is eventually to write a machine learning algorithm that can predict Poets. But let’s start with something simpler.</p>
+<p><code>Project Gutenberg is a library of over 60,000 free eBooks.</code><br />
+I will use their <a href="https://www.gutenberg.org/">website</a> to download a Poem book from D. H. Lawrence.</p>
+<p><strong>The goal here is to isolate each poem individually for text mining analysis later.</strong> My quick search to find a solution on internet was not successful so I decided to figure out myself.</p>
+<ul>
+<li>I will use the table of contents section to <strong>fish out each poem separately</strong> by writing some looping functions.</li>
+</ul>
+<div id="install-the-required-packages" class="section level3">
+<h3>Install the required packages</h3>
+<pre class="r"><code>library(dplyr)
+library(stringr)
+library(stringi)
+library(tm)</code></pre>
+</div>
+<div id="copy-the-book-from-dh-lawrence-new-poems" class="section level3">
+<h3>Copy the book from DH Lawrence “New Poems”</h3>
+<p>Since there were some mistakes in the .txt version of the book I copied the text from the html version at <a href="http://www.gutenberg.org/files/22726/22726-h/22726-h.htm">gutenbergr website</a> and pasted it in a txt file and save it in my working directory.</p>
+<pre class="r"><code>lawrence &lt;- readLines(&quot;posts_data/lawrence_new_poems.txt&quot;)</code></pre>
+<p>The whole book consists of <code>2181</code> lines of text. With square brackets [ ] we can view the lines we are interested.</p>
+<pre class="r"><code>lawrence[1:5]</code></pre>
+<pre><code>## [1] &quot;&quot;                                                                    
+## [2] &quot;The Project Gutenberg EBook of New Poems, by D. H. Lawrence&quot;         
+## [3] &quot;&quot;                                                                    
+## [4] &quot;This eBook is for the use of anyone anywhere at no cost and with&quot;    
+## [5] &quot;almost no restrictions whatsoever.  You may copy it, give it away or&quot;</code></pre>
+<p>The book has 42 poems in total. Table of contents starts with the line “CONTENTS” and ends with the line “ON THAT DAY”</p>
+<p>I will use those lines to extract the Table of Contents (TOC). Stringr package comes in handy here. <strong>str_which()</strong> function returns line index numbers for a given term.</p>
+<pre class="r"><code>start &lt;- str_which(lawrence, pattern = fixed(&quot;CONTENTS&quot;))
+start</code></pre>
+<pre><code>## [1] 53</code></pre>
+<pre class="r"><code>lawrence[start]</code></pre>
+<pre><code>## [1] &quot;CONTENTS&quot;</code></pre>
+<pre class="r"><code># We are choosing first appearance of &quot;ON THAT DAY&quot; with [1] since it appears twice, firt in contents than in the poem title.
+end &lt;-  str_which(lawrence, pattern = fixed(&quot;ON THAT DAY&quot;))[1]
+end</code></pre>
+<pre><code>## [1] 137</code></pre>
+<pre class="r"><code>lawrence[end]</code></pre>
+<pre><code>## [1] &quot;ON THAT DAY&quot;</code></pre>
+<p>Slicing the lines from <code>54</code> to <code>137</code> will give us the TOC.</p>
+<pre class="r"><code>TOC &lt;- lawrence[(start+1):(end)]</code></pre>
+<p>To remove empty spaces I will use here <strong>stri_remove_empty()</strong> function from <strong>stringi</strong> package.</p>
+<pre class="r"><code>TOC &lt;- stri_remove_empty(TOC)</code></pre>
+<p>Let’s look at how the clean TOC looks.</p>
+<pre class="r"><code>TOC </code></pre>
+<pre><code>##  [1] &quot;APPREHENSION&quot;               &quot;COMING AWAKE&quot;              
+##  [3] &quot;FROM A COLLEGE WINDOW&quot;      &quot;FLAPPER&quot;                   
+##  [5] &quot;BIRDCAGE WALK&quot;              &quot;LETTER FROM TOWN: THE&quot;     
+##  [7] &quot;FLAT SUBURBS, S.W., IN THE&quot; &quot;THIEF IN THE NIGHT&quot;        
+##  [9] &quot;LETTER FROM TOWN: ON A&quot;     &quot;SUBURBS ON A HAZY DAY&quot;     
+## [11] &quot;HYDE PARK AT NIGHT, BEFORE&quot; &quot;GIPSY&quot;                     
+## [13] &quot;TWO-FOLD&quot;                   &quot;UNDER THE OAK&quot;             
+## [15] &quot;SIGH NO MORE&quot;               &quot;LOVE STORM&quot;                
+## [17] &quot;PARLIAMENT HILL IN THE&quot;     &quot;PICCADILLY CIRCUS AT NIGHT&quot;
+## [19] &quot;TARANTELLA&quot;                 &quot;IN CHURCH&quot;                 
+## [21] &quot;PIANO&quot;                      &quot;EMBANKMENT AT NIGHT,&quot;      
+## [23] &quot;PHANTASMAGORIA&quot;             &quot;NEXT MORNING&quot;              
+## [25] &quot;PALIMPSEST OF TWILIGHT&quot;     &quot;EMBANKMENT AT NIGHT,&quot;      
+## [27] &quot;WINTER IN THE BOULEVARD&quot;    &quot;SCHOOL ON THE OUTSKIRTS&quot;   
+## [29] &quot;SICKNESS&quot;                   &quot;EVERLASTING FLOWERS&quot;       
+## [31] &quot;THE NORTH COUNTRY&quot;          &quot;BITTERNESS OF DEATH&quot;       
+## [33] &quot;SEVEN SEALS&quot;                &quot;READING A LETTER&quot;          
+## [35] &quot;TWENTY YEARS AGO&quot;           &quot;INTIME&quot;                    
+## [37] &quot;TWO WIVES&quot;                  &quot;HEIMWEH&quot;                   
+## [39] &quot;DEBACLE&quot;                    &quot;NARCISSUS&quot;                 
+## [41] &quot;AUTUMN SUNSHINE&quot;            &quot;ON THAT DAY&quot;</code></pre>
+<p>Now we will extract main text containing only those 42 poems without metadata. We need to slice the document starting from the end of the contents <code>(end)</code> section till end of the last poem.</p>
+<pre class="r"><code># After the last poem some metadata starts with &quot;End of the Project...&quot;
+# We will slice until this line
+end_main &lt;- str_which(lawrence, &quot;End of the Project Gutenberg EBook of New Poems, by D. H. Lawrence&quot;)
+# Capture main text
+lawrence_body &lt;- lawrence[(end+1):(end_main -1)]</code></pre>
+<p>Write a for loop to get the index numbers of the first line of each poem.</p>
+<pre class="r"><code># First initiate an empty list
+index &lt;- list()
+# For loop
+for (i in 1:42) {
+index[[i]] &lt;- str_which(lawrence_body, pattern = TOC[i])
+}
+
+index&lt;- unlist(index)
+index</code></pre>
+<pre><code>##  [1]    9   37   59   82  110  126  164  192  209  253  276  314  332  347
+## [15]  387  428  473  496  536  570  593  621  768  664  707  745  621  768
+## [29]  901  933  958  990 1057 1100 1193 1253 1286 1313 1376 1502 1527 1571
+## [43] 1606 1644</code></pre>
+<p>What does this <code>for loop</code> do?
+It uses each title in TOC as a pattern inside a <strong>str_which()</strong> function to find the index number where it detects the pattern. For example TOC[1] will use the title of first poem as a pattern and it will return the line number where that poem starts. At the end, we will have a list of starting lines of each poem.
+Selecting the lines from the beginning of the first poem until the beginning of the second poem will extract us the first poem. By iterating everything by +1 we will capture all 42 poems.</p>
+<pre class="r"><code>TOC[1]</code></pre>
+<pre><code>## [1] &quot;APPREHENSION&quot;</code></pre>
+<p>Now we have the index numbers matching the title of each poem we can use them to extract poems separetely.
+Since the title EMBANKMENT AT NIGHT repeated twice in the contents we have to remove first apperance of index 768 and second appearence of 621</p>
+<pre class="r"><code>index &lt;- index[-c(23,27)]
+index</code></pre>
+<pre><code>##  [1]    9   37   59   82  110  126  164  192  209  253  276  314  332  347
+## [15]  387  428  473  496  536  570  593  621  664  707  745  768  901  933
+## [29]  958  990 1057 1100 1193 1253 1286 1313 1376 1502 1527 1571 1606 1644</code></pre>
+<pre class="r"><code>length(index)</code></pre>
+<pre><code>## [1] 42</code></pre>
+<pre class="r"><code># Not to miss the last poem, I have to add the line index of the end of the main text
+index[43] &lt;- end_main -1</code></pre>
+<p>Now it’s time for the trick. Finally we can capture each 42 poem separetly in a list by using a second for loop</p>
+<pre class="r"><code># Create an empty list: poems
+poems &lt;- list()
+for (i in 1:42) {
+    
+    poems[[i]] &lt;- lawrence_body[(index[i]:index[i+1]-1)]  
+}
+# Visualize the first poem
+writeLines(poems[[1]])</code></pre>
+<pre><code>## 
+## APPREHENSION
+## AND all hours long, the town
+##        Roars like a beast in a cave
+##      That is wounded there
+##      And like to drown;
+##        While days rush, wave after wave
+##      On its lair.
+## 
+##      An invisible woe unseals
+##        The flood, so it passes beyond
+##      All bounds: the great old city
+##      Recumbent roars as it feels
+##        The foamy paw of the pond
+##      Reach from immensity.
+## 
+##      But all that it can do
+##        Now, as the tide rises,
+##      Is to listen and hear the grim
+##      Waves crash like thunder through
+##        The splintered streets, hear noises
+##      Roll hollow in the interim.</code></pre>
+<p>Let’s check if we got what we wanted</p>
+<pre class="r"><code>str(poems)</code></pre>
+<pre><code>## List of 42
+##  $ : chr [1:29] &quot;&quot; &quot;APPREHENSION&quot; &quot;AND all hours long, the town&quot; &quot;       Roars like a beast in a cave&quot; ...
+##  $ : chr [1:23] &quot;&quot; &quot;COMING AWAKE&quot; &quot;WHEN I woke, the lake-lights were quivering on the&quot; &quot;          wall,&quot; ...
+##  $ : chr [1:24] &quot;&quot; &quot;FROM A COLLEGE WINDOW&quot; &quot;THE glimmer of the limes, sun-heavy, sleeping,&quot; &quot;        Goes trembling past me up the College wall.&quot; ...
+##  $ : chr [1:29] &quot;&quot; &quot;FLAPPER&quot; &quot;LOVE has crept out of her sealéd heart&quot; &quot;       As a field-bee, black and amber,&quot; ...
+##  $ : chr [1:17] &quot;&quot; &quot;BIRDCAGE WALK&quot; &quot;WHEN the wind blows her veil&quot; &quot;       And uncovers her laughter&quot; ...
+##  $ : chr [1:39] &quot;&quot; &quot;LETTER FROM TOWN: THE&quot; &quot;ALMOND TREE&quot; &quot;YOU promised to send me some violets. Did you&quot; ...
+##  $ : chr [1:29] &quot;&quot; &quot;FLAT SUBURBS, S.W., IN THE&quot; &quot;MORNING&quot; &quot;THE new red houses spring like plants&quot; ...
+##  $ : chr [1:18] &quot;&quot; &quot;THIEF IN THE NIGHT&quot; &quot;LAST night a thief came to me&quot; &quot;       And struck at me with something dark.&quot; ...
+##  $ : chr [1:45] &quot;&quot; &quot;LETTER FROM TOWN: ON A&quot; &quot;GREY EVENING IN MARCH&quot; &quot;THE clouds are pushing in grey reluctance slowly&quot; ...
+##  $ : chr [1:24] &quot;&quot; &quot;SUBURBS ON A HAZY DAY&quot; &quot;     O STIFFLY shapen houses that change not,&quot; &quot;       What conjuror&#39;s cloth was thrown across you,&quot; ...
+##  $ : chr [1:39] &quot;&quot; &quot;HYDE PARK AT NIGHT, BEFORE&quot; &quot;THE WAR&quot; &quot;     Clerks.&quot; ...
+##  $ : chr [1:19] &quot;&quot; &quot;GIPSY&quot; &quot;     I, THE man with the red scarf,&quot; &quot;        Will give thee what I have, this last week&#39;s earn-&quot; ...
+##  $ : chr [1:16] &quot;&quot; &quot;TWO-FOLD&quot; &quot;     How gorgeous that shock of red lilies, and larkspur&quot; &quot;         cleaving&quot; ...
+##  $ : chr [1:41] &quot;&quot; &quot;UNDER THE OAK&quot; &quot;     You, if you were sensible,&quot; &quot;     When I tell you the stars flash signals, each one&quot; ...
+##  $ : chr [1:42] &quot;&quot; &quot;SIGH NO MORE&quot; &quot;THE cuckoo and the coo-dove&#39;s ceaseless calling,&quot; &quot;                    Calling,&quot; ...
+##  $ : chr [1:46] &quot;&quot; &quot;LOVE STORM&quot; &quot;MANY roses in the wind&quot; &quot;     Are tapping at the window-sash.&quot; ...
+##  $ : chr [1:24] &quot;&quot; &quot;PARLIAMENT HILL IN THE&quot; &quot;EVENING&quot; &quot;THE houses fade in a melt of mist&quot; ...
+##  $ : chr [1:41] &quot;&quot; &quot;PICCADILLY CIRCUS AT NIGHT&quot; &quot;     Street-Walkers.&quot; &quot;WHEN into the night the yellow light is roused like&quot; ...
+##  $ : chr [1:35] &quot;&quot; &quot;TARANTELLA&quot; &quot;SAD as he sits on the white sea-stone&quot; &quot;     And the suave sea chuckles, and turns to the moon,&quot; ...
+##  $ : chr [1:24] &quot;&quot; &quot;IN CHURCH&quot; &quot;IN the choir the boys are singing the hymn.&quot; &quot;             The morning light on their lips&quot; ...
+##  $ : chr [1:29] &quot;&quot; &quot;PIANO&quot; &quot;     Softly, in the dusk, a woman is singing to me;&quot; &quot;     Taking me back down the vista of years, till I see&quot; ...
+##  $ : chr [1:44] &quot;&quot; &quot;EMBANKMENT AT NIGHT,&quot; &quot;BEFORE THE WAR&quot; &quot;     Charity.&quot; ...
+##  $ : chr [1:44] &quot;&quot; &quot;PHANTASMAGORIA&quot; &quot;RIGID sleeps the house in darkness, I alone&quot; &quot;     Like a thing unwarrantable cross the hall&quot; ...
+##  $ : chr [1:39] &quot;&quot; &quot;NEXT MORNING&quot; &quot;     How have I wandered here to this vaulted room&quot; &quot;     In the house of life?—the floor was ruffled with gold&quot; ...
+##  $ : chr [1:24] &quot;&quot; &quot;PALIMPSEST OF TWILIGHT&quot; &quot;DARKNESS comes out of the earth&quot; &quot;       And swallows dip into the pallor of the west;&quot; ...
+##  $ : chr [1:134] &quot;&quot; &quot;EMBANKMENT AT NIGHT,&quot; &quot;BEFORE THE WAR&quot; &quot;     Outcasts.&quot; ...
+##  $ : chr [1:33] &quot;&quot; &quot;WINTER IN THE BOULEVARD&quot; &quot;THE frost has settled down upon the trees&quot; &quot;     And ruthlessly strangled off the fantasies&quot; ...
+##  $ : chr [1:26] &quot;&quot; &quot;SCHOOL ON THE OUTSKIRTS&quot; &quot;     How different, in the middle of snows, the great&quot; &quot;          school rises red!&quot; ...
+##  $ : chr [1:33] &quot;&quot; &quot;SICKNESS&quot; &quot;WAVING slowly before me, pushed into the dark,&quot; &quot;     Unseen my hands explore the silence, drawing the&quot; ...
+##  $ : chr [1:68] &quot;&quot; &quot;EVERLASTING FLOWERS&quot; &quot;WHO do you think stands watching&quot; &quot;       The snow-tops shining rosy&quot; ...
+##  $ : chr [1:44] &quot;&quot; &quot;THE NORTH COUNTRY&quot; &quot;IN another country, black poplars shake them-&quot; &quot;         selves over a pond,&quot; ...
+##  $ : chr [1:94] &quot;&quot; &quot;BITTERNESS OF DEATH&quot; &quot;     I&quot; &quot;AH, stern, cold man,&quot; ...
+##  $ : chr [1:61] &quot;&quot; &quot;SEVEN SEALS&quot; &quot;SINCE this is the last night I keep you home,&quot; &quot;     Come, I will consecrate you for the journey.&quot; ...
+##  $ : chr [1:34] &quot;&quot; &quot;READING A LETTER&quot; &quot;SHE sits on the recreation ground&quot; &quot;       Under an oak whose yellow buds dot the pale&quot; ...
+##  $ : chr [1:28] &quot;&quot; &quot;TWENTY YEARS AGO&quot; &quot;ROUND the house were lilacs and strawberries&quot; &quot;       And foal-foots spangling the paths,&quot; ...
+##  $ : chr [1:64] &quot;&quot; &quot;INTIME&quot; &quot;RETURNING, I find her just the same,&quot; &quot;     At just the same old delicate game.&quot; ...
+##  $ : chr [1:127] &quot;&quot; &quot;TWO WIVES&quot; &quot;     I&quot; &quot;INTO the shadow-white chamber silts the white&quot; ...
+##  $ : chr [1:26] &quot;&quot; &quot;HEIMWEH&quot; &quot;FAR-OFF the lily-statues stand white-ranked in the&quot; &quot;         garden at home.&quot; ...
+##  $ : chr [1:45] &quot;&quot; &quot;DEBACLE&quot; &quot;THE trees in trouble because of autumn,&quot; &quot;       And scarlet berries falling from the bush,&quot; ...
+##  $ : chr [1:36] &quot;&quot; &quot;NARCISSUS&quot; &quot;WHERE the minnows trace&quot; &quot;     A glinting web quick hid in the gloom of the brook,&quot; ...
+##  $ : chr [1:39] &quot;&quot; &quot;AUTUMN SUNSHINE&quot; &quot;THE sun sets out the autumn crocuses&quot; &quot;       And fills them up a pouring measure&quot; ...
+##  $ : chr [1:173] &quot;&quot; &quot;ON THAT DAY&quot; &quot;   ON that day&quot; &quot;     I shall put roses on roses, and cover your grave&quot; ...</code></pre>
+<p>–to be continued</p>
+</div>

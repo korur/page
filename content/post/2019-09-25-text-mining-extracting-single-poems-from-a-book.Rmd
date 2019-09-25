@@ -1,0 +1,150 @@
+---
+title: 'Text mining: Extracting single elements from a Book'
+author: ''
+date: '2019-09-25'
+slug: text-mining-extracting-single-elements
+categories: []
+tags:
+  - RStudio
+  - R Markdown
+  - Text mining
+  - Stringr
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2019-09-25T10:02:47+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+My ambitious goal is eventually to write a machine learning algorithm that can predict Poets. But let's start with something simpler.
+
+```Project Gutenberg is a library of over 60,000 free eBooks.```  
+I will use their [website](https://www.gutenberg.org/) to download a Poem book from D. H. Lawrence. 
+
+**The goal here is to isolate each poem individually for text mining analysis later.** My quick search to find a solution on internet was not successful so I decided to figure out myself. 
+
+* I will use the table of contents section to **fish out each poem separately** by writing some looping functions.
+
+### Install the required packages
+
+```{r Import packages, warning=FALSE, message=FALSE}
+library(dplyr)
+library(stringr)
+library(stringi)
+library(tm)
+```
+
+### Copy the book from DH Lawrence "New Poems"
+
+Since there were some mistakes in the .txt version of the book I copied the text from the html version at [gutenbergr website](http://www.gutenberg.org/files/22726/22726-h/22726-h.htm) and pasted it in a txt file and save it in my working directory. 
+```{r data}
+
+lawrence <- readLines("posts_data/lawrence_new_poems.txt")
+
+```
+The whole book consists of ```r length(lawrence)``` lines of text. With square brackets [ ] we can view the lines we are interested.
+
+```{r Lines, warning = FALSE, message = FALSE}
+lawrence[1:5]
+
+```
+
+The book has 42 poems in total. Table of contents starts with the line "CONTENTS" and ends with the line "ON THAT DAY"
+
+I will use those lines to extract the Table of Contents (TOC). Stringr package comes in handy here. **str_which()** function returns line index numbers for a given term.
+```{r extract toc, warning = FALSE, message = FALSE}
+start <- str_which(lawrence, pattern = fixed("CONTENTS"))
+start
+lawrence[start]
+# We are choosing first appearance of "ON THAT DAY" with [1] since it appears twice, firt in contents than in the poem title.
+end <-  str_which(lawrence, pattern = fixed("ON THAT DAY"))[1]
+end
+lawrence[end]
+```
+
+Slicing the lines from ```r start+1``` to  ```r end``` will give us the TOC.
+
+```{r toc, warning = FALSE, message = FALSE}
+TOC <- lawrence[(start+1):(end)]
+```
+
+To remove empty spaces I will use here **stri_remove_empty()** function from **stringi** package.
+
+```{r remove spaces}
+TOC <- stri_remove_empty(TOC)
+```
+Let's look at how the clean TOC looks. 
+```{r toc clean, warning = FALSE, message = FALSE}
+TOC 
+
+```
+
+
+Now we will extract main text containing only those 42 poems without metadata. We need to slice the document starting from the end of the contents ```(end)``` section till end of the last poem.
+
+```{r capture main body}
+# After the last poem some metadata starts with "End of the Project..."
+# We will slice until this line
+end_main <- str_which(lawrence, "End of the Project Gutenberg EBook of New Poems, by D. H. Lawrence")
+# Capture main text
+lawrence_body <- lawrence[(end+1):(end_main -1)]
+```
+
+Write a for loop to get the index numbers of the first line of each poem.
+```{r capture individual poems}
+
+# First initiate an empty list
+index <- list()
+# For loop
+for (i in 1:42) {
+index[[i]] <- str_which(lawrence_body, pattern = TOC[i])
+}
+
+index<- unlist(index)
+index
+
+```
+What does this ```for loop``` do?
+It uses each title in TOC as a pattern inside a **str_which()** function to find the index number where it detects the pattern. For example TOC[1] will use the title of first poem as a pattern and it will return the line number where that poem starts. At the end, we will have a list of starting lines of each poem.
+Selecting the lines from the beginning of the first poem until the beginning of the second poem will extract us the first poem. By iterating everything by +1 we will capture all 42 poems.
+
+```{r TOC[1]}
+TOC[1]
+```
+
+
+Now we have the index numbers matching the title of each poem we can use them to extract poems separetely.
+Since the title EMBANKMENT AT NIGHT repeated twice in the contents we have to remove first apperance of index 768 and second appearence of 621
+
+```{r index}
+index <- index[-c(23,27)]
+index
+length(index)
+# Not to miss the last poem, I have to add the line index of the end of the main text
+index[43] <- end_main -1
+```
+
+Now it's time for the trick. Finally we can capture each 42 poem separetly in a list by using a second for loop
+```{r capture}
+# Create an empty list: poems
+poems <- list()
+for (i in 1:42) {
+    
+    poems[[i]] <- lawrence_body[(index[i]:index[i+1]-1)]  
+}
+# Visualize the first poem
+writeLines(poems[[1]])
+```
+
+Let's check if we got what we wanted
+```{r final view}
+str(poems)
+```
+
+
+--to be continued
