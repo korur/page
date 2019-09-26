@@ -96,8 +96,8 @@ By using pwd and cd commands navigate your directory to the Website folder
 Initialize your local repository    
 ```git init```  
 Use the copied link from above  
-```git remote add origin https://github.com/yourusername/page.git```       
-```git add .  ``` 
+```git remote add origin https://github.com/yourusername/page.git```        
+```git add .  ```    
 ```git commit -m createmywebsite```   
 
 Following command will synchronize all your files to your Github repository  

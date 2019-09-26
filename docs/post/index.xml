@@ -13,46 +13,48 @@
     </image>
     
     <item>
-      <title>Text mining: Extracting single elements from a Book</title>
-      <link>/2019/09/25/text-mining-extracting-single-elements/</link>
+      <title>Text mining: How to extract individual elements from a Book</title>
+      <link>/2019/09/25/text-mining-extracting-elements/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/2019/09/25/text-mining-extracting-single-elements/</guid>
+      <guid>/2019/09/25/text-mining-extracting-elements/</guid>
       <description>
 
 
-&lt;p&gt;My ambitious goal is eventually to write a machine learning algorithm that can predict Poets. But let’s start with something simpler.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;Project Gutenberg is a library of over 60,000 free eBooks.&lt;/code&gt;&lt;br /&gt;
-I will use their &lt;a href=&#34;https://www.gutenberg.org/&#34;&gt;website&lt;/a&gt; to download a Poem book from D. H. Lawrence.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;The goal here is to isolate each poem individually for text mining analysis later.&lt;/strong&gt; My quick search to find a solution on internet was not successful so I decided to figure out myself.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;I will use the table of contents section to &lt;strong&gt;fish out each poem separately&lt;/strong&gt; by writing some looping functions.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;My ambitious goal is to write a machine learning algorithm that predicts the authors. But let’s start with something simpler.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.gutenberg.org/&#34;&gt;Project Gutenberg&lt;/a&gt; is a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The goal is to isolate each poem individually for text mining analysis later.&lt;/strong&gt; Hints on internet was not plenty so I decided to figure out a solution myself.&lt;/p&gt;
+&lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    I will use the table of contents section to &lt;strong&gt;fish out each poem separately&lt;/strong&gt; by using two &lt;strong&gt;for loops.&lt;/strong&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
 &lt;div id=&#34;install-the-required-packages&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Install the required packages&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dplyr)
 library(stringr)
-library(stringi)
-library(tm)&lt;/code&gt;&lt;/pre&gt;
+library(stringi)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;copy-the-book-from-dh-lawrence-new-poems&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Copy the book from DH Lawrence “New Poems”&lt;/h3&gt;
-&lt;p&gt;Since there were some mistakes in the .txt version of the book I copied the text from the html version at &lt;a href=&#34;http://www.gutenberg.org/files/22726/22726-h/22726-h.htm&#34;&gt;gutenbergr website&lt;/a&gt; and pasted it in a txt file and save it in my working directory.&lt;/p&gt;
+&lt;p&gt;Since there were some mistakes in the .txt version of the book I copied the text from the html version at &lt;a href=&#34;http://www.gutenberg.org/files/22726/22726-h/22726-h.htm&#34;&gt;gutenbergr website&lt;/a&gt; and pasted it in a txt file and saved to my working directory.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lawrence &amp;lt;- readLines(&amp;quot;posts_data/lawrence_new_poems.txt&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The whole book consists of &lt;code&gt;2181&lt;/code&gt; lines of text. With square brackets [ ] we can view the lines we are interested.&lt;/p&gt;
+&lt;p&gt;Our file contains &lt;code&gt;2181&lt;/code&gt; lines. With square brackets [ ] we can view the lines we are interested. Let’s look at the first few lines;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lawrence[1:5]&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;&amp;quot;                                                                    
 ## [2] &amp;quot;The Project Gutenberg EBook of New Poems, by D. H. Lawrence&amp;quot;         
 ## [3] &amp;quot;&amp;quot;                                                                    
 ## [4] &amp;quot;This eBook is for the use of anyone anywhere at no cost and with&amp;quot;    
 ## [5] &amp;quot;almost no restrictions whatsoever.  You may copy it, give it away or&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The book has 42 poems in total. Table of contents starts with the line “CONTENTS” and ends with the line “ON THAT DAY”&lt;/p&gt;
-&lt;p&gt;I will use those lines to extract the Table of Contents (TOC). Stringr package comes in handy here. &lt;strong&gt;str_which()&lt;/strong&gt; function returns line index numbers for a given term.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&#34;http://www.gutenberg.org/files/22726/22726-h/22726-h.htm&#34;&gt;book&lt;/a&gt; has 42 poems in total. Table of contents (TOC) starts with the line “CONTENTS” and ends with the line “ON THAT DAY”&lt;/p&gt;
+&lt;p&gt;I will use those lines to extract the TOC. Stringr package comes in handy here. &lt;strong&gt;str_which()&lt;/strong&gt; function returns line index numbers for a given term.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;start &amp;lt;- str_which(lawrence, pattern = fixed(&amp;quot;CONTENTS&amp;quot;))
 start&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 53&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lawrence[start]&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;CONTENTS&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We are choosing first appearance of &amp;quot;ON THAT DAY&amp;quot; with [1] since it appears twice, firt in contents than in the poem title.
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We are choosing first appearance of &amp;quot;ON THAT DAY&amp;quot; with [1] because it appears 
+# also in the Poem title later.
 end &amp;lt;-  str_which(lawrence, pattern = fixed(&amp;quot;ON THAT DAY&amp;quot;))[1]
 end&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 137&lt;/code&gt;&lt;/pre&gt;
@@ -85,13 +87,16 @@ end&lt;/code&gt;&lt;/pre&gt;
 ## [37] &amp;quot;TWO WIVES&amp;quot;                  &amp;quot;HEIMWEH&amp;quot;                   
 ## [39] &amp;quot;DEBACLE&amp;quot;                    &amp;quot;NARCISSUS&amp;quot;                 
 ## [41] &amp;quot;AUTUMN SUNSHINE&amp;quot;            &amp;quot;ON THAT DAY&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we will extract main text containing only those 42 poems without metadata. We need to slice the document starting from the end of the contents &lt;code&gt;(end)&lt;/code&gt; section till end of the last poem.&lt;/p&gt;
+&lt;p&gt;Now, we will extract main text containing only the poems without metadata. We need to slice the document starting from the end of the contents &lt;code&gt;(end)&lt;/code&gt; till end of the last poem.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# After the last poem some metadata starts with &amp;quot;End of the Project...&amp;quot;
 # We will slice until this line
 end_main &amp;lt;- str_which(lawrence, &amp;quot;End of the Project Gutenberg EBook of New Poems, by D. H. Lawrence&amp;quot;)
 # Capture main text
 lawrence_body &amp;lt;- lawrence[(end+1):(end_main -1)]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Write a for loop to get the index numbers of the first line of each poem.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;first-for-loop&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;First for loop&lt;/h3&gt;
+&lt;p&gt;We will use a &lt;code&gt;for loop&lt;/code&gt; to get the index numbers of the title’s of each poem.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# First initiate an empty list
 index &amp;lt;- list()
 # For loop
@@ -105,13 +110,15 @@ index&lt;/code&gt;&lt;/pre&gt;
 ## [15]  387  428  473  496  536  570  593  621  768  664  707  745  621  768
 ## [29]  901  933  958  990 1057 1100 1193 1253 1286 1313 1376 1502 1527 1571
 ## [43] 1606 1644&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;What does this &lt;code&gt;for loop&lt;/code&gt; do?
-It uses each title in TOC as a pattern inside a &lt;strong&gt;str_which()&lt;/strong&gt; function to find the index number where it detects the pattern. For example TOC[1] will use the title of first poem as a pattern and it will return the line number where that poem starts. At the end, we will have a list of starting lines of each poem.
-Selecting the lines from the beginning of the first poem until the beginning of the second poem will extract us the first poem. By iterating everything by +1 we will capture all 42 poems.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;for loop&lt;/code&gt; we created here uses each title in TOC as a pattern inside a &lt;strong&gt;str_which()&lt;/strong&gt; function to find the index number where it detects this pattern.&lt;/p&gt;
+&lt;p&gt;For example TOC[1] will use the title of first poem as a pattern and it will return the line number where the poem starts. &lt;strong&gt;At the end, we will have a list of starting lines of each poem.&lt;/strong&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;TOC[1]&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] &amp;quot;APPREHENSION&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now we have the index numbers matching the title of each poem we can use them to extract poems separetely.
-Since the title EMBANKMENT AT NIGHT repeated twice in the contents we have to remove first apperance of index 768 and second appearence of 621&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;str_which(lawrence_body, pattern = TOC[1])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 9&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# e.g. The poem Apprehension starts at line index number 9&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Selecting the lines from the beginning of the &lt;strong&gt;first poem&lt;/strong&gt; until the beginning of the &lt;strong&gt;second poem&lt;/strong&gt; will give us the first poem. By iterating everything by +1 we will capture all 42 poems.&lt;/p&gt;
+&lt;p&gt;Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To remove those duplicates I will remove first apperance of index 768 and second appearence of 621.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;index &amp;lt;- index[-c(23,27)]
 index&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  [1]    9   37   59   82  110  126  164  192  209  253  276  314  332  347
@@ -119,9 +126,14 @@ index&lt;/code&gt;&lt;/pre&gt;
 ## [29]  958  990 1057 1100 1193 1253 1286 1313 1376 1502 1527 1571 1606 1644&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;length(index)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 42&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Not to miss the last poem, I have to add the line index of the end of the main text
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Not to miss the last poem, I have to add the line index of the
+# end of the main text
 index[43] &amp;lt;- end_main -1&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now it’s time for the trick. Finally we can capture each 42 poem separetly in a list by using a second for loop&lt;/p&gt;
+&lt;p&gt;Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separetely.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;second-for-loop&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Second for loop&lt;/h3&gt;
+&lt;p&gt;It’s time for the trick. Finally we can capture each 42 poem separately in a list by using a second &lt;code&gt;for loop.&lt;/code&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create an empty list: poems
 poems &amp;lt;- list()
 for (i in 1:42) {
@@ -197,7 +209,14 @@ writeLines(poems[[1]])&lt;/code&gt;&lt;/pre&gt;
 ##  $ : chr [1:36] &amp;quot;&amp;quot; &amp;quot;NARCISSUS&amp;quot; &amp;quot;WHERE the minnows trace&amp;quot; &amp;quot;     A glinting web quick hid in the gloom of the brook,&amp;quot; ...
 ##  $ : chr [1:39] &amp;quot;&amp;quot; &amp;quot;AUTUMN SUNSHINE&amp;quot; &amp;quot;THE sun sets out the autumn crocuses&amp;quot; &amp;quot;       And fills them up a pouring measure&amp;quot; ...
 ##  $ : chr [1:173] &amp;quot;&amp;quot; &amp;quot;ON THAT DAY&amp;quot; &amp;quot;   ON that day&amp;quot; &amp;quot;     I shall put roses on roses, and cover your grave&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;–to be continued&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;final-thoughts&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Final Thoughts&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Data Preparation&lt;/strong&gt; is one crucial step in Data Science as data comes rarely ready to use.&lt;/p&gt;
+&lt;p&gt;Here, starting from a Poetry Book I isolated each poem separately in a list. Hard part is done. &lt;strong&gt;Now, I can identify how many rhymes each poem contains, word usage across different poems, the similarities between them and many more to gain insights about the author.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I could also analyze the whole book as a single document but by isolating each element I will gain much deeper insight from the data.&lt;/p&gt;
+&lt;p&gt;Do you apply similar techniques to isolate chapters or sections from the book or documents to compare and contrast different parts?&lt;/p&gt;
+&lt;p&gt;Thank you for reading this post. Please feel free to comment below with your thoughts/feedback.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -680,7 +699,7 @@ Copy that link.
 &lt;code&gt;git init&lt;/code&gt;&lt;br /&gt;
 Use the copied link from above&lt;br /&gt;
 &lt;code&gt;git remote add origin https://github.com/yourusername/page.git&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;git add .&lt;/code&gt;
+&lt;code&gt;git add .&lt;/code&gt;&lt;br /&gt;
 &lt;code&gt;git commit -m createmywebsite&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Following command will synchronize all your files to your Github repository&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;

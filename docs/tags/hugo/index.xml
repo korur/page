@@ -80,7 +80,7 @@ Copy that link.
 &lt;code&gt;git init&lt;/code&gt;&lt;br /&gt;
 Use the copied link from above&lt;br /&gt;
 &lt;code&gt;git remote add origin https://github.com/yourusername/page.git&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;git add .&lt;/code&gt;
+&lt;code&gt;git add .&lt;/code&gt;&lt;br /&gt;
 &lt;code&gt;git commit -m createmywebsite&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Following command will synchronize all your files to your Github repository&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
