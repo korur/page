@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Text mining | SERDAR KORUR</title>
-    <link>/tags/text-mining/</link>
-      <atom:link href="/tags/text-mining/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://dataatomic.netlify.com/tags/text-mining/</link>
+      <atom:link href="https://dataatomic.netlify.com/tags/text-mining/index.xml" rel="self" type="application/rss+xml" />
     <description>Text mining</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 25 Sep 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/img/icon-192.png</url>
+      <url>https://dataatomic.netlify.com/img/icon-192.png</url>
       <title>Text mining</title>
-      <link>/tags/text-mining/</link>
+      <link>https://dataatomic.netlify.com/tags/text-mining/</link>
     </image>
     
     <item>
       <title>Text mining: How to extract individual elements from a Book</title>
-      <link>/2019/09/25/text-mining-extracting-elements/</link>
+      <link>https://dataatomic.netlify.com/2019/09/25/text-mining-extracting-elements/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/2019/09/25/text-mining-extracting-elements/</guid>
+      <guid>https://dataatomic.netlify.com/2019/09/25/text-mining-extracting-elements/</guid>
       <description>
 
 

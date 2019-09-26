@@ -2,213 +2,213 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags | SERDAR KORUR</title>
-    <link>/tags/</link>
-      <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://dataatomic.netlify.com/tags/</link>
+      <atom:link href="https://dataatomic.netlify.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 25 Sep 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/img/icon-192.png</url>
+      <url>https://dataatomic.netlify.com/img/icon-192.png</url>
       <title>Tags</title>
-      <link>/tags/</link>
+      <link>https://dataatomic.netlify.com/tags/</link>
     </image>
     
     <item>
       <title>Data preparation</title>
-      <link>/tags/data-preparation/</link>
+      <link>https://dataatomic.netlify.com/tags/data-preparation/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/data-preparation/</guid>
+      <guid>https://dataatomic.netlify.com/tags/data-preparation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>For loop</title>
-      <link>/tags/for-loop/</link>
+      <link>https://dataatomic.netlify.com/tags/for-loop/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/for-loop/</guid>
+      <guid>https://dataatomic.netlify.com/tags/for-loop/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R Markdown</title>
-      <link>/tags/r-markdown/</link>
+      <link>https://dataatomic.netlify.com/tags/r-markdown/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/r-markdown/</guid>
+      <guid>https://dataatomic.netlify.com/tags/r-markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>RStudio</title>
-      <link>/tags/rstudio/</link>
+      <link>https://dataatomic.netlify.com/tags/rstudio/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/rstudio/</guid>
+      <guid>https://dataatomic.netlify.com/tags/rstudio/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Stringr</title>
-      <link>/tags/stringr/</link>
+      <link>https://dataatomic.netlify.com/tags/stringr/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/stringr/</guid>
+      <guid>https://dataatomic.netlify.com/tags/stringr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Text mining</title>
-      <link>/tags/text-mining/</link>
+      <link>https://dataatomic.netlify.com/tags/text-mining/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/text-mining/</guid>
+      <guid>https://dataatomic.netlify.com/tags/text-mining/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Clustering</title>
-      <link>/tags/clustering/</link>
+      <link>https://dataatomic.netlify.com/tags/clustering/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/clustering/</guid>
+      <guid>https://dataatomic.netlify.com/tags/clustering/</guid>
       <description></description>
     </item>
     
     <item>
       <title>h5 file</title>
-      <link>/tags/h5-file/</link>
+      <link>https://dataatomic.netlify.com/tags/h5-file/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/h5-file/</guid>
+      <guid>https://dataatomic.netlify.com/tags/h5-file/</guid>
       <description></description>
     </item>
     
     <item>
       <title>IPF</title>
-      <link>/tags/ipf/</link>
+      <link>https://dataatomic.netlify.com/tags/ipf/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/ipf/</guid>
+      <guid>https://dataatomic.netlify.com/tags/ipf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PCA</title>
-      <link>/tags/pca/</link>
+      <link>https://dataatomic.netlify.com/tags/pca/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/pca/</guid>
+      <guid>https://dataatomic.netlify.com/tags/pca/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/tags/r/</link>
+      <link>https://dataatomic.netlify.com/tags/r/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/r/</guid>
+      <guid>https://dataatomic.netlify.com/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>scRNA-seq</title>
-      <link>/tags/scrna-seq/</link>
+      <link>https://dataatomic.netlify.com/tags/scrna-seq/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/scrna-seq/</guid>
+      <guid>https://dataatomic.netlify.com/tags/scrna-seq/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Seurat</title>
-      <link>/tags/seurat/</link>
+      <link>https://dataatomic.netlify.com/tags/seurat/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/seurat/</guid>
+      <guid>https://dataatomic.netlify.com/tags/seurat/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tSNE</title>
-      <link>/tags/tsne/</link>
+      <link>https://dataatomic.netlify.com/tags/tsne/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/tsne/</guid>
+      <guid>https://dataatomic.netlify.com/tags/tsne/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Blog</title>
-      <link>/tags/blog/</link>
+      <link>https://dataatomic.netlify.com/tags/blog/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/blog/</guid>
+      <guid>https://dataatomic.netlify.com/tags/blog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Blogdown</title>
-      <link>/tags/blogdown/</link>
+      <link>https://dataatomic.netlify.com/tags/blogdown/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/blogdown/</guid>
+      <guid>https://dataatomic.netlify.com/tags/blogdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Domain</title>
-      <link>/tags/domain/</link>
+      <link>https://dataatomic.netlify.com/tags/domain/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/domain/</guid>
+      <guid>https://dataatomic.netlify.com/tags/domain/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Git</title>
-      <link>/tags/git/</link>
+      <link>https://dataatomic.netlify.com/tags/git/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/git/</guid>
+      <guid>https://dataatomic.netlify.com/tags/git/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Github</title>
-      <link>/tags/github/</link>
+      <link>https://dataatomic.netlify.com/tags/github/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/github/</guid>
+      <guid>https://dataatomic.netlify.com/tags/github/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hugo</title>
-      <link>/tags/hugo/</link>
+      <link>https://dataatomic.netlify.com/tags/hugo/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/hugo/</guid>
+      <guid>https://dataatomic.netlify.com/tags/hugo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hugo-academic theme</title>
-      <link>/tags/hugo-academic-theme/</link>
+      <link>https://dataatomic.netlify.com/tags/hugo-academic-theme/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/hugo-academic-theme/</guid>
+      <guid>https://dataatomic.netlify.com/tags/hugo-academic-theme/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Netlify</title>
-      <link>/tags/netlify/</link>
+      <link>https://dataatomic.netlify.com/tags/netlify/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/netlify/</guid>
+      <guid>https://dataatomic.netlify.com/tags/netlify/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Source Themes</title>
-      <link>/tags/source-themes/</link>
+      <link>https://dataatomic.netlify.com/tags/source-themes/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/source-themes/</guid>
+      <guid>https://dataatomic.netlify.com/tags/source-themes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Deep Learning</title>
-      <link>/tags/deep-learning/</link>
+      <link>https://dataatomic.netlify.com/tags/deep-learning/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/tags/deep-learning/</guid>
+      <guid>https://dataatomic.netlify.com/tags/deep-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Demo</title>
-      <link>/tags/demo/</link>
+      <link>https://dataatomic.netlify.com/tags/demo/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/tags/demo/</guid>
+      <guid>https://dataatomic.netlify.com/tags/demo/</guid>
       <description></description>
     </item>
     
