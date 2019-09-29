@@ -83,7 +83,7 @@ Now you can go back to your folder and delete the public directory.
 Log in to your Github account and create a new repository.
 Here I called it ````page.````
 Then your remote repository will be at    
-* https://github.com/yourusername/page.git 
+https://github.com/yourusername/page.git 
 Copy that link.
 ![git](/img/git.png) 
 
@@ -156,16 +156,10 @@ Netlify will detect those changes you pushed to your github repository and your 
 
 My Products > Scroll down to your domain > Click DNS  
 
-Create new or modify if existing an A record pointing your root domain to Netlify load balancer’s IP address 104.198.14.52 as in below;   
+Create new or modify if existing an A record pointing your root domain to Netlify load balancer’s IP address 104.198.14.52 as in below;
+![A_record](/img/A_record.jpg)Add a CNAME file as here;
+![netlify_CNAME](/img/netlify_CNAME.jpg) 
 
-
-![Arecord](/img/Arecord.jpg)     
-
-
-* Add a CNAME file as here;     
-    
-![netlifyCNAME](/img/netlifyCNAME.jpg)    
-   
 #### Go to domain settings on your deploy at Netlify   
 
 * Add custom domain 
