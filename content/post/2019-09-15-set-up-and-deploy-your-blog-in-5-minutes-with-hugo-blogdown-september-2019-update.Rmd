@@ -167,4 +167,3 @@ Create new or modify if existing an A record pointing your root domain to Netlif
 * Click Verify >  Yes, add domain > Verify DNS configuration
 
 **Voila, in this step your website should be online at www.yourdomain.com!!**
-
