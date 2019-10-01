@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog | SERDAR KORUR</title>
-    <link>/tags/blog/</link>
-      <atom:link href="/tags/blog/index.xml" rel="self" type="application/rss+xml" />
-    <description>Blog</description>
+    <title>Feature engineering | SERDAR KORUR</title>
+    <link>/tags/feature-engineering/</link>
+      <atom:link href="/tags/feature-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <description>Feature engineering</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 01 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/logo.png</url>
-      <title>Blog</title>
-      <link>/tags/blog/</link>
+      <title>Feature engineering</title>
+      <link>/tags/feature-engineering/</link>
     </image>
     
     <item>
@@ -712,142 +712,6 @@ df[order(df[,2], decreasing=TRUE), ]&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Given current speed in generation and collection of types data by including additonal predictors we can build even better models.&lt;/p&gt;
 &lt;p&gt;Until next time!&lt;/p&gt;
 &lt;p&gt;Serdar&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Set up and deploy your blog in 5 minutes on Netlify with Hugo and blogdown (September 2019 Update)</title>
-      <link>/2019/09/15/deploy-your-blog-in-5-minutes/</link>
-      <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/2019/09/15/deploy-your-blog-in-5-minutes/</guid>
-      <description>
-
-
-&lt;p&gt;This guide will help you to get your website online in a few minutes. Then, customize and add your own material in RStudio environment, push it to your Github repository and benefit from the continous deployment feature of Netlify.
-It took me many days of work, reading tens of blog posts, YouTube videos and a lot of testing to figure out all of this.&lt;/p&gt;
-&lt;p&gt;Here is an up to date workflow of &lt;strong&gt;how I created my Blog on Github and deployed at Netlify.&lt;/strong&gt;&lt;/p&gt;
-&lt;div id=&#34;tools-we-need&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Tools we need;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;RStudio&lt;/li&gt;
-&lt;li&gt;Hugo&lt;/li&gt;
-&lt;li&gt;Blogdown&lt;/li&gt;
-&lt;li&gt;Git&lt;/li&gt;
-&lt;li&gt;Github&lt;/li&gt;
-&lt;li&gt;Netlify&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Hugo is the actual website builder and &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34;&gt;blogdown&lt;/a&gt; is an R package that allows us to use Hugo in R environment.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;on-rstudio-build-your-website-locally.&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;On RStudio: Build your website locally.&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Select &lt;strong&gt;File&lt;/strong&gt; menu&lt;br /&gt;
-&lt;/li&gt;
-&lt;li&gt;Select &lt;strong&gt;New Project -&amp;gt; New Directory -&amp;gt; Website using blogdown&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;For example, to create a new site with the academic theme replace default lithium &lt;code&gt;Hugo theme&lt;/code&gt; with &lt;strong&gt;gcushen/hugo-academic&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;For other themes go to &lt;a href=&#34;http://themes.gohugo.io&#34; class=&#34;uri&#34;&gt;http://themes.gohugo.io&lt;/a&gt;, choose a theme you like, click homepage and you will be redirected to its github repository.&lt;br /&gt;
-Replace its &lt;strong&gt;repository name&lt;/strong&gt; with “&lt;strong&gt;gcushen/hugo-academic&lt;/strong&gt;” above)&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;blogdown::serve_site()&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;command will create the website and it should be visible on the viewer pane.&lt;/p&gt;
-&lt;p&gt;Use &lt;strong&gt;list.files()&lt;/strong&gt; to see the files/folders generated.&lt;/p&gt;
-&lt;div id=&#34;prepare-for-github-compatibility&#34; class=&#34;section level4&#34;&gt;
-&lt;h4&gt;Prepare for GitHub compatibility&lt;/h4&gt;
-&lt;p&gt;To be able to publish the website on github we need to specify a &lt;strong&gt;docs&lt;/strong&gt; folder instead of the default public folder where the website is created.&lt;/p&gt;
-&lt;p&gt;Open your &lt;strong&gt;config.toml&lt;/strong&gt; file under the Website folder, and add the lines; &lt;a id=&#34;editconfig&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;baseurl: &#34;https://yourusername.github.io/page/&#34;&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;publishDir = &#34;docs&#34;&lt;/code&gt;
-&lt;img src=&#34;/img/configtoml.jpg&#34; alt=&#34;configtoml&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Save the config file. This will rebuild the site and create the docs folder.
-Now you can go back to your folder and delete the public directory.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;on-github-account&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;On Github account&lt;/h3&gt;
-&lt;div id=&#34;create-a-new-repository&#34; class=&#34;section level4&#34;&gt;
-&lt;h4&gt;Create a new repository&lt;/h4&gt;
-&lt;p&gt;Log in to your Github account and create a new repository.
-Here I called it &lt;code&gt;page.&lt;/code&gt;
-Then your remote repository will be at&lt;br /&gt;
-&lt;a href=&#34;https://github.com/yourusername/page.git&#34; class=&#34;uri&#34;&gt;https://github.com/yourusername/page.git&lt;/a&gt;
-Copy that link.
-&lt;img src=&#34;/img/git.png&#34; alt=&#34;git&#34; /&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;on-git&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;On Git&lt;/h3&gt;
-&lt;div id=&#34;create-your-local-.git-repository&#34; class=&#34;section level4&#34;&gt;
-&lt;h4&gt;Create your local .git repository&lt;/h4&gt;
-&lt;p&gt;By using pwd and cd commands navigate your directory to the Website folder&lt;/p&gt;
-&lt;p&gt;Initialize your local repository&lt;br /&gt;
-&lt;code&gt;git init&lt;/code&gt;&lt;br /&gt;
-Use the copied link from above&lt;br /&gt;
-&lt;code&gt;git remote add origin https://github.com/yourusername/page.git&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;git add .&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;git commit -m createmywebsite&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Following command will synchronize all your files to your Github repository&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;git push origin master&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;publishing-your-website-on-github-pages&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Publishing your website on Github pages&lt;/h3&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;In your Github repository. Go to settings&lt;br /&gt;
-&lt;/li&gt;
-&lt;li&gt;Scroll down to Github pages, choose source &amp;gt; &lt;strong&gt;master branch/docs&lt;/strong&gt; folder&lt;/li&gt;
-&lt;li&gt;This will update the page. Scroll down to Github pages again click the link:&lt;br /&gt;
-e.g. &lt;a href=&#34;https://yourusername.github.io/page/&#34; class=&#34;uri&#34;&gt;https://yourusername.github.io/page/&lt;/a&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;Hoorray! In this step your website should be up and running on Github!&lt;/strong&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;deploying-your-website-to-netlify&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Deploying your Website to Netlify&lt;/h3&gt;
-&lt;p&gt;If you want to benefit from the advantages like continous deployment you can
-use &lt;a href=&#34;https://www.netlify.com/&#34;&gt;Netlify&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Go to your &lt;strong&gt;Netlify&lt;/strong&gt;, Click &lt;code&gt;Get started for free&lt;/code&gt; and sign up with Github.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Choose &lt;strong&gt;New site from Git&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Choose &lt;strong&gt;GitHub&lt;/strong&gt; at the bottom&lt;/li&gt;
-&lt;li&gt;Click on &lt;strong&gt;Configure the Netlify app on GitHub.&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;On github select your target repository. Save.&lt;/li&gt;
-&lt;li&gt;On Netlify pick up that repository.&lt;/li&gt;
-&lt;li&gt;Modify Basic build settings: &lt;strong&gt;Publish directory&lt;/strong&gt; should be &lt;strong&gt;docs&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Click on &lt;strong&gt;Show advanced&lt;/strong&gt; &amp;gt; New Variable&lt;br /&gt;
-&lt;/li&gt;
-&lt;li&gt;Add a New Variable&lt;br /&gt;
-Modify as Key = HUGO_VERSION and Value = 0.58.1&lt;br /&gt;
-&lt;strong&gt;&lt;em&gt;This step is important otherwise your site will not be built.&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;If you dont know your hugo version; on Rstudio &amp;gt; type&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;blogdown::hugo_version()&lt;/code&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Click &lt;strong&gt;Deploy&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;It will allocate you a random link. You have to go back to your config.toml and modify baseurl as we did for Github &lt;a href=&#34;#editconfig&#34;&gt;above&lt;/a&gt; but with this netlify link.&lt;/p&gt;
-&lt;p&gt;After this step you have to push changes to github from your local git. Similarly to the steps above without &lt;code&gt;git init&lt;/code&gt; this time.&lt;/p&gt;
-&lt;p&gt;Netlify will detect those changes you pushed to your github repository and your site will be published in a few seconds.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Hoorray! In this step your website should be up and running on Netlify!&lt;/strong&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;how-to-use-your-own-domain-name&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;How to use your own domain name&lt;/h3&gt;
-&lt;div id=&#34;go-to-your-domain-provider-e.g-on-go-daddy&#34; class=&#34;section level4&#34;&gt;
-&lt;h4&gt;Go to your domain provider e.g on Go Daddy&lt;/h4&gt;
-&lt;p&gt;My Products &amp;gt; Scroll down to your domain &amp;gt; Click DNS&lt;/p&gt;
-&lt;p&gt;Create new or modify if existing an A record pointing your root domain to Netlify load balancer’s IP address 104.198.14.52 as in below;
-&lt;img src=&#34;/img/A_record.jpg&#34; alt=&#34;A_record&#34; /&gt;Add a CNAME file as here;
-&lt;img src=&#34;/img/netlify_CNAME.jpg&#34; alt=&#34;netlify_CNAME&#34; /&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;go-to-domain-settings-on-your-deploy-at-netlify&#34; class=&#34;section level4&#34;&gt;
-&lt;h4&gt;Go to domain settings on your deploy at Netlify&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Add custom domain&lt;/li&gt;
-&lt;li&gt;Fill in your domain name&lt;br /&gt;
-&lt;/li&gt;
-&lt;li&gt;Click Verify &amp;gt; Yes, add domain &amp;gt; Verify DNS configuration&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Voila, in this step your website should be online at www.yourdomain.com!!&lt;/strong&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

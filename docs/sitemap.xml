@@ -33,17 +33,77 @@
   </url>
   
   <url>
+    <loc>/tags/blog/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2019/10/01/predict-diseases/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/data-quality-control/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/data-science-process/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/feature-engineering/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/glmnet/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/linear-regression/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/logistic-regression/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/machine-learning/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/pima-indians/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/randomforest/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/data-preparation/</loc>
     <lastmod>2019-09-25T10:02:47+02:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/for-loop/</loc>
-    <lastmod>2019-09-25T10:02:47+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
     <lastmod>2019-09-25T10:02:47+02:00</lastmod>
   </url>
   
@@ -59,11 +119,6 @@
   
   <url>
     <loc>/tags/stringr/</loc>
-    <lastmod>2019-09-25T10:02:47+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2019-09-25T10:02:47+02:00</lastmod>
   </url>
   
@@ -120,11 +175,6 @@
   <url>
     <loc>/tags/tsne/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/blog/</loc>
-    <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   
   <url>

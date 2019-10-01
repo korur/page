@@ -1,51 +1,41 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Machine Learning | SERDAR KORUR</title>
+    <title>Machine learning | SERDAR KORUR</title>
     <link>/tags/machine-learning/</link>
       <atom:link href="/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
-    <description>Machine Learning</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 30 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <description>Machine learning</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 01 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/img/icon-192.png</url>
-      <title>Machine Learning</title>
+      <url>/img/logo.png</url>
+      <title>Machine learning</title>
       <link>/tags/machine-learning/</link>
     </image>
     
     <item>
       <title>Can machine learning change your life style?</title>
-      <link>/2019/09/30/predict-diseases/</link>
-      <pubDate>Mon, 30 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/2019/09/30/predict-diseases/</guid>
+      <link>/2019/10/01/predict-diseases/</link>
+      <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/2019/10/01/predict-diseases/</guid>
       <description>
-&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/d3/d3.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/dagre/dagre-d3.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/mermaid/dist/mermaid.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/mermaid/dist/mermaid.slim.min.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/DiagrammeR-styles/styles.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;/rmarkdown-libs/chromatography/chromatography.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;/rmarkdown-libs/DiagrammeR-binding/DiagrammeR.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;p&gt;Would you be taking care of yourself better if you learned today that you have &lt;strong&gt;a higher risk of diabetes?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The advances in technologies such as Omics, Internet of Things (sensors that collect data) and centralization of Healthcare information (e.g. &lt;a href=&#34;https://www.ohdsi.org/data-standardization/the-common-data-model/&#34;&gt;OMOP common data model&lt;/a&gt;) allows us to access a much wider data sources.&lt;/p&gt;
-&lt;p&gt;Application of Machine learning tools on them can impact our well being in many ways. By making better predictions we can;&lt;/p&gt;
+&lt;p&gt;Would you be taking care of yourself better if your doctor told today that you have &lt;strong&gt;high risk of diabetes?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Technological advances in fields, such as omics and internet of things (sensors that collect data), and centralization of healthcare information (e.g. &lt;a href=&#34;https://www.ohdsi.org/data-standardization/the-common-data-model/&#34;&gt;OMOP common data model&lt;/a&gt;) enable us to access much wider data sources.&lt;/p&gt;
+&lt;p&gt;Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Diagnose diseases earlier&lt;/li&gt;
-&lt;li&gt;Identify Drugs with reduced side effects&lt;/li&gt;
+&lt;li&gt;Diagnosing diseases earlier&lt;/li&gt;
+&lt;li&gt;Identifiying drugs with reduced side effects&lt;/li&gt;
 &lt;li&gt;Select patient groups responding to an experimental therapy&lt;/li&gt;
 &lt;li&gt;Utilize existing therapies better&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Let’s look at this on an example. We will walk through the Data Science process and try to help some doctors in diagnosing their patients.&lt;/strong&gt;&lt;/p&gt;
-&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:672px;height:480px;&#34; class=&#34;DiagrammeR html-widget&#34;&gt;&lt;/div&gt;
-&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;diagram&#34;:&#34;\n        graph TD; \n        A(Problem formulation)--&gt;B(Data gathering);\n        B(Data acquisition)--&gt;C(Quality check);\n        C(Quality check)--&gt;D(Exploratory Data Analysis / Visuals);\n        D(Exploratory Data Analysis)--&gt;E(Feature Engineering)\n        E(Feature Engineering)--&gt;F(Build, fit and validate a model);\n        F(Build, fit and validate a model)--&gt;G(Data Storytelling - Insights);\n        \n      &#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;p&gt;&lt;strong&gt;Let’s look at an example and try to help some doctors in diagnosing their patients.&lt;/strong&gt;&lt;/p&gt;
 &lt;div id=&#34;problem-formulation&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Problem formulation&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Can we build a Machine learning algorithm to predict which patients will develop Diabetes?&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;We will predict a Binary &lt;strong&gt;Outcome&lt;/strong&gt; variable: &lt;code&gt;Diabetes&lt;/code&gt; vs &lt;code&gt;Healthy&lt;/code&gt;
+&lt;p&gt;The goal is to predict a Binary &lt;strong&gt;Outcome&lt;/strong&gt;: &lt;code&gt;Diabetes&lt;/code&gt; vs &lt;code&gt;Healthy&lt;/code&gt;
 by using 8 medical indicators.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;overview-of-the-data&#34; class=&#34;section level3&#34;&gt;
@@ -72,15 +62,16 @@ library(reshape2)
 library(ggplot2)
 library(ggcorrplot)
 library(pROC)
+library(lattice)
 library(caret)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;data-quality-control&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Data Quality control&lt;/h3&gt;
 &lt;p&gt;Before counting on any algorithm a good starting point is to &lt;strong&gt;check obvious mistakes and abnormalities in your data.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here, I would first focus on &lt;strong&gt;Missing values&lt;/strong&gt;, variable ranges (&lt;strong&gt;min, max values&lt;/strong&gt;). A very extreme value might be basically a sign of typing error.&lt;/p&gt;
+&lt;p&gt;Here, I would look at &lt;strong&gt;Missing values&lt;/strong&gt;, variable ranges (&lt;strong&gt;min, max values&lt;/strong&gt;). A very extreme value might be basically a sign of typing error.&lt;/p&gt;
 &lt;div id=&#34;understand-your-data&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Understand your Data&lt;/h4&gt;
-&lt;p&gt;It is always a good idea to eyeball your data. I start with checking the size and the type of data.&lt;/p&gt;
+&lt;p&gt;How big is the data? Checking the size and also type of variables.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dim(diabetes)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 768   9&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::kable(sapply(diabetes, class))&lt;/code&gt;&lt;/pre&gt;
@@ -130,7 +121,7 @@ library(caret)&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;strong&gt;What catches my attention below is unexpected zero values in Insulin which is not plausible.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Next, what catches my attention is &lt;strong&gt;unexpected zero values in Insulin&lt;/strong&gt; below.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::kable(head(diabetes))&lt;/code&gt;&lt;/pre&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -218,7 +209,7 @@ library(caret)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;missing-values&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Missing Values&lt;/h4&gt;
-&lt;p&gt;Summary gives a good overview of the variables. If there would be any missing data it would show up here as &lt;strong&gt;“NA’s”&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Summary gives a good overview of the variables. Any missing data will show up here listed as &lt;strong&gt;“NA’s”&lt;/strong&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(diabetes)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##   Pregnancies        Glucose      BloodPressure    SkinThickness  
 ##  Min.   : 0.000   Min.   :  0.0   Min.   :  0.00   Min.   : 0.00  
@@ -241,15 +232,16 @@ library(caret)&lt;/code&gt;&lt;/pre&gt;
 ##  Mean   :0.349  
 ##  3rd Qu.:1.000  
 ##  Max.   :1.000&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Let’s look at them visually not to miss anything;&lt;/p&gt;
+&lt;p&gt;I will make visualizations of the variables to see how they are distributed.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gg &amp;lt;- melt(diabetes)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## No id variables; using all as measure variables&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(gg, aes(x=value, fill=variable)) +
   geom_histogram(binwidth=5)+ 
   facet_wrap(~variable) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-30-machine-learning-wam-up_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;After looking at the summary data and the exploratory plots we see that couple of variables contain zeros but technically it is not possible to have Blood Pressure or Glucose 0.&lt;/p&gt;
-&lt;p&gt;If the numbers are small we might remove them. &lt;strong&gt;Let’s figure it out.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Peaks at zero of Skin Thickness and Insulin is obvious here. Technically it is not possible to have Blood Pressure or Glucose levels at 0.&lt;/p&gt;
+&lt;p&gt;In cases where the numbers are small we might remove them. Here they seem plenty. &lt;strong&gt;Let’s figure it out with a for loop.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This will bring me the number of zero containing rows in variables from 2 to 6.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;zero_rows &amp;lt;- list()
 for(i in 2:6){
 zero_rows[[i]] &amp;lt;- length(which(diabetes[,i] == 0))  
@@ -263,23 +255,22 @@ df&lt;/code&gt;&lt;/pre&gt;
 ## SkinThickness            227
 ## Insulin                  374
 ## BMI                       11&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In Insulin &lt;code&gt;374&lt;/code&gt; values are zero. It is unlikely that those are simply entry mistakes. It looks like they filled &lt;strong&gt;“NAs”&lt;/strong&gt; with &lt;strong&gt;zeros&lt;/strong&gt; in the data collection phase.&lt;/p&gt;
+&lt;p&gt;For instance, in Insulin &lt;strong&gt;374&lt;/strong&gt; values are zero. It is unlikely that those are simply entry mistakes. It seems missing values are filled with &lt;strong&gt;zeros&lt;/strong&gt; in the data collection phase.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to circumwent this?&lt;/strong&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div id=&#34;convert-all-zeroes-to-na-and-then-perform-median-imputation&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Convert all zeroes to NA and then perform &lt;code&gt;Median Imputation&lt;/code&gt;&lt;/h2&gt;
-&lt;p&gt;First convert those zeros to NAs as they should be and then use Median imputation to replace those values. We will use a for loop to remove zeros in all the predictors except Pregnancy and Pedigree function.&lt;/p&gt;
+&lt;div id=&#34;convert-all-zeroes-to-nas-and-then-perform-median-imputation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Convert all &lt;strong&gt;zeroes&lt;/strong&gt; to &lt;strong&gt;NAs&lt;/strong&gt; and then perform &lt;strong&gt;Median Imputation&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;I will use a for loop to remove zeros in all the predictors except Pregnancy and Pedigree function.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;for(i in 2:6){
 # Convert zeros to NAs
 diabetes[, i][diabetes[, i] == 0] &amp;lt;- NA
 # Calculate median
 median &amp;lt;- median(diabetes[, i], na.rm = TRUE)
 diabetes[, i][is.na(diabetes[, i])] &amp;lt;- median
-}
-
-# Check if it really happened
-knitr::kable(head(diabetes))&lt;/code&gt;&lt;/pre&gt;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check if it really happened&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::kable(head(diabetes))&lt;/code&gt;&lt;/pre&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr class=&#34;header&#34;&gt;
@@ -363,19 +354,21 @@ knitr::kable(head(diabetes))&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;For instance, we see that zero values in the insulin variable is replaced with 125 which is the median value.&lt;/p&gt;
+&lt;p&gt;For instance, I see that zero values in the insulin variable is replaced with median of insulin which is 125.&lt;/p&gt;
+&lt;p&gt;Now, the data is clean and ready for the modeling phase.&lt;/p&gt;
 &lt;div id=&#34;modeling-the-data-build-fit-and-validate-a-model&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Modeling the data (build, fit and validate a model)&lt;/h3&gt;
+&lt;p&gt;Before going into any complicated model I am starting with a simple model to gain some insights about the data.&lt;/p&gt;
+&lt;div id=&#34;linear-regression-model&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Linear Regression Model&lt;/h4&gt;
 &lt;p&gt;We will create two random subsets of our data in 80/20 proportion as &lt;strong&gt;training and test data.&lt;/strong&gt;
 Training data will be used to build our model and test data will be reserved to validate it.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create train test split
-set.seed(2222)
 sample_rows &amp;lt;- sample(nrow(diabetes), nrow(diabetes) * 0.8)
 # Create the training dataset
 dia_train &amp;lt;- diabetes[sample_rows, ]
 # Create the test dataset
 dia_test &amp;lt;- diabetes[-sample_rows, ]&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Before going into any complicated model starting with a simple model will allow us gain more insights about the our data.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Build a linear model with the train data
 lm_dia &amp;lt;- lm(Outcome ~ .,data = dia_train)
 summary(lm_dia)&lt;/code&gt;&lt;/pre&gt;
@@ -385,25 +378,25 @@ summary(lm_dia)&lt;/code&gt;&lt;/pre&gt;
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -1.08981 -0.27248 -0.08076  0.27641  1.00357 
+## -1.05292 -0.29280 -0.07527  0.29706  0.98070 
 ## 
 ## Coefficients:
 ##                            Estimate Std. Error t value Pr(&amp;gt;|t|)    
-## (Intercept)              -1.105e+00  1.137e-01  -9.720  &amp;lt; 2e-16 ***
-## Pregnancies               2.270e-02  5.592e-03   4.060 5.56e-05 ***
-## Glucose                   6.225e-03  6.180e-04  10.073  &amp;lt; 2e-16 ***
-## BloodPressure            -8.145e-04  1.429e-03  -0.570  0.56902    
-## SkinThickness            -7.782e-04  2.140e-03  -0.364  0.71625    
-## Insulin                  -8.446e-05  1.989e-04  -0.425  0.67127    
-## BMI                       1.664e-02  2.808e-03   5.924 5.26e-09 ***
-## DiabetesPedigreeFunction  1.634e-01  4.957e-02   3.296  0.00104 ** 
-## Age                       2.476e-03  1.732e-03   1.430  0.15338    
+## (Intercept)              -1.0486126  0.1187838  -8.828  &amp;lt; 2e-16 ***
+## Pregnancies               0.0208532  0.0057346   3.636   0.0003 ***
+## Glucose                   0.0063333  0.0006080  10.418  &amp;lt; 2e-16 ***
+## BloodPressure            -0.0009304  0.0015192  -0.612   0.5405    
+## SkinThickness             0.0001233  0.0021496   0.057   0.9543    
+## Insulin                  -0.0001146  0.0001989  -0.576   0.5647    
+## BMI                       0.0152261  0.0030044   5.068 5.35e-07 ***
+## DiabetesPedigreeFunction  0.1217518  0.0487052   2.500   0.0127 *  
+## Age                       0.0023772  0.0016829   1.413   0.1583    
 ## ---
 ## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
 ## 
-## Residual standard error: 0.3895 on 605 degrees of freedom
-## Multiple R-squared:  0.3343, Adjusted R-squared:  0.3255 
-## F-statistic: 37.98 on 8 and 605 DF,  p-value: &amp;lt; 2.2e-16&lt;/code&gt;&lt;/pre&gt;
+## Residual standard error: 0.3995 on 605 degrees of freedom
+## Multiple R-squared:  0.3161, Adjusted R-squared:  0.307 
+## F-statistic: 34.95 on 8 and 605 DF,  p-value: &amp;lt; 2.2e-16&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We will predict the Outcome for the test data
 p&amp;lt;-predict(lm_dia, dia_test)
 # Choose a threshold 0.5 to calculate the accuracy of our model
@@ -411,12 +404,12 @@ p_05 &amp;lt;- ifelse(p &amp;gt; 0.5, 1, 0)
 table(p_05, dia_test$Outcome)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##     
 ## p_05  0  1
-##    0 83 23
-##    1 12 36&lt;/code&gt;&lt;/pre&gt;
+##    0 92 23
+##    1 14 25&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;conf_mat &amp;lt;- table(p_05, dia_test$Outcome)
 accuracy &amp;lt;- sum(diag(conf_mat))/sum(conf_mat)
 accuracy&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.7727273&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.7597403&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;By using the pROC package, I will calculate the AUC value for our model.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate AUC
 roc(dia_test$Outcome, p)&lt;/code&gt;&lt;/pre&gt;
@@ -426,14 +419,77 @@ roc(dia_test$Outcome, p)&lt;/code&gt;&lt;/pre&gt;
 ## Call:
 ## roc.default(response = dia_test$Outcome, predictor = p)
 ## 
-## Data: p in 95 controls (dia_test$Outcome 0) &amp;lt; 59 cases (dia_test$Outcome 1).
-## Area under the curve: 0.8098&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dia_train$Outcome &amp;lt;- factor(dia_train$Outcome)
-levels(dia_train$Outcome) &amp;lt;- c(&amp;quot;H&amp;quot;, &amp;quot;D&amp;quot;)
-
-dia_test$Outcome &amp;lt;- factor(dia_test$Outcome)
-levels(dia_test$Outcome) &amp;lt;- c(&amp;quot;H&amp;quot;, &amp;quot;D&amp;quot;)
-
+## Data: p in 106 controls (dia_test$Outcome 0) &amp;lt; 48 cases (dia_test$Outcome 1).
+## Area under the curve: 0.8581&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If I repeat the above procedure, each time I will get a slightly different result depending on the given random train/test split. Depending on the outliers in the data you might get bigger differences.&lt;/p&gt;
+&lt;p&gt;We can run above model with 10/100/1000 different random splits to have a good estimate of the real accuracy.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how-to-apply-linear-model-with-multiple-traintest-split&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;How to apply linear model with multiple train/test split&lt;/h4&gt;
+&lt;p&gt;To do this, I will write a function where I can choose number of independent train/test splits.&lt;/p&gt;
+&lt;p&gt;It will return me an average value of the model after chosen number of iteration. The higher the number of random splits the more stable your estimated AUC.&lt;/p&gt;
+&lt;p&gt;Let’s see how it will work out for our diabetes patients.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# I will define my function as follows
+multi_split &amp;lt;- function(x){
+sample_rows &amp;lt;- list()
+dia_train &amp;lt;- list()
+dia_test &amp;lt;- list()
+lm &amp;lt;- list()
+p &amp;lt;-  list()
+roc_auc &amp;lt;- list()
+for(i in 1:x){
+  sample_rows[[i]] &amp;lt;- sample(nrow(diabetes), nrow(diabetes) * 0.8)
+  # Create the training dataset
+  dia_train[[i]] &amp;lt;- diabetes[sample_rows[[i]], ]
+  # Create the test dataset
+  dia_test[[i]] &amp;lt;- diabetes[-sample_rows[[i]], ]
+  lm[[i]] &amp;lt;- lm(Outcome ~ .,data = dia_train[[i]])
+  p[[i]] &amp;lt;- predict(lm[[i]], dia_test[[i]])
+  
+  # Calculate AUC for all &amp;quot;x&amp;quot; number of random splits
+  roc_auc[[i]] &amp;lt;- roc(dia_test[[i]]$Outcome, p[[i]])$auc[1]
+  lm_mean &amp;lt;- mean(unlist(roc_auc))
+}
+print(mean(unlist(roc_auc)))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s calculate the average AUC of our model after different number of random splits.&lt;/p&gt;
+&lt;p&gt;I will run my multi_split functions 3x for 1, 30 and 1000 random train/test splits. I can then compare variances at each number of iteration.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1_1 &amp;lt;- multi_split(1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8587037&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1_2 &amp;lt;- multi_split(1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8709913&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1_3 &amp;lt;- multi_split(1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.7796143&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_30_1 &amp;lt;- multi_split(30)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8333778&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_30_2 &amp;lt;- multi_split(30)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8381756&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_30_3 &amp;lt;- multi_split(30)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8501601&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1000_1 &amp;lt;- multi_split(1000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8377785&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1000_2 &amp;lt;- multi_split(1000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8359534&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1000_3 &amp;lt;- multi_split(1000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.8386704&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s compare Variance levels at 1, 30 and 1000 random splits&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;var(c(variance_1_1, variance_1_2, variance_1_3))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.002459309&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;var(c(variance_30_1, variance_30_2, variance_30_3))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 7.471549e-05&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;var(c(variance_1000_1, variance_1000_2, variance_1000_3))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 1.918109e-06&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What we see here as we increase the number of iterations to 30 and 1000 the variability
+gradually stabilizes around a trustable AUC of &lt;code&gt;0.837&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;build-a-logistic-regression-model&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Build a logistic regression model&lt;/h3&gt;
+&lt;p&gt;I will switch here to caret package. With the &lt;strong&gt;Train()&lt;/strong&gt; function we can build and different types of machine learning algorithms.&lt;/p&gt;
+&lt;p&gt;I will start with a logistic regression model. But before I need to convert Outcome variable into a factor with 2 levels.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Convert Outcome to a factor with two levels
+diabetes$Outcome &amp;lt;- factor(diabetes$Outcome)
+levels(diabetes$Outcome) &amp;lt;- c(&amp;quot;H&amp;quot;, &amp;quot;D&amp;quot;)
 
 # MyControl
 myControl &amp;lt;- trainControl(
@@ -444,115 +500,218 @@ myControl &amp;lt;- trainControl(
   verboseIter = TRUE
 )
 # Model
-model &amp;lt;- train(
+model_glm &amp;lt;- train(
   Outcome~.,
-  method = &amp;quot;glmnet&amp;quot;,
-  data = dia_train,
+  method = &amp;quot;glm&amp;quot;,
+  data = diabetes,
   trControl = myControl
 )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning in train.default(x, y, weights = w, ...): The metric &amp;quot;Accuracy&amp;quot; was
-## not in the result set. ROC will be used instead.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## + Fold01: alpha=0.10, lambda=0.0453 
-## - Fold01: alpha=0.10, lambda=0.0453 
-## + Fold01: alpha=0.55, lambda=0.0453 
-## - Fold01: alpha=0.55, lambda=0.0453 
-## + Fold01: alpha=1.00, lambda=0.0453 
-## - Fold01: alpha=1.00, lambda=0.0453 
-## + Fold02: alpha=0.10, lambda=0.0453 
-## - Fold02: alpha=0.10, lambda=0.0453 
-## + Fold02: alpha=0.55, lambda=0.0453 
-## - Fold02: alpha=0.55, lambda=0.0453 
-## + Fold02: alpha=1.00, lambda=0.0453 
-## - Fold02: alpha=1.00, lambda=0.0453 
-## + Fold03: alpha=0.10, lambda=0.0453 
-## - Fold03: alpha=0.10, lambda=0.0453 
-## + Fold03: alpha=0.55, lambda=0.0453 
-## - Fold03: alpha=0.55, lambda=0.0453 
-## + Fold03: alpha=1.00, lambda=0.0453 
-## - Fold03: alpha=1.00, lambda=0.0453 
-## + Fold04: alpha=0.10, lambda=0.0453 
-## - Fold04: alpha=0.10, lambda=0.0453 
-## + Fold04: alpha=0.55, lambda=0.0453 
-## - Fold04: alpha=0.55, lambda=0.0453 
-## + Fold04: alpha=1.00, lambda=0.0453 
-## - Fold04: alpha=1.00, lambda=0.0453 
-## + Fold05: alpha=0.10, lambda=0.0453 
-## - Fold05: alpha=0.10, lambda=0.0453 
-## + Fold05: alpha=0.55, lambda=0.0453 
-## - Fold05: alpha=0.55, lambda=0.0453 
-## + Fold05: alpha=1.00, lambda=0.0453 
-## - Fold05: alpha=1.00, lambda=0.0453 
-## + Fold06: alpha=0.10, lambda=0.0453 
-## - Fold06: alpha=0.10, lambda=0.0453 
-## + Fold06: alpha=0.55, lambda=0.0453 
-## - Fold06: alpha=0.55, lambda=0.0453 
-## + Fold06: alpha=1.00, lambda=0.0453 
-## - Fold06: alpha=1.00, lambda=0.0453 
-## + Fold07: alpha=0.10, lambda=0.0453 
-## - Fold07: alpha=0.10, lambda=0.0453 
-## + Fold07: alpha=0.55, lambda=0.0453 
-## - Fold07: alpha=0.55, lambda=0.0453 
-## + Fold07: alpha=1.00, lambda=0.0453 
-## - Fold07: alpha=1.00, lambda=0.0453 
-## + Fold08: alpha=0.10, lambda=0.0453 
-## - Fold08: alpha=0.10, lambda=0.0453 
-## + Fold08: alpha=0.55, lambda=0.0453 
-## - Fold08: alpha=0.55, lambda=0.0453 
-## + Fold08: alpha=1.00, lambda=0.0453 
-## - Fold08: alpha=1.00, lambda=0.0453 
-## + Fold09: alpha=0.10, lambda=0.0453 
-## - Fold09: alpha=0.10, lambda=0.0453 
-## + Fold09: alpha=0.55, lambda=0.0453 
-## - Fold09: alpha=0.55, lambda=0.0453 
-## + Fold09: alpha=1.00, lambda=0.0453 
-## - Fold09: alpha=1.00, lambda=0.0453 
-## + Fold10: alpha=0.10, lambda=0.0453 
-## - Fold10: alpha=0.10, lambda=0.0453 
-## + Fold10: alpha=0.55, lambda=0.0453 
-## - Fold10: alpha=0.55, lambda=0.0453 
-## + Fold10: alpha=1.00, lambda=0.0453 
-## - Fold10: alpha=1.00, lambda=0.0453 
+&lt;pre&gt;&lt;code&gt;## + Fold01: parameter=none 
+## - Fold01: parameter=none 
+## + Fold02: parameter=none 
+## - Fold02: parameter=none 
+## + Fold03: parameter=none 
+## - Fold03: parameter=none 
+## + Fold04: parameter=none 
+## - Fold04: parameter=none 
+## + Fold05: parameter=none 
+## - Fold05: parameter=none 
+## + Fold06: parameter=none 
+## - Fold06: parameter=none 
+## + Fold07: parameter=none 
+## - Fold07: parameter=none 
+## + Fold08: parameter=none 
+## - Fold08: parameter=none 
+## + Fold09: parameter=none 
+## - Fold09: parameter=none 
+## + Fold10: parameter=none 
+## - Fold10: parameter=none 
 ## Aggregating results
-## Selecting tuning parameters
-## Fitting alpha = 0.55, lambda = 0.0453 on full training set&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## glmnet 
+## Fitting final model on full training set&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_glm&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Generalized Linear Model 
 ## 
-## 614 samples
+## 768 samples
 ##   8 predictor
 ##   2 classes: &amp;#39;H&amp;#39;, &amp;#39;D&amp;#39; 
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold) 
-## Summary of sample sizes: 552, 553, 554, 552, 552, 552, ... 
+## Summary of sample sizes: 691, 691, 691, 691, 691, 691, ... 
+## Resampling results:
+## 
+##   ROC        Sens   Spec     
+##   0.8371225  0.884  0.5786325&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here, My model performance is &lt;code&gt;0.8371225&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;build-a-glmnet-model&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Build a glmnet model&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Model
+model_glmnet &amp;lt;- train(
+  Outcome~.,
+  method = &amp;quot;glmnet&amp;quot;,
+  data = diabetes,
+  trControl = myControl
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_glmnet&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## glmnet 
+## 
+## 768 samples
+##   8 predictor
+##   2 classes: &amp;#39;H&amp;#39;, &amp;#39;D&amp;#39; 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 691, 691, 691, 691, 691, 691, ... 
 ## Resampling results across tuning parameters:
 ## 
-##   alpha  lambda        ROC        Sens       Spec     
-##   0.10   0.0004530199  0.8459245  0.8764634  0.5647619
-##   0.10   0.0045301995  0.8462728  0.8764634  0.5647619
-##   0.10   0.0453019946  0.8456858  0.8988415  0.5314286
-##   0.55   0.0004530199  0.8456951  0.8764634  0.5647619
-##   0.55   0.0045301995  0.8458021  0.8764634  0.5600000
-##   0.55   0.0453019946  0.8465222  0.9063415  0.5023810
-##   1.00   0.0004530199  0.8456980  0.8764634  0.5647619
-##   1.00   0.0045301995  0.8451024  0.8789634  0.5552381
-##   1.00   0.0453019946  0.8396514  0.9137195  0.4928571
+##   alpha  lambda        ROC        Sens   Spec     
+##   0.10   0.0004697604  0.8422849  0.880  0.5665242
+##   0.10   0.0046976036  0.8430370  0.882  0.5626781
+##   0.10   0.0469760360  0.8424786  0.892  0.5292023
+##   0.55   0.0004697604  0.8419915  0.880  0.5665242
+##   0.55   0.0046976036  0.8423077  0.882  0.5552707
+##   0.55   0.0469760360  0.8410513  0.902  0.5180912
+##   1.00   0.0004697604  0.8420655  0.880  0.5628205
+##   1.00   0.0046976036  0.8428575  0.878  0.5552707
+##   1.00   0.0469760360  0.8307037  0.906  0.4957265
 ## 
 ## ROC was used to select the optimal model using the largest value.
-## The final values used for the model were alpha = 0.55 and lambda
-##  = 0.04530199.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p &amp;lt;- predict(model, dia_test)
-conf_mat &amp;lt;- table(p, dia_test$Outcome)
-conf_mat&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##    
-## p    H  D
-##   H 84 27
-##   D 11 32&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;accuracy &amp;lt;- sum(diag(conf_mat))/sum(conf_mat)
-accuracy&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.7532468&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate AUC&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;to be continued&lt;/p&gt;
+## The final values used for the model were alpha = 0.1 and lambda
+##  = 0.004697604.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Glmnet model performance is &lt;code&gt;0.843037&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;build-a-random-forest-model&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Build a Random forest model&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Random forest model
+model_rf &amp;lt;- train(
+  Outcome~.,
+  method = &amp;quot;ranger&amp;quot;,
+  data = diabetes,
+  trControl = myControl
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_rf&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Random Forest 
+## 
+## 768 samples
+##   8 predictor
+##   2 classes: &amp;#39;H&amp;#39;, &amp;#39;D&amp;#39; 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 691, 691, 691, 691, 691, 691, ... 
+## Resampling results across tuning parameters:
+## 
+##   mtry  splitrule   ROC        Sens   Spec     
+##   2     gini        0.8314587  0.848  0.6123932
+##   2     extratrees  0.8373362  0.862  0.5934473
+##   5     gini        0.8248077  0.834  0.6529915
+##   5     extratrees  0.8311524  0.852  0.6121083
+##   8     gini        0.8234786  0.832  0.6529915
+##   8     extratrees  0.8284943  0.848  0.6156695
+## 
+## Tuning parameter &amp;#39;min.node.size&amp;#39; was held constant at a value of 1
+## ROC was used to select the optimal model using the largest value.
+## The final values used for the model were mtry = 2, splitrule =
+##  extratrees and min.node.size = 1.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Random forest performance is &lt;code&gt;0.8373362&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;build-a-gradient-boost-model&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Build a Gradient boost model&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_gbm &amp;lt;- train(
+    Outcome~.,
+    method = &amp;quot;gbm&amp;quot;,
+    data = diabetes,
+    trControl = myControl
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_gbm&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Stochastic Gradient Boosting 
+## 
+## 768 samples
+##   8 predictor
+##   2 classes: &amp;#39;H&amp;#39;, &amp;#39;D&amp;#39; 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 692, 691, 691, 691, 691, 691, ... 
+## Resampling results across tuning parameters:
+## 
+##   interaction.depth  n.trees  ROC        Sens   Spec     
+##   1                   50      0.8405670  0.890  0.5715100
+##   1                  100      0.8468205  0.874  0.5784900
+##   1                  150      0.8478575  0.874  0.5971510
+##   2                   50      0.8444245  0.866  0.5787749
+##   2                  100      0.8386382  0.850  0.6084046
+##   2                  150      0.8338718  0.842  0.5709402
+##   3                   50      0.8407863  0.860  0.5934473
+##   3                  100      0.8367949  0.850  0.5971510
+##   3                  150      0.8265499  0.844  0.5968661
+## 
+## Tuning parameter &amp;#39;shrinkage&amp;#39; was held constant at a value of 0.1
+## 
+## Tuning parameter &amp;#39;n.minobsinnode&amp;#39; was held constant at a value of 10
+## ROC was used to select the optimal model using the largest value.
+## The final values used for the model were n.trees = 150,
+##  interaction.depth = 1, shrinkage = 0.1 and n.minobsinnode = 10.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Gradient boost model performance is &lt;code&gt;0.8478575&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;build-a-model-with-naive-bayes-algorithm&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Build a model with Naive Bayes algorithm&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_nb &amp;lt;- train(
+    Outcome~.,
+    method = &amp;quot;nb&amp;quot;,
+    data = diabetes,
+    trControl = myControl
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model_nb&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Naive Bayes 
+## 
+## 768 samples
+##   8 predictor
+##   2 classes: &amp;#39;H&amp;#39;, &amp;#39;D&amp;#39; 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 691, 691, 691, 692, 691, 691, ... 
+## Resampling results across tuning parameters:
+## 
+##   usekernel  ROC        Sens   Spec     
+##   FALSE      0.8118519  0.826  0.5930199
+##    TRUE      0.8141368  0.822  0.6158120
+## 
+## Tuning parameter &amp;#39;fL&amp;#39; was held constant at a value of 0
+## Tuning
+##  parameter &amp;#39;adjust&amp;#39; was held constant at a value of 1
+## ROC was used to select the optimal model using the largest value.
+## The final values used for the model were fL = 0, usekernel = TRUE
+##  and adjust = 1.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Naive Bayes model performance is &lt;code&gt;0.8141368&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;models &amp;lt;- c(&amp;quot;lm&amp;quot;, &amp;quot;glm&amp;quot;, &amp;quot;glmnet&amp;quot;, &amp;quot;rf&amp;quot;, &amp;quot;gbm&amp;quot;, &amp;quot;naive&amp;quot;)
+lm &amp;lt;- round(mean(c(variance_1000_1, variance_1000_2, variance_1000_3)), 3)
+glm &amp;lt;- max(model_glm$results$ROC)
+glmnet &amp;lt;- max(model_glmnet$results$ROC)
+rf &amp;lt;- max(model_rf$results$ROC)
+gbm &amp;lt;- max(model_gbm$results$ROC)
+naive &amp;lt;- max(model_nb$results$ROC)
+AUC &amp;lt;- c(lm, glm, glmnet, rf, gbm, naive)
+df &amp;lt;- data.frame(models, AUC)
+df[order(df[,2], decreasing=TRUE), ]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   models       AUC
+## 5    gbm 0.8478575
+## 3 glmnet 0.8430370
+## 4     rf 0.8373362
+## 2    glm 0.8371225
+## 1     lm 0.8370000
+## 6  naive 0.8141368&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here, we found Gradient boost model performed the best, but there is not big difference between the models.&lt;/p&gt;
+&lt;div id=&#34;future-thoughts&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Future thoughts&lt;/h2&gt;
+&lt;p&gt;Here, I utilized different machine learning algorithms to predict Diabetes diagnosis. I didn’t find big difference between the models except the naives bayes which performed worst here. As we saw, sometimes a simple model can get us far.&lt;/p&gt;
+&lt;p&gt;We can help doctors to predict &lt;strong&gt;Diabetes with accuracy around 84%&lt;/strong&gt; by using 8 simple medical parameters.&lt;/p&gt;
+&lt;p&gt;Given current speed in generation and collection of types data by including additonal predictors we can build even better models.&lt;/p&gt;
+&lt;p&gt;Until next time!&lt;/p&gt;
+&lt;p&gt;Serdar&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
