@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.5.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Serdar Korur">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Would you be taking care of yourself better if you know you have a higher risk of diabetes?
+The advances in technologies such as Omics, Internet of Things (sensors that collect data) and centralization of Healthcare information (e.g. OMOP common data model) allows us to access a much wider data sources.
+Application of Machine learning tools on them can impact our well being in many ways.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/2019/09/30/machine-learning-warm-up/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.min.54abc5f3f1ddc380a34d4103fd11d77a.css">
+
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-148414815-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="/2019/09/30/machine-learning-warm-up/">
+
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="SERDAR KORUR">
+  <meta property="og:url" content="/2019/09/30/machine-learning-warm-up/">
+  <meta property="og:title" content="Can machine learning change your life style? | SERDAR KORUR">
+  <meta property="og:description" content="Would you be taking care of yourself better if you know you have a higher risk of diabetes?
+The advances in technologies such as Omics, Internet of Things (sensors that collect data) and centralization of Healthcare information (e.g. OMOP common data model) allows us to access a much wider data sources.
+Application of Machine learning tools on them can impact our well being in many ways."><meta property="og:image" content="/img/icon-192.png">
+  <meta property="twitter:image" content="/img/icon-192.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-09-30T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2019-09-30T10:01:38&#43;02:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/2019/09/30/machine-learning-warm-up/"
+  },
+  "headline": "Can machine learning change your life style?",
+  
+  "datePublished": "2019-09-30T00:00:00Z",
+  "dateModified": "2019-09-30T10:01:38+02:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Serdar Korur"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "SERDAR KORUR",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/img/icon-512.png"
+    }
+  },
+  "description": "Would you be taking care of yourself better if you know you have a higher risk of diabetes?\nThe advances in technologies such as Omics, Internet of Things (sensors that collect data) and centralization of Healthcare information (e.g. OMOP common data model) allows us to access a much wider data sources.\nApplication of Machine learning tools on them can impact our well being in many ways."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Can machine learning change your life style? | SERDAR KORUR</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0 compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">SERDAR KORUR</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav mr-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span></span></a>
+        </li>
+
+        
+        
+
+      
+      </ul>
+      <ul class="navbar-nav ml-auto">
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Can machine learning change your life style?</h1>
+
+  
+
+  
+    
+
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Sep 30, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/2019/09/30/machine-learning-warm-up/#disqus_thread"></a>
+  
+
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/2019/09/30/machine-learning-warm-up/&amp;text=Can%20machine%20learning%20change%20your%20life%20style?" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/2019/09/30/machine-learning-warm-up/&amp;t=Can%20machine%20learning%20change%20your%20life%20style?" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Can%20machine%20learning%20change%20your%20life%20style?&amp;body=/2019/09/30/machine-learning-warm-up/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/2019/09/30/machine-learning-warm-up/&amp;title=Can%20machine%20learning%20change%20your%20life%20style?" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Can%20machine%20learning%20change%20your%20life%20style?%20/2019/09/30/machine-learning-warm-up/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/2019/09/30/machine-learning-warm-up/&amp;title=Can%20machine%20learning%20change%20your%20life%20style?" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/d3/d3.min.js"></script>
+<script src="/rmarkdown-libs/dagre/dagre-d3.min.js"></script>
+<link href="/rmarkdown-libs/mermaid/dist/mermaid.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/mermaid/dist/mermaid.slim.min.js"></script>
+<link href="/rmarkdown-libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/chromatography/chromatography.js"></script>
+<script src="/rmarkdown-libs/DiagrammeR-binding/DiagrammeR.js"></script>
+
+
+<p>Would you be taking care of yourself better if you know you have <strong>a higher risk of diabetes?</strong></p>
+<p>The advances in technologies such as Omics, Internet of Things (sensors that collect data) and centralization of Healthcare information (e.g. <a href="https://www.ohdsi.org/data-standardization/the-common-data-model/">OMOP common data model</a>) allows us to access a much wider data sources.</p>
+<p>Application of Machine learning tools on them can impact our well being in many ways. By making better predictions we can;</p>
+<ul>
+<li>Diagnose diseases earlier</li>
+<li>Identify Drugs with reduced side effects</li>
+<li>Select patient groups responding to an experimental therapy</li>
+<li>Utilize existing therapies better</li>
+</ul>
+<p><strong>Let’s look at this on one example. We will walk through the basic concepts of Data Science process and tackle a diagnostics problem.</strong></p>
+<div id="data-science-process" class="section level2">
+<h2>Data Science Process</h2>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"diagram":"\n        graph TD; \n        A(A well defined Question)-->B(Data gathering);\n        B(Data acquisition)-->C(Quality check);\n        C(Quality check)-->D(Exploratory Data Analysis / Visuals);\n        D(Exploratory Data Analysis)-->E(Feature Engineering)\n        E(Feature Engineering)-->F(Build, fit and validate a model);\n        F(Build, fit and validate a model)-->G(Data Storytelling - Insights);\n        \n      "},"evals":[],"jsHooks":[]}</script>
+<div id="problem-formulation" class="section level3">
+<h3>Problem formulation</h3>
+<blockquote>
+<p>Can we build a Machine learning algorithm to predict which patients will develop Diabetes?</p>
+</blockquote>
+<p>We will predict a Binary <code>Outcome</code> variable: <code>Disease</code> vs <code>Healthy</code>
+by using 8 medical indicators such as <code>Blood Glucose, Body mass index, Age</code> etc.</p>
+<p>We have data from female patients over 21 years of age of Pima Indian Origin.</p>
+</div>
+<div id="data-acquisition" class="section level3">
+<h3>Data acquisition</h3>
+<p>I downloaded the <a href="https://www.kaggle.com/uciml/pima-indians-diabetes-database">Pima Indians Diabetes Dataset</a> from Kaggle.</p>
+</div>
+<div id="overview-of-the-data" class="section level3">
+<h3>Overview of the data</h3>
+<p><strong>The Pima Indians of Arizona and Mexico</strong> have contributed to numerous scientific gains. Their involvement has led to significant findings on genetics of both type 2 diabetes and obesity.</p>
+<p>The medical indicators recorded are;</p>
+<p><strong>Pregnancies:</strong> Number of times pregnant<br />
+<strong>Glucose:</strong> Plasma glucose concentration a 2 hours in an oral glucose tolerance test<br />
+<strong>BloodPressure:</strong> Diastolic blood pressure (mm Hg)<br />
+<strong>SkinThickness:</strong> Triceps skin fold thickness (mm)<br />
+<strong>Insulin:</strong> 2-Hour serum insulin (mu U/ml)<br />
+*BMI:<strong> Body mass index (weight in kg/(height in m)^2)<br />
+</strong>DiabetesPedigreeFunction:<strong> Diabetes pedigree function<br />
+</strong>Age:<strong> Age (years)<br />
+</strong>Outcome:** Class variable (0 or 1)</p>
+</div>
+<div id="data-quality-control" class="section level3">
+<h3>Data Quality control</h3>
+<p>It is crucial to start by looking at the data quality.</p>
+<pre class="r"><code>library(dplyr)
+library(reshape2)
+library(ggplot2)
+library(ggcorrplot)</code></pre>
+<p>I am importing the data from my local directory.</p>
+<pre class="r"><code>diabetes &lt;- read.csv(&quot;posts_data/diabetes.csv&quot;)</code></pre>
+<p>let’s first check the dimensions and classes of the variables</p>
+<pre class="r"><code>dim(diabetes)</code></pre>
+<pre><code>## [1] 768   9</code></pre>
+<pre class="r"><code>knitr::kable(sapply(diabetes, class))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pregnancies</td>
+<td align="left">integer</td>
+</tr>
+<tr class="even">
+<td>Glucose</td>
+<td align="left">integer</td>
+</tr>
+<tr class="odd">
+<td>BloodPressure</td>
+<td align="left">integer</td>
+</tr>
+<tr class="even">
+<td>SkinThickness</td>
+<td align="left">integer</td>
+</tr>
+<tr class="odd">
+<td>Insulin</td>
+<td align="left">integer</td>
+</tr>
+<tr class="even">
+<td>BMI</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td>DiabetesPedigreeFunction</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td>Age</td>
+<td align="left">integer</td>
+</tr>
+<tr class="odd">
+<td>Outcome</td>
+<td align="left">integer</td>
+</tr>
+</tbody>
+</table>
+<p>It is also always a good idea to actually eyeball your data.</p>
+<pre class="r"><code>knitr::kable(head(diabetes))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Pregnancies</th>
+<th align="right">Glucose</th>
+<th align="right">BloodPressure</th>
+<th align="right">SkinThickness</th>
+<th align="right">Insulin</th>
+<th align="right">BMI</th>
+<th align="right">DiabetesPedigreeFunction</th>
+<th align="right">Age</th>
+<th align="right">Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">6</td>
+<td align="right">148</td>
+<td align="right">72</td>
+<td align="right">35</td>
+<td align="right">0</td>
+<td align="right">33.6</td>
+<td align="right">0.627</td>
+<td align="right">50</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">85</td>
+<td align="right">66</td>
+<td align="right">29</td>
+<td align="right">0</td>
+<td align="right">26.6</td>
+<td align="right">0.351</td>
+<td align="right">31</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">8</td>
+<td align="right">183</td>
+<td align="right">64</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">23.3</td>
+<td align="right">0.672</td>
+<td align="right">32</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">89</td>
+<td align="right">66</td>
+<td align="right">23</td>
+<td align="right">94</td>
+<td align="right">28.1</td>
+<td align="right">0.167</td>
+<td align="right">21</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">137</td>
+<td align="right">40</td>
+<td align="right">35</td>
+<td align="right">168</td>
+<td align="right">43.1</td>
+<td align="right">2.288</td>
+<td align="right">33</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="right">116</td>
+<td align="right">74</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">25.6</td>
+<td align="right">0.201</td>
+<td align="right">30</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>Summary gives a lot of metrics but visuals always better.</p>
+<pre class="r"><code>summary(diabetes)</code></pre>
+<pre><code>##   Pregnancies        Glucose      BloodPressure    SkinThickness  
+##  Min.   : 0.000   Min.   :  0.0   Min.   :  0.00   Min.   : 0.00  
+##  1st Qu.: 1.000   1st Qu.: 99.0   1st Qu.: 62.00   1st Qu.: 0.00  
+##  Median : 3.000   Median :117.0   Median : 72.00   Median :23.00  
+##  Mean   : 3.845   Mean   :120.9   Mean   : 69.11   Mean   :20.54  
+##  3rd Qu.: 6.000   3rd Qu.:140.2   3rd Qu.: 80.00   3rd Qu.:32.00  
+##  Max.   :17.000   Max.   :199.0   Max.   :122.00   Max.   :99.00  
+##     Insulin           BMI        DiabetesPedigreeFunction      Age       
+##  Min.   :  0.0   Min.   : 0.00   Min.   :0.0780           Min.   :21.00  
+##  1st Qu.:  0.0   1st Qu.:27.30   1st Qu.:0.2437           1st Qu.:24.00  
+##  Median : 30.5   Median :32.00   Median :0.3725           Median :29.00  
+##  Mean   : 79.8   Mean   :31.99   Mean   :0.4719           Mean   :33.24  
+##  3rd Qu.:127.2   3rd Qu.:36.60   3rd Qu.:0.6262           3rd Qu.:41.00  
+##  Max.   :846.0   Max.   :67.10   Max.   :2.4200           Max.   :81.00  
+##     Outcome     
+##  Min.   :0.000  
+##  1st Qu.:0.000  
+##  Median :0.000  
+##  Mean   :0.349  
+##  3rd Qu.:1.000  
+##  Max.   :1.000</code></pre>
+<p>Visualize the variables not to miss anything;</p>
+<pre class="r"><code>gg &lt;- melt(diabetes)</code></pre>
+<pre><code>## No id variables; using all as measure variables</code></pre>
+<pre class="r"><code>ggplot(gg, aes(x=value, fill=variable)) +
+  geom_histogram(binwidth=5)+
+  facet_wrap(~variable)</code></pre>
+<p><img src="/post/2019-09-30-machine-learning-wam-up_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png" width="672" />
+After looking at the summary data and the exploratory plots we see that there are variables which have zeros but technically it is not possible to have BloodGlucose, or pressure 0 like wise SkinThickness, Insulin levels. So, we will remove those rows with zeros in it.</p>
+</div>
+</div>
+<div id="in-the-second-option-try-to-remove-skintickness-and-insulin" class="section level1">
+<h1>in the second option try to remove skintickness and insulin</h1>
+<pre class="r"><code>zero_rows &lt;- list()
+for(i in 2:6){
+zero_rows[[i]] &lt;- length(which(diabetes[,i] == 0))  
+}
+unlist(zero_rows)</code></pre>
+<pre><code>## [1]   5  35 227 374  11</code></pre>
+<pre class="r"><code>df &lt;- data.frame(unlist(zero_rows), row.names = names(diabetes[.2:6]))
+df</code></pre>
+<pre><code>##               unlist.zero_rows.
+## Pregnancies                   5
+## Glucose                      35
+## BloodPressure               227
+## SkinThickness               374
+## Insulin                      11</code></pre>
+<p>It seems like records of Insulin levels and Skin thickness are the source of many zeros in the data. In a second approach we will try to remove insulin and skinthickness from data set to preserve most of the data. But for the initial try let’s keep all variables and just remove rows with zeros.</p>
+<pre class="r"><code>for(i in 2:6){
+
+ diabetes &lt;- diabetes[-which(diabetes[, i] == 0), ]
+}</code></pre>
+<p>This was many rows. Our data shrank to half.</p>
+<pre class="r"><code>data_cor &lt;- round(cor(diabetes[1:8]),1)
+data_cor</code></pre>
+<pre><code>##                          Pregnancies Glucose BloodPressure SkinThickness
+## Pregnancies                      1.0     0.2           0.2           0.1
+## Glucose                          0.2     1.0           0.2           0.2
+## BloodPressure                    0.2     0.2           1.0           0.2
+## SkinThickness                    0.1     0.2           0.2           1.0
+## Insulin                          0.1     0.6           0.1           0.2
+## BMI                              0.0     0.2           0.3           0.7
+## DiabetesPedigreeFunction         0.0     0.1           0.0           0.2
+## Age                              0.7     0.3           0.3           0.2
+##                          Insulin BMI DiabetesPedigreeFunction Age
+## Pregnancies                  0.1 0.0                      0.0 0.7
+## Glucose                      0.6 0.2                      0.1 0.3
+## BloodPressure                0.1 0.3                      0.0 0.3
+## SkinThickness                0.2 0.7                      0.2 0.2
+## Insulin                      1.0 0.2                      0.1 0.2
+## BMI                          0.2 1.0                      0.2 0.1
+## DiabetesPedigreeFunction     0.1 0.2                      1.0 0.1
+## Age                          0.2 0.1                      0.1 1.0</code></pre>
+<pre class="r"><code>ggcorrplot(data_cor)</code></pre>
+<p><img src="/post/2019-09-30-machine-learning-wam-up_files/figure-html/compute%20correlation%20matrix-1.png" width="672" /></p>
+<pre class="r"><code>for (i in 1:8) {
+      diabetes[i] &lt;- scale(diabetes[i])
+}</code></pre>
+<pre class="r"><code>prop.table(table(diabetes$Outcome))</code></pre>
+<pre><code>## 
+##         0         1 
+## 0.6683673 0.3316327</code></pre>
+<div id="modeling-the-databuild-fit-and-validate-a-model" class="section level3">
+<h3>Modeling the data(build, fit and validate a model)</h3>
+</div>
+<div id="future-thoughts" class="section level2">
+<h2>Future thoughts</h2>
+<p>Here we had an accuracy of .. % by using different models.</p>
+</div>
+</div>
+
+    </div>
+
+    
+
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/machine-learning/">Machine Learning</a>
+  
+  <a class="badge badge-light" href="/tags/r/">R</a>
+  
+  <a class="badge badge-light" href="/tags/data-science-process/">Data Science Process</a>
+  
+  <a class="badge badge-light" href="/tags/eda/">EDA</a>
+  
+  <a class="badge badge-light" href="/tags/linear-regression/">Linear regression</a>
+  
+  <a class="badge badge-light" href="/tags/logistic-regression/">Logistic regression</a>
+  
+  <a class="badge badge-light" href="/tags/random-forests/">Random forests</a>
+  
+  <a class="badge badge-light" href="/tags/glm/">Glm</a>
+  
+  <a class="badge badge-light" href="/tags/data-quality-control/">Data Quality Control</a>
+  
+</div>
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card">
+    
+      
+      <img class="portrait mr-3" src="/authors/admin/avatar_huc20273ad926c00177316852a0ac5eb17_12606_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Serdar Korur</a></h5>
+      <h6 class="card-subtitle">Senior Scientist in Drug Discovery</h6>
+      <p class="card-text">Serdar is a Data Scientist and PhD in Cell Biology</p>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="/#contact" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="https://www.linkedin.com/in/serdar-korur/" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="https://github.com/korur/" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+      
+      
+      <div class="article-widget">
+        <div class="hr-light"></div>
+        <h3>Related</h3>
+        <ul>
+          
+          <li><a href="/2019/09/17/genomics-at-superresolution/">Genomics at superresolution: Mapping Drug targets on single cell resolution in Fibrosis</a></li>
+          
+        </ul>
+      </div>
+      
+    
+
+    
+
+    
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "serdarkorur" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/r.min.js"></script>
+        
+      
+
+      
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://serdarkorur.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.130521ecfc6f534c52c158217bbff718.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+        
+  </p>
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

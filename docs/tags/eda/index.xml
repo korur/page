@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EDA | SERDAR KORUR</title>
+    <link>/tags/eda/</link>
+      <atom:link href="/tags/eda/index.xml" rel="self" type="application/rss+xml" />
+    <description>EDA</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 30 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/icon-192.png</url>
+      <title>EDA</title>
+      <link>/tags/eda/</link>
+    </image>
+    
+    <item>
+      <title>Can machine learning change your life style?</title>
+      <link>/2019/09/30/predict-diseases/</link>
+      <pubDate>Mon, 30 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>/2019/09/30/predict-diseases/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/d3/d3.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/dagre/dagre-d3.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/mermaid/dist/mermaid.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/mermaid/dist/mermaid.slim.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/DiagrammeR-styles/styles.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/chromatography/chromatography.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/DiagrammeR-binding/DiagrammeR.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Would you be taking care of yourself better if you learned today that you have &lt;strong&gt;a higher risk of diabetes?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The advances in technologies such as Omics, Internet of Things (sensors that collect data) and centralization of Healthcare information (e.g. &lt;a href=&#34;https://www.ohdsi.org/data-standardization/the-common-data-model/&#34;&gt;OMOP common data model&lt;/a&gt;) allows us to access a much wider data sources.&lt;/p&gt;
+&lt;p&gt;Application of Machine learning tools on them can impact our well being in many ways. By making better predictions we can;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Diagnose diseases earlier&lt;/li&gt;
+&lt;li&gt;Identify Drugs with reduced side effects&lt;/li&gt;
+&lt;li&gt;Select patient groups responding to an experimental therapy&lt;/li&gt;
+&lt;li&gt;Utilize existing therapies better&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Let’s look at this on an example. We will walk through the Data Science process and try to help some doctors in diagnosing their patients.&lt;/strong&gt;&lt;/p&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:672px;height:480px;&#34; class=&#34;DiagrammeR html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;diagram&#34;:&#34;\n        graph TD; \n        A(Problem formulation)--&gt;B(Data gathering);\n        B(Data acquisition)--&gt;C(Quality check);\n        C(Quality check)--&gt;D(Exploratory Data Analysis / Visuals);\n        D(Exploratory Data Analysis)--&gt;E(Feature Engineering)\n        E(Feature Engineering)--&gt;F(Build, fit and validate a model);\n        F(Build, fit and validate a model)--&gt;G(Data Storytelling - Insights);\n        \n      &#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;div id=&#34;problem-formulation&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Problem formulation&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Can we build a Machine learning algorithm to predict which patients will develop Diabetes?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We will predict a Binary &lt;strong&gt;Outcome&lt;/strong&gt; variable: &lt;code&gt;Diabetes&lt;/code&gt; vs &lt;code&gt;Healthy&lt;/code&gt;
+by using 8 medical indicators.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;overview-of-the-data&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Overview of the data&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;The Pima Indians of Arizona and Mexico&lt;/strong&gt; have contributed to numerous scientific gains. Their involvement has led to significant findings on genetics of both &lt;strong&gt;type 2 diabetes&lt;/strong&gt; and &lt;strong&gt;obesity.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The medical indicators recorded are;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pregnancies:&lt;/strong&gt; Number of times pregnant&lt;br /&gt;
+&lt;strong&gt;Glucose:&lt;/strong&gt; Plasma glucose concentration a 2 hours in an oral glucose tolerance test&lt;br /&gt;
+&lt;strong&gt;BloodPressure:&lt;/strong&gt; Diastolic blood pressure (mm Hg)&lt;br /&gt;
+&lt;strong&gt;SkinThickness:&lt;/strong&gt; Triceps skin fold thickness (mm)&lt;br /&gt;
+&lt;strong&gt;Insulin:&lt;/strong&gt; 2-Hour serum insulin (mu U/ml)&lt;br /&gt;
+&lt;strong&gt;BMI:&lt;/strong&gt; Body mass index (weight in kg/(height in m)^2)&lt;br /&gt;
+&lt;strong&gt;DiabetesPedigreeFunction:&lt;/strong&gt; Diabetes pedigree function&lt;br /&gt;
+&lt;strong&gt;Age:&lt;/strong&gt; Age (years)&lt;br /&gt;
+&lt;strong&gt;Outcome:&lt;/strong&gt; Class variable (0 or 1)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-acquisition&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Data acquisition&lt;/h3&gt;
+&lt;p&gt;I downloaded the &lt;a href=&#34;https://www.kaggle.com/uciml/pima-indians-diabetes-database&#34;&gt;Pima Indians Diabetes Dataset&lt;/a&gt; from Kaggle and imported it from my local directory.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;diabetes &amp;lt;- read.csv(&amp;quot;posts_data/diabetes.csv&amp;quot;)
+
+library(dplyr)
+library(reshape2)
+library(ggplot2)
+library(ggcorrplot)
+library(pROC)
+library(caret)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-quality-control&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Data Quality control&lt;/h3&gt;
+&lt;p&gt;Before counting on any algorithm a good starting point is to &lt;strong&gt;check obvious mistakes and abnormalities in your data.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Here, I would first focus on &lt;strong&gt;Missing values&lt;/strong&gt;, variable ranges (&lt;strong&gt;min, max values&lt;/strong&gt;). A very extreme value might be basically a sign of typing error.&lt;/p&gt;
+&lt;div id=&#34;understand-your-data&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Understand your Data&lt;/h4&gt;
+&lt;p&gt;It is always a good idea to eyeball your data. I start with checking the size and the type of data.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dim(diabetes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 768   9&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::kable(sapply(diabetes, class))&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;x&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Pregnancies&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;integer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Glucose&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;integer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;BloodPressure&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;integer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;SkinThickness&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;integer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Insulin&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;integer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;BMI&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;numeric&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;DiabetesPedigreeFunction&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;numeric&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Age&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;integer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Outcome&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;integer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;What catches my attention below is unexpected zero values in Insulin which is not plausible.&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::kable(head(diabetes))&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;right&#34;&gt;Pregnancies&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Glucose&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;BloodPressure&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;SkinThickness&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Insulin&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;BMI&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;DiabetesPedigreeFunction&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Age&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Outcome&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;6&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;148&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;72&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;35&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;33.6&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.627&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;50&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;85&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;66&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;29&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;26.6&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.351&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;31&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;8&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;183&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;64&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;23.3&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.672&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;32&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;89&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;66&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;23&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;94&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;28.1&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.167&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;21&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;137&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;40&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;35&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;168&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;43.1&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;2.288&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;33&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;5&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;116&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;74&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;25.6&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.201&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;30&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;missing-values&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Missing Values&lt;/h4&gt;
+&lt;p&gt;Summary gives a good overview of the variables. If there would be any missing data it would show up here as &lt;strong&gt;“NA’s”&lt;/strong&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(diabetes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   Pregnancies        Glucose      BloodPressure    SkinThickness  
+##  Min.   : 0.000   Min.   :  0.0   Min.   :  0.00   Min.   : 0.00  
+##  1st Qu.: 1.000   1st Qu.: 99.0   1st Qu.: 62.00   1st Qu.: 0.00  
+##  Median : 3.000   Median :117.0   Median : 72.00   Median :23.00  
+##  Mean   : 3.845   Mean   :120.9   Mean   : 69.11   Mean   :20.54  
+##  3rd Qu.: 6.000   3rd Qu.:140.2   3rd Qu.: 80.00   3rd Qu.:32.00  
+##  Max.   :17.000   Max.   :199.0   Max.   :122.00   Max.   :99.00  
+##     Insulin           BMI        DiabetesPedigreeFunction      Age       
+##  Min.   :  0.0   Min.   : 0.00   Min.   :0.0780           Min.   :21.00  
+##  1st Qu.:  0.0   1st Qu.:27.30   1st Qu.:0.2437           1st Qu.:24.00  
+##  Median : 30.5   Median :32.00   Median :0.3725           Median :29.00  
+##  Mean   : 79.8   Mean   :31.99   Mean   :0.4719           Mean   :33.24  
+##  3rd Qu.:127.2   3rd Qu.:36.60   3rd Qu.:0.6262           3rd Qu.:41.00  
+##  Max.   :846.0   Max.   :67.10   Max.   :2.4200           Max.   :81.00  
+##     Outcome     
+##  Min.   :0.000  
+##  1st Qu.:0.000  
+##  Median :0.000  
+##  Mean   :0.349  
+##  3rd Qu.:1.000  
+##  Max.   :1.000&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s look at them visually not to miss anything;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gg &amp;lt;- melt(diabetes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## No id variables; using all as measure variables&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(gg, aes(x=value, fill=variable)) +
+  geom_histogram(binwidth=5)+ 
+  facet_wrap(~variable) &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-09-30-machine-learning-wam-up_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;After looking at the summary data and the exploratory plots we see that couple of variables contain zeros but technically it is not possible to have Blood Pressure or Glucose 0.&lt;/p&gt;
+&lt;p&gt;If the numbers are small we might remove them. &lt;strong&gt;Let’s figure it out.&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;zero_rows &amp;lt;- list()
+for(i in 2:6){
+zero_rows[[i]] &amp;lt;- length(which(diabetes[,i] == 0))  
+}
+rows_with_zero &amp;lt;- unlist(zero_rows)
+df &amp;lt;- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
+df&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##               rows_with_zero
+## Glucose                    5
+## BloodPressure             35
+## SkinThickness            227
+## Insulin                  374
+## BMI                       11&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In Insulin &lt;code&gt;374&lt;/code&gt; values are zero. It is unlikely that those are simply entry mistakes. It looks like they filled &lt;strong&gt;“NAs”&lt;/strong&gt; with &lt;strong&gt;zeros&lt;/strong&gt; in the data collection phase.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to circumwent this?&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;convert-all-zeroes-to-na-and-then-perform-median-imputation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Convert all zeroes to NA and then perform &lt;code&gt;Median Imputation&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;First convert those zeros to NAs as they should be and then use Median imputation to replace those values. We will use a for loop to remove zeros in all the predictors except Pregnancy and Pedigree function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;for(i in 2:6){
+# Convert zeros to NAs
+diabetes[, i][diabetes[, i] == 0] &amp;lt;- NA
+# Calculate median
+median &amp;lt;- median(diabetes[, i], na.rm = TRUE)
+diabetes[, i][is.na(diabetes[, i])] &amp;lt;- median
+}
+
+# Check if it really happened
+knitr::kable(head(diabetes))&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;right&#34;&gt;Pregnancies&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Glucose&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;BloodPressure&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;SkinThickness&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Insulin&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;BMI&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;DiabetesPedigreeFunction&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Age&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Outcome&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;6&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;148&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;72&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;35&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;125&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;33.6&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.627&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;50&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;85&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;66&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;29&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;125&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;26.6&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.351&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;31&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;8&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;183&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;64&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;29&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;125&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;23.3&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.672&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;32&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;89&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;66&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;23&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;94&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;28.1&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.167&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;21&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;137&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;40&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;35&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;168&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;43.1&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;2.288&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;33&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;right&#34;&gt;5&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;116&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;74&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;29&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;125&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;25.6&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.201&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;30&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;For instance, we see that zero values in the insulin variable is replaced with 125 which is the median value.&lt;/p&gt;
+&lt;div id=&#34;modeling-the-data-build-fit-and-validate-a-model&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Modeling the data (build, fit and validate a model)&lt;/h3&gt;
+&lt;p&gt;We will create two random subsets of our data in 80/20 proportion as &lt;strong&gt;training and test data.&lt;/strong&gt;
+Training data will be used to build our model and test data will be reserved to validate it.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create train test split
+set.seed(2222)
+sample_rows &amp;lt;- sample(nrow(diabetes), nrow(diabetes) * 0.8)
+# Create the training dataset
+dia_train &amp;lt;- diabetes[sample_rows, ]
+# Create the test dataset
+dia_test &amp;lt;- diabetes[-sample_rows, ]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Before going into any complicated model starting with a simple model will allow us gain more insights about the our data.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Build a linear model with the train data
+lm_dia &amp;lt;- lm(Outcome ~ .,data = dia_train)
+summary(lm_dia)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## lm(formula = Outcome ~ ., data = dia_train)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.08981 -0.27248 -0.08076  0.27641  1.00357 
+## 
+## Coefficients:
+##                            Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept)              -1.105e+00  1.137e-01  -9.720  &amp;lt; 2e-16 ***
+## Pregnancies               2.270e-02  5.592e-03   4.060 5.56e-05 ***
+## Glucose                   6.225e-03  6.180e-04  10.073  &amp;lt; 2e-16 ***
+## BloodPressure            -8.145e-04  1.429e-03  -0.570  0.56902    
+## SkinThickness            -7.782e-04  2.140e-03  -0.364  0.71625    
+## Insulin                  -8.446e-05  1.989e-04  -0.425  0.67127    
+## BMI                       1.664e-02  2.808e-03   5.924 5.26e-09 ***
+## DiabetesPedigreeFunction  1.634e-01  4.957e-02   3.296  0.00104 ** 
+## Age                       2.476e-03  1.732e-03   1.430  0.15338    
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 0.3895 on 605 degrees of freedom
+## Multiple R-squared:  0.3343, Adjusted R-squared:  0.3255 
+## F-statistic: 37.98 on 8 and 605 DF,  p-value: &amp;lt; 2.2e-16&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We will predict the Outcome for the test data
+p&amp;lt;-predict(lm_dia, dia_test)
+# Choose a threshold 0.5 to calculate the accuracy of our model
+p_05 &amp;lt;- ifelse(p &amp;gt; 0.5, 1, 0)
+table(p_05, dia_test$Outcome)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     
+## p_05  0  1
+##    0 83 23
+##    1 12 36&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;conf_mat &amp;lt;- table(p_05, dia_test$Outcome)
+accuracy &amp;lt;- sum(diag(conf_mat))/sum(conf_mat)
+accuracy&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.7727273&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;By using the pROC package, I will calculate the AUC value for our model.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate AUC
+roc(dia_test$Outcome, p)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Setting levels: control = 0, case = 1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Setting direction: controls &amp;lt; cases&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## roc.default(response = dia_test$Outcome, predictor = p)
+## 
+## Data: p in 95 controls (dia_test$Outcome 0) &amp;lt; 59 cases (dia_test$Outcome 1).
+## Area under the curve: 0.8098&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dia_train$Outcome &amp;lt;- factor(dia_train$Outcome)
+levels(dia_train$Outcome) &amp;lt;- c(&amp;quot;H&amp;quot;, &amp;quot;D&amp;quot;)
+
+dia_test$Outcome &amp;lt;- factor(dia_test$Outcome)
+levels(dia_test$Outcome) &amp;lt;- c(&amp;quot;H&amp;quot;, &amp;quot;D&amp;quot;)
+
+
+# MyControl
+myControl &amp;lt;- trainControl(
+  method = &amp;quot;cv&amp;quot;, 
+  number = 10,
+  summaryFunction = twoClassSummary,
+  classProbs = TRUE, # IMPORTANT!
+  verboseIter = TRUE
+)
+# Model
+model &amp;lt;- train(
+  Outcome~.,
+  method = &amp;quot;glmnet&amp;quot;,
+  data = dia_train,
+  trControl = myControl
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in train.default(x, y, weights = w, ...): The metric &amp;quot;Accuracy&amp;quot; was
+## not in the result set. ROC will be used instead.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## + Fold01: alpha=0.10, lambda=0.0453 
+## - Fold01: alpha=0.10, lambda=0.0453 
+## + Fold01: alpha=0.55, lambda=0.0453 
+## - Fold01: alpha=0.55, lambda=0.0453 
+## + Fold01: alpha=1.00, lambda=0.0453 
+## - Fold01: alpha=1.00, lambda=0.0453 
+## + Fold02: alpha=0.10, lambda=0.0453 
+## - Fold02: alpha=0.10, lambda=0.0453 
+## + Fold02: alpha=0.55, lambda=0.0453 
+## - Fold02: alpha=0.55, lambda=0.0453 
+## + Fold02: alpha=1.00, lambda=0.0453 
+## - Fold02: alpha=1.00, lambda=0.0453 
+## + Fold03: alpha=0.10, lambda=0.0453 
+## - Fold03: alpha=0.10, lambda=0.0453 
+## + Fold03: alpha=0.55, lambda=0.0453 
+## - Fold03: alpha=0.55, lambda=0.0453 
+## + Fold03: alpha=1.00, lambda=0.0453 
+## - Fold03: alpha=1.00, lambda=0.0453 
+## + Fold04: alpha=0.10, lambda=0.0453 
+## - Fold04: alpha=0.10, lambda=0.0453 
+## + Fold04: alpha=0.55, lambda=0.0453 
+## - Fold04: alpha=0.55, lambda=0.0453 
+## + Fold04: alpha=1.00, lambda=0.0453 
+## - Fold04: alpha=1.00, lambda=0.0453 
+## + Fold05: alpha=0.10, lambda=0.0453 
+## - Fold05: alpha=0.10, lambda=0.0453 
+## + Fold05: alpha=0.55, lambda=0.0453 
+## - Fold05: alpha=0.55, lambda=0.0453 
+## + Fold05: alpha=1.00, lambda=0.0453 
+## - Fold05: alpha=1.00, lambda=0.0453 
+## + Fold06: alpha=0.10, lambda=0.0453 
+## - Fold06: alpha=0.10, lambda=0.0453 
+## + Fold06: alpha=0.55, lambda=0.0453 
+## - Fold06: alpha=0.55, lambda=0.0453 
+## + Fold06: alpha=1.00, lambda=0.0453 
+## - Fold06: alpha=1.00, lambda=0.0453 
+## + Fold07: alpha=0.10, lambda=0.0453 
+## - Fold07: alpha=0.10, lambda=0.0453 
+## + Fold07: alpha=0.55, lambda=0.0453 
+## - Fold07: alpha=0.55, lambda=0.0453 
+## + Fold07: alpha=1.00, lambda=0.0453 
+## - Fold07: alpha=1.00, lambda=0.0453 
+## + Fold08: alpha=0.10, lambda=0.0453 
+## - Fold08: alpha=0.10, lambda=0.0453 
+## + Fold08: alpha=0.55, lambda=0.0453 
+## - Fold08: alpha=0.55, lambda=0.0453 
+## + Fold08: alpha=1.00, lambda=0.0453 
+## - Fold08: alpha=1.00, lambda=0.0453 
+## + Fold09: alpha=0.10, lambda=0.0453 
+## - Fold09: alpha=0.10, lambda=0.0453 
+## + Fold09: alpha=0.55, lambda=0.0453 
+## - Fold09: alpha=0.55, lambda=0.0453 
+## + Fold09: alpha=1.00, lambda=0.0453 
+## - Fold09: alpha=1.00, lambda=0.0453 
+## + Fold10: alpha=0.10, lambda=0.0453 
+## - Fold10: alpha=0.10, lambda=0.0453 
+## + Fold10: alpha=0.55, lambda=0.0453 
+## - Fold10: alpha=0.55, lambda=0.0453 
+## + Fold10: alpha=1.00, lambda=0.0453 
+## - Fold10: alpha=1.00, lambda=0.0453 
+## Aggregating results
+## Selecting tuning parameters
+## Fitting alpha = 0.55, lambda = 0.0453 on full training set&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;model&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## glmnet 
+## 
+## 614 samples
+##   8 predictor
+##   2 classes: &amp;#39;H&amp;#39;, &amp;#39;D&amp;#39; 
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 552, 553, 554, 552, 552, 552, ... 
+## Resampling results across tuning parameters:
+## 
+##   alpha  lambda        ROC        Sens       Spec     
+##   0.10   0.0004530199  0.8459245  0.8764634  0.5647619
+##   0.10   0.0045301995  0.8462728  0.8764634  0.5647619
+##   0.10   0.0453019946  0.8456858  0.8988415  0.5314286
+##   0.55   0.0004530199  0.8456951  0.8764634  0.5647619
+##   0.55   0.0045301995  0.8458021  0.8764634  0.5600000
+##   0.55   0.0453019946  0.8465222  0.9063415  0.5023810
+##   1.00   0.0004530199  0.8456980  0.8764634  0.5647619
+##   1.00   0.0045301995  0.8451024  0.8789634  0.5552381
+##   1.00   0.0453019946  0.8396514  0.9137195  0.4928571
+## 
+## ROC was used to select the optimal model using the largest value.
+## The final values used for the model were alpha = 0.55 and lambda
+##  = 0.04530199.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p &amp;lt;- predict(model, dia_test)
+conf_mat &amp;lt;- table(p, dia_test$Outcome)
+conf_mat&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    
+## p    H  D
+##   H 84 27
+##   D 11 32&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;accuracy &amp;lt;- sum(diag(conf_mat))/sum(conf_mat)
+accuracy&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.7532468&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate AUC&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to be continued&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
