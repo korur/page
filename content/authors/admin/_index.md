@@ -66,10 +66,9 @@ user_groups:
 - Visitors
 ---
 
-
 Things get easier after the first step. Because the mind actually stops wandering and starts building things. How can you run a marathon if you don't know where the start line is?
 
-Whatever your ambition is take that first step now. Imagining creates the vision. Doing creates the product. 
+Whatever your ambition is take that first step now. Imagining creates the vision, doing creates the product. 
 
 Hi, I am Serdar! here is my camp for Data science projects.
 

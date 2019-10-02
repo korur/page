@@ -1,7 +1,10 @@
 ---
-title: Can machine learning change your life style?
+title: Can machine learning change your life style? Predicting Diabetes
 author: ''
 date: '2019-10-01'
+output:
+    html_document:
+        toc: true
 slug: predict-diseases
 categories: []
 tags:
@@ -26,9 +29,10 @@ image:
   preview_only: no
 projects: []
 ---
+
 Would you be taking care of yourself better if your doctor told today that you have **high risk of diabetes?**
 
-Technological advances in fields, such as omics and internet of things (sensors that collect data), and centralization of healthcare information (e.g. [OMOP common data model](https://www.ohdsi.org/data-standardization/the-common-data-model/)) enable us to access much wider data sources. 
+Advances in fields, such as omics and internet of things (sensors that collect data), and centralization of healthcare information (e.g. [OMOP common data model](https://www.ohdsi.org/data-standardization/the-common-data-model/)) enable us to access much wider data sources. 
 
 Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;
 
@@ -39,14 +43,14 @@ Gaining insights from those we can improve our well being with better healthcare
 
 **Let's look at an example and try to help some doctors in diagnosing their patients.**
 
-### Problem formulation
+# Problem formulation
 
 > Can we build a Machine learning algorithm to predict which patients will develop Diabetes?
 
 The goal is to predict a Binary **Outcome**: ```Diabetes``` vs ```Healthy```
 by using 8 medical indicators.
 
-### Overview of the data
+# Overview of the data
   
   
 **The Pima Indians of Arizona and Mexico** have contributed to numerous scientific gains. Their involvement has led to significant findings on genetics of both **type 2 diabetes** and **obesity.** 
@@ -63,7 +67,7 @@ The medical indicators recorded are;
 **Age:** Age (years)  
 **Outcome:** Class variable (0 or 1)  
 
-### Data acquisition
+# Data acquisition
 
 I downloaded the [Pima Indians Diabetes Dataset](https://www.kaggle.com/uciml/pima-indians-diabetes-database) from Kaggle and imported it from my local directory.
 
@@ -81,13 +85,13 @@ library(caret)
 ```
 
 
-### Data Quality control
+# Data Quality control
 
 Before counting on any algorithm a good starting point is to **check obvious mistakes and abnormalities in your data.**
 
 Here, I would look at **Missing values**, variable ranges (**min, max values**). A very extreme value might be basically a sign of typing error.
 
-#### Understand your Data
+## Understand your Data
 
 How big is the data? Checking the size and also type of variables. 
 ```{r dim}
@@ -101,7 +105,7 @@ Next, what catches my attention is **unexpected zero values in Insulin** below.
 knitr::kable(head(diabetes))
 ```
 
-#### Missing Values
+## Missing Values
 
 Summary gives a good overview of the variables. Any missing data will show up here listed as **"NA's"**. 
 
@@ -138,7 +142,7 @@ For instance, in Insulin **374** values are zero. It is unlikely that those are 
 
 **How to circumwent this?**
 
-## Convert all **zeroes** to **NAs** and then perform **Median Imputation**
+### Convert all **zeroes** to **NAs** and then perform **Median Imputation**
 
 I will use a for loop to remove zeros in all the predictors except Pregnancy and Pedigree function.
 
@@ -161,15 +165,16 @@ For instance, I see that zero values in the insulin variable is replaced with me
 
 Now, the data is clean and ready for the modeling phase.
 
-### Modeling the data (build, fit and validate a model)
+# Modeling the data (build, fit and validate a model)
 
-Before going into any complicated model I am starting with a simple model to gain some insights about the data. 
+Before going into any complicated model you can start with a simple model to gain some insights about the data. 
 
-#### Linear Regression Model
+## Linear Regression Model
 
 We will create two random subsets of our data in 80/20 proportion as **training and test data.**
 Training data will be used to build our model and test data will be reserved to validate it. 
 ```{r Create Train/test split}
+set.seed(22)
 # Create train test split
 sample_rows <- sample(nrow(diabetes), nrow(diabetes) * 0.8)
 # Create the training dataset
@@ -263,7 +268,7 @@ variance_1000_3 <- multi_split(1000)
 ```
 
 
-Let's compare Variance levels at 1, 30 and 1000 random splits
+Let's compare Variance levels at **1, 30 and 1000** random splits
 
 ```{r changes in variance, message=FALSE, warning=FALSE}
 var(c(variance_1_1, variance_1_2, variance_1_3))
@@ -274,9 +279,9 @@ var(c(variance_1000_1, variance_1000_2, variance_1000_3))
 What we see here as we increase the number of iterations to 30 and 1000 the variability
 gradually stabilizes around a trustable AUC of ```r round(mean(c(variance_1000_1, variance_1000_2, variance_1000_3)), 3)```. 
 
-### Build a logistic regression model
+## Logistic regression model
 
-I will switch here to caret package. With the **Train()** function we can build and different types of machine learning algorithms. 
+I will switch here to caret package. With the **Train()** function we can test different types of machine learning algorithms. 
 
 I will start with a logistic regression model. But before I need to convert Outcome variable into a factor with 2 levels.
 ```{r Logistic Regression model function, warning=FALSE, message=FALSE}
@@ -304,7 +309,7 @@ model_glm
 
 Here, My model performance is ```r model_glm$results[1,2]```
 
-### Build a glmnet model
+## Glmnet model
 
 
 ```{r Glmnet model, warning=FALSE, message=FALSE,  results="hide"}
@@ -325,7 +330,7 @@ model_glmnet
 
 Glmnet model performance is ```r max(model_glmnet$results$ROC)```
 
-### Build a Random forest model
+## Random forest model
 
 ```{r Random forest model, warning=FALSE, message=FALSE,  results="hide"}
 # Random forest model
@@ -346,7 +351,7 @@ model_rf
 Random forest performance is ```r max(model_rf$results$ROC)```
 
 
-# Build a Gradient boost model
+## Gradient boost model
 
 
 ```{r Gradient boost model, warning=FALSE, message=FALSE, results="hide"}
@@ -365,7 +370,7 @@ model_gbm
 
 Gradient boost model performance is ```r max(model_gbm$results$ROC)```
 
-# Build a model with Naive Bayes algorithm
+## Naive Bayes model
 
 ```{r Naive Bayes model, warning=FALSE, message=FALSE, results="hide"}
 model_nb <- train(
@@ -393,17 +398,17 @@ gbm <- max(model_gbm$results$ROC)
 naive <- max(model_nb$results$ROC)
 AUC <- c(lm, glm, glmnet, rf, gbm, naive)
 df <- data.frame(models, AUC)
-df[order(df[,2], decreasing=TRUE), ]
+knitr::kable(df[order(df[,2], decreasing=TRUE), ])
 ```
 
 
-Here, we found Gradient boost model performed the best, but there is not big difference between the models.
+Here, we found Gradient boost model performed the best, and also there are not big differences between the models.
 
 
 
 ## Future thoughts
 
-Here, I utilized different machine learning algorithms to predict Diabetes diagnosis. I didn't find big difference between the models except the naives bayes which performed worst here.  As we saw, sometimes a simple model can get us far.   
+I used different machine learning algorithms to predict Diabetes. Models showed similar performances except the naives bayes which performed worst here.  **As we saw, sometimes a simple model can get us far.**   
 
 We can help doctors to predict **Diabetes with accuracy around 84%** by using 8 simple medical parameters.
   
