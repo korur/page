@@ -1,34 +1,12 @@
 ---
-title: Can machine learning change your life style? Predicting Diabetes
-author: ''
-date: '2019-10-01'
+title: "testtodelete"
+author: "Serdar Korur"
+date: "10/2/2019"
 output:
-    html_document:
-        toc: true
-slug: predict-diseases
-categories: []
-tags:
-  - Machine learning
-  - Blog
-  - Data Science Process
-  - Linear Regression
-  - Logistic Regression
-  - glmnet
-  - Randomforest
-  - Data Quality control
-  - Feature engineering
-  - Pima Indians
-subtitle: ''
-summary: ''
-authors: []
-lastmod: '2019-10-01T09:09:36+02:00'
-featured: no
-image:
-  caption: ''
-  focal_point: ''
-  preview_only: no
-projects: []
+  html_document: default
+  pdf_document: default
 ---
+
 
 Would you be taking care of yourself better if your doctor told today that you have **high risk of diabetes?**
 
@@ -72,7 +50,13 @@ The medical indicators recorded are;
 I downloaded the [Pima Indians Diabetes Dataset](https://www.kaggle.com/uciml/pima-indians-diabetes-database) from Kaggle and imported it from my local directory.
 
 ```{r import data and packages, message=FALSE, warning=FALSE}
-diabetes <- read.csv("posts_data/diabetes.csv")
+getwd()
+```
+
+
+```{r ssimport data and packages, message=FALSE, warning=FALSE}
+
+diabetes <- read.csv("content/post/posts_data/diabetes.csv")
 
 library(dplyr)
 library(reshape2)
@@ -151,9 +135,8 @@ for(i in 2:6){
 # Convert zeros to NAs
 diabetes[, i][diabetes[, i] == 0] <- NA
 # Calculate median
-median <- median(diabetes[, i], na.rm = TRUE)
-diabetes[, i][is.na(diabetes[, i])] <- median
 }
+diabetes <- knnImputation(diabetes[,-9], k=5)
 ```
 
 Check if it really happened
@@ -211,18 +194,16 @@ By using the pROC package, I will calculate the AUC value for our model.
 roc(dia_test$Outcome, p)
 ```
 
-However, this process is little fragile, presence or absence of a single outlier might vastly change the results you will get from a given random train/test split. 
+If I repeat the above procedure, each time I will get a slightly different result depending on the given random train/test split. Depending on the outliers in the data you might get bigger differences. 
 
-A better approach than a simple train/test split is using multiple test sets and averaging their accuracies.
-
-Let's test that. I will create 1, 30 or 1000 random test sets, build models and compare their accuracies. 
+We can run above model with 10/100/1000 different random splits to have a good estimate of the real accuracy.
 
 #### How to apply linear model with multiple train/test split
 
 To do this, I will write a function where I can choose number of independent train/test splits.  
   
-  
-It will return me an average value of the accuracy of the model after chosen number of iteration.   The higher the number of random splits the more stable your estimated AUC will be.
+    
+It will return me an average value of the model after chosen number of iteration.   The higher the number of random splits the more stable your estimated AUC.
 
 Let's see how it will work out for our diabetes patients.
 
