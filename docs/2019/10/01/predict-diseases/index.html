@@ -437,7 +437,7 @@ Gaining insights from those we can improve our well being with better healthcare
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    13 min read
+    14 min read
   </span>
   
 
@@ -606,6 +606,7 @@ by using 8 medical indicators.</p>
 <pre class="r"><code>diabetes &lt;- read.csv(&quot;posts_data/diabetes.csv&quot;)
 
 library(dplyr)
+library(tidyr)
 library(reshape2)
 library(ggplot2)
 library(ggcorrplot)
@@ -787,8 +788,8 @@ library(caret)</code></pre>
   geom_histogram(binwidth=5)+ 
   facet_wrap(~variable) </code></pre>
 <p><img src="/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png" width="672" /></p>
-<p>Peaks at zero of Skin Thickness and Insulin is obvious here. Technically it is not possible to have Blood Pressure or Glucose levels at 0.</p>
-<p>In cases where the numbers are small we might remove them. Here they seem plenty. <strong>Let’s figure it out with a for loop.</strong></p>
+<p>Peaks at zero of Skin Thickness and Insulin is obvious here.</p>
+<p>In cases where the numbers are small we might remove them. <strong>Let’s figure it out with a for loop.</strong></p>
 <p>This will bring me the number of zero containing rows in variables from 2 to 6.</p>
 <pre class="r"><code>zero_rows &lt;- list()
 for(i in 2:6){
@@ -803,7 +804,7 @@ df</code></pre>
 ## SkinThickness            227
 ## Insulin                  374
 ## BMI                       11</code></pre>
-<p>For instance, in Insulin <strong>374</strong> values are zero. It is unlikely that those are simply entry mistakes. It seems missing values are filled with <strong>zeros</strong> in the data collection phase.</p>
+<p>For instance, in Insulin <strong>374</strong> values are zero. Other variables also contain zeros. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with <strong>zeros</strong> in the data collection phase.</p>
 <p><strong>How to circumwent this?</strong></p>
 <div id="convert-all-zeroes-to-nas-and-then-perform-median-imputation" class="section level3">
 <h3>Convert all <strong>zeroes</strong> to <strong>NAs</strong> and then perform <strong>Median Imputation</strong></h3>
@@ -907,10 +908,10 @@ diabetes[, i][is.na(diabetes[, i])] &lt;- median
 </div>
 <div id="modeling-the-data-build-fit-and-validate-a-model" class="section level1">
 <h1>Modeling the data (build, fit and validate a model)</h1>
-<p>Before going into any complicated model you can start with a simple model to gain some insights about the data.</p>
+<p>Before going into any complicated model starting with a simple mode is a good idea. It might do surprisingly well and will give us more insights about the data.</p>
 <div id="linear-regression-model" class="section level2">
 <h2>Linear Regression Model</h2>
-<p>We will create two random subsets of our data in 80/20 proportion as <strong>training and test data.</strong>
+<p>We will create two random subsets of our data in 80/20 proportion as <strong>training and test data.</strong><br />
 Training data will be used to build our model and test data will be reserved to validate it.</p>
 <pre class="r"><code>set.seed(22)
 # Create train test split
@@ -956,12 +957,13 @@ table(p_05, dia_test$Outcome)</code></pre>
 ## p_05  0  1
 ##    0 85 17
 ##    1 15 37</code></pre>
+<p>We will build a confusion matrix to calculate how accurate our model is in this particular random train/test split and at 0.5 thereshold level.</p>
 <pre class="r"><code>conf_mat &lt;- table(p_05, dia_test$Outcome)
 accuracy &lt;- sum(diag(conf_mat))/sum(conf_mat)
 accuracy</code></pre>
 <pre><code>## [1] 0.7922078</code></pre>
-<p>By using the pROC package, I will calculate the AUC value for our model.</p>
-<pre class="r"><code># Calculate AUC
+<p><strong>roc</strong> function pROC package, can plot us a ROC curve which tests accuracy of our model at multiple threshold levels and is a good estimate on how well our model is performing.</p>
+<pre class="r"><code># Calculate AUC(Area under the curve)
 roc(dia_test$Outcome, p)</code></pre>
 <pre><code>## Setting levels: control = 0, case = 1</code></pre>
 <pre><code>## Setting direction: controls &lt; cases</code></pre>
@@ -971,13 +973,13 @@ roc(dia_test$Outcome, p)</code></pre>
 ## 
 ## Data: p in 100 controls (dia_test$Outcome 0) &lt; 54 cases (dia_test$Outcome 1).
 ## Area under the curve: 0.8498</code></pre>
-<p>However, this process is little fragile, presence or absence of a single outlier might vastly change the results you will get from a given random train/test split.</p>
+<p>However, this process is little fragile, presence or absence of a single outlier might vastly change the results you might get from a given random train/test split.</p>
 <p>A better approach than a simple train/test split is using multiple test sets and averaging their accuracies.</p>
 <p>Let’s test that. I will create 1, 30 or 1000 random test sets, build models and compare their accuracies.</p>
 <div id="how-to-apply-linear-model-with-multiple-traintest-split" class="section level4">
 <h4>How to apply linear model with multiple train/test split</h4>
-<p>To do this, I will write a function where I can choose number of independent train/test splits.</p>
-<p>It will return me an average value of the accuracy of the model after chosen number of iteration. The higher the number of random splits the more stable your estimated AUC will be.</p>
+<p>To do this, I will <strong>write a function</strong> where I can choose number of independent train/test splits.</p>
+<p>It will return me an average value of the accuracy(auc) of the model after chosen number of iteration. The higher the number of random splits the more stable your estimated AUC will be.</p>
 <p>Let’s see how it will work out for our diabetes patients.</p>
 <pre class="r"><code># I will define my function as follows
 multi_split &lt;- function(x){
@@ -1003,34 +1005,68 @@ for(i in 1:x){
 print(mean(unlist(roc_auc)))
 }</code></pre>
 <p>Let’s calculate the average AUC of our model after different number of random splits.</p>
-<p>I will run my multi_split functions 3x for 1, 30 and 1000 random train/test splits. I can then compare variances at each number of iteration.</p>
-<pre class="r"><code>variance_1_1 &lt;- multi_split(1)</code></pre>
+<p>I will run my <strong>multi_split() function</strong> 3x for 1, 30 and 1000 random train/test splits. I can then compare variances at each level of sampling.</p>
+<p>Here are the results from my multi_site function at each randomization.</p>
+<pre class="r"><code>auc_1_1 &lt;- multi_split(1)</code></pre>
 <pre><code>## [1] 0.8769133</code></pre>
-<pre class="r"><code>variance_1_2 &lt;- multi_split(1)</code></pre>
+<pre class="r"><code>auc_1_2 &lt;- multi_split(1)</code></pre>
 <pre><code>## [1] 0.8283688</code></pre>
-<pre class="r"><code>variance_1_3 &lt;- multi_split(1)</code></pre>
+<pre class="r"><code>auc_1_3 &lt;- multi_split(1)</code></pre>
 <pre><code>## [1] 0.8216108</code></pre>
-<pre class="r"><code>variance_30_1 &lt;- multi_split(30)</code></pre>
+<pre class="r"><code>auc_30_1 &lt;- multi_split(30)</code></pre>
 <pre><code>## [1] 0.840713</code></pre>
-<pre class="r"><code>variance_30_2 &lt;- multi_split(30)</code></pre>
+<pre class="r"><code>auc_30_2 &lt;- multi_split(30)</code></pre>
 <pre><code>## [1] 0.8501071</code></pre>
-<pre class="r"><code>variance_30_3 &lt;- multi_split(30)</code></pre>
+<pre class="r"><code>auc_30_3 &lt;- multi_split(30)</code></pre>
 <pre><code>## [1] 0.8294741</code></pre>
-<pre class="r"><code>variance_1000_1 &lt;- multi_split(1000)</code></pre>
+<pre class="r"><code>auc_1000_1 &lt;- multi_split(1000)</code></pre>
 <pre><code>## [1] 0.8362065</code></pre>
-<pre class="r"><code>variance_1000_2 &lt;- multi_split(1000)</code></pre>
+<pre class="r"><code>auc_1000_2 &lt;- multi_split(1000)</code></pre>
 <pre><code>## [1] 0.8364364</code></pre>
-<pre class="r"><code>variance_1000_3 &lt;- multi_split(1000)</code></pre>
+<pre class="r"><code>auc_1000_3 &lt;- multi_split(1000)</code></pre>
 <pre><code>## [1] 0.8350323</code></pre>
 <p>Let’s compare Variance levels at <strong>1, 30 and 1000</strong> random splits</p>
-<pre class="r"><code>var(c(variance_1_1, variance_1_2, variance_1_3))</code></pre>
+<pre class="r"><code>var(c(auc_1_1, auc_1_2, auc_1_3))</code></pre>
 <pre><code>## [1] 0.0009101001</code></pre>
-<pre class="r"><code>var(c(variance_30_1, variance_30_2, variance_30_3))</code></pre>
+<pre class="r"><code>var(c(auc_30_1, auc_30_2, auc_30_3))</code></pre>
 <pre><code>## [1] 0.0001067148</code></pre>
-<pre class="r"><code>var(c(variance_1000_1, variance_1000_2, variance_1000_3))</code></pre>
+<pre class="r"><code>var(c(auc_1000_1, auc_1000_2, auc_1000_3))</code></pre>
 <pre><code>## [1] 5.672518e-07</code></pre>
 <p>What we see here as we increase the number of iterations to 30 and 1000 the variability
 gradually stabilizes around a trustable AUC of <code>0.836</code>.</p>
+<p>Seeing is believing. Let’s plot it.</p>
+<pre class="r"><code># Create a data.frame containing accuracies
+random_1X &lt;- c(auc_1_1, auc_1_2, auc_1_3)
+random_30X &lt;- c(auc_30_1, auc_30_2, auc_30_3)
+random_1000X &lt;- c(auc_1000_1, auc_1000_2, auc_1000_3)
+
+df_r &lt;- data.frame(random_1X, random_30X, random_1000X)
+df_r</code></pre>
+<pre><code>##   random_1X random_30X random_1000X
+## 1 0.8769133  0.8407130    0.8362065
+## 2 0.8283688  0.8501071    0.8364364
+## 3 0.8216108  0.8294741    0.8350323</code></pre>
+<pre class="r"><code># Here, I will reformat my data for easy plotting by using gather() function from tidyr
+# It takes multiple columns, and gathers them into key-value pairs: it makes “wide” data longer.
+df_long &lt;- gather(df_r, sampling, auc)
+df_long</code></pre>
+<pre><code>##       sampling       auc
+## 1    random_1X 0.8769133
+## 2    random_1X 0.8283688
+## 3    random_1X 0.8216108
+## 4   random_30X 0.8407130
+## 5   random_30X 0.8501071
+## 6   random_30X 0.8294741
+## 7 random_1000X 0.8362065
+## 8 random_1000X 0.8364364
+## 9 random_1000X 0.8350323</code></pre>
+<pre class="r"><code>df_long$sampling &lt;- factor(df_long$sampling, levels = c(&quot;random_1X&quot;, &quot;random_30X&quot;, &quot;random_1000X&quot;))
+
+# 
+model_variation &lt;- ggplot(df_long, aes(y=auc, x=sampling, fill=sampling)) + geom_boxplot() + theme(text = element_text(size=15), axis.title.x=element_blank(), legend.position = &quot;none&quot;) + ggtitle(&quot;Variation in model performance&quot;)
+model_variation</code></pre>
+<p><img src="/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/change%20in%20variance%20plot-1.png" width="672" /></p>
+<p>Great. We have a good estimate of our linear model performance.</p>
 </div>
 </div>
 <div id="logistic-regression-model" class="section level2">
@@ -1237,7 +1273,7 @@ model_rf &lt;- train(
 ##  and adjust = 1.</code></pre>
 <p>Naive Bayes model performance is <code>0.810453</code></p>
 <pre class="r"><code>models &lt;- c(&quot;lm&quot;, &quot;glm&quot;, &quot;glmnet&quot;, &quot;rf&quot;, &quot;gbm&quot;, &quot;naive&quot;)
-lm &lt;- round(mean(c(variance_1000_1, variance_1000_2, variance_1000_3)), 3)
+lm &lt;- round(mean(c(auc_1000_1, auc_1000_2, auc_1000_3)), 3)
 glm &lt;- max(model_glm$results$ROC)
 glmnet &lt;- max(model_glmnet$results$ROC)
 rf &lt;- max(model_rf$results$ROC)

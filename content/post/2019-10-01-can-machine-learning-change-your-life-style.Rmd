@@ -75,6 +75,7 @@ I downloaded the [Pima Indians Diabetes Dataset](https://www.kaggle.com/uciml/pi
 diabetes <- read.csv("posts_data/diabetes.csv")
 
 library(dplyr)
+library(tidyr)
 library(reshape2)
 library(ggplot2)
 library(ggcorrplot)
@@ -122,11 +123,12 @@ ggplot(gg, aes(x=value, fill=variable)) +
   facet_wrap(~variable) 
 ```
 
-Peaks at zero of Skin Thickness and Insulin is obvious here. Technically it is not possible to have Blood Pressure or Glucose levels at 0. 
+Peaks at zero of Skin Thickness and Insulin is obvious here. 
 
-In cases where the numbers are small we might remove them. Here they seem plenty. **Let's figure it out with a for loop.** 
+In cases where the numbers are small we might remove them. **Let's figure it out with a for loop.** 
 
 This will bring me the number of zero containing rows in variables from 2 to 6.
+
 ```{r check number of zeros in each variable}
 zero_rows <- list()
 for(i in 2:6){
@@ -137,7 +139,7 @@ df <- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
 df
 ```
 
-For instance, in Insulin **374** values are zero. It is unlikely that those are simply entry mistakes. It seems missing values are filled with **zeros** in the data collection phase. 
+For instance, in Insulin **374** values are zero. Other variables also contain zeros. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with **zeros** in the data collection phase. 
 
 
 **How to circumwent this?**
@@ -167,11 +169,11 @@ Now, the data is clean and ready for the modeling phase.
 
 # Modeling the data (build, fit and validate a model)
 
-Before going into any complicated model you can start with a simple model to gain some insights about the data. 
+Before going into any complicated model starting with a simple mode is a good idea. It might do surprisingly well and will give us more insights about the data. 
 
 ## Linear Regression Model
 
-We will create two random subsets of our data in 80/20 proportion as **training and test data.**
+We will create two random subsets of our data in 80/20 proportion as **training and test data.**  
 Training data will be used to build our model and test data will be reserved to validate it. 
 ```{r Create Train/test split}
 set.seed(22)
@@ -198,6 +200,7 @@ p_05 <- ifelse(p > 0.5, 1, 0)
 table(p_05, dia_test$Outcome)
 ```
 
+We will build a confusion matrix to calculate how accurate our model is in this particular random train/test split and at 0.5 thereshold level. 
 
 ```{r Confusion matrix}
 conf_mat <- table(p_05, dia_test$Outcome)
@@ -205,13 +208,15 @@ accuracy <- sum(diag(conf_mat))/sum(conf_mat)
 accuracy
 ```
 
-By using the pROC package, I will calculate the AUC value for our model.
+**roc** function pROC package, can plot us a ROC curve which tests accuracy of our model at multiple threshold levels and is a good estimate on how well our model is performing.
+
 ```{r Calculate AUC}
-# Calculate AUC
+# Calculate AUC(Area under the curve)
 roc(dia_test$Outcome, p)
 ```
 
-However, this process is little fragile, presence or absence of a single outlier might vastly change the results you will get from a given random train/test split. 
+
+However, this process is little fragile, presence or absence of a single outlier might vastly change the results you might get from a given random train/test split. 
 
 A better approach than a simple train/test split is using multiple test sets and averaging their accuracies.
 
@@ -219,10 +224,10 @@ Let's test that. I will create 1, 30 or 1000 random test sets, build models and 
 
 #### How to apply linear model with multiple train/test split
 
-To do this, I will write a function where I can choose number of independent train/test splits.  
+To do this, I will **write a function** where I can choose number of independent train/test splits.  
   
   
-It will return me an average value of the accuracy of the model after chosen number of iteration.   The higher the number of random splits the more stable your estimated AUC will be.
+It will return me an average value of the accuracy(auc) of the model after chosen number of iteration. The higher the number of random splits the more stable your estimated AUC will be.
 
 Let's see how it will work out for our diabetes patients.
 
@@ -255,31 +260,58 @@ print(mean(unlist(roc_auc)))
 
 Let's calculate the average AUC of our model after different number of random splits.
 
-I will run my multi_split functions 3x for 1, 30 and 1000 random train/test splits. I can then compare variances at each number of iteration.
+I will run my **multi_split() function** 3x for 1, 30 and 1000 random train/test splits. I can then compare variances at each level of sampling.
 
+Here are the results from my multi_site function at each randomization.
 ```{r multi split function test, message=FALSE, warning=FALSE}
-variance_1_1 <- multi_split(1)
-variance_1_2 <- multi_split(1)
-variance_1_3 <- multi_split(1)
-variance_30_1 <- multi_split(30)
-variance_30_2 <- multi_split(30)
-variance_30_3 <- multi_split(30)
-variance_1000_1 <- multi_split(1000)
-variance_1000_2 <- multi_split(1000)
-variance_1000_3 <- multi_split(1000)
+auc_1_1 <- multi_split(1)
+auc_1_2 <- multi_split(1)
+auc_1_3 <- multi_split(1)
+auc_30_1 <- multi_split(30)
+auc_30_2 <- multi_split(30)
+auc_30_3 <- multi_split(30)
+auc_1000_1 <- multi_split(1000)
+auc_1000_2 <- multi_split(1000)
+auc_1000_3 <- multi_split(1000)
 ```
 
 
 Let's compare Variance levels at **1, 30 and 1000** random splits
 
 ```{r changes in variance, message=FALSE, warning=FALSE}
-var(c(variance_1_1, variance_1_2, variance_1_3))
-var(c(variance_30_1, variance_30_2, variance_30_3))
-var(c(variance_1000_1, variance_1000_2, variance_1000_3))
+var(c(auc_1_1, auc_1_2, auc_1_3))
+var(c(auc_30_1, auc_30_2, auc_30_3))
+var(c(auc_1000_1, auc_1000_2, auc_1000_3))
 ```
 
 What we see here as we increase the number of iterations to 30 and 1000 the variability
-gradually stabilizes around a trustable AUC of ```r round(mean(c(variance_1000_1, variance_1000_2, variance_1000_3)), 3)```. 
+gradually stabilizes around a trustable AUC of ```r round(mean(c(auc_1000_1, auc_1000_2, auc_1000_3)), 3)```. 
+
+Seeing is believing. Let's plot it.
+
+```{r change in variance plot}
+# Create a data.frame containing accuracies
+random_1X <- c(auc_1_1, auc_1_2, auc_1_3)
+random_30X <- c(auc_30_1, auc_30_2, auc_30_3)
+random_1000X <- c(auc_1000_1, auc_1000_2, auc_1000_3)
+
+df_r <- data.frame(random_1X, random_30X, random_1000X)
+df_r
+
+# Here, I will reformat my data for easy plotting by using gather() function from tidyr
+# It takes multiple columns, and gathers them into key-value pairs: it makes “wide” data longer.
+df_long <- gather(df_r, sampling, auc)
+df_long
+df_long$sampling <- factor(df_long$sampling, levels = c("random_1X", "random_30X", "random_1000X"))
+
+# 
+model_variation <- ggplot(df_long, aes(y=auc, x=sampling, fill=sampling)) + geom_boxplot() + theme(text = element_text(size=15), axis.title.x=element_blank(), legend.position = "none") + ggtitle("Variation in model performance")
+model_variation
+
+
+```
+
+Great. We have a good estimate of our linear model performance. 
 
 ## Logistic regression model
 
@@ -392,7 +424,7 @@ Naive Bayes model performance is ```r max(model_nb$results$ROC)```
 
 ```{r Summary}
 models <- c("lm", "glm", "glmnet", "rf", "gbm", "naive")
-lm <- round(mean(c(variance_1000_1, variance_1000_2, variance_1000_3)), 3)
+lm <- round(mean(c(auc_1000_1, auc_1000_2, auc_1000_3)), 3)
 glm <- max(model_glm$results$ROC)
 glmnet <- max(model_glmnet$results$ROC)
 rf <- max(model_rf$results$ROC)

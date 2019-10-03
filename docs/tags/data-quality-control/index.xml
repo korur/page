@@ -58,6 +58,7 @@ by using 8 medical indicators.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;diabetes &amp;lt;- read.csv(&amp;quot;posts_data/diabetes.csv&amp;quot;)
 
 library(dplyr)
+library(tidyr)
 library(reshape2)
 library(ggplot2)
 library(ggcorrplot)
@@ -239,8 +240,8 @@ library(caret)&lt;/code&gt;&lt;/pre&gt;
   geom_histogram(binwidth=5)+ 
   facet_wrap(~variable) &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Peaks at zero of Skin Thickness and Insulin is obvious here. Technically it is not possible to have Blood Pressure or Glucose levels at 0.&lt;/p&gt;
-&lt;p&gt;In cases where the numbers are small we might remove them. Here they seem plenty. &lt;strong&gt;Let’s figure it out with a for loop.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Peaks at zero of Skin Thickness and Insulin is obvious here.&lt;/p&gt;
+&lt;p&gt;In cases where the numbers are small we might remove them. &lt;strong&gt;Let’s figure it out with a for loop.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;This will bring me the number of zero containing rows in variables from 2 to 6.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;zero_rows &amp;lt;- list()
 for(i in 2:6){
@@ -255,7 +256,7 @@ df&lt;/code&gt;&lt;/pre&gt;
 ## SkinThickness            227
 ## Insulin                  374
 ## BMI                       11&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For instance, in Insulin &lt;strong&gt;374&lt;/strong&gt; values are zero. It is unlikely that those are simply entry mistakes. It seems missing values are filled with &lt;strong&gt;zeros&lt;/strong&gt; in the data collection phase.&lt;/p&gt;
+&lt;p&gt;For instance, in Insulin &lt;strong&gt;374&lt;/strong&gt; values are zero. Other variables also contain zeros. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with &lt;strong&gt;zeros&lt;/strong&gt; in the data collection phase.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to circumwent this?&lt;/strong&gt;&lt;/p&gt;
 &lt;div id=&#34;convert-all-zeroes-to-nas-and-then-perform-median-imputation&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Convert all &lt;strong&gt;zeroes&lt;/strong&gt; to &lt;strong&gt;NAs&lt;/strong&gt; and then perform &lt;strong&gt;Median Imputation&lt;/strong&gt;&lt;/h3&gt;
@@ -359,10 +360,10 @@ diabetes[, i][is.na(diabetes[, i])] &amp;lt;- median
 &lt;/div&gt;
 &lt;div id=&#34;modeling-the-data-build-fit-and-validate-a-model&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Modeling the data (build, fit and validate a model)&lt;/h1&gt;
-&lt;p&gt;Before going into any complicated model you can start with a simple model to gain some insights about the data.&lt;/p&gt;
+&lt;p&gt;Before going into any complicated model starting with a simple mode is a good idea. It might do surprisingly well and will give us more insights about the data.&lt;/p&gt;
 &lt;div id=&#34;linear-regression-model&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Linear Regression Model&lt;/h2&gt;
-&lt;p&gt;We will create two random subsets of our data in 80/20 proportion as &lt;strong&gt;training and test data.&lt;/strong&gt;
+&lt;p&gt;We will create two random subsets of our data in 80/20 proportion as &lt;strong&gt;training and test data.&lt;/strong&gt;&lt;br /&gt;
 Training data will be used to build our model and test data will be reserved to validate it.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;set.seed(22)
 # Create train test split
@@ -408,12 +409,13 @@ table(p_05, dia_test$Outcome)&lt;/code&gt;&lt;/pre&gt;
 ## p_05  0  1
 ##    0 85 17
 ##    1 15 37&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We will build a confusion matrix to calculate how accurate our model is in this particular random train/test split and at 0.5 thereshold level.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;conf_mat &amp;lt;- table(p_05, dia_test$Outcome)
 accuracy &amp;lt;- sum(diag(conf_mat))/sum(conf_mat)
 accuracy&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.7922078&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;By using the pROC package, I will calculate the AUC value for our model.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate AUC
+&lt;p&gt;&lt;strong&gt;roc&lt;/strong&gt; function pROC package, can plot us a ROC curve which tests accuracy of our model at multiple threshold levels and is a good estimate on how well our model is performing.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate AUC(Area under the curve)
 roc(dia_test$Outcome, p)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Setting levels: control = 0, case = 1&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Setting direction: controls &amp;lt; cases&lt;/code&gt;&lt;/pre&gt;
@@ -423,13 +425,13 @@ roc(dia_test$Outcome, p)&lt;/code&gt;&lt;/pre&gt;
 ## 
 ## Data: p in 100 controls (dia_test$Outcome 0) &amp;lt; 54 cases (dia_test$Outcome 1).
 ## Area under the curve: 0.8498&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;However, this process is little fragile, presence or absence of a single outlier might vastly change the results you will get from a given random train/test split.&lt;/p&gt;
+&lt;p&gt;However, this process is little fragile, presence or absence of a single outlier might vastly change the results you might get from a given random train/test split.&lt;/p&gt;
 &lt;p&gt;A better approach than a simple train/test split is using multiple test sets and averaging their accuracies.&lt;/p&gt;
 &lt;p&gt;Let’s test that. I will create 1, 30 or 1000 random test sets, build models and compare their accuracies.&lt;/p&gt;
 &lt;div id=&#34;how-to-apply-linear-model-with-multiple-traintest-split&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;How to apply linear model with multiple train/test split&lt;/h4&gt;
-&lt;p&gt;To do this, I will write a function where I can choose number of independent train/test splits.&lt;/p&gt;
-&lt;p&gt;It will return me an average value of the accuracy of the model after chosen number of iteration. The higher the number of random splits the more stable your estimated AUC will be.&lt;/p&gt;
+&lt;p&gt;To do this, I will &lt;strong&gt;write a function&lt;/strong&gt; where I can choose number of independent train/test splits.&lt;/p&gt;
+&lt;p&gt;It will return me an average value of the accuracy(auc) of the model after chosen number of iteration. The higher the number of random splits the more stable your estimated AUC will be.&lt;/p&gt;
 &lt;p&gt;Let’s see how it will work out for our diabetes patients.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# I will define my function as follows
 multi_split &amp;lt;- function(x){
@@ -455,34 +457,68 @@ for(i in 1:x){
 print(mean(unlist(roc_auc)))
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let’s calculate the average AUC of our model after different number of random splits.&lt;/p&gt;
-&lt;p&gt;I will run my multi_split functions 3x for 1, 30 and 1000 random train/test splits. I can then compare variances at each number of iteration.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1_1 &amp;lt;- multi_split(1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I will run my &lt;strong&gt;multi_split() function&lt;/strong&gt; 3x for 1, 30 and 1000 random train/test splits. I can then compare variances at each level of sampling.&lt;/p&gt;
+&lt;p&gt;Here are the results from my multi_site function at each randomization.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;auc_1_1 &amp;lt;- multi_split(1)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.8769133&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1_2 &amp;lt;- multi_split(1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;auc_1_2 &amp;lt;- multi_split(1)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.8283688&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1_3 &amp;lt;- multi_split(1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;auc_1_3 &amp;lt;- multi_split(1)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.8216108&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_30_1 &amp;lt;- multi_split(30)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;auc_30_1 &amp;lt;- multi_split(30)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.840713&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_30_2 &amp;lt;- multi_split(30)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;auc_30_2 &amp;lt;- multi_split(30)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.8501071&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_30_3 &amp;lt;- multi_split(30)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;auc_30_3 &amp;lt;- multi_split(30)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.8294741&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1000_1 &amp;lt;- multi_split(1000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;auc_1000_1 &amp;lt;- multi_split(1000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.8362065&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1000_2 &amp;lt;- multi_split(1000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;auc_1000_2 &amp;lt;- multi_split(1000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.8364364&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;variance_1000_3 &amp;lt;- multi_split(1000)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;auc_1000_3 &amp;lt;- multi_split(1000)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.8350323&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let’s compare Variance levels at &lt;strong&gt;1, 30 and 1000&lt;/strong&gt; random splits&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;var(c(variance_1_1, variance_1_2, variance_1_3))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;var(c(auc_1_1, auc_1_2, auc_1_3))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.0009101001&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;var(c(variance_30_1, variance_30_2, variance_30_3))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;var(c(auc_30_1, auc_30_2, auc_30_3))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.0001067148&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;var(c(variance_1000_1, variance_1000_2, variance_1000_3))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;var(c(auc_1000_1, auc_1000_2, auc_1000_3))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 5.672518e-07&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;What we see here as we increase the number of iterations to 30 and 1000 the variability
 gradually stabilizes around a trustable AUC of &lt;code&gt;0.836&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Seeing is believing. Let’s plot it.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create a data.frame containing accuracies
+random_1X &amp;lt;- c(auc_1_1, auc_1_2, auc_1_3)
+random_30X &amp;lt;- c(auc_30_1, auc_30_2, auc_30_3)
+random_1000X &amp;lt;- c(auc_1000_1, auc_1000_2, auc_1000_3)
+
+df_r &amp;lt;- data.frame(random_1X, random_30X, random_1000X)
+df_r&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   random_1X random_30X random_1000X
+## 1 0.8769133  0.8407130    0.8362065
+## 2 0.8283688  0.8501071    0.8364364
+## 3 0.8216108  0.8294741    0.8350323&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Here, I will reformat my data for easy plotting by using gather() function from tidyr
+# It takes multiple columns, and gathers them into key-value pairs: it makes “wide” data longer.
+df_long &amp;lt;- gather(df_r, sampling, auc)
+df_long&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       sampling       auc
+## 1    random_1X 0.8769133
+## 2    random_1X 0.8283688
+## 3    random_1X 0.8216108
+## 4   random_30X 0.8407130
+## 5   random_30X 0.8501071
+## 6   random_30X 0.8294741
+## 7 random_1000X 0.8362065
+## 8 random_1000X 0.8364364
+## 9 random_1000X 0.8350323&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_long$sampling &amp;lt;- factor(df_long$sampling, levels = c(&amp;quot;random_1X&amp;quot;, &amp;quot;random_30X&amp;quot;, &amp;quot;random_1000X&amp;quot;))
+
+# 
+model_variation &amp;lt;- ggplot(df_long, aes(y=auc, x=sampling, fill=sampling)) + geom_boxplot() + theme(text = element_text(size=15), axis.title.x=element_blank(), legend.position = &amp;quot;none&amp;quot;) + ggtitle(&amp;quot;Variation in model performance&amp;quot;)
+model_variation&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/change%20in%20variance%20plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Great. We have a good estimate of our linear model performance.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;logistic-regression-model&#34; class=&#34;section level2&#34;&gt;
@@ -689,7 +725,7 @@ model_rf &amp;lt;- train(
 ##  and adjust = 1.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Naive Bayes model performance is &lt;code&gt;0.810453&lt;/code&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;models &amp;lt;- c(&amp;quot;lm&amp;quot;, &amp;quot;glm&amp;quot;, &amp;quot;glmnet&amp;quot;, &amp;quot;rf&amp;quot;, &amp;quot;gbm&amp;quot;, &amp;quot;naive&amp;quot;)
-lm &amp;lt;- round(mean(c(variance_1000_1, variance_1000_2, variance_1000_3)), 3)
+lm &amp;lt;- round(mean(c(auc_1000_1, auc_1000_2, auc_1000_3)), 3)
 glm &amp;lt;- max(model_glm$results$ROC)
 glmnet &amp;lt;- max(model_glmnet$results$ROC)
 rf &amp;lt;- max(model_rf$results$ROC)
