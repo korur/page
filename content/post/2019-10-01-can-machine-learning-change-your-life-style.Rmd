@@ -82,6 +82,7 @@ library(ggcorrplot)
 library(pROC)
 library(lattice)
 library(caret)
+library(waffle)
 
 ```
 
@@ -125,7 +126,7 @@ ggplot(gg, aes(x=value, fill=variable)) +
 
 Peaks at zero of Skin Thickness and Insulin is obvious here. 
 
-In cases where the numbers are small we might remove them. **Let's figure it out with a for loop.** 
+In cases where the numbers are small we might remove them. **Let's figure it out with a for loop.** and then visualize on a waffle plot.
 
 This will bring me the number of zero containing rows in variables from 2 to 6.
 
@@ -135,12 +136,24 @@ for(i in 2:6){
 zero_rows[[i]] <- length(which(diabetes[,i] == 0))  
 }
 rows_with_zero <- unlist(zero_rows)
+```
+
+Feed those numbers to a waffle plot.
+
+```{r waffle plot of zero values}
+zeros <- c("Glucose" =rows_with_zero[1], "Blood Pressure" = rows_with_zero[2], 
+           "Skin Thickness"= rows_with_zero[3], "Insulin" =rows_with_zero[4], 
+           "BMI" = rows_with_zero[5])
+waffle(zeros, rows=20) + theme(text = element_text(size=15)) + ggtitle("Number of rows with zero")
+```
+
+```{r zero rows on a dataframe}
 df <- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
 df
 ```
 
-For instance, in Insulin **374** values are zero. Other variables also contain zeros. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with **zeros** in the data collection phase. 
 
+For instance, in Insulin **374** values are zero. Other variables also contain zeros. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with **zeros** in the data collection phase. 
 
 **How to circumwent this?**
 

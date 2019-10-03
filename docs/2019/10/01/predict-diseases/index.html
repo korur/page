@@ -437,7 +437,7 @@ Gaining insights from those we can improve our well being with better healthcare
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    14 min read
+    15 min read
   </span>
   
 
@@ -612,7 +612,8 @@ library(ggplot2)
 library(ggcorrplot)
 library(pROC)
 library(lattice)
-library(caret)</code></pre>
+library(caret)
+library(waffle)</code></pre>
 </div>
 <div id="data-quality-control" class="section level1">
 <h1>Data Quality control</h1>
@@ -789,14 +790,20 @@ library(caret)</code></pre>
   facet_wrap(~variable) </code></pre>
 <p><img src="/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png" width="672" /></p>
 <p>Peaks at zero of Skin Thickness and Insulin is obvious here.</p>
-<p>In cases where the numbers are small we might remove them. <strong>Let’s figure it out with a for loop.</strong></p>
+<p>In cases where the numbers are small we might remove them. <strong>Let’s figure it out with a for loop.</strong> and then visualize on a waffle plot.</p>
 <p>This will bring me the number of zero containing rows in variables from 2 to 6.</p>
 <pre class="r"><code>zero_rows &lt;- list()
 for(i in 2:6){
 zero_rows[[i]] &lt;- length(which(diabetes[,i] == 0))  
 }
-rows_with_zero &lt;- unlist(zero_rows)
-df &lt;- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
+rows_with_zero &lt;- unlist(zero_rows)</code></pre>
+<p>Feed those numbers to a waffle plot.</p>
+<pre class="r"><code>zeros &lt;- c(&quot;Glucose&quot; =rows_with_zero[1], &quot;Blood Pressure&quot; = rows_with_zero[2], 
+           &quot;Skin Thickness&quot;= rows_with_zero[3], &quot;Insulin&quot; =rows_with_zero[4], 
+           &quot;BMI&quot; = rows_with_zero[5])
+waffle(zeros, rows=20) + theme(text = element_text(size=15)) + ggtitle(&quot;Number of rows with zero&quot;)</code></pre>
+<p><img src="/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/waffle%20plot%20of%20zero%20values-1.png" width="672" /></p>
+<pre class="r"><code>df &lt;- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
 df</code></pre>
 <pre><code>##               rows_with_zero
 ## Glucose                    5

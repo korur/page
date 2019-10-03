@@ -64,7 +64,8 @@ library(ggplot2)
 library(ggcorrplot)
 library(pROC)
 library(lattice)
-library(caret)&lt;/code&gt;&lt;/pre&gt;
+library(caret)
+library(waffle)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;data-quality-control&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Data Quality control&lt;/h1&gt;
@@ -241,14 +242,20 @@ library(caret)&lt;/code&gt;&lt;/pre&gt;
   facet_wrap(~variable) &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Peaks at zero of Skin Thickness and Insulin is obvious here.&lt;/p&gt;
-&lt;p&gt;In cases where the numbers are small we might remove them. &lt;strong&gt;Let’s figure it out with a for loop.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In cases where the numbers are small we might remove them. &lt;strong&gt;Let’s figure it out with a for loop.&lt;/strong&gt; and then visualize on a waffle plot.&lt;/p&gt;
 &lt;p&gt;This will bring me the number of zero containing rows in variables from 2 to 6.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;zero_rows &amp;lt;- list()
 for(i in 2:6){
 zero_rows[[i]] &amp;lt;- length(which(diabetes[,i] == 0))  
 }
-rows_with_zero &amp;lt;- unlist(zero_rows)
-df &amp;lt;- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
+rows_with_zero &amp;lt;- unlist(zero_rows)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feed those numbers to a waffle plot.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;zeros &amp;lt;- c(&amp;quot;Glucose&amp;quot; =rows_with_zero[1], &amp;quot;Blood Pressure&amp;quot; = rows_with_zero[2], 
+           &amp;quot;Skin Thickness&amp;quot;= rows_with_zero[3], &amp;quot;Insulin&amp;quot; =rows_with_zero[4], 
+           &amp;quot;BMI&amp;quot; = rows_with_zero[5])
+waffle(zeros, rows=20) + theme(text = element_text(size=15)) + ggtitle(&amp;quot;Number of rows with zero&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/waffle%20plot%20of%20zero%20values-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
 df&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##               rows_with_zero
 ## Glucose                    5
