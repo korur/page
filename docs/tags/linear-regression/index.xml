@@ -423,12 +423,13 @@ roc(dia_test$Outcome, p)&lt;/code&gt;&lt;/pre&gt;
 ## 
 ## Data: p in 100 controls (dia_test$Outcome 0) &amp;lt; 54 cases (dia_test$Outcome 1).
 ## Area under the curve: 0.8498&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If I repeat the above procedure, each time I will get a slightly different result depending on the given random train/test split. Depending on the outliers in the data you might get bigger differences.&lt;/p&gt;
-&lt;p&gt;We can run above model with 10/100/1000 different random splits to have a good estimate of the real accuracy.&lt;/p&gt;
+&lt;p&gt;However, this process is little fragile, presence or absence of a single outlier might vastly change the results you will get from a given random train/test split.&lt;/p&gt;
+&lt;p&gt;A better approach than a simple train/test split is using multiple test sets and averaging their accuracies.&lt;/p&gt;
+&lt;p&gt;Let’s test that. I will create 1, 30 or 1000 random test sets, build models and compare their accuracies.&lt;/p&gt;
 &lt;div id=&#34;how-to-apply-linear-model-with-multiple-traintest-split&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;How to apply linear model with multiple train/test split&lt;/h4&gt;
 &lt;p&gt;To do this, I will write a function where I can choose number of independent train/test splits.&lt;/p&gt;
-&lt;p&gt;It will return me an average value of the model after chosen number of iteration. The higher the number of random splits the more stable your estimated AUC.&lt;/p&gt;
+&lt;p&gt;It will return me an average value of the accuracy of the model after chosen number of iteration. The higher the number of random splits the more stable your estimated AUC will be.&lt;/p&gt;
 &lt;p&gt;Let’s see how it will work out for our diabetes patients.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# I will define my function as follows
 multi_split &amp;lt;- function(x){
