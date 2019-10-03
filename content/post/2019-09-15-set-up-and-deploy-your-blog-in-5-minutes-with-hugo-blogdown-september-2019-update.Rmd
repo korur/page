@@ -1,5 +1,5 @@
 ---
-title: Set up and deploy your blog in 5 minutes on Netlify with Hugo and blogdown (September 2019
+title: Start blogging in 5 minutes on Netlify with Hugo and blogdown (September 2019
   Update)
 author: Serdar Korur
 date: '2019-09-15'
@@ -152,7 +152,7 @@ Netlify will detect those changes you pushed to your github repository and your 
 
 ### How to use your own domain name
 
-#### Go to your domain provider e.g on Go Daddy 
+#### Go to your domain provider e.g I did on Go Daddy 
 
 My Products > Scroll down to your domain > Click DNS  
 

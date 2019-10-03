@@ -13,7 +13,7 @@
     </image>
     
     <item>
-      <title>Text mining: How to extract individual elements from a Book</title>
+      <title>Data Wrangling for Text mining: Extract individual elements from a Book</title>
       <link>/2019/09/25/text-mining-extracting-elements/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
       <guid>/2019/09/25/text-mining-extracting-elements/</guid>
@@ -222,7 +222,7 @@ writeLines(poems[[1]])&lt;/code&gt;&lt;/pre&gt;
     </item>
     
     <item>
-      <title>Set up and deploy your blog in 5 minutes on Netlify with Hugo and blogdown (September 2019 Update)</title>
+      <title>Start blogging in 5 minutes on Netlify with Hugo and blogdown (September 2019 Update)</title>
       <link>/2019/09/15/deploy-your-blog-in-5-minutes/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
       <guid>/2019/09/15/deploy-your-blog-in-5-minutes/</guid>
@@ -336,8 +336,8 @@ Modify as Key = HUGO_VERSION and Value = 0.58.1&lt;br /&gt;
 &lt;/div&gt;
 &lt;div id=&#34;how-to-use-your-own-domain-name&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;How to use your own domain name&lt;/h3&gt;
-&lt;div id=&#34;go-to-your-domain-provider-e.g-on-go-daddy&#34; class=&#34;section level4&#34;&gt;
-&lt;h4&gt;Go to your domain provider e.g on Go Daddy&lt;/h4&gt;
+&lt;div id=&#34;go-to-your-domain-provider-e.g-i-did-on-go-daddy&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Go to your domain provider e.g I did on Go Daddy&lt;/h4&gt;
 &lt;p&gt;My Products &amp;gt; Scroll down to your domain &amp;gt; Click DNS&lt;/p&gt;
 &lt;p&gt;Create new or modify if existing an A record pointing your root domain to Netlify load balancer’s IP address 104.198.14.52 as in below;
 &lt;img src=&#34;/img/A_record.jpg&#34; alt=&#34;A_record&#34; /&gt;Add a CNAME file as here;
