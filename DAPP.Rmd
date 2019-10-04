@@ -1,20 +1,90 @@
 ---
-title: "DAPP"
+title: "R Shiny app for graphic designers, Create your own pattern "
 author: "Serdar Korur"
 date: "10/3/2019"
 output: html_document
 ---
 
-This week I am trying to embed a shiny app on a static website using blogdown. In a couple of weeks I get to present a short introduction of blogdown at the first ever R-ladies meetup in the Netherlands following a presentation on Rmarkdown and Shiny1. It will be a nice bonus if I can show how to embed shiny apps in blogdown!
+STRUCTURE:
+
+1. Problem  = Value
+2. Body
+
+Insights - Conclusion
+
+
+# What is R Shiny?
+
+
+As a Data Scientist easy sharing of your results with others who does not need to know exactly the coding below anlysis R Shiny is a great solution. You can create an app others can explore your results interactively. 
+
+You want to share your results remotely and you want to publish it online.
+
+
+
+1. Share results and explore data with others
+2. Make a fun app share with friends
+
+How to embed a R shiny app on a static website using blogdown. 
+
+**THE APP WILL BE HERE**
+
+<iframe width="1000" height="1500" scrolling="no" frameborder="no"  src="https://korur.shinyapps.io/designapattern/"> </iframe>
+
+My wife is a graphic designer and I wanted to inspire her by drawing patterns with Math and created an app to draw patterns modifying couple of parameters of the math behind the pattern. 
+
+
+
+Find out more about building applications with Shiny here:
+
+>http://shiny.rstudio.com/
+
+>It arrange tons of icons in formations like the petal arrangement pattern in a sunflower.
+
+>You can find more info here. [phyllotaxis](https://en.wikipedia.org/wiki/Phyllotaxis)
+>Here is a cool video about the [math](https://www.youtube.com/watch?v=KWoJgHFYWxY) behind.
 
 # The shiny app
 
-To embed a shiny app on a static site you need to have it published elsewhere online. This can be done for free on shinyapps.io. Once you create an account you just follow three very simple instructions on the website to deploy your app. Once deployed, you end up with a url, which you can then embed in an Rmarkdown file using one line of html. Since my focus today is not on how to write a shiny app, I’m going to go through these steps out of order, starting with how to put an app online.
+
+>To embed a shiny app on a static site I first need to publish it on shinyapps.io. 
+
+Once you create an account you just follow three very simple instructions on the website to deploy your app. 
+
+Once deployed, you end up with a url, which you can then embed in an Rmarkdown file using one line of html. 
+
+Since my focus today is not on how to write a shiny app, I’m going to go through these steps out of order, starting with how to put an app online.
 
 
 
-# Deploying a shiny app
+# Publising a shiny app online
 
+
+Create an account at: 
+
+https://www.shinyapps.io/
+
+profile > Tokens > Show > Copy 
+
+Final step: Go to RStudio:
+
+install.packages("rsconnect")
+library(rsconnect)
+
+paste the copied code which look like below
+
+rsconnect::setAccountInfo(name='yourshinyapps_ID',
+                          token='KEY',
+                          secret=VALUE)
+
+rsconnect::deployApp('path/to/your/app')
+
+Now to to view it on 
+
+https://your_user_id.shinyapps.io/directory_name/
+
+
+Deploying (Publishing online)
 I hope I’m not insulting anyone’s intelligence here, but it wasn’t immediate obvious to me so I will start by defining “deploy”. When you deploy something, you basically are publishing it online.
 
 Ok, now that that’s out of the way, I can explain how to publish it online. After writing my app, I saved it as an Rmarkdown file (app.Rmd), which I deployed at (https://brettory.shinyapps.io/gender_tech_country/). To get R to recognize an .Rmd file as a shiny app, you need to include one extra line in the header: runtime: shiny
@@ -23,7 +93,8 @@ Since the shiny app will be running online and not off of your personal computer
 
 
 
-Creating the shiny app
+# Creating the shiny app
+
 My goal was to create an app with two tabs. The first would let users select which country they are interested in, then show them a bar chart of the number of men and women working in tech in each country. In the second tab, I would have a simple tabulation of number of tech workers per gender and per country.
 
 To create this app, I first needed to prep the data as shown above. Because my data manipulations of the Kaggle survey weren’t very complicated, I just included the above code in my app.Rmd file with echo=FALSE heading each chunk so it would run but wouldn’t produce any output. echo=FALSE is just one of the many useful commands that can be found on this Rmarkdown cheat sheet.
@@ -41,3 +112,7 @@ Here you can also control the size of the frame with commands width and height, 
 
 It does take a while to load, probably because I do data manipulation within the app file rather than in a separate file, but I will leave that problem for another day!
 
+# Final thoughts.
+
+I have created an app on shiny. Published it on shinyapps.io server. I used the link wrap it in an htlm to the server to embed it in my webpage
+If you like my app try to create your patterns. This app can create 420 Billion patterns which you can apply your taste of colors.
