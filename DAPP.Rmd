@@ -1,0 +1,43 @@
+---
+title: "DAPP"
+author: "Serdar Korur"
+date: "10/3/2019"
+output: html_document
+---
+
+This week I am trying to embed a shiny app on a static website using blogdown. In a couple of weeks I get to present a short introduction of blogdown at the first ever R-ladies meetup in the Netherlands following a presentation on Rmarkdown and Shiny1. It will be a nice bonus if I can show how to embed shiny apps in blogdown!
+
+# The shiny app
+
+To embed a shiny app on a static site you need to have it published elsewhere online. This can be done for free on shinyapps.io. Once you create an account you just follow three very simple instructions on the website to deploy your app. Once deployed, you end up with a url, which you can then embed in an Rmarkdown file using one line of html. Since my focus today is not on how to write a shiny app, I’m going to go through these steps out of order, starting with how to put an app online.
+
+
+
+# Deploying a shiny app
+
+I hope I’m not insulting anyone’s intelligence here, but it wasn’t immediate obvious to me so I will start by defining “deploy”. When you deploy something, you basically are publishing it online.
+
+Ok, now that that’s out of the way, I can explain how to publish it online. After writing my app, I saved it as an Rmarkdown file (app.Rmd), which I deployed at (https://brettory.shinyapps.io/gender_tech_country/). To get R to recognize an .Rmd file as a shiny app, you need to include one extra line in the header: runtime: shiny
+
+Since the shiny app will be running online and not off of your personal computer, you need to upload the data as well. To do so, just make sure the data is in the same folder (or a subfolder within the main folder) as the folder where you store your app.Rmd file. It would also work to link to data that is alreay online. And be sure to use relative paths (ex: “data/KaggleSurvey.csv”) rathter than absolute paths (ex: “User/Brett/Documents/App/data/KaggleSurvey.csv”). If your shiny app is running locally but doesn’t run when you post it online, it’s probably the paths, but I recommend the Rstudio’s help page to troubleshoot other problems.
+
+
+
+Creating the shiny app
+My goal was to create an app with two tabs. The first would let users select which country they are interested in, then show them a bar chart of the number of men and women working in tech in each country. In the second tab, I would have a simple tabulation of number of tech workers per gender and per country.
+
+To create this app, I first needed to prep the data as shown above. Because my data manipulations of the Kaggle survey weren’t very complicated, I just included the above code in my app.Rmd file with echo=FALSE heading each chunk so it would run but wouldn’t produce any output. echo=FALSE is just one of the many useful commands that can be found on this Rmarkdown cheat sheet.
+
+The resulting file can be found on GitHub.
+
+Finally, I created the following shiny app:
+
+Once created and deployed, I simply embed my shiny app in my Rmarkdown file with a little html <iframe src="myurl"> </iframe>
+
+Here you can also control the size of the frame with commands width and height, and additional commands like scrolling and frameborder to make it look a little nicer. The exact command I use to embed the shiny app is:
+
+<iframe width="450" height="400" scrolling="no" frameborder="no"  src="https://brettory.shinyapps.io/gend
+
+
+It does take a while to load, probably because I do data manipulation within the app file rather than in a separate file, but I will leave that problem for another day!
+

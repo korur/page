@@ -1,0 +1,3 @@
+https://www.dataatomic.com/sitemap.xml
+User-agent: *
+Disallow:
