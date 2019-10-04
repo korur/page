@@ -2,285 +2,285 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags | SERDAR KORUR</title>
-    <link>/tags/</link>
-      <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://dataatomic.com/tags/</link>
+      <atom:link href="https://dataatomic.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 01 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/img/logo.png</url>
+      <url>https://dataatomic.com/img/logo.png</url>
       <title>Tags</title>
-      <link>/tags/</link>
+      <link>https://dataatomic.com/tags/</link>
     </image>
     
     <item>
       <title>Blog</title>
-      <link>/tags/blog/</link>
+      <link>https://dataatomic.com/tags/blog/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/blog/</guid>
+      <guid>https://dataatomic.com/tags/blog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Data Quality control</title>
-      <link>/tags/data-quality-control/</link>
+      <link>https://dataatomic.com/tags/data-quality-control/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/data-quality-control/</guid>
+      <guid>https://dataatomic.com/tags/data-quality-control/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Data Science Process</title>
-      <link>/tags/data-science-process/</link>
+      <link>https://dataatomic.com/tags/data-science-process/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/data-science-process/</guid>
+      <guid>https://dataatomic.com/tags/data-science-process/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Feature engineering</title>
-      <link>/tags/feature-engineering/</link>
+      <link>https://dataatomic.com/tags/feature-engineering/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/feature-engineering/</guid>
+      <guid>https://dataatomic.com/tags/feature-engineering/</guid>
       <description></description>
     </item>
     
     <item>
       <title>glmnet</title>
-      <link>/tags/glmnet/</link>
+      <link>https://dataatomic.com/tags/glmnet/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/glmnet/</guid>
+      <guid>https://dataatomic.com/tags/glmnet/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Linear Regression</title>
-      <link>/tags/linear-regression/</link>
+      <link>https://dataatomic.com/tags/linear-regression/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/linear-regression/</guid>
+      <guid>https://dataatomic.com/tags/linear-regression/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Logistic Regression</title>
-      <link>/tags/logistic-regression/</link>
+      <link>https://dataatomic.com/tags/logistic-regression/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/logistic-regression/</guid>
+      <guid>https://dataatomic.com/tags/logistic-regression/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Machine learning</title>
-      <link>/tags/machine-learning/</link>
+      <link>https://dataatomic.com/tags/machine-learning/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/machine-learning/</guid>
+      <guid>https://dataatomic.com/tags/machine-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pima Indians</title>
-      <link>/tags/pima-indians/</link>
+      <link>https://dataatomic.com/tags/pima-indians/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/pima-indians/</guid>
+      <guid>https://dataatomic.com/tags/pima-indians/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Randomforest</title>
-      <link>/tags/randomforest/</link>
+      <link>https://dataatomic.com/tags/randomforest/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/randomforest/</guid>
+      <guid>https://dataatomic.com/tags/randomforest/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Data preparation</title>
-      <link>/tags/data-preparation/</link>
+      <link>https://dataatomic.com/tags/data-preparation/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/data-preparation/</guid>
+      <guid>https://dataatomic.com/tags/data-preparation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>For loop</title>
-      <link>/tags/for-loop/</link>
+      <link>https://dataatomic.com/tags/for-loop/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/for-loop/</guid>
+      <guid>https://dataatomic.com/tags/for-loop/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R Markdown</title>
-      <link>/tags/r-markdown/</link>
+      <link>https://dataatomic.com/tags/r-markdown/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/r-markdown/</guid>
+      <guid>https://dataatomic.com/tags/r-markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>RStudio</title>
-      <link>/tags/rstudio/</link>
+      <link>https://dataatomic.com/tags/rstudio/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/rstudio/</guid>
+      <guid>https://dataatomic.com/tags/rstudio/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Stringr</title>
-      <link>/tags/stringr/</link>
+      <link>https://dataatomic.com/tags/stringr/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/stringr/</guid>
+      <guid>https://dataatomic.com/tags/stringr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Text mining</title>
-      <link>/tags/text-mining/</link>
+      <link>https://dataatomic.com/tags/text-mining/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/text-mining/</guid>
+      <guid>https://dataatomic.com/tags/text-mining/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Clustering</title>
-      <link>/tags/clustering/</link>
+      <link>https://dataatomic.com/tags/clustering/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/clustering/</guid>
+      <guid>https://dataatomic.com/tags/clustering/</guid>
       <description></description>
     </item>
     
     <item>
       <title>h5 file</title>
-      <link>/tags/h5-file/</link>
+      <link>https://dataatomic.com/tags/h5-file/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/h5-file/</guid>
+      <guid>https://dataatomic.com/tags/h5-file/</guid>
       <description></description>
     </item>
     
     <item>
       <title>IPF</title>
-      <link>/tags/ipf/</link>
+      <link>https://dataatomic.com/tags/ipf/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/ipf/</guid>
+      <guid>https://dataatomic.com/tags/ipf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>PCA</title>
-      <link>/tags/pca/</link>
+      <link>https://dataatomic.com/tags/pca/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/pca/</guid>
+      <guid>https://dataatomic.com/tags/pca/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/tags/r/</link>
+      <link>https://dataatomic.com/tags/r/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/r/</guid>
+      <guid>https://dataatomic.com/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>scRNA-seq</title>
-      <link>/tags/scrna-seq/</link>
+      <link>https://dataatomic.com/tags/scrna-seq/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/scrna-seq/</guid>
+      <guid>https://dataatomic.com/tags/scrna-seq/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Seurat</title>
-      <link>/tags/seurat/</link>
+      <link>https://dataatomic.com/tags/seurat/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/seurat/</guid>
+      <guid>https://dataatomic.com/tags/seurat/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tSNE</title>
-      <link>/tags/tsne/</link>
+      <link>https://dataatomic.com/tags/tsne/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/tsne/</guid>
+      <guid>https://dataatomic.com/tags/tsne/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Blogdown</title>
-      <link>/tags/blogdown/</link>
+      <link>https://dataatomic.com/tags/blogdown/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/blogdown/</guid>
+      <guid>https://dataatomic.com/tags/blogdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Domain</title>
-      <link>/tags/domain/</link>
+      <link>https://dataatomic.com/tags/domain/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/domain/</guid>
+      <guid>https://dataatomic.com/tags/domain/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Git</title>
-      <link>/tags/git/</link>
+      <link>https://dataatomic.com/tags/git/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/git/</guid>
+      <guid>https://dataatomic.com/tags/git/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Github</title>
-      <link>/tags/github/</link>
+      <link>https://dataatomic.com/tags/github/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/github/</guid>
+      <guid>https://dataatomic.com/tags/github/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hugo</title>
-      <link>/tags/hugo/</link>
+      <link>https://dataatomic.com/tags/hugo/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/hugo/</guid>
+      <guid>https://dataatomic.com/tags/hugo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hugo-academic theme</title>
-      <link>/tags/hugo-academic-theme/</link>
+      <link>https://dataatomic.com/tags/hugo-academic-theme/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/hugo-academic-theme/</guid>
+      <guid>https://dataatomic.com/tags/hugo-academic-theme/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Netlify</title>
-      <link>/tags/netlify/</link>
+      <link>https://dataatomic.com/tags/netlify/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/netlify/</guid>
+      <guid>https://dataatomic.com/tags/netlify/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Source Themes</title>
-      <link>/tags/source-themes/</link>
+      <link>https://dataatomic.com/tags/source-themes/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/source-themes/</guid>
+      <guid>https://dataatomic.com/tags/source-themes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Deep Learning</title>
-      <link>/tags/deep-learning/</link>
+      <link>https://dataatomic.com/tags/deep-learning/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/tags/deep-learning/</guid>
+      <guid>https://dataatomic.com/tags/deep-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Demo</title>
-      <link>/tags/demo/</link>
+      <link>https://dataatomic.com/tags/demo/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/tags/demo/</guid>
+      <guid>https://dataatomic.com/tags/demo/</guid>
       <description></description>
     </item>
     

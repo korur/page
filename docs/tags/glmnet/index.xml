@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>glmnet | SERDAR KORUR</title>
-    <link>/tags/glmnet/</link>
-      <atom:link href="/tags/glmnet/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://dataatomic.com/tags/glmnet/</link>
+      <atom:link href="https://dataatomic.com/tags/glmnet/index.xml" rel="self" type="application/rss+xml" />
     <description>glmnet</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 01 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/img/logo.png</url>
+      <url>https://dataatomic.com/img/logo.png</url>
       <title>glmnet</title>
-      <link>/tags/glmnet/</link>
+      <link>https://dataatomic.com/tags/glmnet/</link>
     </image>
     
     <item>
       <title>Can machine learning change your life style? Predicting Diabetes</title>
-      <link>/2019/10/01/predict-diseases/</link>
+      <link>https://dataatomic.com/2019/10/01/predict-diseases/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/2019/10/01/predict-diseases/</guid>
+      <guid>https://dataatomic.com/2019/10/01/predict-diseases/</guid>
       <description>
 
 
@@ -240,7 +240,7 @@ library(waffle)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(gg, aes(x=value, fill=variable)) +
   geom_histogram(binwidth=5)+ 
   facet_wrap(~variable) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Peaks at zero of Skin Thickness and Insulin is obvious here.&lt;/p&gt;
 &lt;p&gt;In cases where the numbers are small we might remove them. &lt;strong&gt;Let’s figure it out with a for loop.&lt;/strong&gt; and then visualize on a waffle plot.&lt;/p&gt;
 &lt;p&gt;This will bring me the number of zero containing rows in variables from 2 to 6.&lt;/p&gt;
@@ -254,7 +254,7 @@ rows_with_zero &amp;lt;- unlist(zero_rows)&lt;/code&gt;&lt;/pre&gt;
            &amp;quot;Skin Thickness&amp;quot;= rows_with_zero[3], &amp;quot;Insulin&amp;quot; =rows_with_zero[4], 
            &amp;quot;BMI&amp;quot; = rows_with_zero[5])
 waffle(zeros, rows=20) + theme(text = element_text(size=15)) + ggtitle(&amp;quot;Number of rows with zero&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/waffle%20plot%20of%20zero%20values-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/waffle%20plot%20of%20zero%20values-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
 df&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##               rows_with_zero
@@ -524,7 +524,7 @@ df_long&lt;/code&gt;&lt;/pre&gt;
 # 
 model_variation &amp;lt;- ggplot(df_long, aes(y=auc, x=sampling, fill=sampling)) + geom_boxplot() + theme(text = element_text(size=15), axis.title.x=element_blank(), legend.position = &amp;quot;none&amp;quot;) + ggtitle(&amp;quot;Variation in model performance&amp;quot;)
 model_variation&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/change%20in%20variance%20plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/change%20in%20variance%20plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Great. We have a good estimate of our linear model performance.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;

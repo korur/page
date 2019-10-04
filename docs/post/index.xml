@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts | SERDAR KORUR</title>
-    <link>/post/</link>
-      <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://dataatomic.com/post/</link>
+      <atom:link href="https://dataatomic.com/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 01 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/img/logo.png</url>
+      <url>https://dataatomic.com/img/logo.png</url>
       <title>Posts</title>
-      <link>/post/</link>
+      <link>https://dataatomic.com/post/</link>
     </image>
     
     <item>
       <title>Can machine learning change your life style? Predicting Diabetes</title>
-      <link>/2019/10/01/predict-diseases/</link>
+      <link>https://dataatomic.com/2019/10/01/predict-diseases/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/2019/10/01/predict-diseases/</guid>
+      <guid>https://dataatomic.com/2019/10/01/predict-diseases/</guid>
       <description>
 
 
@@ -240,7 +240,7 @@ library(waffle)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(gg, aes(x=value, fill=variable)) +
   geom_histogram(binwidth=5)+ 
   facet_wrap(~variable) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Peaks at zero of Skin Thickness and Insulin is obvious here.&lt;/p&gt;
 &lt;p&gt;In cases where the numbers are small we might remove them. &lt;strong&gt;Let’s figure it out with a for loop.&lt;/strong&gt; and then visualize on a waffle plot.&lt;/p&gt;
 &lt;p&gt;This will bring me the number of zero containing rows in variables from 2 to 6.&lt;/p&gt;
@@ -254,7 +254,7 @@ rows_with_zero &amp;lt;- unlist(zero_rows)&lt;/code&gt;&lt;/pre&gt;
            &amp;quot;Skin Thickness&amp;quot;= rows_with_zero[3], &amp;quot;Insulin&amp;quot; =rows_with_zero[4], 
            &amp;quot;BMI&amp;quot; = rows_with_zero[5])
 waffle(zeros, rows=20) + theme(text = element_text(size=15)) + ggtitle(&amp;quot;Number of rows with zero&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/waffle%20plot%20of%20zero%20values-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/waffle%20plot%20of%20zero%20values-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
 df&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##               rows_with_zero
@@ -524,7 +524,7 @@ df_long&lt;/code&gt;&lt;/pre&gt;
 # 
 model_variation &amp;lt;- ggplot(df_long, aes(y=auc, x=sampling, fill=sampling)) + geom_boxplot() + theme(text = element_text(size=15), axis.title.x=element_blank(), legend.position = &amp;quot;none&amp;quot;) + ggtitle(&amp;quot;Variation in model performance&amp;quot;)
 model_variation&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/change%20in%20variance%20plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/change%20in%20variance%20plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Great. We have a good estimate of our linear model performance.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -798,9 +798,9 @@ knitr::kable(df[order(df[,2], decreasing=TRUE), ])&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Data Wrangling for Text mining: Extract individual elements from a Book</title>
-      <link>/2019/09/25/text-mining-extracting-elements/</link>
+      <link>https://dataatomic.com/2019/09/25/text-mining-extracting-elements/</link>
       <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/2019/09/25/text-mining-extracting-elements/</guid>
+      <guid>https://dataatomic.com/2019/09/25/text-mining-extracting-elements/</guid>
       <description>
 
 
@@ -1007,9 +1007,9 @@ writeLines(poems[[1]])&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Genomics at superresolution: Mapping Drug targets on single cell resolution in Fibrosis</title>
-      <link>/2019/09/17/genomics-at-superresolution/</link>
+      <link>https://dataatomic.com/2019/09/17/genomics-at-superresolution/</link>
       <pubDate>Tue, 17 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/2019/09/17/genomics-at-superresolution/</guid>
+      <guid>https://dataatomic.com/2019/09/17/genomics-at-superresolution/</guid>
       <description>
 
 
@@ -1089,14 +1089,14 @@ head(x = Fib@meta.data, 5)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Visualize QC metrics as a violin plot
 VlnPlot(object = Fib, features = c(&amp;quot;nFeature_RNA&amp;quot;, &amp;quot;nCount_RNA&amp;quot;, &amp;quot;percent.mt&amp;quot;),
         ncol = 3)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/qc2-1.png&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/qc2-1.png&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We will use FeatureScatter to visualize feature-feature relationships like 
 # RNA counts or percentage of mitochondiral contamination
 
 plot1 &amp;lt;- FeatureScatter(object = Fib, feature1 = &amp;quot;nCount_RNA&amp;quot;, feature2 = &amp;quot;percent.mt&amp;quot;) 
 plot2 &amp;lt;- FeatureScatter(object = Fib, feature1 = &amp;quot;nCount_RNA&amp;quot;, feature2 = &amp;quot;nFeature_RNA&amp;quot;) 
 CombinePlots(plots = list(plot1,plot2))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/qc2-2.png&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/qc2-2.png&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# As you see on the left plot cells with high percentage of mitochondrial genes
 # have very low numbers of RNA indicating that they are low quality/dead cells.
 # Let&amp;#39;s remove them.
@@ -1124,7 +1124,7 @@ top10&lt;/code&gt;&lt;/pre&gt;
 plot1 &amp;lt;- VariableFeaturePlot(object = Fib)
 plot2 &amp;lt;- LabelPoints(plot = plot1, points = top10, repel = TRUE)
 CombinePlots(plots = list(plot1, plot2))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/var_features-1.png&#34; width=&#34;1056&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/var_features-1.png&#34; width=&#34;1056&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;scale-the-data&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Scale the data&lt;/h4&gt;
@@ -1195,18 +1195,18 @@ print(x = Fib[[&amp;#39;pca&amp;#39;]], dims = 1:5, nfeatures = 5)&lt;/code&gt;&
 ## Positive:  CPA3, TPSAB1, TPSB2, MS4A2, GATA2 
 ## Negative:  S100A6, CSTB, S100A10, GCHFR, TXN&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VizDimLoadings(object = Fib, dims = 1:2, reduction = &amp;#39;pca&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/pca_viz-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/pca_viz-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;DimPlot(object = Fib, reduction = &amp;#39;pca&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/pca_viz-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/pca_viz-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;DimHeatmap(object = Fib, dims = 1:9, cells = 500, balanced = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/multi-heatmap-1.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/multi-heatmap-1.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;what-is-the-dimensionality-of-the-data&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;What is the ‘dimensionality’ of the data?&lt;/h3&gt;
 &lt;p&gt;For clustering analyses we will choose the principal components which explain most of the variation in our data. &lt;code&gt;Elbow plot&lt;/code&gt; uses a ranking of principle components based on the percentage explained by each one.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ElbowPlot(object = Fib)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/elbow_plot-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/elbow_plot-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We did not get a clear elbow shape here, but after 10th principal component additional dimensions does not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;cluster-the-cells&#34; class=&#34;section level3&#34;&gt;
@@ -1235,7 +1235,7 @@ head(Idents(Fib), 5)&lt;/code&gt;&lt;/pre&gt;
 &lt;h3&gt;TSNE plot&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- RunTSNE(object = Fib, dims = 1:6)
 DimPlot(object = Fib, reduction = &amp;#39;tsne&amp;#39;, label = TRUE, label.size = 5)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/TSNE%20plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/TSNE%20plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;how-to-find-genes-that-differentiate-each-cluster&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;How to find genes that differentiate each cluster?&lt;/h3&gt;
@@ -1353,12 +1353,12 @@ new.cluster.ids &amp;lt;- c(&amp;quot;Macrophages(1)&amp;quot;, &amp;quot;Macrop
 names(new.cluster.ids) &amp;lt;- levels(Fib)
 Fib &amp;lt;- RenameIdents(Fib, new.cluster.ids)
 DimPlot(Fib, reduction = &amp;quot;tsne&amp;quot;, label = TRUE, label.size = 8, pt.size = 1.0) + NoLegend()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/tsnewithcellids-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/tsnewithcellids-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s look at the expression of a few genes of interest accross different subtypes
 VlnPlot(Fib, features = c(&amp;quot;SPP1&amp;quot;, &amp;quot;CHIT1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/differentfeautures-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/differentfeautures-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features = c(&amp;quot;SPP1&amp;quot;, &amp;quot;APOE&amp;quot;, &amp;quot;SCGB3A2&amp;quot;, &amp;quot;C9orf24&amp;quot;, &amp;quot;S100A2&amp;quot;, &amp;quot;BPIFB1&amp;quot;, &amp;quot;S100B&amp;quot;, &amp;quot;COL3A1&amp;quot;, &amp;quot;FCN1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/differentfeautures-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/differentfeautures-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;what-cells-biotech-companies-are-targeting-in-lung-fibrosis&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;What cells &lt;code&gt;Biotech&lt;/code&gt; Companies are targeting in lung fibrosis?&lt;/h3&gt;
@@ -1367,24 +1367,24 @@ VlnPlot(Fib, features = c(&amp;quot;SPP1&amp;quot;, &amp;quot;CHIT1&amp;quot;))&
 &lt;h4&gt;Fibrinogen&lt;/h4&gt;
 &lt;p&gt;Fibrinoge’s lead compound pamrevlumab blocks CTGF. Let’s have a look which cells produce it.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VlnPlot(Fib, features =c(&amp;quot;CTGF&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/Fibrinogen-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/Fibrinogen-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features = c(&amp;quot;CTGF&amp;quot;), pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/Fibrinogen-2.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/Fibrinogen-2.png&#34; width=&#34;672&#34; /&gt;
 Main source for the &lt;code&gt;CTGF&lt;/code&gt; production here seems the &lt;code&gt;Ciliated cells.&lt;/code&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;galapagos&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Galapagos&lt;/h4&gt;
 &lt;p&gt;Galapagos GLPG1690 has entered Phase 3 clinical trials and it targets Autotaxin (ENPP2).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VlnPlot(Fib, features =  c(&amp;quot;ENPP2&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1690-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1690-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;ENPP2&amp;quot;),  pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1690-2.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1690-2.png&#34; width=&#34;672&#34; /&gt;
 We see a low expression of &lt;code&gt;ENPP&lt;/code&gt; mainly in Macrophages, Dendritic cells and Fibroblasts.&lt;/p&gt;
 &lt;p&gt;The other clinical candidate of Galapagos is GLPG1205 which targets GPR84. It has entered Phase 2 clinical trials.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VlnPlot(Fib, features =  c(&amp;quot;GPR84&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1205-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1205-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;GPR84&amp;quot;), pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1205-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/GLPG1205-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;GPR84&lt;/code&gt; has very low expression throughout the lung cells of this patient. The gene is mainly expressed in Type 1 Macrophages.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;bristol-myers-squibb-bms-986020&#34; class=&#34;section level4&#34;&gt;
@@ -1392,18 +1392,18 @@ We see a low expression of &lt;code&gt;ENPP&lt;/code&gt; mainly in Macrophages, 
 &lt;p&gt;BMS-986020 is an anti-fibrotic drug being developed by Bristol-Myers Squibb, and is a lysophosphatidic acid (LPA) receptor antagonist.&lt;/p&gt;
 &lt;p&gt;Let’s look at the expression of a LPAR1.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VlnPlot(Fib, features = c(&amp;quot;LPAR1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/LPAR1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/LPAR1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =c(&amp;quot;LPAR1&amp;quot;),  pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/LPAR1-2.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/LPAR1-2.png&#34; width=&#34;672&#34; /&gt;
 It is expressed at low levels but consistently on many types of lung cells.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;roche-nintedanib&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Roche &lt;code&gt;nintedanib&lt;/code&gt;&lt;/h4&gt;
 &lt;p&gt;Nintedanib is one of the two new medicines approved for IPF patients. It targets multiple receptor tyrosine kinase receptors such as VEGF, FGF and PDGF.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VlnPlot(Fib, features = c(&amp;quot;VEGFA&amp;quot;, &amp;quot;PDGFA&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/nintedanib-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/nintedanib-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features =  c(&amp;quot;VEGFA&amp;quot;, &amp;quot;PDGFA&amp;quot;), pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/nintedanib-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dataatomic.com/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/nintedanib-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;VEGFA, PDGFA is highly expressed in multiple types of cells in the lung microenvironment.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1417,9 +1417,9 @@ Although changes associated with fibrosis are well defined the causal factors ar
     
     <item>
       <title>Start blogging in 5 minutes on Netlify with Hugo and blogdown (September 2019 Update)</title>
-      <link>/2019/09/15/deploy-your-blog-in-5-minutes/</link>
+      <link>https://dataatomic.com/2019/09/15/deploy-your-blog-in-5-minutes/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/2019/09/15/deploy-your-blog-in-5-minutes/</guid>
+      <guid>https://dataatomic.com/2019/09/15/deploy-your-blog-in-5-minutes/</guid>
       <description>
 
 
@@ -1457,7 +1457,7 @@ Replace its &lt;strong&gt;repository name&lt;/strong&gt; with “&lt;strong&gt;g
 &lt;p&gt;Open your &lt;strong&gt;config.toml&lt;/strong&gt; file under the Website folder, and add the lines; &lt;a id=&#34;editconfig&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;baseurl: &#34;https://yourusername.github.io/page/&#34;&lt;/code&gt;&lt;br /&gt;
 &lt;code&gt;publishDir = &#34;docs&#34;&lt;/code&gt;
-&lt;img src=&#34;/img/configtoml.jpg&#34; alt=&#34;configtoml&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://dataatomic.com/img/configtoml.jpg&#34; alt=&#34;configtoml&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Save the config file. This will rebuild the site and create the docs folder.
 Now you can go back to your folder and delete the public directory.&lt;/p&gt;
 &lt;/div&gt;
@@ -1471,7 +1471,7 @@ Here I called it &lt;code&gt;page.&lt;/code&gt;
 Then your remote repository will be at&lt;br /&gt;
 &lt;a href=&#34;https://github.com/yourusername/page.git&#34; class=&#34;uri&#34;&gt;https://github.com/yourusername/page.git&lt;/a&gt;
 Copy that link.
-&lt;img src=&#34;/img/git.png&#34; alt=&#34;git&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://dataatomic.com/img/git.png&#34; alt=&#34;git&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;on-git&#34; class=&#34;section level3&#34;&gt;
@@ -1534,8 +1534,8 @@ Modify as Key = HUGO_VERSION and Value = 0.58.1&lt;br /&gt;
 &lt;h4&gt;Go to your domain provider e.g I did on Go Daddy&lt;/h4&gt;
 &lt;p&gt;My Products &amp;gt; Scroll down to your domain &amp;gt; Click DNS&lt;/p&gt;
 &lt;p&gt;Create new or modify if existing an A record pointing your root domain to Netlify load balancer’s IP address 104.198.14.52 as in below;
-&lt;img src=&#34;/img/A_record.jpg&#34; alt=&#34;A_record&#34; /&gt;Add a CNAME file as here;
-&lt;img src=&#34;/img/netlify_CNAME.jpg&#34; alt=&#34;netlify_CNAME&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;https://dataatomic.com/img/A_record.jpg&#34; alt=&#34;A_record&#34; /&gt;Add a CNAME file as here;
+&lt;img src=&#34;https://dataatomic.com/img/netlify_CNAME.jpg&#34; alt=&#34;netlify_CNAME&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;go-to-domain-settings-on-your-deploy-at-netlify&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Go to domain settings on your deploy at Netlify&lt;/h4&gt;
