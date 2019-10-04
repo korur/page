@@ -3,321 +3,331 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://dataatomic.com/courses/example/example1/</loc>
+    <loc>/courses/example/example1/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/courses/example/</loc>
+    <loc>/courses/example/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/courses/example/example2/</loc>
+    <loc>/courses/example/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/talk/example/</loc>
+    <loc>/talk/example/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/talk/</loc>
+    <loc>/talk/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/</loc>
+    <loc>/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/blog/</loc>
+    <loc>/tags/blog/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/2019/10/01/predict-diseases/</loc>
+    <loc>/2019/10/01/predict-diseases/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/data-quality-control/</loc>
+    <loc>/tags/data-quality-control/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/data-science-process/</loc>
+    <loc>/tags/data-science-process/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/feature-engineering/</loc>
+    <loc>/tags/feature-engineering/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/glmnet/</loc>
+    <loc>/tags/glmnet/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/linear-regression/</loc>
+    <loc>/tags/linear-regression/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/logistic-regression/</loc>
+    <loc>/tags/logistic-regression/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/machine-learning/</loc>
+    <loc>/tags/machine-learning/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/pima-indians/</loc>
+    <loc>/tags/pima-indians/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/post/</loc>
+    <loc>/post/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/randomforest/</loc>
+    <loc>/tags/randomforest/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/</loc>
+    <loc>/tags/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/data-preparation/</loc>
+    <loc>/tags/data-preparation/</loc>
     <lastmod>2019-09-25T10:02:47+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/2019/09/25/text-mining-extracting-elements/</loc>
+    <loc>/2019/09/25/text-mining-extracting-elements/</loc>
     <lastmod>2019-09-25T10:02:47+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/for-loop/</loc>
+    <loc>/tags/for-loop/</loc>
     <lastmod>2019-09-25T10:02:47+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/r-markdown/</loc>
+    <loc>/tags/r-markdown/</loc>
     <lastmod>2019-09-25T10:02:47+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/rstudio/</loc>
+    <loc>/tags/rstudio/</loc>
     <lastmod>2019-09-25T10:02:47+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/stringr/</loc>
+    <loc>/tags/stringr/</loc>
     <lastmod>2019-09-25T10:02:47+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/text-mining/</loc>
+    <loc>/tags/text-mining/</loc>
     <lastmod>2019-09-25T10:02:47+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/clustering/</loc>
+    <loc>/tags/clustering/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/2019/09/17/genomics-at-superresolution/</loc>
+    <loc>/2019/09/17/genomics-at-superresolution/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/h5-file/</loc>
+    <loc>/tags/h5-file/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/ipf/</loc>
+    <loc>/tags/ipf/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/pca/</loc>
+    <loc>/tags/pca/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/r/</loc>
+    <loc>/tags/r/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/scrna-seq/</loc>
+    <loc>/tags/scrna-seq/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/seurat/</loc>
+    <loc>/tags/seurat/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/tsne/</loc>
+    <loc>/tags/tsne/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/blogdown/</loc>
+    <loc>/tags/blogdown/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/domain/</loc>
+    <loc>/tags/domain/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/git/</loc>
+    <loc>/tags/git/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/github/</loc>
+    <loc>/tags/github/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/hugo/</loc>
+    <loc>/tags/hugo/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/hugo-academic-theme/</loc>
+    <loc>/tags/hugo-academic-theme/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/netlify/</loc>
+    <loc>/tags/netlify/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/2019/09/15/deploy-your-blog-in-5-minutes/</loc>
+    <loc>/2019/09/15/deploy-your-blog-in-5-minutes/</loc>
     <lastmod>2019-09-15T14:37:59+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/authors/admin/</loc>
+    <loc>/authors/admin/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/publication_types/3/</loc>
+    <loc>/publication_types/3/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/publication/preprint/</loc>
+    <loc>/publication/preprint/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/authors/</loc>
+    <loc>/authors/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/publication_types/</loc>
+    <loc>/publication_types/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/publication/</loc>
+    <loc>/publication/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/source-themes/</loc>
+    <loc>/tags/source-themes/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/slides/</loc>
+    <loc>/slides/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/slides/example/</loc>
+    <loc>/slides/example/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/deep-learning/</loc>
+    <loc>/privacy/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/terms/</loc>
+    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/deep-learning/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/tags/demo/</loc>
+    <loc>/tags/demo/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/project/external-project/</loc>
+    <loc>/project/external-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/project/internal-project/</loc>
+    <loc>/project/internal-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/project/</loc>
+    <loc>/project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/publication_types/2/</loc>
+    <loc>/publication_types/2/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/publication/journal-article/</loc>
+    <loc>/publication/journal-article/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/authors/robert-ford/</loc>
+    <loc>/authors/robert-ford/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/publication_types/1/</loc>
+    <loc>/publication_types/1/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/publication/conference-paper/</loc>
+    <loc>/publication/conference-paper/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/categories/</loc>
+    <loc>/categories/</loc>
   </url>
   
   <url>
-    <loc>https://dataatomic.com/courses/</loc>
+    <loc>/courses/</loc>
   </url>
   
 </urlset>

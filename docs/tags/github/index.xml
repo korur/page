@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Github | SERDAR KORUR</title>
-    <link>https://dataatomic.com/tags/github/</link>
-      <atom:link href="https://dataatomic.com/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <link>/tags/github/</link>
+      <atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml" />
     <description>Github</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 15 Sep 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://dataatomic.com/img/logo.png</url>
+      <url>/img/logo.png</url>
       <title>Github</title>
-      <link>https://dataatomic.com/tags/github/</link>
+      <link>/tags/github/</link>
     </image>
     
     <item>
       <title>Start blogging in 5 minutes on Netlify with Hugo and blogdown (September 2019 Update)</title>
-      <link>https://dataatomic.com/2019/09/15/deploy-your-blog-in-5-minutes/</link>
+      <link>/2019/09/15/deploy-your-blog-in-5-minutes/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>https://dataatomic.com/2019/09/15/deploy-your-blog-in-5-minutes/</guid>
+      <guid>/2019/09/15/deploy-your-blog-in-5-minutes/</guid>
       <description>
 
 
@@ -54,7 +54,7 @@ Replace its &lt;strong&gt;repository name&lt;/strong&gt; with “&lt;strong&gt;g
 &lt;p&gt;Open your &lt;strong&gt;config.toml&lt;/strong&gt; file under the Website folder, and add the lines; &lt;a id=&#34;editconfig&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;baseurl: &#34;https://yourusername.github.io/page/&#34;&lt;/code&gt;&lt;br /&gt;
 &lt;code&gt;publishDir = &#34;docs&#34;&lt;/code&gt;
-&lt;img src=&#34;https://dataatomic.com/img/configtoml.jpg&#34; alt=&#34;configtoml&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;/img/configtoml.jpg&#34; alt=&#34;configtoml&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Save the config file. This will rebuild the site and create the docs folder.
 Now you can go back to your folder and delete the public directory.&lt;/p&gt;
 &lt;/div&gt;
@@ -68,7 +68,7 @@ Here I called it &lt;code&gt;page.&lt;/code&gt;
 Then your remote repository will be at&lt;br /&gt;
 &lt;a href=&#34;https://github.com/yourusername/page.git&#34; class=&#34;uri&#34;&gt;https://github.com/yourusername/page.git&lt;/a&gt;
 Copy that link.
-&lt;img src=&#34;https://dataatomic.com/img/git.png&#34; alt=&#34;git&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;/img/git.png&#34; alt=&#34;git&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;on-git&#34; class=&#34;section level3&#34;&gt;
@@ -131,8 +131,8 @@ Modify as Key = HUGO_VERSION and Value = 0.58.1&lt;br /&gt;
 &lt;h4&gt;Go to your domain provider e.g I did on Go Daddy&lt;/h4&gt;
 &lt;p&gt;My Products &amp;gt; Scroll down to your domain &amp;gt; Click DNS&lt;/p&gt;
 &lt;p&gt;Create new or modify if existing an A record pointing your root domain to Netlify load balancer’s IP address 104.198.14.52 as in below;
-&lt;img src=&#34;https://dataatomic.com/img/A_record.jpg&#34; alt=&#34;A_record&#34; /&gt;Add a CNAME file as here;
-&lt;img src=&#34;https://dataatomic.com/img/netlify_CNAME.jpg&#34; alt=&#34;netlify_CNAME&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;/img/A_record.jpg&#34; alt=&#34;A_record&#34; /&gt;Add a CNAME file as here;
+&lt;img src=&#34;/img/netlify_CNAME.jpg&#34; alt=&#34;netlify_CNAME&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;go-to-domain-settings-on-your-deploy-at-netlify&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Go to domain settings on your deploy at Netlify&lt;/h4&gt;

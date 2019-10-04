@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Courses | SERDAR KORUR</title>
-    <link>https://dataatomic.com/courses/</link>
-      <atom:link href="https://dataatomic.com/courses/index.xml" rel="self" type="application/rss+xml" />
+    <link>/courses/</link>
+      <atom:link href="/courses/index.xml" rel="self" type="application/rss+xml" />
     <description>Courses</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
     <image>
-      <url>https://dataatomic.com/img/logo.png</url>
+      <url>/img/logo.png</url>
       <title>Courses</title>
-      <link>https://dataatomic.com/courses/</link>
+      <link>/courses/</link>
     </image>
     
     <item>
       <title>Overview</title>
-      <link>https://dataatomic.com/courses/example/</link>
+      <link>/courses/example/</link>
       <pubDate>Sun, 09 Sep 2018 00:00:00 +0000</pubDate>
-      <guid>https://dataatomic.com/courses/example/</guid>
+      <guid>/courses/example/</guid>
       <description>
 
 &lt;h2 id=&#34;flexibility&#34;&gt;Flexibility&lt;/h2&gt;
