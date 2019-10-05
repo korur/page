@@ -2,7 +2,7 @@
 title: 'Data Wrangling for Text mining: Extract individual elements from a Book'
 author: ''
 date: '2019-09-25'
-slug: text-mining-extracting-elements
+slug: data-wrangling-text-mining
 categories: []
 tags:
   - RStudio
@@ -25,9 +25,10 @@ projects: []
 
 
 
-<p>My ambitious goal is to write a machine learning algorithm that predicts the authors. But let’s start with something simpler.</p>
-<p><a href="https://www.gutenberg.org/">Project Gutenberg</a> is a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence.</p>
-<p><strong>The goal is to isolate each poem individually for text mining analysis later.</strong> Hints on internet was not plenty so I decided to figure out a solution myself.</p>
+<p>My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler.</p>
+<p><a href="https://www.gutenberg.org/">Project Gutenberg</a> has a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence.</p>
+<p><strong>The goal is to isolate each poem individually for text mining analysis later.</strong></p>
+<p>Let’s figure out a solution.</p>
 <p>{{% alert note %}}
 I will use the table of contents section to <strong>fish out each poem separately</strong> by using two <strong>for loops.</strong>
 {{% /alert %}}</p>
@@ -39,9 +40,10 @@ library(stringi)</code></pre>
 </div>
 <div id="copy-the-book-from-dh-lawrence-new-poems" class="section level3">
 <h3>Copy the book from DH Lawrence “New Poems”</h3>
-<p>Since there were some mistakes in the .txt version of the book I copied the text from the html version at <a href="http://www.gutenberg.org/files/22726/22726-h/22726-h.htm">gutenbergr website</a> and pasted it in a txt file and saved to my working directory.</p>
+<p>At gutenberg website there are couple of slightly different formats of the book. Since there were some mistakes in the .txt version I used
+the html version <a href="http://www.gutenberg.org/files/22726/22726-h/22726-h.htm">here</a>. I copied the text and pasted it in a txt file and saved to my working directory.</p>
 <pre class="r"><code>lawrence &lt;- readLines(&quot;posts_data/lawrence_new_poems.txt&quot;)</code></pre>
-<p>Our file contains <code>2181</code> lines. With square brackets [ ] we can view the lines we are interested. Let’s look at the first few lines;</p>
+<p>Our file contains <code>2181</code> lines. With square brackets [ ] we can view the lines we want. Let’s look at the first few lines;</p>
 <pre class="r"><code>lawrence[1:5]</code></pre>
 <pre><code>## [1] &quot;&quot;                                                                    
 ## [2] &quot;The Project Gutenberg EBook of New Poems, by D. H. Lawrence&quot;         
@@ -89,16 +91,17 @@ end</code></pre>
 ## [37] &quot;TWO WIVES&quot;                  &quot;HEIMWEH&quot;                   
 ## [39] &quot;DEBACLE&quot;                    &quot;NARCISSUS&quot;                 
 ## [41] &quot;AUTUMN SUNSHINE&quot;            &quot;ON THAT DAY&quot;</code></pre>
-<p>Now, we will extract main text containing only the poems without metadata. We need to slice the document starting from the end of the contents <code>(end)</code> till end of the last poem.</p>
+<p>Next, we will extract main text containing only the poems without TOC and other metadata. We need to slice the document starting from the end of the contents <code>(end)</code> till end of the last poem.</p>
 <pre class="r"><code># After the last poem some metadata starts with &quot;End of the Project...&quot;
 # We will slice until this line
 end_main &lt;- str_which(lawrence, &quot;End of the Project Gutenberg EBook of New Poems, by D. H. Lawrence&quot;)
 # Capture main text
 lawrence_body &lt;- lawrence[(end+1):(end_main -1)]</code></pre>
+<p>Now, we have TOC and main body of the book as two separate objects.</p>
 </div>
 <div id="first-for-loop" class="section level3">
 <h3>First for loop</h3>
-<p>We will use a <code>for loop</code> to get the index numbers of the title’s of each poem.</p>
+<p>We will use TOC and a <code>for loop</code> to get the index numbers of the title’s of each poem.</p>
 <pre class="r"><code># First initiate an empty list
 index &lt;- list()
 # For loop
@@ -120,7 +123,7 @@ index</code></pre>
 <pre><code>## [1] 9</code></pre>
 <pre class="r"><code># e.g. The poem Apprehension starts at line index number 9</code></pre>
 <p>Selecting the lines from the beginning of the <strong>first poem</strong> until the beginning of the <strong>second poem</strong> will give us the first poem. By iterating everything by +1 we will capture all 42 poems.</p>
-<p>Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To remove those duplicates I will remove first apperance of index 768 and second appearence of 621.</p>
+<p>Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To correct this, I will remove first apperance of index 768 and second appearence of 621.</p>
 <pre class="r"><code>index &lt;- index[-c(23,27)]
 index</code></pre>
 <pre><code>##  [1]    9   37   59   82  110  126  164  192  209  253  276  314  332  347
@@ -129,7 +132,7 @@ index</code></pre>
 <pre class="r"><code>length(index)</code></pre>
 <pre><code>## [1] 42</code></pre>
 <pre class="r"><code># Not to miss the last poem, I have to add the line index of the
-# end of the main text
+# end of the main text. We can use the end of the main body as above.
 index[43] &lt;- end_main -1</code></pre>
 <p>Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separetely.</p>
 </div>
@@ -166,7 +169,7 @@ writeLines(poems[[1]])</code></pre>
 ##      Waves crash like thunder through
 ##        The splintered streets, hear noises
 ##      Roll hollow in the interim.</code></pre>
-<p>Let’s check if we got what we wanted</p>
+<p>Let’s check if we got what we wanted.</p>
 <pre class="r"><code>str(poems)</code></pre>
 <pre><code>## List of 42
 ##  $ : chr [1:29] &quot;&quot; &quot;APPREHENSION&quot; &quot;AND all hours long, the town&quot; &quot;       Roars like a beast in a cave&quot; ...
@@ -214,7 +217,7 @@ writeLines(poems[[1]])</code></pre>
 </div>
 <div id="final-thoughts" class="section level3">
 <h3>Final Thoughts</h3>
-<p><strong>Data Preparation</strong> is one crucial step in Data Science as data comes rarely ready to use.</p>
+<p><strong>Data Preparation</strong> is a crucial step in Data Science as data comes rarely ready to use.</p>
 <p>Here, starting from a Poetry Book I isolated each poem separately in a list. Hard part is done. <strong>Now, I can identify how many rhymes each poem contains, word usage across different poems, the similarities between them and many more to gain insights about the author.</strong></p>
 <p>I could also analyze the whole book as a single document but by isolating each element I will gain much deeper insight from the data.</p>
 <p>Do you apply similar techniques to isolate chapters or sections from the book or documents to compare and contrast different parts?</p>

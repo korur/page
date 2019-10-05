@@ -2,7 +2,7 @@
 title: 'Data Wrangling for Text mining: Extract individual elements from a Book'
 author: ''
 date: '2019-09-25'
-slug: text-mining-extracting-elements
+slug: data-wrangling-text-mining
 categories: []
 tags:
   - RStudio
@@ -23,11 +23,13 @@ image:
 projects: []
 ---
 
-My ambitious goal is to write a machine learning algorithm that predicts the authors. But let's start with something simpler.
+My ambitious goal is to write a machine learning algorithm that predicts authors. But let's start with something simpler.
 
-[Project Gutenberg](https://www.gutenberg.org/) is a library of over 60,000 free eBooks. I will work on a Poetry book called "New Poems" from D. H. Lawrence. 
+[Project Gutenberg](https://www.gutenberg.org/) has a library of over 60,000 free eBooks. I will work on a Poetry book called "New Poems" from D. H. Lawrence. 
 
-**The goal is to isolate each poem individually for text mining analysis later.** Hints on internet was not plenty so I decided to figure out a solution myself. 
+**The goal is to isolate each poem individually for text mining analysis later.**  
+  
+Let's figure out a solution. 
 
 {{% alert note %}}
 I will use the table of contents section to **fish out each poem separately** by using two **for loops.**
@@ -44,13 +46,14 @@ library(stringi)
 
 ### Copy the book from DH Lawrence "New Poems"
 
-Since there were some mistakes in the .txt version of the book I copied the text from the html version at [gutenbergr website](http://www.gutenberg.org/files/22726/22726-h/22726-h.htm) and pasted it in a txt file and saved to my working directory. 
+At gutenberg website there are couple of slightly different formats of the book. Since there were some mistakes in the .txt version I used 
+the html version [here](http://www.gutenberg.org/files/22726/22726-h/22726-h.htm). I copied the text and pasted it in a txt file and saved to my working directory. 
 ```{r data}
 
 lawrence <- readLines("posts_data/lawrence_new_poems.txt")
 
 ```
-Our file contains ```r length(lawrence)``` lines. With square brackets [ ] we can view the lines we are interested. Let's look at the first few lines;
+Our file contains ```r length(lawrence)``` lines. With square brackets [ ] we can view the lines we want. Let's look at the first few lines;
 
 ```{r Lines, warning = FALSE, message = FALSE}
 lawrence[1:5]
@@ -89,7 +92,7 @@ TOC
 ```
 
 
-Now, we will extract main text containing only the poems without metadata. We need to slice the document starting from the end of the contents ```(end)``` till end of the last poem.
+Next, we will extract main text containing only the poems without TOC and other metadata. We need to slice the document starting from the end of the contents ```(end)``` till end of the last poem.
 
 ```{r capture main body}
 # After the last poem some metadata starts with "End of the Project..."
@@ -99,9 +102,11 @@ end_main <- str_which(lawrence, "End of the Project Gutenberg EBook of New Poems
 lawrence_body <- lawrence[(end+1):(end_main -1)]
 ```
 
+Now, we have TOC and main body of the book as two separate objects. 
+
 ### First for loop  
 
-We will use a ```for loop``` to get the index numbers of the title's of each poem.
+We will use TOC and a ```for loop``` to get the index numbers of the title's of each poem.
 ```{r capture individual poems}
 
 # First initiate an empty list
@@ -127,14 +132,14 @@ str_which(lawrence_body, pattern = TOC[1])
 Selecting the lines from the beginning of the **first poem** until the beginning of the **second poem** will give us the first poem. By iterating everything by +1 we will capture all 42 poems.
 
 
-Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To remove those duplicates I will remove first apperance of index 768 and second appearence of 621.
+Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To correct this, I will remove first apperance of index 768 and second appearence of 621.
 
 ```{r index}
 index <- index[-c(23,27)]
 index
 length(index)
 # Not to miss the last poem, I have to add the line index of the
-# end of the main text
+# end of the main text. We can use the end of the main body as above.
 index[43] <- end_main -1
 ```
 Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separetely.   
@@ -153,14 +158,14 @@ for (i in 1:42) {
 writeLines(poems[[1]])
 ```
 
-Let's check if we got what we wanted
+Let's check if we got what we wanted.
 ```{r final view}
 str(poems)
 ```
 
 ### Final Thoughts
 
-**Data Preparation** is one crucial step in Data Science as data comes rarely ready to use.
+**Data Preparation** is a crucial step in Data Science as data comes rarely ready to use.
 
 Here, starting from a Poetry Book I isolated each poem separately in a list. Hard part is done. **Now, I can identify how many rhymes each poem contains, word usage across different poems, the similarities between them and many more to gain insights about the author.** 
 
