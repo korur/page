@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.5.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Serdar Korur">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="My ambitious goal is to write a machine learning algorithm that predicts the authors. But let’s start with something simpler.
+Project Gutenberg is a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence.
+The goal is to isolate each poem individually for text mining analysis later. Hints on internet was not plenty so I decided to figure out a solution myself.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/r/text-mining-extracting-elements/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.min.54abc5f3f1ddc380a34d4103fd11d77a.css">
+
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-148414815-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="/r/text-mining-extracting-elements/">
+
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="SERDAR KORUR">
+  <meta property="og:url" content="/r/text-mining-extracting-elements/">
+  <meta property="og:title" content="Data Wrangling for Text mining: Extract individual elements from a Book | SERDAR KORUR">
+  <meta property="og:description" content="My ambitious goal is to write a machine learning algorithm that predicts the authors. But let’s start with something simpler.
+Project Gutenberg is a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence.
+The goal is to isolate each poem individually for text mining analysis later. Hints on internet was not plenty so I decided to figure out a solution myself."><meta property="og:image" content="/img/logo.png">
+  <meta property="twitter:image" content="/img/logo.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-09-25T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2019-09-25T10:02:47&#43;02:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/r/text-mining-extracting-elements/"
+  },
+  "headline": "Data Wrangling for Text mining: Extract individual elements from a Book",
+  
+  "datePublished": "2019-09-25T00:00:00Z",
+  "dateModified": "2019-09-25T10:02:47+02:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Serdar Korur"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "SERDAR KORUR",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/img/logo.png"
+    }
+  },
+  "description": "My ambitious goal is to write a machine learning algorithm that predicts the authors. But let’s start with something simpler.\nProject Gutenberg is a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence.\nThe goal is to isolate each poem individually for text mining analysis later. Hints on internet was not plenty so I decided to figure out a solution myself."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Data Wrangling for Text mining: Extract individual elements from a Book | SERDAR KORUR</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0 compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/"><img src="/img/logo.png" alt="SERDAR KORUR"></a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav mr-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span></span></a>
+        </li>
+
+        
+        
+
+      
+      </ul>
+      <ul class="navbar-nav ml-auto">
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Data Wrangling for Text mining: Extract individual elements from a Book</h1>
+
+  
+
+  
+    
+
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Sep 25, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    11 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/r/text-mining-extracting-elements/#disqus_thread"></a>
+  
+
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/r/text-mining-extracting-elements/&amp;text=Data%20Wrangling%20for%20Text%20mining:%20Extract%20individual%20elements%20from%20a%20Book" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/r/text-mining-extracting-elements/&amp;t=Data%20Wrangling%20for%20Text%20mining:%20Extract%20individual%20elements%20from%20a%20Book" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Data%20Wrangling%20for%20Text%20mining:%20Extract%20individual%20elements%20from%20a%20Book&amp;body=/r/text-mining-extracting-elements/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/r/text-mining-extracting-elements/&amp;title=Data%20Wrangling%20for%20Text%20mining:%20Extract%20individual%20elements%20from%20a%20Book" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Data%20Wrangling%20for%20Text%20mining:%20Extract%20individual%20elements%20from%20a%20Book%20/r/text-mining-extracting-elements/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/r/text-mining-extracting-elements/&amp;title=Data%20Wrangling%20for%20Text%20mining:%20Extract%20individual%20elements%20from%20a%20Book" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+
+<p>My ambitious goal is to write a machine learning algorithm that predicts the authors. But let’s start with something simpler.</p>
+<p><a href="https://www.gutenberg.org/">Project Gutenberg</a> is a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence.</p>
+<p><strong>The goal is to isolate each poem individually for text mining analysis later.</strong> Hints on internet was not plenty so I decided to figure out a solution myself.</p>
+<p><div class="alert alert-note">
+  <div>
+    I will use the table of contents section to <strong>fish out each poem separately</strong> by using two <strong>for loops.</strong>
+  </div>
+</div>
+</p>
+<div id="install-the-required-packages" class="section level3">
+<h3>Install the required packages</h3>
+<pre class="r"><code>library(dplyr)
+library(stringr)
+library(stringi)</code></pre>
+</div>
+<div id="copy-the-book-from-dh-lawrence-new-poems" class="section level3">
+<h3>Copy the book from DH Lawrence “New Poems”</h3>
+<p>Since there were some mistakes in the .txt version of the book I copied the text from the html version at <a href="http://www.gutenberg.org/files/22726/22726-h/22726-h.htm">gutenbergr website</a> and pasted it in a txt file and saved to my working directory.</p>
+<pre class="r"><code>lawrence &lt;- readLines(&quot;posts_data/lawrence_new_poems.txt&quot;)</code></pre>
+<p>Our file contains <code>2181</code> lines. With square brackets [ ] we can view the lines we are interested. Let’s look at the first few lines;</p>
+<pre class="r"><code>lawrence[1:5]</code></pre>
+<pre><code>## [1] &quot;&quot;                                                                    
+## [2] &quot;The Project Gutenberg EBook of New Poems, by D. H. Lawrence&quot;         
+## [3] &quot;&quot;                                                                    
+## [4] &quot;This eBook is for the use of anyone anywhere at no cost and with&quot;    
+## [5] &quot;almost no restrictions whatsoever.  You may copy it, give it away or&quot;</code></pre>
+<p>The <a href="http://www.gutenberg.org/files/22726/22726-h/22726-h.htm">book</a> has 42 poems in total. Table of contents (TOC) starts with the line “CONTENTS” and ends with the line “ON THAT DAY”</p>
+<p>I will use those lines to extract the TOC. Stringr package comes in handy here. <strong>str_which()</strong> function returns line index numbers for a given term.</p>
+<pre class="r"><code>start &lt;- str_which(lawrence, pattern = fixed(&quot;CONTENTS&quot;))
+start</code></pre>
+<pre><code>## [1] 53</code></pre>
+<pre class="r"><code>lawrence[start]</code></pre>
+<pre><code>## [1] &quot;CONTENTS&quot;</code></pre>
+<pre class="r"><code># We are choosing first appearance of &quot;ON THAT DAY&quot; with [1] because it appears 
+# also in the Poem title later.
+end &lt;-  str_which(lawrence, pattern = fixed(&quot;ON THAT DAY&quot;))[1]
+end</code></pre>
+<pre><code>## [1] 137</code></pre>
+<pre class="r"><code>lawrence[end]</code></pre>
+<pre><code>## [1] &quot;ON THAT DAY&quot;</code></pre>
+<p>Slicing the lines from <code>54</code> to <code>137</code> will give us the TOC.</p>
+<pre class="r"><code>TOC &lt;- lawrence[(start+1):(end)]</code></pre>
+<p>To remove empty spaces I will use here <strong>stri_remove_empty()</strong> function from <strong>stringi</strong> package.</p>
+<pre class="r"><code>TOC &lt;- stri_remove_empty(TOC)</code></pre>
+<p>Let’s look at how the clean TOC looks.</p>
+<pre class="r"><code>TOC </code></pre>
+<pre><code>##  [1] &quot;APPREHENSION&quot;               &quot;COMING AWAKE&quot;              
+##  [3] &quot;FROM A COLLEGE WINDOW&quot;      &quot;FLAPPER&quot;                   
+##  [5] &quot;BIRDCAGE WALK&quot;              &quot;LETTER FROM TOWN: THE&quot;     
+##  [7] &quot;FLAT SUBURBS, S.W., IN THE&quot; &quot;THIEF IN THE NIGHT&quot;        
+##  [9] &quot;LETTER FROM TOWN: ON A&quot;     &quot;SUBURBS ON A HAZY DAY&quot;     
+## [11] &quot;HYDE PARK AT NIGHT, BEFORE&quot; &quot;GIPSY&quot;                     
+## [13] &quot;TWO-FOLD&quot;                   &quot;UNDER THE OAK&quot;             
+## [15] &quot;SIGH NO MORE&quot;               &quot;LOVE STORM&quot;                
+## [17] &quot;PARLIAMENT HILL IN THE&quot;     &quot;PICCADILLY CIRCUS AT NIGHT&quot;
+## [19] &quot;TARANTELLA&quot;                 &quot;IN CHURCH&quot;                 
+## [21] &quot;PIANO&quot;                      &quot;EMBANKMENT AT NIGHT,&quot;      
+## [23] &quot;PHANTASMAGORIA&quot;             &quot;NEXT MORNING&quot;              
+## [25] &quot;PALIMPSEST OF TWILIGHT&quot;     &quot;EMBANKMENT AT NIGHT,&quot;      
+## [27] &quot;WINTER IN THE BOULEVARD&quot;    &quot;SCHOOL ON THE OUTSKIRTS&quot;   
+## [29] &quot;SICKNESS&quot;                   &quot;EVERLASTING FLOWERS&quot;       
+## [31] &quot;THE NORTH COUNTRY&quot;          &quot;BITTERNESS OF DEATH&quot;       
+## [33] &quot;SEVEN SEALS&quot;                &quot;READING A LETTER&quot;          
+## [35] &quot;TWENTY YEARS AGO&quot;           &quot;INTIME&quot;                    
+## [37] &quot;TWO WIVES&quot;                  &quot;HEIMWEH&quot;                   
+## [39] &quot;DEBACLE&quot;                    &quot;NARCISSUS&quot;                 
+## [41] &quot;AUTUMN SUNSHINE&quot;            &quot;ON THAT DAY&quot;</code></pre>
+<p>Now, we will extract main text containing only the poems without metadata. We need to slice the document starting from the end of the contents <code>(end)</code> till end of the last poem.</p>
+<pre class="r"><code># After the last poem some metadata starts with &quot;End of the Project...&quot;
+# We will slice until this line
+end_main &lt;- str_which(lawrence, &quot;End of the Project Gutenberg EBook of New Poems, by D. H. Lawrence&quot;)
+# Capture main text
+lawrence_body &lt;- lawrence[(end+1):(end_main -1)]</code></pre>
+</div>
+<div id="first-for-loop" class="section level3">
+<h3>First for loop</h3>
+<p>We will use a <code>for loop</code> to get the index numbers of the title’s of each poem.</p>
+<pre class="r"><code># First initiate an empty list
+index &lt;- list()
+# For loop
+for (i in 1:42) {
+index[[i]] &lt;- str_which(lawrence_body, pattern = TOC[i])
+}
+
+index&lt;- unlist(index)
+index</code></pre>
+<pre><code>##  [1]    9   37   59   82  110  126  164  192  209  253  276  314  332  347
+## [15]  387  428  473  496  536  570  593  621  768  664  707  745  621  768
+## [29]  901  933  958  990 1057 1100 1193 1253 1286 1313 1376 1502 1527 1571
+## [43] 1606 1644</code></pre>
+<p>The <code>for loop</code> we created here uses each title in TOC as a pattern inside a <strong>str_which()</strong> function to find the index number where it detects this pattern.</p>
+<p>For example TOC[1] will use the title of first poem as a pattern and it will return the line number where the poem starts. <strong>At the end, we will have a list of starting lines of each poem.</strong></p>
+<pre class="r"><code>TOC[1]</code></pre>
+<pre><code>## [1] &quot;APPREHENSION&quot;</code></pre>
+<pre class="r"><code>str_which(lawrence_body, pattern = TOC[1])</code></pre>
+<pre><code>## [1] 9</code></pre>
+<pre class="r"><code># e.g. The poem Apprehension starts at line index number 9</code></pre>
+<p>Selecting the lines from the beginning of the <strong>first poem</strong> until the beginning of the <strong>second poem</strong> will give us the first poem. By iterating everything by +1 we will capture all 42 poems.</p>
+<p>Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To remove those duplicates I will remove first apperance of index 768 and second appearence of 621.</p>
+<pre class="r"><code>index &lt;- index[-c(23,27)]
+index</code></pre>
+<pre><code>##  [1]    9   37   59   82  110  126  164  192  209  253  276  314  332  347
+## [15]  387  428  473  496  536  570  593  621  664  707  745  768  901  933
+## [29]  958  990 1057 1100 1193 1253 1286 1313 1376 1502 1527 1571 1606 1644</code></pre>
+<pre class="r"><code>length(index)</code></pre>
+<pre><code>## [1] 42</code></pre>
+<pre class="r"><code># Not to miss the last poem, I have to add the line index of the
+# end of the main text
+index[43] &lt;- end_main -1</code></pre>
+<p>Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separetely.</p>
+</div>
+<div id="second-for-loop" class="section level3">
+<h3>Second for loop</h3>
+<p>It’s time for the trick. Finally we can capture each 42 poem separately in a list by using a second <code>for loop.</code></p>
+<pre class="r"><code># Create an empty list: poems
+poems &lt;- list()
+for (i in 1:42) {
+    
+    poems[[i]] &lt;- lawrence_body[(index[i]:index[i+1]-1)]  
+}
+# Visualize the first poem
+writeLines(poems[[1]])</code></pre>
+<pre><code>## 
+## APPREHENSION
+## AND all hours long, the town
+##        Roars like a beast in a cave
+##      That is wounded there
+##      And like to drown;
+##        While days rush, wave after wave
+##      On its lair.
+## 
+##      An invisible woe unseals
+##        The flood, so it passes beyond
+##      All bounds: the great old city
+##      Recumbent roars as it feels
+##        The foamy paw of the pond
+##      Reach from immensity.
+## 
+##      But all that it can do
+##        Now, as the tide rises,
+##      Is to listen and hear the grim
+##      Waves crash like thunder through
+##        The splintered streets, hear noises
+##      Roll hollow in the interim.</code></pre>
+<p>Let’s check if we got what we wanted</p>
+<pre class="r"><code>str(poems)</code></pre>
+<pre><code>## List of 42
+##  $ : chr [1:29] &quot;&quot; &quot;APPREHENSION&quot; &quot;AND all hours long, the town&quot; &quot;       Roars like a beast in a cave&quot; ...
+##  $ : chr [1:23] &quot;&quot; &quot;COMING AWAKE&quot; &quot;WHEN I woke, the lake-lights were quivering on the&quot; &quot;          wall,&quot; ...
+##  $ : chr [1:24] &quot;&quot; &quot;FROM A COLLEGE WINDOW&quot; &quot;THE glimmer of the limes, sun-heavy, sleeping,&quot; &quot;        Goes trembling past me up the College wall.&quot; ...
+##  $ : chr [1:29] &quot;&quot; &quot;FLAPPER&quot; &quot;LOVE has crept out of her sealéd heart&quot; &quot;       As a field-bee, black and amber,&quot; ...
+##  $ : chr [1:17] &quot;&quot; &quot;BIRDCAGE WALK&quot; &quot;WHEN the wind blows her veil&quot; &quot;       And uncovers her laughter&quot; ...
+##  $ : chr [1:39] &quot;&quot; &quot;LETTER FROM TOWN: THE&quot; &quot;ALMOND TREE&quot; &quot;YOU promised to send me some violets. Did you&quot; ...
+##  $ : chr [1:29] &quot;&quot; &quot;FLAT SUBURBS, S.W., IN THE&quot; &quot;MORNING&quot; &quot;THE new red houses spring like plants&quot; ...
+##  $ : chr [1:18] &quot;&quot; &quot;THIEF IN THE NIGHT&quot; &quot;LAST night a thief came to me&quot; &quot;       And struck at me with something dark.&quot; ...
+##  $ : chr [1:45] &quot;&quot; &quot;LETTER FROM TOWN: ON A&quot; &quot;GREY EVENING IN MARCH&quot; &quot;THE clouds are pushing in grey reluctance slowly&quot; ...
+##  $ : chr [1:24] &quot;&quot; &quot;SUBURBS ON A HAZY DAY&quot; &quot;     O STIFFLY shapen houses that change not,&quot; &quot;       What conjuror&#39;s cloth was thrown across you,&quot; ...
+##  $ : chr [1:39] &quot;&quot; &quot;HYDE PARK AT NIGHT, BEFORE&quot; &quot;THE WAR&quot; &quot;     Clerks.&quot; ...
+##  $ : chr [1:19] &quot;&quot; &quot;GIPSY&quot; &quot;     I, THE man with the red scarf,&quot; &quot;        Will give thee what I have, this last week&#39;s earn-&quot; ...
+##  $ : chr [1:16] &quot;&quot; &quot;TWO-FOLD&quot; &quot;     How gorgeous that shock of red lilies, and larkspur&quot; &quot;         cleaving&quot; ...
+##  $ : chr [1:41] &quot;&quot; &quot;UNDER THE OAK&quot; &quot;     You, if you were sensible,&quot; &quot;     When I tell you the stars flash signals, each one&quot; ...
+##  $ : chr [1:42] &quot;&quot; &quot;SIGH NO MORE&quot; &quot;THE cuckoo and the coo-dove&#39;s ceaseless calling,&quot; &quot;                    Calling,&quot; ...
+##  $ : chr [1:46] &quot;&quot; &quot;LOVE STORM&quot; &quot;MANY roses in the wind&quot; &quot;     Are tapping at the window-sash.&quot; ...
+##  $ : chr [1:24] &quot;&quot; &quot;PARLIAMENT HILL IN THE&quot; &quot;EVENING&quot; &quot;THE houses fade in a melt of mist&quot; ...
+##  $ : chr [1:41] &quot;&quot; &quot;PICCADILLY CIRCUS AT NIGHT&quot; &quot;     Street-Walkers.&quot; &quot;WHEN into the night the yellow light is roused like&quot; ...
+##  $ : chr [1:35] &quot;&quot; &quot;TARANTELLA&quot; &quot;SAD as he sits on the white sea-stone&quot; &quot;     And the suave sea chuckles, and turns to the moon,&quot; ...
+##  $ : chr [1:24] &quot;&quot; &quot;IN CHURCH&quot; &quot;IN the choir the boys are singing the hymn.&quot; &quot;             The morning light on their lips&quot; ...
+##  $ : chr [1:29] &quot;&quot; &quot;PIANO&quot; &quot;     Softly, in the dusk, a woman is singing to me;&quot; &quot;     Taking me back down the vista of years, till I see&quot; ...
+##  $ : chr [1:44] &quot;&quot; &quot;EMBANKMENT AT NIGHT,&quot; &quot;BEFORE THE WAR&quot; &quot;     Charity.&quot; ...
+##  $ : chr [1:44] &quot;&quot; &quot;PHANTASMAGORIA&quot; &quot;RIGID sleeps the house in darkness, I alone&quot; &quot;     Like a thing unwarrantable cross the hall&quot; ...
+##  $ : chr [1:39] &quot;&quot; &quot;NEXT MORNING&quot; &quot;     How have I wandered here to this vaulted room&quot; &quot;     In the house of life?—the floor was ruffled with gold&quot; ...
+##  $ : chr [1:24] &quot;&quot; &quot;PALIMPSEST OF TWILIGHT&quot; &quot;DARKNESS comes out of the earth&quot; &quot;       And swallows dip into the pallor of the west;&quot; ...
+##  $ : chr [1:134] &quot;&quot; &quot;EMBANKMENT AT NIGHT,&quot; &quot;BEFORE THE WAR&quot; &quot;     Outcasts.&quot; ...
+##  $ : chr [1:33] &quot;&quot; &quot;WINTER IN THE BOULEVARD&quot; &quot;THE frost has settled down upon the trees&quot; &quot;     And ruthlessly strangled off the fantasies&quot; ...
+##  $ : chr [1:26] &quot;&quot; &quot;SCHOOL ON THE OUTSKIRTS&quot; &quot;     How different, in the middle of snows, the great&quot; &quot;          school rises red!&quot; ...
+##  $ : chr [1:33] &quot;&quot; &quot;SICKNESS&quot; &quot;WAVING slowly before me, pushed into the dark,&quot; &quot;     Unseen my hands explore the silence, drawing the&quot; ...
+##  $ : chr [1:68] &quot;&quot; &quot;EVERLASTING FLOWERS&quot; &quot;WHO do you think stands watching&quot; &quot;       The snow-tops shining rosy&quot; ...
+##  $ : chr [1:44] &quot;&quot; &quot;THE NORTH COUNTRY&quot; &quot;IN another country, black poplars shake them-&quot; &quot;         selves over a pond,&quot; ...
+##  $ : chr [1:94] &quot;&quot; &quot;BITTERNESS OF DEATH&quot; &quot;     I&quot; &quot;AH, stern, cold man,&quot; ...
+##  $ : chr [1:61] &quot;&quot; &quot;SEVEN SEALS&quot; &quot;SINCE this is the last night I keep you home,&quot; &quot;     Come, I will consecrate you for the journey.&quot; ...
+##  $ : chr [1:34] &quot;&quot; &quot;READING A LETTER&quot; &quot;SHE sits on the recreation ground&quot; &quot;       Under an oak whose yellow buds dot the pale&quot; ...
+##  $ : chr [1:28] &quot;&quot; &quot;TWENTY YEARS AGO&quot; &quot;ROUND the house were lilacs and strawberries&quot; &quot;       And foal-foots spangling the paths,&quot; ...
+##  $ : chr [1:64] &quot;&quot; &quot;INTIME&quot; &quot;RETURNING, I find her just the same,&quot; &quot;     At just the same old delicate game.&quot; ...
+##  $ : chr [1:127] &quot;&quot; &quot;TWO WIVES&quot; &quot;     I&quot; &quot;INTO the shadow-white chamber silts the white&quot; ...
+##  $ : chr [1:26] &quot;&quot; &quot;HEIMWEH&quot; &quot;FAR-OFF the lily-statues stand white-ranked in the&quot; &quot;         garden at home.&quot; ...
+##  $ : chr [1:45] &quot;&quot; &quot;DEBACLE&quot; &quot;THE trees in trouble because of autumn,&quot; &quot;       And scarlet berries falling from the bush,&quot; ...
+##  $ : chr [1:36] &quot;&quot; &quot;NARCISSUS&quot; &quot;WHERE the minnows trace&quot; &quot;     A glinting web quick hid in the gloom of the brook,&quot; ...
+##  $ : chr [1:39] &quot;&quot; &quot;AUTUMN SUNSHINE&quot; &quot;THE sun sets out the autumn crocuses&quot; &quot;       And fills them up a pouring measure&quot; ...
+##  $ : chr [1:173] &quot;&quot; &quot;ON THAT DAY&quot; &quot;   ON that day&quot; &quot;     I shall put roses on roses, and cover your grave&quot; ...</code></pre>
+</div>
+<div id="final-thoughts" class="section level3">
+<h3>Final Thoughts</h3>
+<p><strong>Data Preparation</strong> is one crucial step in Data Science as data comes rarely ready to use.</p>
+<p>Here, starting from a Poetry Book I isolated each poem separately in a list. Hard part is done. <strong>Now, I can identify how many rhymes each poem contains, word usage across different poems, the similarities between them and many more to gain insights about the author.</strong></p>
+<p>I could also analyze the whole book as a single document but by isolating each element I will gain much deeper insight from the data.</p>
+<p>Do you apply similar techniques to isolate chapters or sections from the book or documents to compare and contrast different parts?</p>
+<p>Thank you for reading this post. Please feel free to comment below with your thoughts/feedback.</p>
+</div>
+
+    </div>
+
+    
+
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rstudio/">RStudio</a>
+  
+  <a class="badge badge-light" href="/tags/r-markdown/">R Markdown</a>
+  
+  <a class="badge badge-light" href="/tags/text-mining/">Text mining</a>
+  
+  <a class="badge badge-light" href="/tags/stringr/">Stringr</a>
+  
+  <a class="badge badge-light" href="/tags/data-preparation/">Data preparation</a>
+  
+  <a class="badge badge-light" href="/tags/for-loop/">For loop</a>
+  
+</div>
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card">
+    
+      
+      <img class="portrait mr-3" src="/authors/admin/avatar_huc20273ad926c00177316852a0ac5eb17_12606_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Serdar Korur</a></h5>
+      <h6 class="card-subtitle">Senior Scientist in Drug Discovery</h6>
+      <p class="card-text">Serdar is a Data Scientist and PhD in Cell Biology</p>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="/#contact" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="https://www.linkedin.com/in/serdar-korur/" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="https://github.com/korur/" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+      
+      
+      <div class="article-widget">
+        <div class="hr-light"></div>
+        <h3>Related</h3>
+        <ul>
+          
+          <li><a href="/r/deploy-your-blog-in-5-minutes/">Start blogging in 5 minutes on Netlify with Hugo and blogdown (September 2019 Update)</a></li>
+          
+          <li><a href="/r/genomics-at-superresolution/">Genomics at superresolution: Mapping Drug targets on single cell resolution in Fibrosis</a></li>
+          
+        </ul>
+      </div>
+      
+    
+
+    
+
+    
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "serdarkorur" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/r.min.js"></script>
+        
+      
+
+      
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://serdarkorur.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.130521ecfc6f534c52c158217bbff718.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+        
+  </p>
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

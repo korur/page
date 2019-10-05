@@ -277,7 +277,7 @@ Let's calculate the average AUC of our model after different number of random sp
 I will run my **multi_split() function** 3x for 1, 30 and 1000 random train/test splits. I can then compare variances at each level of sampling.
 
 Here are the results from my multi_site function at each randomization.
-```{r multi split function test, message=FALSE, warning=FALSE}
+```{r multi split function test, cache=TRUE, message=FALSE, warning=FALSE}
 auc_1_1 <- multi_split(1)
 auc_1_2 <- multi_split(1)
 auc_1_3 <- multi_split(1)

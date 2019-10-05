@@ -8,14 +8,31 @@ output: html_document
 STRUCTURE:
 
 1. Problem  = Value
+
+Check R Shiny blog
+You made explorations of your data
+
+ggplot skills - how to create patterns in ggplot
+formulas - 
 2. Body
 
 Insights - Conclusion
 
+show: ggplot2, r shiny, web app, embedding, 
 
 # What is R Shiny?
 
+Shiny is an R package that makes it easy to build interactive web applications (apps) straight from R. 
+\Shiny combines the computational power of R with the interactivity of the modern web.
 
+
+Building Web Applications in R with Shiny
+
+Shiny App contents:
+
+1. ui <- fluidPage(
+2.
+3. server
 As a Data Scientist easy sharing of your results with others who does not need to know exactly the coding below anlysis R Shiny is a great solution. You can create an app others can explore your results interactively. 
 
 You want to share your results remotely and you want to publish it online.

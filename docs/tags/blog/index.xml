@@ -14,9 +14,9 @@
     
     <item>
       <title>Can machine learning change your lifestyle? Predicting Diabetes</title>
-      <link>/2019/10/01/predict-diseases/</link>
+      <link>/r/predict-diseases/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/2019/10/01/predict-diseases/</guid>
+      <guid>/r/predict-diseases/</guid>
       <description>
 
 
@@ -798,9 +798,9 @@ knitr::kable(df[order(df[,2], decreasing=TRUE), ])&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Start blogging in 5 minutes on Netlify with Hugo and blogdown (September 2019 Update)</title>
-      <link>/2019/09/15/deploy-your-blog-in-5-minutes/</link>
+      <link>/r/deploy-your-blog-in-5-minutes/</link>
       <pubDate>Sun, 15 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/2019/09/15/deploy-your-blog-in-5-minutes/</guid>
+      <guid>/r/deploy-your-blog-in-5-minutes/</guid>
       <description>
 
 
