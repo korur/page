@@ -96,14 +96,14 @@ Here, I would look at **Missing values**, variable ranges (**min, max values**).
 
 ## Understand your Data
 
-How big is the data? Checking the size and also type of variables. 
+How big is the data? Classes of variables?
 ```{r dim}
 dim(diabetes)
 knitr::kable(sapply(diabetes, class))
 ```
 
 
-Next, what catches my attention is **unexpected zero values in Insulin** below.
+Next, what catches my attention is **unexpected zero values in Insulin**. Look below.
 ```{r head}
 knitr::kable(head(diabetes))
 ```
@@ -154,13 +154,17 @@ df
 ```
 
 
-For instance, in Insulin **374** values are zero. Other variables also contain zeros. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with **zeros** in the data collection phase. 
+For instance, **374** Insulin values are zero. Other variables also contain zeros. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with **zeros** in the data collection phase. 
 
-**How to circumwent this?**
+**How to circumvent this?**
 
 ### Convert all **zeroes** to **NAs** and then perform **Median Imputation**
 
-I will use a for loop to remove zeros in all the predictors except Pregnancy and Pedigree function.
+Most models require numbers, and can't handle missing data. Throwing out rows is not a good idea since it can lead to biases in your dataset and generate overconfident models.
+
+Median imputation lets you model data with missing values. By replacing them with their medians.
+
+To do this, I need to change zeros to missing values. I will do this for all the predictors which zero is not plausible(columns 2 to 6).
 
 ```{r Median Imputation}
 for(i in 2:6){
@@ -172,23 +176,22 @@ diabetes[, i][is.na(diabetes[, i])] <- median
 }
 ```
 
-Check if it really happened
+Check if it really happened.
 ```{r head data}
 knitr::kable(head(diabetes))
 ```
 
 For instance, I see that zero values in the insulin variable is replaced with median of insulin which is 125. 
 
-Now, the data is clean and ready for the modeling phase.
+**Now, the data is clean and ready for the modeling phase.**
 
 # Modeling the data (build, fit and validate a model)
 
-Before going into any complicated model starting with a simple mode is a good idea. It might do surprisingly well and will give us more insights about the data. 
+Before going into any complicated model starting with a simple model is a good idea. It might do surprisingly well and will give us more insights. 
 
-## Linear Regression Model
+## Logistic Regression Model
 
-We will create two random subsets of our data in 80/20 proportion as **training and test data.**  
-Training data will be used to build our model and test data will be reserved to validate it. 
+We will create two random subsets of our data in 80/20 proportion as **training and test data.** Training data will be used to build our model and test data will be reserved to validate it. 
 ```{r Create Train/test split}
 set.seed(22)
 # Create train test split
@@ -200,21 +203,24 @@ dia_test <- diabetes[-sample_rows, ]
 ```
 
 ```{r Build a simple model}
-# Build a linear model with the train data
-lm_dia <- lm(Outcome ~ .,data = dia_train)
-summary(lm_dia)
+# Build a logistic regression model with the train data
+glm_dia <- glm(Outcome ~ .,data = dia_train)
+summary(glm_dia)
 ```
 
+The summary shows us not all the variables play a role in predicting outcome. The signicant correlations was found for Pregnancies, Glucose, BMI and Pedigree function.
+
+The predict function will give us probabilities. To compute our model accuracy we need to **convert them to class predictions by setting a threshold level.**
 
 ```{r Predict test data model}
 # We will predict the Outcome for the test data
-p<-predict(lm_dia, dia_test)
+p<-predict(glm_dia, dia_test)
 # Choose a threshold 0.5 to calculate the accuracy of our model
 p_05 <- ifelse(p > 0.5, 1, 0)
 table(p_05, dia_test$Outcome)
 ```
 
-We will build a confusion matrix to calculate how accurate our model is in this particular random train/test split and at 0.5 thereshold level. 
+We will build a confusion matrix to calculate how accurate our model is in this particular random train/test split and at 0.5 threshold level. 
 
 ```{r Confusion matrix}
 conf_mat <- table(p_05, dia_test$Outcome)
@@ -236,7 +242,7 @@ A better approach than a simple train/test split is using multiple test sets and
 
 Let's test that. I will create 1, 30 or 1000 random test sets, build models and compare their accuracies. 
 
-#### How to apply linear model with multiple train/test split
+#### How to apply multiple train/test split
 
 To do this, I will **write a function** where I can choose number of independent train/test splits.  
   
@@ -252,7 +258,7 @@ multi_split <- function(x){
 sample_rows <- list()
 dia_train <- list()
 dia_test <- list()
-lm <- list()
+glm <- list()
 p <-  list()
 roc_auc <- list()
 for(i in 1:x){
@@ -261,12 +267,12 @@ for(i in 1:x){
   dia_train[[i]] <- diabetes[sample_rows[[i]], ]
   # Create the test dataset
   dia_test[[i]] <- diabetes[-sample_rows[[i]], ]
-  lm[[i]] <- lm(Outcome ~ .,data = dia_train[[i]])
-  p[[i]] <- predict(lm[[i]], dia_test[[i]])
+  glm[[i]] <- glm(Outcome ~ .,data = dia_train[[i]])
+  p[[i]] <- predict(glm[[i]], dia_test[[i]])
   
   # Calculate AUC for all "x" number of random splits
   roc_auc[[i]] <- roc(dia_test[[i]]$Outcome, p[[i]])$auc[1]
-  lm_mean <- mean(unlist(roc_auc))
+  glm_mean <- mean(unlist(roc_auc))
 }
 print(mean(unlist(roc_auc)))
 }
@@ -277,7 +283,7 @@ Let's calculate the average AUC of our model after different number of random sp
 I will run my **multi_split() function** 3x for 1, 30 and 1000 random train/test splits. I can then compare variances at each level of sampling.
 
 Here are the results from my multi_site function at each randomization.
-```{r multi split function test, cache=TRUE, message=FALSE, warning=FALSE}
+```{r multi split function test, message=FALSE, warning=FALSE}
 auc_1_1 <- multi_split(1)
 auc_1_2 <- multi_split(1)
 auc_1_3 <- multi_split(1)
@@ -325,32 +331,41 @@ model_variation
 
 ```
 
-Great. We have a good estimate of our linear model performance. 
+Great. We have an estimate of our model performance after 1000 random train/test splits. This process is also called **Monte-Carlo Cross validation.** This approach might give you a less variable, but more biased estimate. 
 
-## Logistic regression model
+A more common approach to estimate model performance is **k-Fold cross Validation.** Where the samples divided into k-folds and one fold is used as a test set, and the remaining k-1 as the training set. This process is run k times until all folds appear once in the test sample.
 
-I will switch here to caret package. With the **Train()** function we can test different types of machine learning algorithms. 
+## Logistic regression model with k-fold Cross Validation
 
-I will start with a logistic regression model. But before I need to convert Outcome variable into a factor with 2 levels.
+I will switch here to caret package. With the **Train()** function we can test different types of machine learning algorithms and set the cross validation parameters.
+
+
+To make the models below comparable I will create a custom cross validation fold object that I can apply to multiple models. 
+
+I will repeat the logistic regression model with 5 fold cross validation. 
+
 ```{r Logistic Regression model function, warning=FALSE, message=FALSE}
 # Convert Outcome to a factor with two levels
-diabetes$Outcome <- factor(diabetes$Outcome)
-levels(diabetes$Outcome) <- c("H", "D")
+diabetes$Outcome <- ifelse(diabetes$Outcome == 1, "Yes", "No")
+outcome <- diabetes$Outcome
+d_folds <- createFolds(outcome, k=5)
+
+# Create a dataframe without the outcome column
+diab <- diabetes[,-9]
 
 # MyControl
 myControl <- trainControl(
-  method = "cv", 
-  number = 10,
-  summaryFunction = twoClassSummary,
-  classProbs = TRUE, # IMPORTANT!
-  verboseIter = TRUE
+    summaryFunction = twoClassSummary,
+    classProbs = TRUE,
+    verboseIter = TRUE,
+    savePredictions = TRUE,
+    index = d_folds
 )
-# Model
-model_glm <- train(
-  Outcome~.,
-  method = "glm",
-  data = diabetes,
-  trControl = myControl
+# Model_glm
+model_glm <- train(x = diab, y = outcome,
+                   metric = "ROC",
+                   method = "glm",
+                   trControl = myControl
 )
 model_glm
 ```
@@ -362,11 +377,10 @@ Here, My model performance is ```r model_glm$results[1,2]```
 
 ```{r Glmnet model, warning=FALSE, message=FALSE,  results="hide"}
 # Model
-model_glmnet <- train(
-  Outcome~.,
-  method = "glmnet",
-  data = diabetes,
-  trControl = myControl
+model_glmnet <- train(x = diab, y = outcome,
+                   metric = "ROC",
+                   method = "glmnet",
+                   trControl = myControl
 )
 ```
 
@@ -382,12 +396,11 @@ Glmnet model performance is ```r max(model_glmnet$results$ROC)```
 
 ```{r Random forest model, warning=FALSE, message=FALSE,  results="hide"}
 # Random forest model
-model_rf <- train(
-  Outcome~.,
-  method = "ranger",
-  data = diabetes,
-  trControl = myControl
-  )
+model_rf <- train(x = diab, y = outcome,
+                   metric = "ROC",
+                   method = "ranger",
+                   trControl = myControl
+)
 ```
 
 
@@ -403,11 +416,10 @@ Random forest performance is ```r max(model_rf$results$ROC)```
 
 
 ```{r Gradient boost model, warning=FALSE, message=FALSE, results="hide"}
-model_gbm <- train(
-    Outcome~.,
-    method = "gbm",
-    data = diabetes,
-    trControl = myControl
+model_gbm <- train(x = diab, y = outcome,
+                   metric = "ROC",
+                   method = "gbm",
+                   trControl = myControl
 )
 ```
 
@@ -421,11 +433,10 @@ Gradient boost model performance is ```r max(model_gbm$results$ROC)```
 ## Naive Bayes model
 
 ```{r Naive Bayes model, warning=FALSE, message=FALSE, results="hide"}
-model_nb <- train(
-    Outcome~.,
-    method = "nb",
-    data = diabetes,
-    trControl = myControl
+model_nb <- train(x = diab, y = outcome,
+                   metric = "ROC",
+                   method = "nb",
+                   trControl = myControl
 )
 ```
 
@@ -437,14 +448,13 @@ model_nb
 Naive Bayes model performance is ```r max(model_nb$results$ROC)```
 
 ```{r Summary}
-models <- c("lm", "glm", "glmnet", "rf", "gbm", "naive")
-lm <- round(mean(c(auc_1000_1, auc_1000_2, auc_1000_3)), 3)
+models <- c("glm", "glmnet", "rf", "gbm", "naive")
 glm <- max(model_glm$results$ROC)
 glmnet <- max(model_glmnet$results$ROC)
 rf <- max(model_rf$results$ROC)
 gbm <- max(model_gbm$results$ROC)
 naive <- max(model_nb$results$ROC)
-AUC <- c(lm, glm, glmnet, rf, gbm, naive)
+AUC <- c(glm, glmnet, rf, gbm, naive)
 df <- data.frame(models, AUC)
 knitr::kable(df[order(df[,2], decreasing=TRUE), ])
 ```
@@ -456,11 +466,11 @@ Here, we found Gradient boost model performed the best, and also there are not b
 
 ## Future thoughts
 
-I used different machine learning algorithms to predict Diabetes. Models showed similar performances except the naives bayes which performed worst here.  **As we saw, sometimes a simple model can get us far.**   
+I used different machine learning algorithms to predict Diabetes. Models showed similar performances except the naives bayes which performed worst.  **As we saw, our simple glm model performance was very close to other more advanced algorithms.**   
 
-We can help doctors to predict **Diabetes with accuracy around 84%** by using 8 simple medical parameters.
+We can help doctors to predict **Diabetes with accuracy around 83%** by using 8 simple medical parameters.
   
-Given current speed in generation and collection of types data by including additonal predictors we can build even better models. 
+Given current speed in generation and collection of types data by including additional predictors we can build even better models. 
 
 Until next time!
 
