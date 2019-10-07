@@ -399,7 +399,7 @@ Glmnet model performance is ```r max(model_glmnet$results$ROC)```
 
 ## Random forest model
 
-One of the big diferences between rf and lmodels Unlike linear models, Random forest requires "tuning."
+One of the big diferences between random forest and linear models is that they require "tuning."
 
 Hyperparameters --> How the model is fit. Selected by hand.
 

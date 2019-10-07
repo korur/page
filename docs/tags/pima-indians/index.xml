@@ -665,7 +665,7 @@ model_glmnet &amp;lt;- train(x = diab, y = outcome,
 &lt;/div&gt;
 &lt;div id=&#34;random-forest-model&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Random forest model&lt;/h2&gt;
-&lt;p&gt;One of the big diferences between rf and lmodels Unlike linear models, Random forest requires “tuning.”&lt;/p&gt;
+&lt;p&gt;One of the big diferences between random forest and linear models is that they require “tuning.”&lt;/p&gt;
 &lt;p&gt;Hyperparameters –&amp;gt; How the model is fit. Selected by hand.&lt;/p&gt;
 &lt;p&gt;advantages: no need to log transform or normalize,
 but they are less interpretable and slower than glmnet.&lt;/p&gt;
