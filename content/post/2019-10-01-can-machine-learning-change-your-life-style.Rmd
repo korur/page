@@ -340,9 +340,9 @@ A more common approach to estimate model performance is **k-Fold cross Validatio
 I will switch here to caret package. With the **Train()** function we can test different types of machine learning algorithms and set the cross validation parameters.
 
 
-To make the models below comparable I will create a custom cross validation fold object that I can apply to multiple models. 
+To make the models below comparable I will create **a custom cross validation fold object (d_folds)** that I can apply to multiple models. 
 
-I will repeat the logistic regression model with 5 fold cross validation. 
+I will repeat the logistic regression model with 5 fold cross validation and then we can compare it to monte carlo cross validation. 
 
 ```{r Logistic Regression model function, warning=FALSE, message=FALSE}
 # Convert Outcome to a factor with two levels
@@ -379,7 +379,10 @@ Here, My model performance is ```r model_glm$results[1,2]```
 # Model
 model_glmnet <- train(x = diab, y = outcome,
                    metric = "ROC",
-                   method = "glmnet",
+                   method = "glmnet", tuneGrid = expand.grid(
+                          alpha = 0:1,
+                          lambda = seq(0.0001, 1, length = 20)
+                      ),
                    trControl = myControl
 )
 ```
@@ -387,16 +390,32 @@ model_glmnet <- train(x = diab, y = outcome,
 
 ```{r print Glmnet model, warning=FALSE, message=FALSE}
 model_glmnet
-
+plot(model_glmnet)
 ```
+
+As we see in the plot, ridge regression (alpha = 0) performed better than the lasso at all lambda values.
 
 Glmnet model performance is ```r max(model_glmnet$results$ROC)```
 
 ## Random forest model
 
+One of the big diferences between rf and lmodels Unlike linear models, Random forest requires "tuning."
+
+Hyperparameters --> How the model is fit. Selected by hand.
+
+advantages: no need to log transform or normalize,
+but they are less interpretable and slower than glmnet.
+
+Random forests **capture threshold effects and variable interactions. both of which occur often in real world data** 
+
+**mtry** is the number of variables used at each split point in individual decison tree that make up the rf. Default is 3, I will use here 8. 
+
+tuneLength = how many different mtry values to be tested. 
+
 ```{r Random forest model, warning=FALSE, message=FALSE,  results="hide"}
 # Random forest model
 model_rf <- train(x = diab, y = outcome,
+                   tuneLength = 8,
                    metric = "ROC",
                    method = "ranger",
                    trControl = myControl
@@ -414,11 +433,16 @@ Random forest performance is ```r max(model_rf$results$ROC)```
 
 ## Gradient boost model
 
-
+I will define manualy a grid to test hyperparameter values wider than set in default. 
 ```{r Gradient boost model, warning=FALSE, message=FALSE, results="hide"}
+
+grid <- expand.grid(interaction.depth = c(1, 2, 3, 4, 5),
+                 n.trees = (1:20)*50,  shrinkage = 0.01,
+             n.minobsinnode = 10)
 model_gbm <- train(x = diab, y = outcome,
                    metric = "ROC",
                    method = "gbm",
+                   tuneGrid = grid,
                    trControl = myControl
 )
 ```
@@ -456,11 +480,12 @@ gbm <- max(model_gbm$results$ROC)
 naive <- max(model_nb$results$ROC)
 AUC <- c(glm, glmnet, rf, gbm, naive)
 df <- data.frame(models, AUC)
-knitr::kable(df[order(df[,2], decreasing=TRUE), ])
+df<- df[order(df[,2], decreasing=TRUE), ]
+knitr::kable(df)
 ```
 
 
-Here, we found Gradient boost model performed the best, and also there are not big differences between the models.
+Here, we found ```r df[1,1]``` model performed the best, and also there are not big differences between the models.
 
 
 

@@ -552,8 +552,8 @@ model_variation</code></pre>
 <div id="logistic-regression-model-with-k-fold-cross-validation" class="section level2">
 <h2>Logistic regression model with k-fold Cross Validation</h2>
 <p>I will switch here to caret package. With the <strong>Train()</strong> function we can test different types of machine learning algorithms and set the cross validation parameters.</p>
-<p>To make the models below comparable I will create a custom cross validation fold object that I can apply to multiple models.</p>
-<p>I will repeat the logistic regression model with 5 fold cross validation.</p>
+<p>To make the models below comparable I will create <strong>a custom cross validation fold object (d_folds)</strong> that I can apply to multiple models.</p>
+<p>I will repeat the logistic regression model with 5 fold cross validation and then we can compare it to monte carlo cross validation.</p>
 <pre class="r"><code># Convert Outcome to a factor with two levels
 diabetes$Outcome &lt;- ifelse(diabetes$Outcome == 1, &quot;Yes&quot;, &quot;No&quot;)
 outcome &lt;- diabetes$Outcome
@@ -609,7 +609,10 @@ model_glm &lt;- train(x = diab, y = outcome,
 <pre class="r"><code># Model
 model_glmnet &lt;- train(x = diab, y = outcome,
                    metric = &quot;ROC&quot;,
-                   method = &quot;glmnet&quot;,
+                   method = &quot;glmnet&quot;, tuneGrid = expand.grid(
+                          alpha = 0:1,
+                          lambda = seq(0.0001, 1, length = 20)
+                      ),
                    trControl = myControl
 )</code></pre>
 <pre class="r"><code>model_glmnet</code></pre>
@@ -624,26 +627,67 @@ model_glmnet &lt;- train(x = diab, y = outcome,
 ## Summary of sample sizes: 154, 153, 153, 154, 154 
 ## Resampling results across tuning parameters:
 ## 
-##   alpha  lambda        ROC        Sens    Spec     
-##   0.10   0.0004697604  0.8141359  0.8450  0.5746229
-##   0.10   0.0046976036  0.8158124  0.8465  0.5699587
-##   0.10   0.0469760360  0.8233637  0.8725  0.5410346
-##   0.55   0.0004697604  0.8141754  0.8450  0.5755531
-##   0.55   0.0046976036  0.8165898  0.8475  0.5718192
-##   0.55   0.0469760360  0.8246225  0.8880  0.5307933
-##   1.00   0.0004697604  0.8141708  0.8450  0.5755531
-##   1.00   0.0046976036  0.8173089  0.8490  0.5708846
-##   1.00   0.0469760360  0.8240357  0.8990  0.5121713
+##   alpha  lambda      ROC        Sens    Spec       
+##   0      0.00010000  0.8201210  0.8615  0.554096935
+##   0      0.05272632  0.8227469  0.8725  0.541977831
+##   0      0.10535263  0.8239613  0.8880  0.506537709
+##   0      0.15797895  0.8242214  0.9005  0.482290806
+##   0      0.21060526  0.8240544  0.9115  0.444025212
+##   0      0.26323158  0.8238034  0.9210  0.420725929
+##   0      0.31585789  0.8233937  0.9290  0.395548794
+##   0      0.36848421  0.8230260  0.9365  0.357313627
+##   0      0.42111053  0.8228119  0.9430  0.331201913
+##   0      0.47373684  0.8224972  0.9505  0.306955010
+##   0      0.52636316  0.8222639  0.9575  0.276166051
+##   0      0.57898947  0.8220894  0.9615  0.254705499
+##   0      0.63161579  0.8219008  0.9670  0.238852423
+##   0      0.68424211  0.8217353  0.9690  0.217396218
+##   0      0.73686842  0.8215489  0.9705  0.200604216
+##   0      0.78949474  0.8214394  0.9725  0.178235166
+##   0      0.84212105  0.8212995  0.9755  0.157704847
+##   0      0.89474737  0.8210990  0.9785  0.138109107
+##   0      0.94737368  0.8209896  0.9800  0.125976962
+##   0      1.00000000  0.8208614  0.9805  0.111980004
+##   1      0.00010000  0.8141708  0.8450  0.575553141
+##   1      0.05272632  0.8232373  0.9040  0.505646599
+##   1      0.10535263  0.8064789  0.9490  0.348028689
+##   1      0.15797895  0.7982626  0.9865  0.118687242
+##   1      0.21060526  0.7913587  0.9995  0.002803738
+##   1      0.26323158  0.5552114  1.0000  0.000000000
+##   1      0.31585789  0.5000000  1.0000  0.000000000
+##   1      0.36848421  0.5000000  1.0000  0.000000000
+##   1      0.42111053  0.5000000  1.0000  0.000000000
+##   1      0.47373684  0.5000000  1.0000  0.000000000
+##   1      0.52636316  0.5000000  1.0000  0.000000000
+##   1      0.57898947  0.5000000  1.0000  0.000000000
+##   1      0.63161579  0.5000000  1.0000  0.000000000
+##   1      0.68424211  0.5000000  1.0000  0.000000000
+##   1      0.73686842  0.5000000  1.0000  0.000000000
+##   1      0.78949474  0.5000000  1.0000  0.000000000
+##   1      0.84212105  0.5000000  1.0000  0.000000000
+##   1      0.89474737  0.5000000  1.0000  0.000000000
+##   1      0.94737368  0.5000000  1.0000  0.000000000
+##   1      1.00000000  0.5000000  1.0000  0.000000000
 ## 
 ## ROC was used to select the optimal model using the largest value.
-## The final values used for the model were alpha = 0.55 and lambda
-##  = 0.04697604.</code></pre>
-<p>Glmnet model performance is <code>0.8246225</code></p>
+## The final values used for the model were alpha = 0 and lambda = 0.1579789.</code></pre>
+<pre class="r"><code>plot(model_glmnet)</code></pre>
+<p><img src="/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/print%20Glmnet%20model-1.png" width="672" /></p>
+<p>As we see in the plot, ridge regression (alpha = 0) performed better than the lasso at all lambda values.</p>
+<p>Glmnet model performance is <code>0.8242214</code></p>
 </div>
 <div id="random-forest-model" class="section level2">
 <h2>Random forest model</h2>
+<p>One of the big diferences between rf and lmodels Unlike linear models, Random forest requires “tuning.”</p>
+<p>Hyperparameters –&gt; How the model is fit. Selected by hand.</p>
+<p>advantages: no need to log transform or normalize,
+but they are less interpretable and slower than glmnet.</p>
+<p>Random forests <strong>capture threshold effects and variable interactions. both of which occur often in real world data</strong></p>
+<p><strong>mtry</strong> is the number of variables used at each split point in individual decison tree that make up the rf. Default is 3, I will use here 8.</p>
+<p>tuneLength = how many different mtry values to be tested.</p>
 <pre class="r"><code># Random forest model
 model_rf &lt;- train(x = diab, y = outcome,
+                   tuneLength = 8,
                    metric = &quot;ROC&quot;,
                    method = &quot;ranger&quot;,
                    trControl = myControl
@@ -661,24 +705,37 @@ model_rf &lt;- train(x = diab, y = outcome,
 ## Resampling results across tuning parameters:
 ## 
 ##   mtry  splitrule   ROC        Sens    Spec     
-##   2     gini        0.8159015  0.8570  0.5475505
-##   2     extratrees  0.8246341  0.8705  0.5335884
-##   5     gini        0.8095737  0.8460  0.5615692
-##   5     extratrees  0.8235211  0.8555  0.5662160
-##   8     gini        0.8057221  0.8385  0.5718148
-##   8     extratrees  0.8204395  0.8440  0.5718018
+##   2     gini        0.8155919  0.8565  0.5410389
+##   2     extratrees  0.8247223  0.8730  0.5419474
+##   3     gini        0.8142703  0.8490  0.5596827
+##   3     extratrees  0.8241664  0.8650  0.5550185
+##   4     gini        0.8098886  0.8440  0.5559617
+##   4     extratrees  0.8244122  0.8595  0.5671376
+##   5     gini        0.8096393  0.8475  0.5596914
+##   5     extratrees  0.8244900  0.8550  0.5708498
+##   6     gini        0.8075402  0.8460  0.5578309
+##   6     extratrees  0.8231397  0.8530  0.5755401
+##   7     gini        0.8063892  0.8415  0.5662117
+##   7     extratrees  0.8213101  0.8515  0.5652728
+##   8     gini        0.8058247  0.8335  0.5717931
+##   8     extratrees  0.8209827  0.8485  0.5773788
 ## 
 ## Tuning parameter &#39;min.node.size&#39; was held constant at a value of 1
 ## ROC was used to select the optimal model using the largest value.
 ## The final values used for the model were mtry = 2, splitrule =
 ##  extratrees and min.node.size = 1.</code></pre>
-<p>Random forest performance is <code>0.8246341</code></p>
+<p>Random forest performance is <code>0.8247223</code></p>
 </div>
 <div id="gradient-boost-model" class="section level2">
 <h2>Gradient boost model</h2>
-<pre class="r"><code>model_gbm &lt;- train(x = diab, y = outcome,
+<p>I will define manualy a grid to test hyperparameter values wider than set in default.</p>
+<pre class="r"><code>grid &lt;- expand.grid(interaction.depth = c(1, 2, 3, 4, 5),
+                 n.trees = (1:20)*50,  shrinkage = 0.01,
+             n.minobsinnode = 10)
+model_gbm &lt;- train(x = diab, y = outcome,
                    metric = &quot;ROC&quot;,
                    method = &quot;gbm&quot;,
+                   tuneGrid = grid,
                    trControl = myControl
 )</code></pre>
 <pre class="r"><code>model_gbm</code></pre>
@@ -693,24 +750,115 @@ model_rf &lt;- train(x = diab, y = outcome,
 ## Summary of sample sizes: 154, 153, 153, 154, 154 
 ## Resampling results across tuning parameters:
 ## 
-##   interaction.depth  n.trees  ROC        Sens    Spec     
-##   1                   50      0.8162558  0.8615  0.5643512
-##   1                  100      0.8094114  0.8340  0.5764660
-##   1                  150      0.8031076  0.8115  0.5978874
-##   2                   50      0.8121164  0.8380  0.5895023
-##   2                  100      0.8008439  0.8110  0.5960400
-##   2                  150      0.7983888  0.8060  0.6053510
-##   3                   50      0.8018200  0.8180  0.5876375
-##   3                  100      0.7920777  0.8035  0.5876592
-##   3                  150      0.7884752  0.7885  0.6184003
+##   interaction.depth  n.trees  ROC        Sens    Spec      
+##   1                    50     0.7996312  0.9850  0.09252336
+##   1                   100     0.8103617  0.9505  0.32756357
+##   1                   150     0.8153748  0.9275  0.42350793
+##   1                   200     0.8180549  0.9100  0.48598131
+##   1                   250     0.8213254  0.8965  0.51863943
+##   1                   300     0.8221740  0.8860  0.52983699
+##   1                   350     0.8210830  0.8815  0.53729189
+##   1                   400     0.8218884  0.8740  0.55409694
+##   1                   450     0.8222721  0.8680  0.55874375
+##   1                   500     0.8212831  0.8625  0.55593567
+##   1                   550     0.8222189  0.8595  0.56525973
+##   1                   600     0.8210507  0.8540  0.56620300
+##   1                   650     0.8206810  0.8510  0.56806781
+##   1                   700     0.8197731  0.8495  0.56806781
+##   1                   750     0.8194073  0.8495  0.57180178
+##   1                   800     0.8179990  0.8460  0.57459683
+##   1                   850     0.8173591  0.8435  0.57459683
+##   1                   900     0.8167653  0.8400  0.57272332
+##   1                   950     0.8159870  0.8395  0.57366225
+##   1                  1000     0.8155800  0.8375  0.57738752
+##   2                    50     0.8097645  0.9705  0.19896110
+##   2                   100     0.8153114  0.9225  0.42633341
+##   2                   150     0.8182821  0.9040  0.47947837
+##   2                   200     0.8214800  0.8910  0.51491415
+##   2                   250     0.8209545  0.8780  0.53262769
+##   2                   300     0.8209278  0.8655  0.54569007
+##   2                   350     0.8203395  0.8595  0.55967398
+##   2                   400     0.8193341  0.8560  0.56620735
+##   2                   450     0.8187081  0.8520  0.57274071
+##   2                   500     0.8177495  0.8475  0.58300369
+##   2                   550     0.8172341  0.8470  0.58206912
+##   2                   600     0.8160518  0.8430  0.58579005
+##   2                   650     0.8150557  0.8335  0.58580309
+##   2                   700     0.8142389  0.8285  0.58765486
+##   2                   750     0.8129551  0.8265  0.59045860
+##   2                   800     0.8114235  0.8235  0.58859378
+##   2                   850     0.8106544  0.8230  0.58951967
+##   2                   900     0.8098655  0.8225  0.58952402
+##   2                   950     0.8089927  0.8195  0.59231471
+##   2                  1000     0.8085903  0.8185  0.59044990
+##   3                    50     0.8124471  0.9675  0.23434471
+##   3                   100     0.8166505  0.9160  0.43008042
+##   3                   150     0.8183159  0.8875  0.50374701
+##   3                   200     0.8170682  0.8700  0.52424690
+##   3                   250     0.8167332  0.8610  0.54665942
+##   3                   300     0.8170788  0.8535  0.55690067
+##   3                   350     0.8155400  0.8470  0.57181917
+##   3                   400     0.8140688  0.8410  0.57181482
+##   3                   450     0.8124477  0.8355  0.57367529
+##   3                   500     0.8114718  0.8325  0.57367963
+##   3                   550     0.8100906  0.8275  0.57740926
+##   3                   600     0.8092354  0.8230  0.58113888
+##   3                   650     0.8082420  0.8220  0.58859813
+##   3                   700     0.8065477  0.8190  0.58766355
+##   3                   750     0.8062263  0.8160  0.58858944
+##   3                   800     0.8044913  0.8130  0.58765486
+##   3                   850     0.8029262  0.8125  0.58765486
+##   3                   900     0.8020108  0.8110  0.58858944
+##   3                   950     0.8016405  0.8105  0.59045860
+##   3                  1000     0.8011373  0.8090  0.59232775
+##   4                    50     0.8139509  0.9640  0.24734188
+##   4                   100     0.8150242  0.9120  0.43657900
+##   4                   150     0.8179537  0.8850  0.49533145
+##   4                   200     0.8176002  0.8710  0.53356227
+##   4                   250     0.8162216  0.8615  0.55220170
+##   4                   300     0.8159643  0.8490  0.56901543
+##   4                   350     0.8141087  0.8445  0.57553141
+##   4                   400     0.8131285  0.8430  0.57832645
+##   4                   450     0.8114524  0.8385  0.58020430
+##   4                   500     0.8104583  0.8335  0.58671158
+##   4                   550     0.8089872  0.8265  0.58764182
+##   4                   600     0.8078067  0.8240  0.59137144
+##   4                   650     0.8064856  0.8230  0.59418387
+##   4                   700     0.8051274  0.8200  0.59044121
+##   4                   750     0.8038530  0.8205  0.59324495
+##   4                   800     0.8030680  0.8205  0.59699196
+##   4                   850     0.8023061  0.8190  0.59793088
+##   4                   900     0.8011695  0.8185  0.59606607
+##   4                   950     0.8000060  0.8160  0.59326668
+##   4                  1000     0.7988982  0.8140  0.59045860
+##   5                    50     0.8124004  0.9640  0.23430124
+##   5                   100     0.8128960  0.9085  0.43658770
+##   5                   150     0.8164498  0.8875  0.50560313
+##   5                   200     0.8159795  0.8755  0.53263638
+##   5                   250     0.8154252  0.8595  0.55782221
+##   5                   300     0.8146149  0.8500  0.56622473
+##   5                   350     0.8132774  0.8420  0.57460987
+##   5                   400     0.8123588  0.8405  0.58207781
+##   5                   450     0.8111443  0.8355  0.58207781
+##   5                   500     0.8090119  0.8295  0.58767225
+##   5                   550     0.8078390  0.8255  0.58488589
+##   5                   600     0.8068005  0.8255  0.58954575
+##   5                   650     0.8047019  0.8230  0.59045425
+##   5                   700     0.8033723  0.8215  0.59231906
+##   5                   750     0.8024794  0.8210  0.58951967
+##   5                   800     0.8019000  0.8190  0.59232341
+##   5                   850     0.8006418  0.8185  0.59512715
+##   5                   900     0.7998935  0.8170  0.59605303
+##   5                   950     0.7984835  0.8170  0.59698326
+##   5                  1000     0.7970453  0.8165  0.59418822
 ## 
-## Tuning parameter &#39;shrinkage&#39; was held constant at a value of 0.1
+## Tuning parameter &#39;shrinkage&#39; was held constant at a value of 0.01
 ## 
 ## Tuning parameter &#39;n.minobsinnode&#39; was held constant at a value of 10
 ## ROC was used to select the optimal model using the largest value.
-## The final values used for the model were n.trees = 50, interaction.depth
-##  = 1, shrinkage = 0.1 and n.minobsinnode = 10.</code></pre>
-<p>Gradient boost model performance is <code>0.8162558</code></p>
+## The final values used for the model were n.trees = 450,
+##  interaction.depth = 1, shrinkage = 0.01 and n.minobsinnode = 10.</code></pre>
+<p>Gradient boost model performance is <code>0.8222721</code></p>
 </div>
 <div id="naive-bayes-model" class="section level2">
 <h2>Naive Bayes model</h2>
@@ -750,7 +898,8 @@ gbm &lt;- max(model_gbm$results$ROC)
 naive &lt;- max(model_nb$results$ROC)
 AUC &lt;- c(glm, glmnet, rf, gbm, naive)
 df &lt;- data.frame(models, AUC)
-knitr::kable(df[order(df[,2], decreasing=TRUE), ])</code></pre>
+df&lt;- df[order(df[,2], decreasing=TRUE), ]
+knitr::kable(df)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -763,17 +912,17 @@ knitr::kable(df[order(df[,2], decreasing=TRUE), ])</code></pre>
 <tr class="odd">
 <td>3</td>
 <td align="left">rf</td>
-<td align="right">0.8246341</td>
+<td align="right">0.8247223</td>
 </tr>
 <tr class="even">
 <td>2</td>
 <td align="left">glmnet</td>
-<td align="right">0.8246225</td>
+<td align="right">0.8242214</td>
 </tr>
 <tr class="odd">
 <td>4</td>
 <td align="left">gbm</td>
-<td align="right">0.8162558</td>
+<td align="right">0.8222721</td>
 </tr>
 <tr class="even">
 <td>1</td>
@@ -787,7 +936,7 @@ knitr::kable(df[order(df[,2], decreasing=TRUE), ])</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Here, we found Gradient boost model performed the best, and also there are not big differences between the models.</p>
+<p>Here, we found <code>rf</code> model performed the best, and also there are not big differences between the models.</p>
 </div>
 <div id="future-thoughts" class="section level2">
 <h2>Future thoughts</h2>
