@@ -31,6 +31,9 @@ With Gpplot2 package you can do visualizations and share insights of your data, 
 
 Before that, let's look at a bit how ggplot internals work.
 
+**you can define size or shape of a datapoint but also map such that each size or different shape defines an aspect of this data point.**
+
+
 ## GGPLOT tips: distinction between aesthetics and attributes
 
 Like lego bricks layered on top of each other works in layers.
@@ -99,7 +102,7 @@ p + geom_point()
 ```
 
 # Use shape as an attribute
-Here I am changing how something looks like The data point shape change to 24 which defines a filled triangle. But nothing is mapped onto it. It is just an attribute. 
+Here I am changing how something looks like. The data point shape change to 24 which defines a filled triangle. But nothing is mapped onto it. It is just an attribute. 
 
 I also added inside aes() **factor(z)**. It is mapped on to how the triangles filled (aesthetics)
 

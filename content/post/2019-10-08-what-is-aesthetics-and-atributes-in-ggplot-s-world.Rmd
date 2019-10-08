@@ -122,13 +122,13 @@ p + geom_point(size=3)
 Spirals look nice and we got some basics of ggplot. Now let's use it to create a pattern designer, with Shiny. Many patterns in Nature can be explained by mathematical terms, Shapes of sunflowers, dandelions or snowflakes etc.
   
   
-I will tell the rest of the story in the next update. Now play with the app to create your own patterns!
+I will tell the rest of the story in the next update. Now you can play with the app to create your patterns!
  
 
-<iframe width="1000" height="1500" scrolling="no" frameborder="no"  src="https://korur.shinyapps.io/designapattern/"> </iframe>
+<iframe width="1000" height="800" scrolling="no" frameborder="no"  src="https://korur.shinyapps.io/designapattern/"> </iframe>
 
 
-Until next time!
+Until next time!  
 Serdar
 
 
