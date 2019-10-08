@@ -1,8 +1,11 @@
 ---
-title: "R Shiny app for graphic designers, Create your own pattern "
+title: 'R Shiny app for graphic designers, Create your own pattern '
 author: "Serdar Korur"
 date: "10/3/2019"
-output: html_document
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
 ---
 
 STRUCTURE:
@@ -14,13 +17,118 @@ You made explorations of your data
 
 ggplot skills - how to create patterns in ggplot
 formulas - 
+
 2. Body
 
 Insights - Conclusion
 
 show: ggplot2, r shiny, web app, embedding, 
+-------------
 
-# What is R Shiny?
+Inspired from a [datacamp project](https://projects.datacamp.com/projects/62) I decided to make a Shiny app to draw patterns and share it online.
+
+With Gpplot2 package you can do visualizations and share insights of your data, but you can also use it for drawing patterns.
+
+Before that, let's look at a bit how ggplot internals work.
+
+## GGPLOT tips: distinction between aesthetics and attributes
+
+Like lego bricks layered on top of each other works in layers.
+
+To use ggplot with its full potential let's make an important distinction between how ggplot understands aesthetics and attributes.
+
+When I talk about Aesthetics those are the terms inside **aes()** in ggplot syntax and attributes are those not.
+
+e.g ggplot(data, aes(x, y, **color=var1**) + geom_point**(size=6)**
+
+
+Aesthetics typically undertood as how something looks, color, size etc. But in ggplot's world how things look is just an attribute.
+
+{{% alert warning %}}
+Aesthetics refer not to refer something looks, **but to which variable is mapped onto it.**
+{{% /alert %}}
+
+
+
+I will create an imaginary data frame, that we can apply those concepts.
+
+```{r define the dataframe}
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle
+x <- sin(t/2)
+y <-cos(t/2)
+z <- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+w <- rep(c(1,2), times=250)
+df <- data.frame(t, x, y, z, w)
+# Have a look at the data
+head(df)
+```
+
+Many patterns in Nature can be explained by mathematical terms, Shapes of sunflowers, dandelions or snowflakes etc.
+
+```{r ggplot main spiral}
+# Make a scatter plot of points of a spiral
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point()
+```
+
+# Example use of an aesthetics
+
+By defining col=factor(z) inside aes() I can map colors defining each factor of z onto our points.
+```{r Map z on color}
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, col=factor(z)))
+p + geom_point()
+```
+
+# Example use of an attribute: How somethings looks. I will make the points bigger by defining size=4. 
+```{r main spiral colored}
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, col=factor(z)))
+p + geom_point(size = 4)
+
+```
+
+```{r spiral colored t/2}
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, col=factor(z)))
+p + geom_point()
+```
+
+# Use shape as an attribute
+Here I am changing how something looks like The data point shape change to 24 which defines a filled triangle. But nothing is mapped onto it. It is just an attribute. 
+
+I also added inside aes() **factor(z)**. It is mapped on to how the triangles filled (aesthetics)
+
+```{r spiral colors with triangles}
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, color=factor(w), fill=factor(z)))
+p + geom_point(shape=24, size=4)
+```
+# Using shape as an aesthetics
+```{r  aa}
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle
+x <- sin(t)
+y <-cos(t)
+z <- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+w <- rep(c(1,2), times=250)
+df <- data.frame(t, x, y, z, w)
+
+p <- ggplot(df, aes(x*t, y*t, shape=factor(w), color=factor(z)))
+p + geom_point(size=3)
+```
+
+
+
+
+
 
 Shiny is an R package that makes it easy to build interactive web applications (apps) straight from R. 
 \Shiny combines the computational power of R with the interactivity of the modern web.
@@ -133,3 +241,173 @@ It does take a while to load, probably because I do data manipulation within the
 
 I have created an app on shiny. Published it on shinyapps.io server. I used the link wrap it in an htlm to the server to embed it in my webpage
 If you like my app try to create your patterns. This app can create 420 Billion patterns which you can apply your taste of colors.
+
+
+Examples_
+
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle
+x <- sin(t)
+y <- cos(t)
+df <- data.frame(t, x^2, y^2)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x, y*t))
+p + geom_point()
+
+
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle
+x <- sin(t)
+y <- cos(t)
+df <- data.frame(t, x^2, y^2)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x, y*t))
+p + geom_point(size =4)
+
+
+points <- 5000
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle
+x <- sin(t)
+y <- cos(t)
+df <- data.frame(t, x^2, y^2)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x, y+t))
+p + geom_point(size =2)
+
+extras
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle 
+x <- sin(t)
+y <- cos(t)
+z <- rep(c(21,22,23,24,25), times=100)
+s <- rep(c(1,2,3,4,5,6,7,8,9,1), times=50)
+df <- data.frame(t, x, y, z, s)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point(shape=factor(z), fill=factor(z))
+
+```{r yellow dots}
+
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle 
+x <- sin(t)
+y <- cos(t)
+z <- rep(c(21,22,23,24,25), times=100)
+s <- rep(c(1,2,3,4,5,1,2,3,4,5), times=50)
+df <- data.frame(t, x, y, z, s)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, col=factor(z), size=factor(s)))
+p + geom_point(shape=21, fill="yellow")
+```
+
+
+```{r ciurcles colors}
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle 
+x <- sin(t)
+y <- cos(t)
+z <- rep(c(1,2,23,24,25), times=100)
+s <- rep(c(1,2,3,4,5, 6,7,8,9,10), times=50)
+df <- data.frame(t, x, y, z, s)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, size=factor(s)))
+p + geom_point(shape=21, col=factor(s)) + theme_void()
+
+
+
+
+```{r tents}
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle 
+x <- sin(t)
+y <- cos(t)
+z <- rep(c(1,2,23,24,25), times=100)
+s <- rep(c(1,2,3,3,3,2,1,1,2,1), times=50)
+df <- data.frame(t, x, y, z, s)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, size=factor(s)))
+p + geom_point(shape=24, fill=factor(s), col=factor(z)) + theme_void()
+```
+
+
+
+
+
+
+
+```{r colorful}
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle 
+x <- sin(t)
+y <- cos(t)
+z <- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+s <- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+df <- data.frame(t, x, y, z, s)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t),fill=factor(z), col=factor(s))
+p + geom_point(size=4, shape=21, fill=factor(z), col=factor(s)) + theme_void()
+
+```
+
+
+
+```{r bb}
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle 
+x <- sin(t)
+y <- cos(t)
+z <- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+s <- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+df <- data.frame(t, x, y, z, s)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, size=4,  col=factor(s), fill=factor(z)))
+p + geom_point(shape=factor(s)) + theme_void()
+```
+
+
+
+
+
+
+# What is R Shiny?
+```{r  ccc colorful }
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle 
+x <- sin(t)
+y <- cos(t)
+z <- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+s <- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+df <- data.frame(t, x, y, z, s)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, size=t/y,  col=factor(s), fill=factor(z)))
+p + geom_point() + theme_void()
+```

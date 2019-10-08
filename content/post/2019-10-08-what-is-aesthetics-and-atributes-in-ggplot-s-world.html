@@ -1,0 +1,111 @@
+---
+title: What is aesthetics and attributes in ggplot's world?
+author: ''
+date: '2019-10-08'
+tags:
+  - aesthetics
+  - attributes
+  - data visualization
+  - ggplot2
+  - pattern designer
+  - phyllotaxis
+  - RStudio
+  - Shiny
+  - web app
+slug: ggplot-shiny-app
+lastmod: '2019-10-08T12:38:02+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+---
+
+
+
+<p>ggplot2 is a powerful data visualization tool of R. Make quick visualizations to explore or share your insights.</p>
+<p>Learning how aesthetics and attributes are defined in ggplot will give you an edge to develop your skills quickly.</p>
+<div id="ggplot2-tips-distinction-between-aesthetics-and-attributes" class="section level3">
+<h3>ggplot2 tips: distinction between aesthetics and attributes</h3>
+<p>Aesthetics are defined inside <strong>aes()</strong> in ggplot syntax and attributes are outside the aes().</p>
+<blockquote>
+<p>e.g. ggplot(data, aes(x, y, <strong>color=var1</strong>) + geom_point<strong>(size=6)</strong></p>
+</blockquote>
+<p>We typically understand <strong>aesthetics</strong> as how something looks, color, size etc.<br />
+But in ggplot’s world how things look is just an <strong>attribute.</strong></p>
+<p>{{% alert note %}}
+Aesthetics does not refer how something looks, <strong>but to which variable is mapped onto it.</strong>
+{{% /alert %}}</p>
+<p>I will create an imaginary data frame to apply those concepts.</p>
+<pre class="r"><code>library(ggplot2)
+points &lt;- 500
+# Defining the Golden Angle
+angle &lt;- pi*(3-sqrt(5))
+t &lt;- (1:points) * angle
+x &lt;- sin(t/2)
+y &lt;-cos(t/2)
+z &lt;- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+w &lt;- rep(c(1,2), times=250)
+df &lt;- data.frame(t, x, y, z, w)
+# Have a look at the data
+head(df)</code></pre>
+<pre><code>##           t          x           y z w
+## 1  2.399963  0.9320324  0.36237489 1 1
+## 2  4.799926  0.6754903 -0.73736888 2 2
+## 3  7.199890 -0.4424710 -0.89678282 3 1
+## 4  9.599853 -0.9961710  0.08742572 4 2
+## 5 11.999816 -0.2795038  0.96014460 5 1
+## 6 14.399779  0.7936008  0.60843886 6 2</code></pre>
+<p>The dataframe we created has 3 numeric (t, x, y) variables and 2 discrete variables (z, w). With ggplot2 I can map any of the variables on my plot by defining them inside the <strong>aes().</strong></p>
+<pre class="r"><code># Make a scatter plot of points of a spiral
+p &lt;- ggplot(df, aes(x*t, y*t))
+p + geom_point()</code></pre>
+<p><img src="/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/ggplot%20main%20spiral-1.png" width="672" /></p>
+</div>
+<div id="example-use-of-an-aesthetics" class="section level3">
+<h3>Example use of an aesthetics</h3>
+<p>By defining col=factor(z) inside aes(), I can map z to colors. So now the graph shows x, y and also values z.</p>
+<pre class="r"><code># Make a scatter plot of points in a spiral
+p &lt;- ggplot(df, aes(x*t, y*t, col=factor(z)))
+p + geom_point()</code></pre>
+<p><img src="/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/Map%20z%20on%20color-1.png" width="672" /></p>
+<p>Each different color now represents different values of z.</p>
+</div>
+<div id="example-use-of-an-attribute" class="section level3">
+<h3>Example use of an attribute</h3>
+<p>Attribute is how somethings looks. e.g. you can the points bigger by defining size=4. But it does not give any extra information about data.</p>
+<pre class="r"><code># Make a scatter plot of points in a spiral
+p &lt;- ggplot(df, aes(x*t, y*t, col=factor(z)))
+p + geom_point(size = 4)</code></pre>
+<p><img src="/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/main%20spiral%20colored-1.png" width="672" /></p>
+</div>
+<div id="use-shape-as-an-attribute" class="section level3">
+<h3>Use shape as an attribute</h3>
+<p>Same goes here. I am changing how something looks like. The data point shape change to 24 which defines a filled triangle. But nothing is mapped onto it. It is just an attribute.</p>
+<pre class="r"><code># Make a scatter plot of points in a spiral
+p &lt;- ggplot(df, aes(x*t, y*t, color=factor(z)))
+p + geom_point(shape=24, size=4)</code></pre>
+<p><img src="/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/spiral%20colors%20with%20triangles-1.png" width="672" />
+Here, x<em>t, y</em>t and factor(z) is mapped on to our graph.
+### Using shape as an aesthetics</p>
+<p>By defining shape and color inside aes() I can map w and z to my plot as well.</p>
+<pre class="r"><code>points &lt;- 500
+# Defining the Golden Angle
+angle &lt;- pi*(3-sqrt(5))
+t &lt;- (1:points) * angle
+x &lt;- sin(t)
+y &lt;-cos(t)
+z &lt;- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+w &lt;- rep(c(1,2), times=250)
+df &lt;- data.frame(t, x, y, z, w)
+
+p &lt;- ggplot(df, aes(x*t, y*t, shape=factor(w), color=factor(z)))
+p + geom_point(size=3)</code></pre>
+<p><img src="/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/aa-1.png" width="672" /></p>
+<p>Spirals look nice and we got some basics of ggplot. Now let’s use it to create a pattern designer, with Shiny. Many patterns in Nature can be explained by mathematical terms, Shapes of sunflowers, dandelions or snowflakes etc.</p>
+<p>I will tell the rest of the story in the next update. Now play with the app to create your own patterns!</p>
+<iframe width="1000" height="1500" scrolling="no" frameborder="no" src="https://korur.shinyapps.io/designapattern/">
+</iframe>
+<p>Until next time!
+Serdar</p>
+</div>

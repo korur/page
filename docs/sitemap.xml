@@ -33,6 +33,66 @@
   </url>
   
   <url>
+    <loc>/tags/aesthetics/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/attributes/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/data-visualization/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ggplot2/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/pattern-designer/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/phyllotaxis/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rstudio/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/shiny/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/web-app/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/r/ggplot-shiny-app/</loc>
+    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/blog/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
@@ -83,17 +143,7 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/randomforest/</loc>
-    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
@@ -114,11 +164,6 @@
   
   <url>
     <loc>/tags/r-markdown/</loc>
-    <lastmod>2019-09-25T10:02:47+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/rstudio/</loc>
     <lastmod>2019-09-25T10:02:47+02:00</lastmod>
   </url>
   

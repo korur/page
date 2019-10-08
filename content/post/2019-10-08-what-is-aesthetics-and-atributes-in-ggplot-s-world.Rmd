@@ -1,0 +1,146 @@
+---
+title: What is aesthetics and attributes in ggplot's world?
+author: ''
+date: '2019-10-08'
+tags:
+  - aesthetics
+  - attributes
+  - data visualization
+  - ggplot2
+  - pattern designer
+  - phyllotaxis
+  - RStudio
+  - Shiny
+  - web app
+slug: ggplot-shiny-app
+lastmod: '2019-10-08T12:38:02+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+---
+
+ggplot2 is a powerful data visualization tool of R. Make quick visualizations to explore or share your insights.
+
+Learning how aesthetics and attributes are defined in ggplot will give you an edge to develop your skills quickly. 
+
+### ggplot2 tips: distinction between aesthetics and attributes
+
+Aesthetics are defined inside **aes()** in ggplot syntax and attributes are outside the aes().
+
+> e.g. ggplot(data, aes(x, y, **color=var1**) + geom_point**(size=6)**
+
+We typically understand **aesthetics** as how something looks, color, size etc.      
+But in ggplot's world how things look is just an **attribute.**
+
+{{% alert note %}}
+Aesthetics does not refer how something looks, **but to which variable is mapped onto it.**
+{{% /alert %}}
+
+
+I will create an imaginary data frame to apply those concepts.
+
+```{r define the dataframe}
+library(ggplot2)
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle
+x <- sin(t/2)
+y <-cos(t/2)
+z <- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+w <- rep(c(1,2), times=250)
+df <- data.frame(t, x, y, z, w)
+# Have a look at the data
+head(df)
+```
+
+The dataframe we created has 3 numeric (t, x, y) variables and 2 discrete variables (z, w). With ggplot2 I can map any of the variables on my plot by defining them inside the **aes().** 
+
+
+```{r ggplot main spiral}
+# Make a scatter plot of points of a spiral
+p <- ggplot(df, aes(x*t, y*t))
+p + geom_point()
+```
+
+### Example use of an aesthetics
+
+By defining col=factor(z) inside aes(), I can map z to colors. So now the graph shows x, y and also values z. 
+```{r Map z on color}
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, col=factor(z)))
+p + geom_point()
+```
+
+Each different color now represents different values of z.  
+
+### Example use of an attribute 
+
+Attribute is how somethings looks. e.g. you can the points bigger by defining size=4. But it does not give any extra information about data.
+```{r main spiral colored}
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, col=factor(z)))
+p + geom_point(size = 4)
+
+```
+
+### Use shape as an attribute
+
+Same goes here. I am changing how something looks like. The data point shape change to 24 which defines a filled triangle. But nothing is mapped onto it. It is just an attribute. 
+
+
+```{r spiral colors with triangles}
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df, aes(x*t, y*t, color=factor(z)))
+p + geom_point(shape=24, size=4)
+```
+Here, x*t, y*t and factor(z) is mapped on to our graph.
+### Using shape as an aesthetics
+
+By defining shape and color inside aes() I can map w and z to my plot as well.
+```{r  aa}
+points <- 500
+# Defining the Golden Angle
+angle <- pi*(3-sqrt(5))
+t <- (1:points) * angle
+x <- sin(t)
+y <-cos(t)
+z <- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
+w <- rep(c(1,2), times=250)
+df <- data.frame(t, x, y, z, w)
+
+p <- ggplot(df, aes(x*t, y*t, shape=factor(w), color=factor(z)))
+p + geom_point(size=3)
+
+```
+
+
+Spirals look nice and we got some basics of ggplot. Now let's use it to create a pattern designer, with Shiny. Many patterns in Nature can be explained by mathematical terms, Shapes of sunflowers, dandelions or snowflakes etc.
+  
+  
+I will tell the rest of the story in the next update. Now play with the app to create your own patterns!
+ 
+
+<iframe width="1000" height="1500" scrolling="no" frameborder="no"  src="https://korur.shinyapps.io/designapattern/"> </iframe>
+
+
+Until next time!
+Serdar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
