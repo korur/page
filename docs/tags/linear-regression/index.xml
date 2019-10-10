@@ -57,7 +57,7 @@ by using 8 medical indicators.&lt;/p&gt;
 &lt;p&gt;I downloaded the &lt;a href=&#34;https://www.kaggle.com/uciml/pima-indians-diabetes-database&#34;&gt;Pima Indians Diabetes Dataset&lt;/a&gt; from Kaggle and imported it from my local directory.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;diabetes &amp;lt;- read.csv(&amp;quot;posts_data/diabetes.csv&amp;quot;)
 
-library(dplyr)
+library(dplyr)  
 library(tidyr)
 library(reshape2)
 library(ggplot2)

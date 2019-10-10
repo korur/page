@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+.Rprofile
 content/post/posts_data/
 blogdown/
 DAPP*
