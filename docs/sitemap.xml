@@ -33,7 +33,17 @@
   </url>
   
   <url>
-    <loc>/r/data-preparation-web-scraping-data-tables-with-rvest/</loc>
+    <loc>/tags/blog/</loc>
+    <lastmod>2019-10-10T06:34:25+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/data-integration/</loc>
+    <lastmod>2019-10-10T06:34:25+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/r/scrape-tables-rvest/</loc>
     <lastmod>2019-10-10T06:34:25+02:00</lastmod>
   </url>
   
@@ -43,7 +53,22 @@
   </url>
   
   <url>
+    <loc>/tags/gganimate/</loc>
+    <lastmod>2019-10-10T06:34:25+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ggplot2/</loc>
+    <lastmod>2019-10-10T06:34:25+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/</loc>
+    <lastmod>2019-10-10T06:34:25+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/premier-league/</loc>
     <lastmod>2019-10-10T06:34:25+02:00</lastmod>
   </url>
   
@@ -58,7 +83,17 @@
   </url>
   
   <url>
+    <loc>/tags/tidyr/</loc>
+    <lastmod>2019-10-10T06:34:25+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/web-scraping/</loc>
+    <lastmod>2019-10-10T06:34:25+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/xpath/</loc>
     <lastmod>2019-10-10T06:34:25+02:00</lastmod>
   </url>
   
@@ -74,11 +109,6 @@
   
   <url>
     <loc>/tags/data-visualization/</loc>
-    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/ggplot2/</loc>
     <lastmod>2019-10-08T12:38:02+02:00</lastmod>
   </url>
   
@@ -110,11 +140,6 @@
   <url>
     <loc>/r/ggplot-shiny-app/</loc>
     <lastmod>2019-10-08T12:38:02+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/blog/</loc>
-    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
