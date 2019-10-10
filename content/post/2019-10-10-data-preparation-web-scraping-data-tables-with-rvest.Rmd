@@ -17,18 +17,18 @@ image:
 
 ## Accessing different data sources
 
-Sometimes the data you need is available on the web. Accessing those will ease your life as a data scientist. 
+Sometimes, the data you need is available on the web. Accessing those will ease your life as a data scientist. 
 
 I want to perform an exploratory data analysis on **2018/19 Season of England Premier league**. 
 
 * Are there changes in team performances during the season timeline? 
-* Are there any differentiated clusters?
-* Which is the earliest week we can predict teams final positions?
+* Does some teams cluster?
+* Which is the earliest week we can predict team's final positions?
     
 I need the **standings table** for each week of the season and integrate them in a way that will allow me to plot the graphs that I want.
-We will scrap those tables from https://www.weltfussball.de/![welt](/img/welt.png)    
+We will scrap those tables from https://www.weltfussball.de/.![welt](/img/welt.png)    
 
-For example standings table for the Week 1 is at:  
+For example standings table for the Week 1 is at the url:  
 https://www.weltfussball.de/spielplan/eng-premier-league-2018-2019-spieltag/1
 
 For the consequent weeks only the number at the end changes e.g.  
@@ -65,7 +65,7 @@ library(kableExtra)
 
 
 ```{r Define the remote url}
-# We will scrap League Standing tables from https://www.weltfussball.de/
+# Define the remote url
 baseUrl <- "https://www.weltfussball.de/"
 path <- "spielplan/eng-premier-league-2018-2019-spieltag/"
 fileName <- 1
@@ -73,7 +73,7 @@ url <- paste0(baseUrl, path, fileName)
 url
 ```
 
-**read_html()** function from the rvest package imports the html file of the website. 
+We start by downloading and parsing the file with **read_html()** function from the rvest package.
 ```{r import the remote url}
 tables <- read_html(url)
 ```
@@ -99,9 +99,11 @@ At the end, html_table() function will extract us the individual table.
 html_table(nodes)
 ```
 
-We scraped the standings table for the week 1, but we want all tables for each 38 week of the season. **You can make this easily by packing what we have done so far in a for loop.**
+Wonderful, we scraped the standings table for the first week, but we want tables for each 38 week of the season.  
+  
+**You can make this easily by packing what we have done so far in a for loop.**
 
-As only the last number in our url link changes, We can code to different url addresses as here `url[[i]] <- paste0(baseUrl, path, i)`
+As only the last number in our url link changes, we can code different url addresses as in `url[[i]] <- paste0(baseUrl, path, i)`
 
 ```{r web Extract whole Season 2018/19, cache=TRUE}
 # Create emtpy lists
@@ -133,23 +135,24 @@ For example, `final[[19]]` will give me standings of mid season:
 ```{r Week 19}
 final[[19]]
 ```
+Don't mind the NAs in the second column, we will remove them soon.
+Now, we have all 38 table in our list **final**, we can combine them to a new data frame which will contain standings of the whole season. 
 
-Now, we have all 38 table in our list **final**, we can combine them to a new dataframe containing all standings of the whole season. 
-
-To be able to plot e.g. timeline plots let's keep the tidy data principles:
+To be able to plot e.g. timeline, let's keep the tidy data principles:
 
 1. Each observation has its own row.
 2. Each variable has its own column.
 
-Since we have same column names in each table, we can use **rbind** function, which will add rows of each table at the bottom of the previous one. **do.call() function will apply rbind() to each element of our list final.**
-```{r Integrate 38 dataframe, cache=TRUE}
+Since we have same column names in each table, we can use **rbind** function to add rows of each table to the bottom of the first one.  How to do that? We can't use lapply() function here. It will not combine elements in a list. We can use **do.call() function to perform the rbind() operation and combine all data frames we have***.
+
+```{r Integrate 38 data frame, cache=TRUE}
 uk18 <-  do.call("rbind", final)
 dim(uk18)
 head(uk18)
 
 ```
 
-Column names/shorcuts were in German, let's replace them names with the English words.
+Column names/shorcuts were in German, let's replace them with the English words.
 ```{r Fine tune final data frame}
 # Correct final table
 uk18 <- uk18  %>% select(3:10)
@@ -158,13 +161,13 @@ new_names <- c("team", "week", "won", "drawn", "lost", "goals",
 colnames(uk18) <- new_names
 ```
 
-Goals variable is actually contains two different data separated with ":" goals scored:goals scored against. We can split those into two columns by **separate() function of tidyr**.
+Goals variable is contains two different data separated with ":". `E.g. (4:0)`. Those represent goals scored:goals scored against. Let's split goals column into two by **separate() function from tidyr**.
 ```{r separate variables}
 uk18 <- uk18 %>% separate(goals, c("scored", "against"), sep="\\:")
 head(uk18)
 ```
 
-I want to order my legend with the same order of teams final positions. I filter the last week of the season and arrange them in descending order. I will assign this list to the factor levels of the team variable. 
+**I want to order my legend with the same order of teams final positions**. Let's filter for the last week of the season and arrange them in descending order. I will assign this list to the factor levels of the team variable. 
 ```{r organize}
 # Extract team names in the order as the season end
 uk18_filt <- uk18 %>% filter(week == 38) %>% arrange(desc(points))
@@ -173,11 +176,12 @@ finallevels <- as.character(uk18_filt$team)
 uk18$team <- factor(uk18$team, levels = finallevels)
 ```
 
+You can also create a color palette which fits to your needs.
 ```{r Prepare your own color palette}
-# We will create a color palette with 20 colors
+# We need a color palette with 20 colors
 colorCount <- length(unique(uk18$team))
 # colorRampPalette creatas a getPalette() function
-# we can modify an existing palette to include as many colors we want
+# This can modify an existing palette to include as many colors we want
 getPalette <- colorRampPalette(brewer.pal(9, "Set1"))
 getPalette(colorCount)
 ```
@@ -196,22 +200,22 @@ uk_facet <- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=FALSE
 
 uk_facet
 ```
-Some insights from those plots are:
+Some insights from the plots:
 
-1. I see three clusters here, two teams (Man. City and Liverpool) competed head to head for the championship and next 3 teams (Chelsea, Tottenham and Arsenal) for the 3rd position.  
+1. I see three clusters here. Two teams (Man. City and Liverpool) competed head to head for the championship and next three teams (Chelsea, Tottenham and Arsenal) for the 3rd position.  
 2. We can predict 4 out of 5 teams which will take first 5 place at the end of the season early as week 10.
 3. Manchester United showed peak performance mid season, Everton have improved performances while Tottenham slowed down (which costed them 3rd position) in the second part of the season.
 
-I can plot Points and goal differences in the same plot. I see 3 clusters here as well, even better separated. 
+I can plot Points and goal differences in the same plot. I cam see sa,e 3 clusters here as well.
+
 ```{r points vs goal differences}
 uk <- ggplot(uk18, aes(x=difference, y=points, col=team)) + 
-  geom_point(size=3) + scale_color_manual(values =getPalette(colorCount)) + 
+  geom_point(size=2) + scale_color_manual(values =getPalette(colorCount)) + 
   theme(text = element_text(size=15))
 uk
 ```
 
-Let's visualize what happened during the season in a small animation.
-With gganimate package we can create an animation of the season.
+Let's visualize this in a small animation. You can create an animated plot of the teams progress during the season. Gganimate does good job.
 ```{r gganimate, cache=TRUE}
 # Add a shadow tail
 # anim + shadow_wake(wake_length = 0.3, alpha = FALSE)
@@ -227,26 +231,22 @@ fullanimation <- animate(anim, fps= 7, nframes=100,
 fullanimation
 ```
 
-Questions answered in this post:
-
-* How to find the **XPath** for an **html table** in a website?
-* How to **combine Dataframes** from **a list**?
-* How to **split columns** containing more than one variable?
-
 
 # Conclusions / Future Thoughts
 
-One of the most important steps to answer a research question is gathering and pre-processing data that fits best for planned analysis. 
+One of the most important steps to answer a research question is gathering and pre-processing data that fits best for the planned analysis. 
 
-Some of the questions we tackled was:
+Some of the questions we tackled were:
 
 * How to find the **XPath** for an **html table** in a website?
-* How to **combine Dataframes** from **a list**?
+* How to **combine data frames** from **a list**?
 * How to **split columns** containing more than one variable?
 
 The earliest time, we can predict top teams final positions was around 10th. We can collect data from previous years or compare other countries leagues to check if we can generalize this finding. 
 
 What else we can asK? For example, we can connect performance changes to new transfers. Or whether changing coaches benefited any team. 
+
+Please share if you have other ideas in the comments below!
 
 Until next time!
 
