@@ -5,12 +5,865 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 08 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 10 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/logo.png</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
+    
+    <item>
+      <title>Data Preparation: Web Scraping html tables with rvest</title>
+      <link>/r/data-preparation-web-scraping-data-tables-with-rvest/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/r/data-preparation-web-scraping-data-tables-with-rvest/</guid>
+      <description>
+
+
+&lt;div id=&#34;accessing-different-data-sources&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Accessing different data sources&lt;/h2&gt;
+&lt;p&gt;Sometimes the data you need is available on the web. Accessing those will ease your life as a data scientist.&lt;/p&gt;
+&lt;p&gt;I want to perform an exploratory data analysis on &lt;strong&gt;2018/19 Season of England Premier league&lt;/strong&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Are there changes in team performances during the season timeline?&lt;/li&gt;
+&lt;li&gt;Are there any differentiated clusters?&lt;/li&gt;
+&lt;li&gt;Which is the earliest week we can predict teams final positions?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I need the &lt;strong&gt;standings table&lt;/strong&gt; for each week of the season and integrate them in a way that will allow me to plot the graphs that I want.
+We will scrap those tables from &lt;a href=&#34;https://www.weltfussball.de/&#34; class=&#34;uri&#34;&gt;https://www.weltfussball.de/&lt;/a&gt;&lt;img src=&#34;/img/welt.png&#34; alt=&#34;welt&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;For example standings table for the Week 1 is at:&lt;br /&gt;
+&lt;a href=&#34;https://www.weltfussball.de/spielplan/eng-premier-league-2018-2019-spieltag/1&#34; class=&#34;uri&#34;&gt;https://www.weltfussball.de/spielplan/eng-premier-league-2018-2019-spieltag/1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For the consequent weeks only the number at the end changes e.g.&lt;br /&gt;
+&lt;a href=&#34;https://www.weltfussball.de/spielplan/eng-premier-league-2018-2019-spieltag/2&#34;&gt;../spielplan/eng-premier-league-2018-2019-spieltag/&lt;strong&gt;2&lt;/strong&gt;&lt;/a&gt; ←&lt;br /&gt;
+&lt;a href=&#34;https://www.weltfussball.de/spielplan/eng-premier-league-2018-2019-spieltag/3&#34;&gt;../spielplan/eng-premier-league-2018-2019-spieltag/&lt;strong&gt;3&lt;/strong&gt;&lt;/a&gt; ←&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Pull the necessary packages  
+
+library(rvest)     # xml2
+library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcats
+library(gganimate)
+library(RColorBrewer)
+library(kableExtra)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We will scrap League Standing tables from https://www.weltfussball.de/
+baseUrl &amp;lt;- &amp;quot;https://www.weltfussball.de/&amp;quot;
+path &amp;lt;- &amp;quot;spielplan/eng-premier-league-2018-2019-spieltag/&amp;quot;
+fileName &amp;lt;- 1
+url &amp;lt;- paste0(baseUrl, path, fileName)
+url&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;https://www.weltfussball.de/spielplan/eng-premier-league-2018-2019-spieltag/1&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;read_html()&lt;/strong&gt; function from the rvest package imports the html file of the website.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tables &amp;lt;- read_html(url)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To extract the html table individually you can use &lt;strong&gt;XPath&lt;/strong&gt; syntax which defines parts on XML documents.&lt;/p&gt;
+&lt;p&gt;To get the XPath for standings table open the url on google chrome,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;hover the mouse over the table &amp;gt; right click &amp;gt; inspect&lt;/strong&gt;&lt;br /&gt;
+# This will open inspector&lt;/li&gt;
+&lt;li&gt;Move your mouse a few lines up or down to find the line where whole table is highlighted&lt;/li&gt;
+&lt;li&gt;Right click &amp;gt; Copy &amp;gt; Copy full XPath&lt;img src=&#34;/img/weltxpath.png&#34; alt=&#34;weltxpath&#34; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We can feed that XPath we copied to html_nodes() function and extract the node which contains the table.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;xpath = &amp;quot;/html/body/div[3]/div[2]/div[4]/div[2]/div[1]/div/div[7]/div/table[1]&amp;quot;
+nodes &amp;lt;- html_nodes(tables, xpath = xpath)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At the end, html_table() function will extract us the individual table.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;html_table(nodes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [[1]]
+##     # Mannschaft              Mannschaft Sp. S. U. N. Tore Dif. Pk.
+## 1   1         NA            Liverpool FC   1  1  0  0  4:0    4   3
+## 2   2         NA              Chelsea FC   1  1  0  0  3:0    3   3
+## 3   3         NA         AFC Bournemouth   1  1  0  0  2:0    2   3
+## 4  NA         NA          Crystal Palace   1  1  0  0  2:0    2   3
+## 5  NA         NA         Manchester City   1  1  0  0  2:0    2   3
+## 6  NA         NA              Watford FC   1  1  0  0  2:0    2   3
+## 7   7         NA       Manchester United   1  1  0  0  2:1    1   3
+## 8  NA         NA       Tottenham Hotspur   1  1  0  0  2:1    1   3
+## 9   9         NA              Everton FC   1  0  1  0  2:2    0   1
+## 10 NA         NA Wolverhampton Wanderers   1  0  1  0  2:2    0   1
+## 11 11         NA              Burnley FC   1  0  1  0  0:0    0   1
+## 12 NA         NA          Southampton FC   1  0  1  0  0:0    0   1
+## 13 13         NA          Leicester City   1  0  0  1  1:2   -1   0
+## 14 NA         NA        Newcastle United   1  0  0  1  1:2   -1   0
+## 15 15         NA              Arsenal FC   1  0  0  1  0:2   -2   0
+## 16 NA         NA  Brighton &amp;amp; Hove Albion   1  0  0  1  0:2   -2   0
+## 17 NA         NA            Cardiff City   1  0  0  1  0:2   -2   0
+## 18 NA         NA               Fulham FC   1  0  0  1  0:2   -2   0
+## 19 19         NA       Huddersfield Town   1  0  0  1  0:3   -3   0
+## 20 20         NA         West Ham United   1  0  0  1  0:4   -4   0&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We scraped the standings table for the week 1, but we want all tables for each 38 week of the season. &lt;strong&gt;You can make this easily by packing what we have done so far in a for loop.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;As only the last number in our url link changes, We can code to different url addresses as here &lt;code&gt;url[[i]] &amp;lt;- paste0(baseUrl, path, i)&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create emtpy lists
+url &amp;lt;- list()
+pages &amp;lt;- list()
+nodes &amp;lt;- list()
+final &amp;lt;- list()
+start &amp;lt;- Sys.time()
+# For loop.
+# It will connect one by one to 38 different url links predefined 
+# by the line starting with url[[i]]
+# Collect the information with read_html(), html_nodes() and html_table()
+# Finally each table will be converted to a data frame
+for(i in 1:38){
+url[[i]] &amp;lt;- paste0(baseUrl, path, i)
+pages[[i]] &amp;lt;- read_html(url[[i]])
+nodes[[i]] &amp;lt;- html_nodes(pages[[i]], xpath = xpath)
+final[[i]] &amp;lt;- data.frame(html_table(nodes[[i]]))
+}
+
+# By coding start and end times of the whole process 
+# I can keep an eye on how fast my code is.
+end &amp;lt;- Sys.time()
+end-start&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Time difference of 22.62705 secs&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For example, &lt;code&gt;final[[19]]&lt;/code&gt; will give me standings of mid season:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;final[[19]]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    X. Mannschaft            Mannschaft.1 Sp. S. U. N.  Tore Dif. Pk.
+## 1   1         NA            Liverpool FC  19 16  3  0  43:7   36  51
+## 2   2         NA       Tottenham Hotspur  19 15  0  4 42:18   24  45
+## 3   3         NA         Manchester City  19 14  2  3 51:15   36  44
+## 4   4         NA              Chelsea FC  19 12  4  3 37:16   21  40
+## 5   5         NA              Arsenal FC  19 11  5  3 41:25   16  38
+## 6   6         NA       Manchester United  19  9  5  5 37:31    6  32
+## 7   7         NA          Leicester City  19  8  4  7 24:22    2  28
+## 8   8         NA              Everton FC  19  7  6  6 31:29    2  27
+## 9   9         NA         West Ham United  19  8  3  8 27:28   -1  27
+## 10 10         NA              Watford FC  19  8  3  8 26:27   -1  27
+## 11 11         NA Wolverhampton Wanderers  19  7  5  7 20:22   -2  26
+## 12 12         NA         AFC Bournemouth  19  8  2  9 27:33   -6  26
+## 13 13         NA  Brighton &amp;amp; Hove Albion  19  6  4  9 21:27   -6  22
+## 14 14         NA          Crystal Palace  19  5  4 10 17:25   -8  19
+## 15 15         NA        Newcastle United  19  4  5 10 14:26  -12  17
+## 16 16         NA          Southampton FC  19  3  6 10 20:35  -15  15
+## 17 17         NA            Cardiff City  19  4  3 12 18:38  -20  15
+## 18 18         NA              Burnley FC  19  3  3 13 17:41  -24  12
+## 19 19         NA               Fulham FC  19  2  5 12 17:43  -26  11
+## 20 20         NA       Huddersfield Town  19  2  4 13 12:34  -22  10&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, we have all 38 table in our list &lt;strong&gt;final&lt;/strong&gt;, we can combine them to a new dataframe containing all standings of the whole season.&lt;/p&gt;
+&lt;p&gt;To be able to plot e.g. timeline plots let’s keep the tidy data principles:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Each observation has its own row.&lt;/li&gt;
+&lt;li&gt;Each variable has its own column.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Since we have same column names in each table, we can use &lt;strong&gt;rbind&lt;/strong&gt; function, which will add rows of each table at the bottom of the previous one. &lt;strong&gt;do.call() function will apply rbind() to each element of our list final.&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk18 &amp;lt;-  do.call(&amp;quot;rbind&amp;quot;, final)
+dim(uk18)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 760  10&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(uk18)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   X. Mannschaft    Mannschaft.1 Sp. S. U. N. Tore Dif. Pk.
+## 1  1         NA    Liverpool FC   1  1  0  0  4:0    4   3
+## 2  2         NA      Chelsea FC   1  1  0  0  3:0    3   3
+## 3  3         NA AFC Bournemouth   1  1  0  0  2:0    2   3
+## 4 NA         NA  Crystal Palace   1  1  0  0  2:0    2   3
+## 5 NA         NA Manchester City   1  1  0  0  2:0    2   3
+## 6 NA         NA      Watford FC   1  1  0  0  2:0    2   3&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Column names/shorcuts were in German, let’s replace them names with the English words.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Correct final table
+uk18 &amp;lt;- uk18  %&amp;gt;% select(3:10)
+new_names &amp;lt;- c(&amp;quot;team&amp;quot;, &amp;quot;week&amp;quot;, &amp;quot;won&amp;quot;, &amp;quot;drawn&amp;quot;, &amp;quot;lost&amp;quot;, &amp;quot;goals&amp;quot;, 
+               &amp;quot;difference&amp;quot;, &amp;quot;points&amp;quot;)
+colnames(uk18) &amp;lt;- new_names&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Goals variable is actually contains two different data separated with “:” goals scored:goals scored against. We can split those into two columns by &lt;strong&gt;separate() function of tidyr&lt;/strong&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk18 &amp;lt;- uk18 %&amp;gt;% separate(goals, c(&amp;quot;scored&amp;quot;, &amp;quot;against&amp;quot;), sep=&amp;quot;\\:&amp;quot;)
+head(uk18)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##              team week won drawn lost scored against difference points
+## 1    Liverpool FC    1   1     0    0      4       0          4      3
+## 2      Chelsea FC    1   1     0    0      3       0          3      3
+## 3 AFC Bournemouth    1   1     0    0      2       0          2      3
+## 4  Crystal Palace    1   1     0    0      2       0          2      3
+## 5 Manchester City    1   1     0    0      2       0          2      3
+## 6      Watford FC    1   1     0    0      2       0          2      3&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I want to order my legend with the same order of teams final positions. I filter the last week of the season and arrange them in descending order. I will assign this list to the factor levels of the team variable.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Extract team names in the order as the season end
+uk18_filt &amp;lt;- uk18 %&amp;gt;% filter(week == 38) %&amp;gt;% arrange(desc(points))
+knitr::kable(uk18_filt)&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+team
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+week
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+won
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+drawn
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+lost
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+scored
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+against
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+difference
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+points
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Manchester City
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+32
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+95
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+72
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+98
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Liverpool FC
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+30
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+89
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+22
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+67
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+97
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Chelsea FC
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+21
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+8
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+63
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+39
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+24
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+72
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Tottenham Hotspur
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+13
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+67
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+39
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+28
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+71
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Arsenal FC
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+21
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+73
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+51
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+22
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+70
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Manchester United
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+19
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+65
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+54
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+66
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Wolverhampton Wanderers
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+16
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+13
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+47
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+46
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+57
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Everton FC
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+14
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+54
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+46
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+8
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+54
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Leicester City
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+16
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+51
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+48
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+52
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+West Ham United
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+15
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+16
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+52
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+55
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+52
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Watford FC
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+14
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+8
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+16
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+52
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+59
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+50
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Crystal Palace
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+14
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+17
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+51
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+53
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+49
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Newcastle United
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+12
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+17
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+42
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+48
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-6
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+45
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+AFC Bournemouth
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+13
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+6
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+19
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+56
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+70
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-14
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+45
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Burnley FC
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+20
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+45
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+68
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-23
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+40
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Southampton FC
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+12
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+17
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+45
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+65
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-20
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+39
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Brighton &amp;amp; Hove Albion
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+20
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+35
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+60
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-25
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+36
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Cardiff City
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+24
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+34
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+69
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-35
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+34
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Fulham FC
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+26
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+34
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+81
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-47
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+26
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+Huddersfield Town
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+38
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+28
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+22
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+76
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+-54
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+16
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;finallevels &amp;lt;- as.character(uk18_filt$team)
+uk18$team &amp;lt;- factor(uk18$team, levels = finallevels)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We will create a color palette with 20 colors
+colorCount &amp;lt;- length(unique(uk18$team))
+# colorRampPalette creatas a getPalette() function
+# we can modify an existing palette to include as many colors we want
+getPalette &amp;lt;- colorRampPalette(brewer.pal(9, &amp;quot;Set1&amp;quot;))
+getPalette(colorCount)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;#E41A1C&amp;quot; &amp;quot;#9B445D&amp;quot; &amp;quot;#526E9F&amp;quot; &amp;quot;#3C8A9B&amp;quot; &amp;quot;#469F6C&amp;quot; &amp;quot;#54A453&amp;quot; &amp;quot;#747B78&amp;quot;
+##  [8] &amp;quot;#94539E&amp;quot; &amp;quot;#BD6066&amp;quot; &amp;quot;#E97422&amp;quot; &amp;quot;#FF990A&amp;quot; &amp;quot;#FFCF20&amp;quot; &amp;quot;#FAF632&amp;quot; &amp;quot;#D4AE2D&amp;quot;
+## [15] &amp;quot;#AF6729&amp;quot; &amp;quot;#BF6357&amp;quot; &amp;quot;#E17597&amp;quot; &amp;quot;#E884B9&amp;quot; &amp;quot;#C08EA9&amp;quot; &amp;quot;#999999&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot season timeline using the palette we just created
+uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_point(size=3) + theme(text = element_text(size=15)) + scale_color_manual(values =getPalette(colorCount))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s plot the regression lines&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot season timeline
+uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=TRUE) + theme(text = element_text(size=15)) + scale_color_manual(values =getPalette(colorCount))
+uk&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/Season%20timeline%20linear%20model-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk_facet &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=FALSE) + theme(text = element_text(size=10)) + scale_color_manual(values =getPalette(colorCount)) + facet_wrap(ncol = 4, team~.)
+
+uk_facet&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/Season%20timeline%20linear%20model-2.png&#34; width=&#34;672&#34; /&gt;
+Some insights from those plots are:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;I see three clusters here, two teams (Man. City and Liverpool) competed head to head for the championship and next 3 teams (Chelsea, Tottenham and Arsenal) for the 3rd position.&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;We can predict 4 out of 5 teams which will take first 5 place at the end of the season early as week 10.&lt;/li&gt;
+&lt;li&gt;Manchester United showed peak performance mid season, Everton have improved performances while Tottenham slowed down (which costed them 3rd position) in the second part of the season.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I can plot Points and goal differences in the same plot. I see 3 clusters here as well, even better separated.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk &amp;lt;- ggplot(uk18, aes(x=difference, y=points, col=team)) + 
+  geom_point(size=3) + scale_color_manual(values =getPalette(colorCount)) + 
+  theme(text = element_text(size=15))
+uk&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/points%20vs%20goal%20differences-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Let’s visualize what happened during the season in a small animation.
+With gganimate package we can create an animation of the season.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Add a shadow tail
+# anim + shadow_wake(wake_length = 0.3, alpha = FALSE)
+ 
+anim &amp;lt;- uk + 
+             transition_time(week) + 
+             labs(title = &amp;quot;week: {round(frame_time,0)}&amp;quot;) + 
+             shadow_wake(wake_length = 0.1, alpha = 0.5)
+
+fullanimation &amp;lt;- animate(anim, fps= 7, nframes=100, 
+                         height=500, width=800, res=0.8)
+
+fullanimation&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/gganimate-1.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;Questions answered in this post:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;How to find the &lt;strong&gt;XPath&lt;/strong&gt; for an &lt;strong&gt;html table&lt;/strong&gt; in a website?&lt;/li&gt;
+&lt;li&gt;How to &lt;strong&gt;combine Dataframes&lt;/strong&gt; from &lt;strong&gt;a list&lt;/strong&gt;?&lt;/li&gt;
+&lt;li&gt;How to &lt;strong&gt;split columns&lt;/strong&gt; containing more than one variable?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion-future-thoughts&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Conclusion / Future Thoughts&lt;/h1&gt;
+&lt;p&gt;One of the most important steps to answer a research question is gathering and pre-processing it best fit for planned analysis.&lt;/p&gt;
+&lt;p&gt;Some of the questions tackled was:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;How to find the &lt;strong&gt;XPath&lt;/strong&gt; for an &lt;strong&gt;html table&lt;/strong&gt; in a website?&lt;/li&gt;
+&lt;li&gt;How to &lt;strong&gt;combine Dataframes&lt;/strong&gt; from &lt;strong&gt;a list&lt;/strong&gt;?&lt;/li&gt;
+&lt;li&gt;How to &lt;strong&gt;split columns&lt;/strong&gt; containing more than one variable?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We answered also the earliest time we can predict teams final positions was around 10th. We can collect data from previous years or compare other countries leagues to check if we can generalize this finding.&lt;/p&gt;
+&lt;p&gt;Depending on more specific questions you can gather other insights such as connect performance changes to predict whether new transfers or changing coaches benefited any team.&lt;/p&gt;
+&lt;p&gt;Until next time!&lt;/p&gt;
+&lt;p&gt;Serdar&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>What is aesthetics and attributes in ggplot&#39;s world?</title>
