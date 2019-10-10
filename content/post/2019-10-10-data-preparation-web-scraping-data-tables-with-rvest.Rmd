@@ -234,19 +234,19 @@ Questions answered in this post:
 * How to **split columns** containing more than one variable?
 
 
-# Conclusion / Future Thoughts
+# Conclusions / Future Thoughts
 
-One of the most important steps to answer a research question is gathering and pre-processing it best fit for planned analysis. 
+One of the most important steps to answer a research question is gathering and pre-processing data that fits best for planned analysis. 
 
-Some of the questions tackled was:
+Some of the questions we tackled was:
 
 * How to find the **XPath** for an **html table** in a website?
 * How to **combine Dataframes** from **a list**?
 * How to **split columns** containing more than one variable?
 
-We answered also the earliest time we can predict teams final positions was around 10th. We can collect data from previous years or compare other countries leagues to check if we can generalize this finding. 
+The earliest time, we can predict top teams final positions was around 10th. We can collect data from previous years or compare other countries leagues to check if we can generalize this finding. 
 
-Depending on more specific questions you can gather other insights such as connect performance changes to predict whether new transfers or changing coaches benefited any team. 
+What else we can asK? For example, we can connect performance changes to new transfers. Or whether changing coaches benefited any team. 
 
 Until next time!
 
