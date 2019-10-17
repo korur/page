@@ -1,6 +1,6 @@
 ---
 title: Add custom summary statistics in ggplot2
-description: 'Using quartiles in ggplot2 for effective visualizations. Writing functions in R. Using Position_jitterdodge'
+description: "Using quartiles in ggplot2 for effective visualizations. Writing functions in R. Using Position_jitterdodge."
 author: ''
 date: '2019-10-16'
 slug: stats-ggplot
@@ -22,11 +22,11 @@ image:
 projects: []
 ---
 
-It is hard to understand your data by looking at the numbers on a csv file. You need to plot it. And adding informative statistics to your plots will make it easier.  
+It is hard to understand your data by looking at the numbers on a csv file. You need to plot it. And adding statistics to your plots will make it more informative.  
 
 To evaluate data, we typically use **mean** and **median** to define its central tendency and **range, quartiles, variance** and **standard deviation** to define how spread it is. 
 
-**Mean** and **standard deviation** is a good representation of the data if we don't have extreme values that result in a skewed distribution. On the other hand, when we have extreme values they might misguide us. In those conditions,  `median` and `quartiles` will serve us better. 
+**Mean** and **standard deviation** is a good representation of the data if we don't have extreme values that result in a skewed distribution. But, if we have outliers they might misguide us. In those conditions,  `median` and `quartiles` will serve us better. 
 
 **Median** is the central point which divides the data into half. **Quartiles** are used to describe the spread of the data. The word comes from the Medieval Latin "quartilis" which means fourth and **quartiles break the data into four equal parts**. 
 
@@ -45,9 +45,9 @@ Here is a representative graph.![graph:wikipedia](/img/quartiles.png)[source:wik
 
 # How to include statistics in ggplot2
 
-Stats makes it easier to grasp the data. And **different statistics are suited for different data types**. For example, you may want to show `a 95% confidence interval? mean? median?` or any other statistics which captures the details best for your data in the hand.
+Stats make it easier to grasp the data. And **different statistics are suited for different data types**. For example, you may want to show `a 95% confidence interval? or mean? median?` or any other statistics which captures the details best for your data.
 
-**So let's go through on an example data.** The data is about the effects of two Herbicides (glyphosate & bentazone) on the yield of white mustard (Sinapis alba) seeds.
+**So let's go through on an example data** to understand how statistics can be overlayed in ggplot2. The data is about the effects of two Herbicides (glyphosate & bentazone) on the yield of white mustard (Sinapis alba) seeds.
 
 First, import ggplot2 package and read in the data. 
 
@@ -59,12 +59,6 @@ str(data)
 ```
 
 
-```{r read the data}
-path <- "C:/Users/serda/Downloads/S.alba.csv"
-data <- read.csv(path)
-str(data)
-```
-
 These chemicals used at 8 different doses and the yield is measured. I will convert the dose variable as a factor. 
 
 ```{r feature engineering}
@@ -75,10 +69,12 @@ levels(data$Dose)
 We can make an initial plot to visualize the data. We'll plot the yield variable `DryMatter` against `Dose` of the Herbicides. We can assign `col` argument to map different chemical compounds to different colors.
 
 ```{r visualize the data}
-# I will define a dodge and jitterdodge object to avoid overlapping data points or stats that we will overlay later
+# I will define a dodge and jitterdodge object to avoid overlapping data points 
+# or stats that we will overlay later
 posn.d <- position_dodge(width=0.2)
 posn.jd <- position_jitterdodge(jitter.width = 0.1, dodge.width=0.2)
-p <- ggplot(data, aes(x=Dose, y=DryMatter, col=Herbicide, fill=Herbicide, group=Herbicide ))
+p <- ggplot(data, aes(x=Dose, y=DryMatter, col=Herbicide, fill=Herbicide, 
+                      group=Herbicide ))
 p + geom_point(position =posn.jd)
 ```
 
@@ -86,7 +82,9 @@ What we see here is that, at low doses both Herbicides led similar yields but st
 
 On top of that plot, I want to overlay the `min`, `max` and also `median` and `Interquartile range` for each set of yield measurements.
 
-I need one function to calculate the **median** and the **interquartile range(IQR) 1-3**, and another to calculate min(), max() values. 
+There are many default functions in ggplot2 which can be used directly such as **mean_sdl(), mean_cl_normal()** to add stats in stat_summary() layer. But, I will create custom functions here so that we can grasp better what is happening behind the scenes on ggplot2. 
+
+I will create one function to calculate the **median** and the **interquartile range(IQR) 1-3**, and another to calculate min(), max() values. 
 
 {{%  alert warning %}}
 In order to use the results of a function directly in ggplot2 we need to **ensure that the names of the variables match the aesthetics needed for our respective geoms**.
@@ -110,20 +108,23 @@ range <- function(x) {
 ```
 
 
-Let's replot with the statistics we wanted to overlay. You can use two`stat_summary()` layers to add our stats. You can set the `fun.data` argument to the specific function defined above.
+Let's replot with the statistics we wanted to overlay. You can use two `stat_summary()` layers to add our stats. You can set the `fun.data` argument to the specific function defined above.
 
 ```{r visualize with stats}
 # Updated plot
-p + stat_summary(geom = "linerange", fun.data = median_IQR, position = posn.d, size=3) + stat_summary(geom = "linerange", fun.data = range, position = posn.d, size=3, alpha=0.5)+ stat_summary(geom = "point", fun.y = "median", position = posn.d, size = 3, col = "black", shape = "X")
+p + stat_summary(geom = "linerange", fun.data = median_IQR, position = posn.d, size=3) + 
+  stat_summary(geom = "linerange", fun.data = range, position = posn.d, size=3, alpha=0.5)+ 
+  stat_summary(geom = "point", fun.y = "median", position = posn.d, size = 3, 
+               col = "black", shape = "X")
 ```
+
+In contrast, to the first plot here we easily see where the median and IQR lays. We can make our comparisions easier. Starting from dose 20, we see that glyphosate clearly underperforms bentazone. Big separation in the IQRs are obvious at doses 40 and 80. At higher doses, bentazone starts to give negative effects on yield similarly.
 
 ### Conclusions 
 
-Ggplot2 is a flexible package and knowing its intricacies will help you level up your visuals and gather better insights. 
+Ggplot2 is a flexible package and knowing its intricacies will help you level up your visuals. To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot `stat_summary()` layer similarly as we did above or use the default functions. 
 
-To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot `stat_summary()` layer similarly as we did above. 
-
-The data we have here was small. With bigger data, it will be more crucial to overlay summary statistics for effective visuals.
+The data we have here was small. With bigger data, it is more crucial to overlay summary statistics of interest for effective visuals.
 
 
 Until next time!
