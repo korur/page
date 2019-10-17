@@ -5,12 +5,104 @@
     <link>/tags/ggplot2/</link>
       <atom:link href="/tags/ggplot2/index.xml" rel="self" type="application/rss+xml" />
     <description>ggplot2</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 10 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 16 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/logo.png</url>
       <title>ggplot2</title>
       <link>/tags/ggplot2/</link>
     </image>
+    
+    <item>
+      <title>Add custom summary statistics in ggplot2</title>
+      <link>/r/stats-ggplot/</link>
+      <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/r/stats-ggplot/</guid>
+      <description>
+
+
+&lt;p&gt;It is hard to understand your data by looking at the numbers on a csv file. You need to plot it. And adding informative statistics to your plots will make it easier.&lt;/p&gt;
+&lt;p&gt;To evaluate data, we typically use &lt;strong&gt;mean&lt;/strong&gt; and &lt;strong&gt;median&lt;/strong&gt; to define its central tendency and &lt;strong&gt;range, quartiles, variance&lt;/strong&gt; and &lt;strong&gt;standard deviation&lt;/strong&gt; to define how spread it is.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mean&lt;/strong&gt; and &lt;strong&gt;standard deviation&lt;/strong&gt; is a good representation of the data if we don’t have extreme values that result in a skewed distribution. On the other hand, when we have extreme values they might misguide us. In those conditions, &lt;code&gt;median&lt;/code&gt; and &lt;code&gt;quartiles&lt;/code&gt; will serve us better.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Median&lt;/strong&gt; is the central point which divides the data into half. &lt;strong&gt;Quartiles&lt;/strong&gt; are used to describe the spread of the data. The word comes from the Medieval Latin “quartilis” which means fourth and &lt;strong&gt;quartiles break the data into four equal parts&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    The advantage is that they are much less effected by the outliers or skeweness of the data.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;p&gt;For this reason, &lt;strong&gt;quartiles are often used along with the median as the best measures of spread.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;They are often expressed as an &lt;strong&gt;Interquartile range (IQR)&lt;/strong&gt;, which is the interval between first and third quartiles and represents 50% of the data points.&lt;/p&gt;
+&lt;p&gt;For example, you measured height of adults in a population, with Interquartile range you can describe a discrete interval centered around the median including 50% of the measurements.&lt;/p&gt;
+&lt;p&gt;Here is a representative graph.&lt;img src=&#34;/img/quartiles.png&#34; alt=&#34;graph:wikipedia&#34; /&gt;[source:wikipedia]&lt;/p&gt;
+&lt;div id=&#34;how-to-include-statistics-in-ggplot2&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;How to include statistics in ggplot2&lt;/h1&gt;
+&lt;p&gt;Stats makes it easier to grasp the data. And &lt;strong&gt;different statistics are suited for different data types&lt;/strong&gt;. For example, you may want to show &lt;code&gt;a 95% confidence interval? mean? median?&lt;/code&gt; or any other statistics which captures the details best for your data in the hand.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;So let’s go through on an example data.&lt;/strong&gt; The data is about the effects of two Herbicides (glyphosate &amp;amp; bentazone) on the yield of white mustard (Sinapis alba) seeds.&lt;/p&gt;
+&lt;p&gt;First, import ggplot2 package and read in the data.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggplot2)
+path &amp;lt;- &amp;quot;C:/Users/serda/Downloads/S.alba.csv&amp;quot;
+data &amp;lt;- read.csv(path)
+str(data)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    68 obs. of  4 variables:
+##  $ X        : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Dose     : int  0 0 0 0 0 0 0 0 10 10 ...
+##  $ Herbicide: Factor w/ 2 levels &amp;quot;Bentazone&amp;quot;,&amp;quot;Glyphosate&amp;quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ DryMatter: num  4.7 4.6 4.1 4.4 3.2 3 3.8 3.9 3.8 3.8 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;path &amp;lt;- &amp;quot;C:/Users/serda/Downloads/S.alba.csv&amp;quot;
+data &amp;lt;- read.csv(path)
+str(data)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    68 obs. of  4 variables:
+##  $ X        : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Dose     : int  0 0 0 0 0 0 0 0 10 10 ...
+##  $ Herbicide: Factor w/ 2 levels &amp;quot;Bentazone&amp;quot;,&amp;quot;Glyphosate&amp;quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ DryMatter: num  4.7 4.6 4.1 4.4 3.2 3 3.8 3.9 3.8 3.8 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These chemicals used at 8 different doses and the yield is measured. I will convert the dose variable as a factor.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data$Dose &amp;lt;- as.factor(data$Dose)
+levels(data$Dose)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;0&amp;quot;   &amp;quot;10&amp;quot;  &amp;quot;20&amp;quot;  &amp;quot;40&amp;quot;  &amp;quot;80&amp;quot;  &amp;quot;160&amp;quot; &amp;quot;320&amp;quot; &amp;quot;640&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can make an initial plot to visualize the data. We’ll plot the yield variable &lt;code&gt;DryMatter&lt;/code&gt; against &lt;code&gt;Dose&lt;/code&gt; of the Herbicides. We can assign &lt;code&gt;col&lt;/code&gt; argument to map different chemical compounds to different colors.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# I will define a dodge and jitterdodge object to avoid overlapping data points or stats that we will overlay later
+posn.d &amp;lt;- position_dodge(width=0.2)
+posn.jd &amp;lt;- position_jitterdodge(jitter.width = 0.1, dodge.width=0.2)
+p &amp;lt;- ggplot(data, aes(x=Dose, y=DryMatter, col=Herbicide, fill=Herbicide, group=Herbicide ))
+p + geom_point(position =posn.jd)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-16-add-custom-summary-statistics-into-your-ggplot_files/figure-html/visualize%20the%20data-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;What we see here is that, at low doses both Herbicides led similar yields but starting from Dose 40 we see a drastic negative impact of Benzoate on yield.&lt;/p&gt;
+&lt;p&gt;On top of that plot, I want to overlay the &lt;code&gt;min&lt;/code&gt;, &lt;code&gt;max&lt;/code&gt; and also &lt;code&gt;median&lt;/code&gt; and &lt;code&gt;Interquartile range&lt;/code&gt; for each set of yield measurements.&lt;/p&gt;
+&lt;p&gt;I need one function to calculate the &lt;strong&gt;median&lt;/strong&gt; and the &lt;strong&gt;interquartile range(IQR) 1-3&lt;/strong&gt;, and another to calculate min(), max() values.&lt;/p&gt;
+&lt;p&gt;&lt;div class=&#34;alert alert-warning&#34;&gt;
+  &lt;div&gt;
+    In order to use the results of a function directly in ggplot2 we need to &lt;strong&gt;ensure that the names of the variables match the aesthetics needed for our respective geoms&lt;/strong&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Function for median and IQR
+
+median_IQR &amp;lt;- function(x) {
+  data.frame(y = median(x), # Median
+             ymin = quantile(x)[2], # 1st quartile
+             ymax = quantile(x)[4])  # 3rd quartile
+}
+
+# Function for min, max values
+range &amp;lt;- function(x) {
+  data.frame(ymin=min(x),
+             ymax=max(x))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s replot with the statistics we wanted to overlay. You can use two&lt;code&gt;stat_summary()&lt;/code&gt; layers to add our stats. You can set the &lt;code&gt;fun.data&lt;/code&gt; argument to the specific function defined above.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Updated plot
+p + stat_summary(geom = &amp;quot;linerange&amp;quot;, fun.data = median_IQR, position = posn.d, size=3) + stat_summary(geom = &amp;quot;linerange&amp;quot;, fun.data = range, position = posn.d, size=3, alpha=0.5)+ stat_summary(geom = &amp;quot;point&amp;quot;, fun.y = &amp;quot;median&amp;quot;, position = posn.d, size = 3, col = &amp;quot;black&amp;quot;, shape = &amp;quot;X&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-16-add-custom-summary-statistics-into-your-ggplot_files/figure-html/visualize%20with%20stats-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;div id=&#34;future-thoughts&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Future thoughts&lt;/h3&gt;
+&lt;p&gt;Ggplot2 is a flexible package and knowing its intricacies will help you level up your visuals and gather better insights.&lt;/p&gt;
+&lt;p&gt;To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot similarly as we did above.&lt;/p&gt;
+&lt;p&gt;Until next time!&lt;/p&gt;
+&lt;p&gt;Serdar&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Data Preparation: Web Scraping html tables with rvest</title>

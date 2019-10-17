@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IQR | SERDAR KORUR</title>
+    <link>/tags/iqr/</link>
+      <atom:link href="/tags/iqr/index.xml" rel="self" type="application/rss+xml" />
+    <description>IQR</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 16 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/logo.png</url>
+      <title>IQR</title>
+      <link>/tags/iqr/</link>
+    </image>
+    
+    <item>
+      <title>Add custom summary statistics in ggplot2</title>
+      <link>/r/stats-ggplot/</link>
+      <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/r/stats-ggplot/</guid>
+      <description>
+
+
+&lt;p&gt;It is hard to undestand your data by looking at the numbers on a csv file. You need to plot it. And adding informative statistics to your plots will make it easier.&lt;/p&gt;
+&lt;p&gt;To evaluate data we typically use &lt;strong&gt;mean&lt;/strong&gt; and &lt;strong&gt;median&lt;/strong&gt; which define its central tendency and &lt;strong&gt;range, quartiles, variance&lt;/strong&gt; and &lt;strong&gt;standard deviation&lt;/strong&gt; which define how spread it is.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mean&lt;/strong&gt; and &lt;strong&gt;standard deviation&lt;/strong&gt; is a good representation of the data if we don’t have extreme values that result in a skewed distribution.&lt;/p&gt;
+&lt;p&gt;On the other hand, when we have extreme values that result in a skewed distribution, they might misguide us. In those conditions we can use &lt;strong&gt;median&lt;/strong&gt; and &lt;strong&gt;quartiles&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Median&lt;/strong&gt; is the central point which divides the data into half. &lt;strong&gt;Quartiles&lt;/strong&gt; are used to describe the spread of the data. The word comes from the Medieval Latin “quartīlis”&#34; which means fourth and &lt;strong&gt;they break the data into four equal parts&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    The advantage is that they are much less effected by the outliers or skeweness of the data.
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+&lt;p&gt;For this reason, quartiles are often used along with the median as the best measures of spread.&lt;/p&gt;
+&lt;p&gt;They are often expressed as an &lt;strong&gt;Interquartile range (IQR)&lt;/strong&gt;, which is the interval between first and third quartiles and represents 50% of the data points.&lt;/p&gt;
+&lt;p&gt;For example, if you measured height variable in a population, with Interquartile range you can describe a discrete interval centered around the median with the 50% of the height measurements inside the IQR.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;/img/quartiles.png&#34; alt=&#34;graph:wikipedia&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;&lt;a href=&#34;graph:wikipedia&#34; class=&#34;uri&#34;&gt;graph:wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Make your own interquartile range plot!!!!!&lt;/p&gt;
+&lt;p&gt;dist &amp;lt;- rnorm(1000, 175, sd =5)&lt;/p&gt;
+&lt;div id=&#34;part-2&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Part 2&lt;/h1&gt;
+&lt;p&gt;Import packages needed.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggplot2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;How to include a 90% interval? mean? median?
+To convey the insights you wish to emphasize, you can include function arguments in ggplot.&lt;/p&gt;
+&lt;p&gt;We will look at the effects of two Herbicides (glyphosate &amp;amp; bentazone) on the yield of white mustard (Sinapis alba) seeds.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;path &amp;lt;- &amp;quot;C:/Users/serda/Downloads/S.alba.csv&amp;quot;
+data &amp;lt;- read.csv(path)
+str(data)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    68 obs. of  4 variables:
+##  $ X        : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Dose     : int  0 0 0 0 0 0 0 0 10 10 ...
+##  $ Herbicide: Factor w/ 2 levels &amp;quot;Bentazone&amp;quot;,&amp;quot;Glyphosate&amp;quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ DryMatter: num  4.7 4.6 4.1 4.4 3.2 3 3.8 3.9 3.8 3.8 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Those chemicals used at 8 different doses. Let’s define this variable as a factor.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data$Dose &amp;lt;- as.factor(data$Dose)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Visualize the data&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;posn.jd &amp;lt;- position_jitterdodge(jitter.width = 0.1, dodge.width=0.2)
+
+posn.d &amp;lt;- posn.d &amp;lt;- position_dodge(width=0.4)
+posn.j &amp;lt;-  position_jitter(width=0.2)
+p &amp;lt;- ggplot(data, aes(x=Dose, y=DryMatter, col=Herbicide, fill=Herbicide, group=Herbicide ))
+p + geom_point(position =posn.jd)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-16-add-custom-summary-statistics-into-your-ggplot_files/figure-html/visualize%20the%20data-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;In order to use the results of a function directly in ggplot2 we need to:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ensure that the names of the variables match the aesthetics needed for our respective geoms.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I will define two functions one will calculate the median and the interquartile range(IQR) 1-3, and the other function will bring min(), max() values of the given variable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;i-would-like-to-plot-median-and-the-interquartile-range&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;I would like to plot median and the interquartile range&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# I can define two functions to include median, IQR and min(), max() values
+# I would like to plot median and the interquartile range
+median_IQR &amp;lt;- function(x) {
+  data.frame(y = median(x), # Median
+             ymin = quantile(x)[2], # 1st quartile
+             ymax = quantile(x)[4])  # 3rd quartile
+}
+
+# how to add min, max values
+range &amp;lt;- function(x) {
+  data.frame(ymin=min(x),
+             ymax=max(x))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Replot with the statistics we want to overlay&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Position jitter dodge
+p + stat_summary(geom = &amp;quot;linerange&amp;quot;, fun.data = median_IQR, position = posn.d, size=3) + stat_summary(geom = &amp;quot;linerange&amp;quot;, fun.data = range, position = posn.d, size=3, alpha=0.5)+ stat_summary(geom = &amp;quot;point&amp;quot;, fun.y = &amp;quot;median&amp;quot;, position = posn.d, size = 3, col = &amp;quot;black&amp;quot;, shape = &amp;quot;X&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-16-add-custom-summary-statistics-into-your-ggplot_files/figure-html/visualize%20with%20stats-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

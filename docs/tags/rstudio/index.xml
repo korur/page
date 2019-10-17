@@ -120,9 +120,9 @@ Serdar&lt;/p&gt;
       <description>
 
 
-&lt;p&gt;My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler.&lt;/p&gt;
+&lt;p&gt;My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler but is crucial. An important step in Data Science process is to prepare your data, clean it, reformat it and make it usable for the further analysis.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.gutenberg.org/&#34;&gt;Project Gutenberg&lt;/a&gt; has a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;The goal is to isolate each poem individually for text mining analysis later.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The goal is to isolate each poem individually for text mining analysis.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Let’s figure out a solution.&lt;/p&gt;
 &lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
@@ -130,16 +130,16 @@ Serdar&lt;/p&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;/p&gt;
-&lt;div id=&#34;install-the-required-packages&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Install the required packages&lt;/h3&gt;
+&lt;div id=&#34;install-required-packages&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Install required packages&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dplyr)
 library(stringr)
 library(stringi)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;copy-the-book-from-dh-lawrence-new-poems&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Copy the book from DH Lawrence “New Poems”&lt;/h3&gt;
-&lt;p&gt;At gutenberg website there are couple of slightly different formats of the book. Since there were some mistakes in the .txt version I used
-the html version &lt;a href=&#34;http://www.gutenberg.org/files/22726/22726-h/22726-h.htm&#34;&gt;here&lt;/a&gt;. I copied the text and pasted it in a txt file and saved to my working directory.&lt;/p&gt;
+&lt;p&gt;At gutenberg website there are couple of slightly different formats of the book. Since there were some mistakes in the .txt file I used
+the html version &lt;a href=&#34;http://www.gutenberg.org/files/22726/22726-h/22726-h.htm&#34;&gt;here&lt;/a&gt;. I copied the text and pasted it in a text editor and saved to my working directory.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lawrence &amp;lt;- readLines(&amp;quot;posts_data/lawrence_new_poems.txt&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Our file contains &lt;code&gt;2181&lt;/code&gt; lines. With square brackets [ ] we can view the lines we want. Let’s look at the first few lines;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lawrence[1:5]&lt;/code&gt;&lt;/pre&gt;

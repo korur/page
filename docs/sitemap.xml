@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/r/stats-ggplot/</loc>
+    <lastmod>2019-10-16T11:26:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/data-visualization/</loc>
+    <lastmod>2019-10-16T11:26:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ggplot2/</loc>
+    <lastmod>2019-10-16T11:26:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/interquartile-range/</loc>
+    <lastmod>2019-10-16T11:26:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2019-10-16T11:26:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-10-16T11:26:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-10-16T11:26:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/writing-functions/</loc>
+    <lastmod>2019-10-16T11:26:02+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/blog/</loc>
     <lastmod>2019-10-10T06:34:25+02:00</lastmod>
   </url>
@@ -28,32 +68,12 @@
   </url>
   
   <url>
-    <loc>/tags/ggplot2/</loc>
-    <lastmod>2019-10-10T06:34:25+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2019-10-10T06:34:25+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/premier-league/</loc>
     <lastmod>2019-10-10T06:34:25+02:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/rvest/</loc>
-    <lastmod>2019-10-10T06:34:25+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2019-10-10T06:34:25+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2019-10-10T06:34:25+02:00</lastmod>
   </url>
   
@@ -79,11 +99,6 @@
   
   <url>
     <loc>/tags/attributes/</loc>
-    <lastmod>2019-10-08T12:38:02+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/data-visualization/</loc>
     <lastmod>2019-10-08T12:38:02+02:00</lastmod>
   </url>
   

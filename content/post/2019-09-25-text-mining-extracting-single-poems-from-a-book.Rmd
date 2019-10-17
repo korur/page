@@ -23,11 +23,11 @@ image:
 projects: []
 ---
 
-My ambitious goal is to write a machine learning algorithm that predicts authors. But let's start with something simpler.
+My ambitious goal is to write a machine learning algorithm that predicts authors. But let's start with something simpler but is crucial. An important step in Data Science process is to prepare your data, clean it, reformat it and make it usable for the further analysis.
 
 [Project Gutenberg](https://www.gutenberg.org/) has a library of over 60,000 free eBooks. I will work on a Poetry book called "New Poems" from D. H. Lawrence. 
 
-**The goal is to isolate each poem individually for text mining analysis later.**  
+**The goal is to isolate each poem individually for text mining analysis.**  
   
 Let's figure out a solution. 
 
@@ -36,7 +36,7 @@ I will use the table of contents section to **fish out each poem separately** by
 {{% /alert %}}
 
 
-### Install the required packages
+### Install required packages
 
 ```{r Import packages, warning=FALSE, message=FALSE}
 library(dplyr)
@@ -46,8 +46,8 @@ library(stringi)
 
 ### Copy the book from DH Lawrence "New Poems"
 
-At gutenberg website there are couple of slightly different formats of the book. Since there were some mistakes in the .txt version I used 
-the html version [here](http://www.gutenberg.org/files/22726/22726-h/22726-h.htm). I copied the text and pasted it in a txt file and saved to my working directory. 
+At gutenberg website there are couple of slightly different formats of the book. Since there were some mistakes in the .txt file I used 
+the html version [here](http://www.gutenberg.org/files/22726/22726-h/22726-h.htm). I copied the text and pasted it in a text editor and saved to my working directory. 
 ```{r data}
 
 lawrence <- readLines("posts_data/lawrence_new_poems.txt")
