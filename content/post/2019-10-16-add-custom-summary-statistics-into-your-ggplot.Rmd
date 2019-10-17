@@ -117,11 +117,13 @@ Let's replot with the statistics we wanted to overlay. You can use two`stat_summ
 p + stat_summary(geom = "linerange", fun.data = median_IQR, position = posn.d, size=3) + stat_summary(geom = "linerange", fun.data = range, position = posn.d, size=3, alpha=0.5)+ stat_summary(geom = "point", fun.y = "median", position = posn.d, size = 3, col = "black", shape = "X")
 ```
 
-### Future thoughts 
+### Conclusions 
 
 Ggplot2 is a flexible package and knowing its intricacies will help you level up your visuals and gather better insights. 
 
-To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot similarly as we did above. 
+To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot `stat_summary()` layer similarly as we did above. 
+
+The data we have here was small. With bigger data, it will be more crucial to overlay summary statistics to build clear visuals.
 
 
 Until next time!

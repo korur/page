@@ -641,10 +641,11 @@ range &lt;- function(x) {
 <pre class="r"><code># Updated plot
 p + stat_summary(geom = &quot;linerange&quot;, fun.data = median_IQR, position = posn.d, size=3) + stat_summary(geom = &quot;linerange&quot;, fun.data = range, position = posn.d, size=3, alpha=0.5)+ stat_summary(geom = &quot;point&quot;, fun.y = &quot;median&quot;, position = posn.d, size = 3, col = &quot;black&quot;, shape = &quot;X&quot;)</code></pre>
 <p><img src="/post/2019-10-16-add-custom-summary-statistics-into-your-ggplot_files/figure-html/visualize%20with%20stats-1.png" width="672" /></p>
-<div id="future-thoughts" class="section level3">
-<h3>Future thoughts</h3>
+<div id="conclusions" class="section level3">
+<h3>Conclusions</h3>
 <p>Ggplot2 is a flexible package and knowing its intricacies will help you level up your visuals and gather better insights.</p>
-<p>To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot similarly as we did above.</p>
+<p>To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot <code>stat_summary()</code> layer similarly as we did above.</p>
+<p>The data we have here was small. With bigger data, it will be more crucial to overlay summary statistics to build clear visuals.</p>
 <p>Until next time!</p>
 <p>Serdar</p>
 </div>

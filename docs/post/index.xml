@@ -93,10 +93,11 @@ range &amp;lt;- function(x) {
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Updated plot
 p + stat_summary(geom = &amp;quot;linerange&amp;quot;, fun.data = median_IQR, position = posn.d, size=3) + stat_summary(geom = &amp;quot;linerange&amp;quot;, fun.data = range, position = posn.d, size=3, alpha=0.5)+ stat_summary(geom = &amp;quot;point&amp;quot;, fun.y = &amp;quot;median&amp;quot;, position = posn.d, size = 3, col = &amp;quot;black&amp;quot;, shape = &amp;quot;X&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-16-add-custom-summary-statistics-into-your-ggplot_files/figure-html/visualize%20with%20stats-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;div id=&#34;future-thoughts&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Future thoughts&lt;/h3&gt;
+&lt;div id=&#34;conclusions&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Conclusions&lt;/h3&gt;
 &lt;p&gt;Ggplot2 is a flexible package and knowing its intricacies will help you level up your visuals and gather better insights.&lt;/p&gt;
-&lt;p&gt;To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot similarly as we did above.&lt;/p&gt;
+&lt;p&gt;To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot &lt;code&gt;stat_summary()&lt;/code&gt; layer similarly as we did above.&lt;/p&gt;
+&lt;p&gt;The data we have here was small. With bigger data, it will be more crucial to overlay summary statistics to build clear visuals.&lt;/p&gt;
 &lt;p&gt;Until next time!&lt;/p&gt;
 &lt;p&gt;Serdar&lt;/p&gt;
 &lt;/div&gt;
