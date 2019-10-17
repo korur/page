@@ -123,7 +123,7 @@ Ggplot2 is a flexible package and knowing its intricacies will help you level up
 
 To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot `stat_summary()` layer similarly as we did above. 
 
-The data we have here was small. With bigger data, it will be more crucial to overlay summary statistics to build clear visuals.
+The data we have here was small. With bigger data, it will be more crucial to overlay summary statistics for effective visuals.
 
 
 Until next time!
