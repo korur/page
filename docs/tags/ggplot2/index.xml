@@ -97,7 +97,7 @@ p + stat_summary(geom = &amp;quot;linerange&amp;quot;, fun.data = median_IQR, po
 &lt;h3&gt;Conclusions&lt;/h3&gt;
 &lt;p&gt;Ggplot2 is a flexible package and knowing its intricacies will help you level up your visuals and gather better insights.&lt;/p&gt;
 &lt;p&gt;To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot &lt;code&gt;stat_summary()&lt;/code&gt; layer similarly as we did above.&lt;/p&gt;
-&lt;p&gt;The data we have here was small. With bigger data, it will be more crucial to overlay summary statistics to build clear visuals.&lt;/p&gt;
+&lt;p&gt;The data we have here was small. With bigger data, it will be more crucial to overlay summary statistics for effective visuals.&lt;/p&gt;
 &lt;p&gt;Until next time!&lt;/p&gt;
 &lt;p&gt;Serdar&lt;/p&gt;
 &lt;/div&gt;
