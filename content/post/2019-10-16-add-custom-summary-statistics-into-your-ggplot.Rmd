@@ -118,7 +118,7 @@ p + stat_summary(geom = "linerange", fun.data = median_IQR, position = posn.d, s
                col = "black", shape = "X")
 ```
 
-In contrast, to the first plot here we easily see where the median and IQR lays. We can make our comparisions easier. Starting from dose 20, we see that glyphosate clearly underperforms bentazone. Big separation in the IQRs are obvious at doses 40 and 80. At higher doses, bentazone starts to give negative effects on yield similarly.
+In contrast, to the first plot here we easily see where the median and IQR lays. We can make our comparisions easier. Starting from dose 20, we see that glyphosate clearly outperforms bentazone. Big separation between the IQRs are obvious at doses 40 and 80. At higher doses, differences in IQRs starts to disappear.
 
 ### Conclusions 
 
