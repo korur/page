@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="It is hard to understand your data by looking at the numbers on a csv file. You need to plot it. And adding informative statistics to your plots will make it easier.
+  <meta name="description" content="It is hard to understand your data by looking at the numbers on a csv file. You need to plot it. And adding statistics to your plots will make it more informative.
 To evaluate data, we typically use mean and median to define its central tendency and range, quartiles, variance and standard deviation to define how spread it is.
 Mean and standard deviation is a good representation of the data if we don’t have extreme values that result in a skewed distribution.">
 
@@ -128,7 +128,7 @@ Mean and standard deviation is a good representation of the data if we don’t h
   <meta property="og:site_name" content="SERDAR KORUR">
   <meta property="og:url" content="/r/stats-ggplot/">
   <meta property="og:title" content="Add custom summary statistics in ggplot2 | SERDAR KORUR">
-  <meta property="og:description" content="It is hard to understand your data by looking at the numbers on a csv file. You need to plot it. And adding informative statistics to your plots will make it easier.
+  <meta property="og:description" content="It is hard to understand your data by looking at the numbers on a csv file. You need to plot it. And adding statistics to your plots will make it more informative.
 To evaluate data, we typically use mean and median to define its central tendency and range, quartiles, variance and standard deviation to define how spread it is.
 Mean and standard deviation is a good representation of the data if we don’t have extreme values that result in a skewed distribution."><meta property="og:image" content="/img/logo.png">
   <meta property="twitter:image" content="/img/logo.png"><meta property="og:locale" content="en-us">
@@ -193,7 +193,7 @@ Mean and standard deviation is a good representation of the data if we don’t h
       "url": "/img/logo.png"
     }
   },
-  "description": "It is hard to understand your data by looking at the numbers on a csv file. You need to plot it. And adding informative statistics to your plots will make it easier.\nTo evaluate data, we typically use mean and median to define its central tendency and range, quartiles, variance and standard deviation to define how spread it is.\nMean and standard deviation is a good representation of the data if we don’t have extreme values that result in a skewed distribution."
+  "description": "It is hard to understand your data by looking at the numbers on a csv file. You need to plot it. And adding statistics to your plots will make it more informative.\nTo evaluate data, we typically use mean and median to define its central tendency and range, quartiles, variance and standard deviation to define how spread it is.\nMean and standard deviation is a good representation of the data if we don’t have extreme values that result in a skewed distribution."
 }
 </script>
 
@@ -568,9 +568,9 @@ Mean and standard deviation is a good representation of the data if we don’t h
       
 
 
-<p>It is hard to understand your data by looking at the numbers on a csv file. You need to plot it. And adding informative statistics to your plots will make it easier.</p>
+<p>It is hard to understand your data by looking at the numbers on a csv file. You need to plot it. And adding statistics to your plots will make it more informative.</p>
 <p>To evaluate data, we typically use <strong>mean</strong> and <strong>median</strong> to define its central tendency and <strong>range, quartiles, variance</strong> and <strong>standard deviation</strong> to define how spread it is.</p>
-<p><strong>Mean</strong> and <strong>standard deviation</strong> is a good representation of the data if we don’t have extreme values that result in a skewed distribution. On the other hand, when we have extreme values they might misguide us. In those conditions, <code>median</code> and <code>quartiles</code> will serve us better.</p>
+<p><strong>Mean</strong> and <strong>standard deviation</strong> is a good representation of the data if we don’t have extreme values that result in a skewed distribution. But, if we have outliers they might misguide us. In those conditions, <code>median</code> and <code>quartiles</code> will serve us better.</p>
 <p><strong>Median</strong> is the central point which divides the data into half. <strong>Quartiles</strong> are used to describe the spread of the data. The word comes from the Medieval Latin “quartilis” which means fourth and <strong>quartiles break the data into four equal parts</strong>.</p>
 <p><div class="alert alert-note">
   <div>
@@ -584,19 +584,11 @@ Mean and standard deviation is a good representation of the data if we don’t h
 <p>Here is a representative graph.<img src="/img/quartiles.png" alt="graph:wikipedia" />[source:wikipedia]</p>
 <div id="how-to-include-statistics-in-ggplot2" class="section level1">
 <h1>How to include statistics in ggplot2</h1>
-<p>Stats makes it easier to grasp the data. And <strong>different statistics are suited for different data types</strong>. For example, you may want to show <code>a 95% confidence interval? mean? median?</code> or any other statistics which captures the details best for your data in the hand.</p>
-<p><strong>So let’s go through on an example data.</strong> The data is about the effects of two Herbicides (glyphosate &amp; bentazone) on the yield of white mustard (Sinapis alba) seeds.</p>
+<p>Stats make it easier to grasp the data. And <strong>different statistics are suited for different data types</strong>. For example, you may want to show <code>a 95% confidence interval? or mean? median?</code> or any other statistics which captures the details best for your data.</p>
+<p><strong>So let’s go through on an example data</strong> to understand how statistics can be overlayed in ggplot2. The data is about the effects of two Herbicides (glyphosate &amp; bentazone) on the yield of white mustard (Sinapis alba) seeds.</p>
 <p>First, import ggplot2 package and read in the data.</p>
 <pre class="r"><code>library(ggplot2)
 path &lt;- &quot;C:/Users/serda/Downloads/S.alba.csv&quot;
-data &lt;- read.csv(path)
-str(data)</code></pre>
-<pre><code>## &#39;data.frame&#39;:    68 obs. of  4 variables:
-##  $ X        : int  1 2 3 4 5 6 7 8 9 10 ...
-##  $ Dose     : int  0 0 0 0 0 0 0 0 10 10 ...
-##  $ Herbicide: Factor w/ 2 levels &quot;Bentazone&quot;,&quot;Glyphosate&quot;: 2 2 2 2 2 2 2 2 2 2 ...
-##  $ DryMatter: num  4.7 4.6 4.1 4.4 3.2 3 3.8 3.9 3.8 3.8 ...</code></pre>
-<pre class="r"><code>path &lt;- &quot;C:/Users/serda/Downloads/S.alba.csv&quot;
 data &lt;- read.csv(path)
 str(data)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    68 obs. of  4 variables:
@@ -609,15 +601,18 @@ str(data)</code></pre>
 levels(data$Dose)</code></pre>
 <pre><code>## [1] &quot;0&quot;   &quot;10&quot;  &quot;20&quot;  &quot;40&quot;  &quot;80&quot;  &quot;160&quot; &quot;320&quot; &quot;640&quot;</code></pre>
 <p>We can make an initial plot to visualize the data. We’ll plot the yield variable <code>DryMatter</code> against <code>Dose</code> of the Herbicides. We can assign <code>col</code> argument to map different chemical compounds to different colors.</p>
-<pre class="r"><code># I will define a dodge and jitterdodge object to avoid overlapping data points or stats that we will overlay later
+<pre class="r"><code># I will define a dodge and jitterdodge object to avoid overlapping data points 
+# or stats that we will overlay later
 posn.d &lt;- position_dodge(width=0.2)
 posn.jd &lt;- position_jitterdodge(jitter.width = 0.1, dodge.width=0.2)
-p &lt;- ggplot(data, aes(x=Dose, y=DryMatter, col=Herbicide, fill=Herbicide, group=Herbicide ))
+p &lt;- ggplot(data, aes(x=Dose, y=DryMatter, col=Herbicide, fill=Herbicide, 
+                      group=Herbicide ))
 p + geom_point(position =posn.jd)</code></pre>
 <p><img src="/post/2019-10-16-add-custom-summary-statistics-into-your-ggplot_files/figure-html/visualize%20the%20data-1.png" width="672" /></p>
 <p>What we see here is that, at low doses both Herbicides led similar yields but starting from Dose 40 we see a drastic negative impact of Benzoate on yield.</p>
 <p>On top of that plot, I want to overlay the <code>min</code>, <code>max</code> and also <code>median</code> and <code>Interquartile range</code> for each set of yield measurements.</p>
-<p>I need one function to calculate the <strong>median</strong> and the <strong>interquartile range(IQR) 1-3</strong>, and another to calculate min(), max() values.</p>
+<p>There are many default functions in ggplot2 which can be used directly such as <strong>mean_sdl(), mean_cl_normal()</strong> to add stats in stat_summary() layer. But, I will create custom functions here so that we can grasp better what is happening behind the scenes on ggplot2.</p>
+<p>I will create one function to calculate the <strong>median</strong> and the <strong>interquartile range(IQR) 1-3</strong>, and another to calculate min(), max() values.</p>
 <p><div class="alert alert-warning">
   <div>
     In order to use the results of a function directly in ggplot2 we need to <strong>ensure that the names of the variables match the aesthetics needed for our respective geoms</strong>.
@@ -637,15 +632,18 @@ range &lt;- function(x) {
   data.frame(ymin=min(x),
              ymax=max(x))
 }</code></pre>
-<p>Let’s replot with the statistics we wanted to overlay. You can use two<code>stat_summary()</code> layers to add our stats. You can set the <code>fun.data</code> argument to the specific function defined above.</p>
+<p>Let’s replot with the statistics we wanted to overlay. You can use two <code>stat_summary()</code> layers to add our stats. You can set the <code>fun.data</code> argument to the specific function defined above.</p>
 <pre class="r"><code># Updated plot
-p + stat_summary(geom = &quot;linerange&quot;, fun.data = median_IQR, position = posn.d, size=3) + stat_summary(geom = &quot;linerange&quot;, fun.data = range, position = posn.d, size=3, alpha=0.5)+ stat_summary(geom = &quot;point&quot;, fun.y = &quot;median&quot;, position = posn.d, size = 3, col = &quot;black&quot;, shape = &quot;X&quot;)</code></pre>
+p + stat_summary(geom = &quot;linerange&quot;, fun.data = median_IQR, position = posn.d, size=3) + 
+  stat_summary(geom = &quot;linerange&quot;, fun.data = range, position = posn.d, size=3, alpha=0.5)+ 
+  stat_summary(geom = &quot;point&quot;, fun.y = &quot;median&quot;, position = posn.d, size = 3, 
+               col = &quot;black&quot;, shape = &quot;X&quot;)</code></pre>
 <p><img src="/post/2019-10-16-add-custom-summary-statistics-into-your-ggplot_files/figure-html/visualize%20with%20stats-1.png" width="672" /></p>
+<p>In contrast, to the first plot here we easily see where the median and IQR lays. We can make our comparisions easier. Starting from dose 20, we see that glyphosate clearly underperforms bentazone. Big separation in the IQRs are obvious at doses 40 and 80. At higher doses, bentazone starts to give negative effects on yield similarly.</p>
 <div id="conclusions" class="section level3">
 <h3>Conclusions</h3>
-<p>Ggplot2 is a flexible package and knowing its intricacies will help you level up your visuals and gather better insights.</p>
-<p>To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot <code>stat_summary()</code> layer similarly as we did above.</p>
-<p>The data we have here was small. With bigger data, it will be more crucial to overlay summary statistics for effective visuals.</p>
+<p>Ggplot2 is a flexible package and knowing its intricacies will help you level up your visuals. To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot <code>stat_summary()</code> layer similarly as we did above or use the default functions.</p>
+<p>The data we have here was small. With bigger data, it is more crucial to overlay summary statistics of interest for effective visuals.</p>
 <p>Until next time!</p>
 <p>Serdar</p>
 </div>
