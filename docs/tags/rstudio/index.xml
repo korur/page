@@ -120,8 +120,8 @@ Serdar&lt;/p&gt;
       <description>
 
 
-&lt;p&gt;My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler but is crucial. An important step in Data Science process is to prepare your data, clean it, reformat it and make it usable for the further analysis.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.gutenberg.org/&#34;&gt;Project Gutenberg&lt;/a&gt; has a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence.&lt;/p&gt;
+&lt;p&gt;My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler. An important part in a Data Science workflow is data preparation. &lt;strong&gt;Clean it, reformat it and make it usable for further analysis.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from &lt;a href=&#34;https://www.gutenberg.org/&#34;&gt;Project Gutenberg website&lt;/a&gt; which is a library of over 60,000 free eBooks.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;The goal is to isolate each poem individually for text mining analysis.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Let’s figure out a solution.&lt;/p&gt;
 &lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
@@ -148,7 +148,7 @@ the html version &lt;a href=&#34;http://www.gutenberg.org/files/22726/22726-h/22
 ## [3] &amp;quot;&amp;quot;                                                                    
 ## [4] &amp;quot;This eBook is for the use of anyone anywhere at no cost and with&amp;quot;    
 ## [5] &amp;quot;almost no restrictions whatsoever.  You may copy it, give it away or&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The &lt;a href=&#34;http://www.gutenberg.org/files/22726/22726-h/22726-h.htm&#34;&gt;book&lt;/a&gt; has 42 poems in total. Table of contents (TOC) starts with the line “CONTENTS” and ends with the line “ON THAT DAY”&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&#34;http://www.gutenberg.org/files/22726/22726-h/22726-h.htm&#34;&gt;book&lt;/a&gt; has 42 poems in total. Table of contents (TOC) starts with the line “CONTENTS” and ends with the line “ON THAT DAY”.&lt;/p&gt;
 &lt;p&gt;I will use those lines to extract the TOC. Stringr package comes in handy here. &lt;strong&gt;str_which()&lt;/strong&gt; function returns line index numbers for a given term.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;start &amp;lt;- str_which(lawrence, pattern = fixed(&amp;quot;CONTENTS&amp;quot;))
 start&lt;/code&gt;&lt;/pre&gt;

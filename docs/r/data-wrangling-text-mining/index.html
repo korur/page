@@ -28,8 +28,8 @@
   
     
   
-  <meta name="description" content="My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler but is crucial. An important step in Data Science process is to prepare your data, clean it, reformat it and make it usable for the further analysis.
-Project Gutenberg has a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence.">
+  <meta name="description" content="My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler. An important part in a Data Science workflow is data preparation. Clean it, reformat it and make it usable for further analysis.
+I will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from Project Gutenberg website which is a library of over 60,000 free eBooks.">
 
   
   <link rel="alternate" hreflang="en-us" href="/r/data-wrangling-text-mining/">
@@ -127,8 +127,8 @@ Project Gutenberg has a library of over 60,000 free eBooks. I will work on a Poe
   <meta property="og:site_name" content="SERDAR KORUR">
   <meta property="og:url" content="/r/data-wrangling-text-mining/">
   <meta property="og:title" content="Data Wrangling for Text mining: Extract individual elements from a Book | SERDAR KORUR">
-  <meta property="og:description" content="My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler but is crucial. An important step in Data Science process is to prepare your data, clean it, reformat it and make it usable for the further analysis.
-Project Gutenberg has a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence."><meta property="og:image" content="/img/logo.png">
+  <meta property="og:description" content="My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler. An important part in a Data Science workflow is data preparation. Clean it, reformat it and make it usable for further analysis.
+I will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from Project Gutenberg website which is a library of over 60,000 free eBooks."><meta property="og:image" content="/img/logo.png">
   <meta property="twitter:image" content="/img/logo.png"><meta property="og:locale" content="en-us">
   
     
@@ -191,7 +191,7 @@ Project Gutenberg has a library of over 60,000 free eBooks. I will work on a Poe
       "url": "/img/logo.png"
     }
   },
-  "description": "My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler but is crucial. An important step in Data Science process is to prepare your data, clean it, reformat it and make it usable for the further analysis.\nProject Gutenberg has a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence."
+  "description": "My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler. An important part in a Data Science workflow is data preparation. Clean it, reformat it and make it usable for further analysis.\nI will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from Project Gutenberg website which is a library of over 60,000 free eBooks."
 }
 </script>
 
@@ -566,8 +566,8 @@ Project Gutenberg has a library of over 60,000 free eBooks. I will work on a Poe
       
 
 
-<p>My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler but is crucial. An important step in Data Science process is to prepare your data, clean it, reformat it and make it usable for the further analysis.</p>
-<p><a href="https://www.gutenberg.org/">Project Gutenberg</a> has a library of over 60,000 free eBooks. I will work on a Poetry book called “New Poems” from D. H. Lawrence.</p>
+<p>My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler. An important part in a Data Science workflow is data preparation. <strong>Clean it, reformat it and make it usable for further analysis.</strong></p>
+<p>I will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from <a href="https://www.gutenberg.org/">Project Gutenberg website</a> which is a library of over 60,000 free eBooks.</p>
 <p><strong>The goal is to isolate each poem individually for text mining analysis.</strong></p>
 <p>Let’s figure out a solution.</p>
 <p><div class="alert alert-note">
@@ -594,7 +594,7 @@ the html version <a href="http://www.gutenberg.org/files/22726/22726-h/22726-h.h
 ## [3] &quot;&quot;                                                                    
 ## [4] &quot;This eBook is for the use of anyone anywhere at no cost and with&quot;    
 ## [5] &quot;almost no restrictions whatsoever.  You may copy it, give it away or&quot;</code></pre>
-<p>The <a href="http://www.gutenberg.org/files/22726/22726-h/22726-h.htm">book</a> has 42 poems in total. Table of contents (TOC) starts with the line “CONTENTS” and ends with the line “ON THAT DAY”</p>
+<p>The <a href="http://www.gutenberg.org/files/22726/22726-h/22726-h.htm">book</a> has 42 poems in total. Table of contents (TOC) starts with the line “CONTENTS” and ends with the line “ON THAT DAY”.</p>
 <p>I will use those lines to extract the TOC. Stringr package comes in handy here. <strong>str_which()</strong> function returns line index numbers for a given term.</p>
 <pre class="r"><code>start &lt;- str_which(lawrence, pattern = fixed(&quot;CONTENTS&quot;))
 start</code></pre>

@@ -91,7 +91,7 @@ p + stat_summary(geom = &amp;quot;linerange&amp;quot;, fun.data = median_IQR, po
   stat_summary(geom = &amp;quot;point&amp;quot;, fun.y = &amp;quot;median&amp;quot;, position = posn.d, size = 3, 
                col = &amp;quot;black&amp;quot;, shape = &amp;quot;X&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-16-add-custom-summary-statistics-into-your-ggplot_files/figure-html/visualize%20with%20stats-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;In contrast, to the first plot here we easily see where the median and IQR lays. We can make our comparisions easier. Starting from dose 20, we see that glyphosate clearly underperforms bentazone. Big separation in the IQRs are obvious at doses 40 and 80. At higher doses, bentazone starts to give negative effects on yield similarly.&lt;/p&gt;
+&lt;p&gt;In contrast, to the first plot here we easily see where the median and IQR lays. We can make our comparisions easier. Starting from dose 20, we see that glyphosate clearly outperforms bentazone. Big separation between the IQRs are obvious at doses 40 and 80. At higher doses, differences in IQRs starts to disappear.&lt;/p&gt;
 &lt;div id=&#34;conclusions&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Conclusions&lt;/h3&gt;
 &lt;p&gt;Ggplot2 is a flexible package and knowing its intricacies will help you level up your visuals. To understand your data and to convey the insights you want to point out, you can include your choice of custom functions in ggplot &lt;code&gt;stat_summary()&lt;/code&gt; layer similarly as we did above or use the default functions.&lt;/p&gt;

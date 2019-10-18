@@ -23,9 +23,9 @@ image:
 projects: []
 ---
 
-My ambitious goal is to write a machine learning algorithm that predicts authors. But let's start with something simpler but is crucial. An important step in Data Science process is to prepare your data, clean it, reformat it and make it usable for the further analysis.
+My ambitious goal is to write a machine learning algorithm that predicts authors. But let's start with something simpler. An important part in a Data Science workflow is data preparation. **Clean it, reformat it and make it usable for further analysis.**
 
-[Project Gutenberg](https://www.gutenberg.org/) has a library of over 60,000 free eBooks. I will work on a Poetry book called "New Poems" from D. H. Lawrence. 
+I will work on a Poetry book called "New Poems" from D. H. Lawrence. You can download it from [Project Gutenberg website](https://www.gutenberg.org/) which is a library of over 60,000 free eBooks. 
 
 **The goal is to isolate each poem individually for text mining analysis.**  
   
@@ -60,7 +60,7 @@ lawrence[1:5]
 
 ```
 
-The [book](http://www.gutenberg.org/files/22726/22726-h/22726-h.htm) has 42 poems in total. Table of contents (TOC) starts with the line "CONTENTS" and ends with the line "ON THAT DAY"
+The [book](http://www.gutenberg.org/files/22726/22726-h/22726-h.htm) has 42 poems in total. Table of contents (TOC) starts with the line "CONTENTS" and ends with the line "ON THAT DAY".
 
 I will use those lines to extract the TOC. Stringr package comes in handy here. **str_which()** function returns line index numbers for a given term.
 ```{r extract toc, warning = FALSE, message = FALSE}
