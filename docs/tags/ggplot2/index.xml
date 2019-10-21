@@ -914,13 +914,13 @@ Some insights from the plots:&lt;/p&gt;
 &lt;li&gt;We can predict 4 out of 5 teams which will take first 5 place at the end of the season early as week 10.&lt;/li&gt;
 &lt;li&gt;Manchester United showed peak performance mid season, Everton have improved performances while Tottenham slowed down (which costed them 3rd position) in the second part of the season.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;I can plot Points and goal differences in the same plot. I cam see sa,e 3 clusters here as well.&lt;/p&gt;
+&lt;p&gt;I can plot points against goal differences in the same plot. Same clusters pop up here as well.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk &amp;lt;- ggplot(uk18, aes(x=difference, y=points, col=team)) + 
   geom_point(size=2) + scale_color_manual(values =getPalette(colorCount)) + 
   theme(text = element_text(size=15))
 uk&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/points%20vs%20goal%20differences-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Let’s visualize this in a small animation. You can create an animated plot of the teams progress during the season. Gganimate does good job.&lt;/p&gt;
+&lt;p&gt;Let’s visualize this in a small animation. You can create an animated plot of the teams progress during the season. Gganimate does good job.`&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Add a shadow tail
 # anim + shadow_wake(wake_length = 0.3, alpha = FALSE)
  
@@ -945,7 +945,7 @@ fullanimation&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;How to &lt;strong&gt;split columns&lt;/strong&gt; containing more than one variable?&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The earliest time, we can predict top teams final positions was around 10th. We can collect data from previous years or compare other countries leagues to check if we can generalize this finding.&lt;/p&gt;
-&lt;p&gt;What else we can asK? For example, we can connect performance changes to new transfers. Or whether changing coaches benefited any team.&lt;/p&gt;
+&lt;p&gt;What else we can ask? For example, we can connect performance changes to new transfers. Or whether changing coaches benefited any team.&lt;/p&gt;
 &lt;p&gt;Please share if you have other ideas in the comments below!&lt;/p&gt;
 &lt;p&gt;Until next time!&lt;/p&gt;
 &lt;p&gt;Serdar&lt;/p&gt;
@@ -1022,13 +1022,15 @@ p + geom_point(size = 4)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;use-shape-as-an-attribute&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Use shape as an attribute&lt;/h3&gt;
-&lt;p&gt;Same goes here. I am changing how something looks like. The data point shape change to 24 which defines a filled triangle. But nothing is mapped onto it. It is just an attribute.&lt;/p&gt;
+&lt;p&gt;Same goes here. I am changing how something looks like. The data point shape change to 24 which defines a empty triangle. But nothing is mapped onto it. It is just an attribute.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Make a scatter plot of points in a spiral
 p &amp;lt;- ggplot(df, aes(x*t, y*t, color=factor(z)))
 p + geom_point(shape=24, size=4)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/spiral%20colors%20with%20triangles-1.png&#34; width=&#34;672&#34; /&gt;
-Here, x&lt;em&gt;t, y&lt;/em&gt;t and factor(z) is mapped on to our graph.
-### Using shape as an aesthetics&lt;/p&gt;
+Here, x&lt;em&gt;t, y&lt;/em&gt;t and factor(z) is mapped on to our graph.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-shape-as-an-aesthetics&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Using shape as an aesthetics&lt;/h3&gt;
 &lt;p&gt;By defining shape and color inside aes() I can map w and z to my plot as well.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;points &amp;lt;- 500
 # Defining the Golden Angle

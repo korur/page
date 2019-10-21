@@ -1371,13 +1371,13 @@ Some insights from the plots:</p>
 <li>We can predict 4 out of 5 teams which will take first 5 place at the end of the season early as week 10.</li>
 <li>Manchester United showed peak performance mid season, Everton have improved performances while Tottenham slowed down (which costed them 3rd position) in the second part of the season.</li>
 </ol>
-<p>I can plot Points and goal differences in the same plot. I cam see sa,e 3 clusters here as well.</p>
+<p>I can plot points against goal differences in the same plot. Same clusters pop up here as well.</p>
 <pre class="r"><code>uk &lt;- ggplot(uk18, aes(x=difference, y=points, col=team)) + 
   geom_point(size=2) + scale_color_manual(values =getPalette(colorCount)) + 
   theme(text = element_text(size=15))
 uk</code></pre>
 <p><img src="/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/points%20vs%20goal%20differences-1.png" width="672" /></p>
-<p>Let’s visualize this in a small animation. You can create an animated plot of the teams progress during the season. Gganimate does good job.</p>
+<p>Let’s visualize this in a small animation. You can create an animated plot of the teams progress during the season. Gganimate does good job.`</p>
 <pre class="r"><code># Add a shadow tail
 # anim + shadow_wake(wake_length = 0.3, alpha = FALSE)
  
@@ -1402,7 +1402,7 @@ fullanimation</code></pre>
 <li>How to <strong>split columns</strong> containing more than one variable?</li>
 </ul>
 <p>The earliest time, we can predict top teams final positions was around 10th. We can collect data from previous years or compare other countries leagues to check if we can generalize this finding.</p>
-<p>What else we can asK? For example, we can connect performance changes to new transfers. Or whether changing coaches benefited any team.</p>
+<p>What else we can ask? For example, we can connect performance changes to new transfers. Or whether changing coaches benefited any team.</p>
 <p>Please share if you have other ideas in the comments below!</p>
 <p>Until next time!</p>
 <p>Serdar</p>
