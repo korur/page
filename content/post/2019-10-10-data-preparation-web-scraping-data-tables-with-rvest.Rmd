@@ -213,7 +213,7 @@ Some insights from the plots:
 2. We can predict 4 out of 5 teams which will take first 5 place at the end of the season early as week 10.
 3. Manchester United showed peak performance mid season, Everton have improved performances while Tottenham slowed down (which costed them 3rd position) in the second part of the season.
 
-I can plot Points and goal differences in the same plot. I cam see sa,e 3 clusters here as well.
+I can plot points against goal differences in the same plot. Same clusters pop up here as well.
 
 ```{r points vs goal differences}
 uk <- ggplot(uk18, aes(x=difference, y=points, col=team)) + 
@@ -251,7 +251,7 @@ Some of the questions we tackled were:
 
 The earliest time, we can predict top teams final positions was around 10th. We can collect data from previous years or compare other countries leagues to check if we can generalize this finding. 
 
-What else we can asK? For example, we can connect performance changes to new transfers. Or whether changing coaches benefited any team. 
+What else we can ask? For example, we can connect performance changes to new transfers. Or whether changing coaches benefited any team. 
 
 Please share if you have other ideas in the comments below!
 

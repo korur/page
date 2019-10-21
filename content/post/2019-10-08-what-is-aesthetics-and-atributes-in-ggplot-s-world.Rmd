@@ -89,7 +89,7 @@ p + geom_point(size = 4)
 
 ### Use shape as an attribute
 
-Same goes here. I am changing how something looks like. The data point shape change to 24 which defines a filled triangle. But nothing is mapped onto it. It is just an attribute. 
+Same goes here. I am changing how something looks like. The data point shape change to 24 which defines a empty triangle. But nothing is mapped onto it. It is just an attribute. 
 
 
 ```{r spiral colors with triangles}
