@@ -99,6 +99,7 @@ p <- ggplot(df, aes(x*t, y*t, color=factor(z)))
 p + geom_point(shape=24, size=4)
 ```
 Here, x*t, y*t and factor(z) is mapped on to our graph.
+
 ### Using shape as an aesthetics
 
 By defining shape and color inside aes() I can map w and z to my plot as well.
