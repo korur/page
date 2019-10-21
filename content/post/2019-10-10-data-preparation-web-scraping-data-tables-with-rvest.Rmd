@@ -222,7 +222,7 @@ uk <- ggplot(uk18, aes(x=difference, y=points, col=team)) +
 uk
 ```
 
-Let's visualize this in a small animation. You can create an animated plot of the teams progress during the season. Gganimate does good job.
+Let's visualize this in a small animation. You can create an animated plot of the teams progress during the season. Gganimate does good job.`
 ```{r gganimate, cache=TRUE}
 # Add a shadow tail
 # anim + shadow_wake(wake_length = 0.3, alpha = FALSE)
