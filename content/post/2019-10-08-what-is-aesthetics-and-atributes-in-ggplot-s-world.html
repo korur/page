@@ -81,13 +81,15 @@ p + geom_point(size = 4)</code></pre>
 </div>
 <div id="use-shape-as-an-attribute" class="section level3">
 <h3>Use shape as an attribute</h3>
-<p>Same goes here. I am changing how something looks like. The data point shape change to 24 which defines a filled triangle. But nothing is mapped onto it. It is just an attribute.</p>
+<p>Same goes here. I am changing how something looks like. The data point shape change to 24 which defines a empty triangle. But nothing is mapped onto it. It is just an attribute.</p>
 <pre class="r"><code># Make a scatter plot of points in a spiral
 p &lt;- ggplot(df, aes(x*t, y*t, color=factor(z)))
 p + geom_point(shape=24, size=4)</code></pre>
 <p><img src="/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/spiral%20colors%20with%20triangles-1.png" width="672" />
-Here, x<em>t, y</em>t and factor(z) is mapped on to our graph.
-### Using shape as an aesthetics</p>
+Here, x<em>t, y</em>t and factor(z) is mapped on to our graph.</p>
+</div>
+<div id="using-shape-as-an-aesthetics" class="section level3">
+<h3>Using shape as an aesthetics</h3>
 <p>By defining shape and color inside aes() I can map w and z to my plot as well.</p>
 <pre class="r"><code>points &lt;- 500
 # Defining the Golden Angle
