@@ -253,11 +253,11 @@ Both Electric and Non Electric car models follows a similar increase in the last
 
 Increases in Electric car models in the last years might be a reflection of a general increase in total number of model types
 
-# Future thoughts
+# Conclusions / Future thoughts
 
-This was a huge dataset that you can answer many more questions. Such as mileage of different car models? Carbon dioxide emissions? etc. 
+This was a huge dataset. You can answer other questions such as mileage of different car models, carbon dioxide emissions, fuel savings and many more. 
 
-I have selected some car models which might be worth to look at if luggage space is a priority for you!, and looked at how electric car models evolving in the last years.
+I have selected some car models which might be a good option if luggage space is a priority for you! 
 
 
 To see other examples of how people used this dataset follow the [Twitter hashtag #TidyTuesday](https://twitter.com/hashtag/tidytuesday?lang=en).
