@@ -195,7 +195,7 @@ labs(caption= "Data source: https://fueleconomy.gov", size="Luggage Vol\n(Cubic 
 bs_col
 ```
 
-We found our answer and our camping gear is ready. Let's tackle some other questions. We here a lot about them but how does the future looks like for Electric cars?
+We found our answer and our camping gear is ready. Let's tackle some other questions. We hear a lot about them but how does the future looks like for Electric cars?
 
 # How does Electric cars evolving in the last years compared to non electric cars?
 
@@ -242,7 +242,7 @@ big3 <- big_epa_cars %>% group_by(year, fuelType) %>% mutate(n = n())
 
 big3 %>% 
     ggplot(aes(x=n, y =year, col=fuelType)) +
-    geom_point() +
+    geom_point(size=4) +
     theme(legend.position = c(0.9,0.9), legend.title= element_blank(), legend.background = element_blank()) + 
     theme(plot.title = element_text(size=32), text = element_text(size=15)) + coord_flip() +
     labs(x = "Number of Car models", y = "Year", title = "How does the Numbers of Electric vs Non Electric cars \nchange by year?")

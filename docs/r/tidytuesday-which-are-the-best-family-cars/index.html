@@ -702,7 +702,7 @@ labs(caption= &quot;Data source: https://fueleconomy.gov&quot;, size=&quot;Lugga
     scale_size(range=c(2, 9)) 
 bs_col</code></pre>
 <p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-7-1.png" width="1152" /></p>
-<p>We found our answer and our camping gear is ready. Let’s tackle some other questions. We here a lot about them but how does the future looks like for Electric cars?</p>
+<p>We found our answer and our camping gear is ready. Let’s tackle some other questions. We hear a lot about them but how does the future looks like for Electric cars?</p>
 </div>
 <div id="how-does-electric-cars-evolving-in-the-last-years-compared-to-non-electric-cars" class="section level1">
 <h1>How does Electric cars evolving in the last years compared to non electric cars?</h1>
@@ -740,7 +740,7 @@ pp</code></pre>
 
 big3 %&gt;% 
     ggplot(aes(x=n, y =year, col=fuelType)) +
-    geom_point() +
+    geom_point(size=4) +
     theme(legend.position = c(0.9,0.9), legend.title= element_blank(), legend.background = element_blank()) + 
     theme(plot.title = element_text(size=32), text = element_text(size=15)) + coord_flip() +
     labs(x = &quot;Number of Car models&quot;, y = &quot;Year&quot;, title = &quot;How does the Numbers of Electric vs Non Electric cars \nchange by year?&quot;)</code></pre>

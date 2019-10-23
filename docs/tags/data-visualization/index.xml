@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Data Visualization | SERDAR KORUR</title>
+    <title>data visualization | SERDAR KORUR</title>
     <link>/tags/data-visualization/</link>
       <atom:link href="/tags/data-visualization/index.xml" rel="self" type="application/rss+xml" />
-    <description>Data Visualization</description>
+    <description>data visualization</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 23 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/logo.png</url>
-      <title>Data Visualization</title>
+      <title>data visualization</title>
       <link>/tags/data-visualization/</link>
     </image>
     
@@ -150,7 +150,7 @@ labs(caption= &amp;quot;Data source: https://fueleconomy.gov&amp;quot;, size=&am
     scale_size(range=c(2, 9)) 
 bs_col&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;We found our answer and our camping gear is ready. Let’s tackle some other questions. We here a lot about them but how does the future looks like for Electric cars?&lt;/p&gt;
+&lt;p&gt;We found our answer and our camping gear is ready. Let’s tackle some other questions. We hear a lot about them but how does the future looks like for Electric cars?&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;how-does-electric-cars-evolving-in-the-last-years-compared-to-non-electric-cars&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;How does Electric cars evolving in the last years compared to non electric cars?&lt;/h1&gt;
@@ -188,7 +188,7 @@ pp&lt;/code&gt;&lt;/pre&gt;
 
 big3 %&amp;gt;% 
     ggplot(aes(x=n, y =year, col=fuelType)) +
-    geom_point() +
+    geom_point(size=4) +
     theme(legend.position = c(0.9,0.9), legend.title= element_blank(), legend.background = element_blank()) + 
     theme(plot.title = element_text(size=32), text = element_text(size=15)) + coord_flip() +
     labs(x = &amp;quot;Number of Car models&amp;quot;, y = &amp;quot;Year&amp;quot;, title = &amp;quot;How does the Numbers of Electric vs Non Electric cars \nchange by year?&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
