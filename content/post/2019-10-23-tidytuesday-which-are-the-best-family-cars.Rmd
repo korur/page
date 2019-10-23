@@ -1,0 +1,182 @@
+---
+title: '#TidyTuesday: Which are the best family cars for your weekend trip?'
+author: ''
+date: '2019-10-23'
+slug: tidytuesday-which-are-the-best-family-cars
+categories: []
+tags:
+  - ggplot2
+  - tidytuesday
+  - RStudio
+  - tidyverse
+  - data wrangling
+  - data visualization
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2019-10-23T10:04:49+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+This week, I will analyze Car Fuel Economy [dataset](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-10-15) from TidyTuesday.
+
+## What is TidyTuesday? 
+
+TidyTuesday is a weekly social data project in R organized by the [R for Data Science community](https://thomasmock.netlify.com/post/tidytuesday-a-weekly-social-data-project-in-r/). 
+
+It is a great way of improving your Data wrangling and visualization techniques, **sharing and learning from others**. 
+
+You can find all the information on [github](https://github.com/rfordatascience/tidytuesday) on how to participate. 
+
+Fuel economy [data](https://www.fueleconomy.gov/feg/download.shtml) are the result of the work done by the US Environmental Protection Agency. Full data dictionary can be found at [fueleconomy.gov](https://www.fueleconomy.gov/feg/ws/index.shtml#fuelType1). 
+
+The data contains information of 83 parameters from more than 40.000 Vehicles. That's a lot of information!
+
+
+# Going for your next family camping adventure? First, check your car model. 
+
+Better Fuel economy and recent developments on longer running electric car batteries are great but one thing which does not change in families' lives is the **need for space**. 
+
+If you don't want crying kids running around because of **a missing teddy bear** which did not fit in the baggage. Check, which brands will serve you best.
+
+Especially, if you have a daughter who likes to travel with a lot of toys.![raisa.jpg](/img/raisa.jpg)  
+Let's figure out a solution for peaceful weekend trip. 
+
+# Which brand produce most family friendly cars? In terms of baggage volume.
+
+```{r import packages & data, warning=FALSE, message=FALSE}
+library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcats
+big_epa_cars <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-15/big_epa_cars.csv")
+dim(big_epa_cars)
+```
+
+I don't need all of my data now, for easier computation I will subset it. 
+Let's keep the following columns:
+
+* year - model year
+* make - manufacturer (division)
+* model - model name (carline)
+* VClass -  EPA vehicle size class
+* hlv - hatchback luggage volume (cubic feet) 
+* hpv - hatchback passenger volume (cubic feet)
+* displ - engine displacement in liters
+* lv4 - 4 door luggage volume (cubic feet)
+* pv4 - 4-door passenger volume
+
+```{r}
+big_sub <- big_epa_cars %>% 
+  select(fuelType, year, make, model, VClass, hlv, hpv,lv4,pv4,displ)
+```
+
+I will start exploring the data. For the moment, first I will focus on Midsize cars (VClass)
+
+I will filter for main pool of Mid-size cars with 4 door and luggage vol > 6 and pv4 >75.
+
+```{r, fig.width=12, fig.height=8}
+posn.j <- position_jitter(width=0.2)
+big_sw <- big_sub %>% 
+  filter(VClass == "Midsize Cars" & pv4 > 75 & lv4 > 6) 
+
+big_sw %>%
+  ggplot(aes(x=pv4, y=lv4)) + 
+  geom_point(shape=21, alpha=0.4,size =3, position = posn.j) + 
+  theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = "none") +
+  geom_smooth(method = "lm") + 
+  coord_fixed() +
+    labs(x = "Passenger Vol (Cubic feet)", y = "Luggage Vol (Cubic feet)", title = "Luggage space negatively correlates with passenger space")
+
+big_sw
+```
+
+# Insight 1: Negative correlation between luggage size and passenger space in Mid Sized Cars
+
+Companies sacrifice Passenger space to produce bigger room for the luggage. 
+
+
+Let's look at the luggage volume in Midsized cars ordered according to highest average.
+
+```{r, fig.width=12, fig.height=8}
+pp <- big_sw %>% 
+  mutate(make = fct_reorder(make, lv4)) %>%
+  ggplot(aes(x=make, y=lv4, col=make)) + 
+  geom_boxplot(varwidth=TRUE) +
+  theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = "none") +
+  coord_flip() + 
+  labs(x = element_blank(), y = "Luggage size (cubic feet)", title = "Average luggage volumes in Midsized cars")
+  pp
+```
+
+Averages does not seem differ too much. But, anyway I am looking for the top car with the biggest luggage space. Let's see what other VClass types are in our dataset.
+
+There are 34 types of Vlass in our dataset. I will subset all the relevant ones, leaving some specialty vehicles and vans aside. 
+
+You can have a look at other VClass types with this code  here. 
+```{r, echo=FALSE, include=FALSE}
+big_epa_cars %>% group_by(VClass) %>% count() %>% arrange(desc(n)) %>% print(n=34)
+```
+
+```{r}
+big_filtered <- big_sub %>% 
+  filter(VClass %in% c("Large Cars", "Compact Cars", "Midsize Cars", 
+                       "Midsize Station Wagons", "Midsize-Large Station Wagons",
+                       "Minivan - 2WD", "Minivan - 4WD")) %>% 
+  group_by(make) %>% 
+  mutate(n=n()) %>% 
+  filter(n > 10) %>% 
+  ungroup()
+
+dim(big_filtered)
+```
+
+To be on the safe side for the family trip, I will choose from cars not older than 5 years.
+```{r, }
+# Cars ordered with luggage volume, but not older than 5 years 
+# and lv4 bigger than 10
+
+q <- big_filtered %>% 
+  filter(year > 2016, lv4 > 5) %>%
+  mutate(make = fct_reorder(make, lv4)) %>%
+  ggplot(aes(x=make, y=lv4, col=make)) + 
+  geom_boxplot(varwidth=TRUE) +
+  theme(text = element_text(size=15), legend.position = "none") +
+  coord_flip()
+q
+```
+
+There are not big differences between average luggage size of different brands. Although, you will probably get a bigger space if you choose a Volkswagen or Ford rather than a BMW or Chevrolet. 
+
+The real XL luggage volume cars are plenty and seemd to be more as outliers.  To find our dream car let's focus on those outliers, I will create a new data frame **boot_space** containing the top 50 cars according to the luggage volume.
+
+```{r, fig.width=12, fig.height=8}
+boot_space <- big_filtered %>% filter(year > 2016) %>% arrange(desc(lv4)) %>% top_n(50, lv4)
+
+# Top family cars - geom_point()
+bs <- boot_space %>% 
+  mutate(model = fct_reorder(model, lv4)) %>%
+  mutate(make = fct_reorder(make, lv4)) %>% 
+  ggplot(aes(x=make,y= model, size=lv4, col=VClass)) + 
+  geom_point() +
+  theme(plot.caption=element_text(size=11),axis.text.x=element_text(angle=45, hjust=1),text = element_text(size=18), plot.title = element_text(size=32)) +
+labs(caption= "Data: https://fueleconomy.gov", size="Luggage Vol\n(Cubic feet)", x = element_blank(), y = element_blank(), title = "Which are the best family cars?")  + guides(size = guide_legend(order = 1), shape = guide_legend(order = 2)) + scale_size(range=c(2, 9))
+bs
+```
+
+
+```{r, fig.width=12, fig.height=8}
+# Top family cars - geom_Col()
+bs_col <- boot_space %>% 
+    mutate(model = fct_reorder(model, lv4)) %>%
+    mutate(make = fct_reorder(make, lv4)) %>% 
+    ggplot(aes(x=model, y=lv4, fill=make)) + 
+    geom_col(position="dodge")+coord_flip() + 
+    theme(plot.caption=element_text(size=11), text = element_text(size=18), plot.title = element_text(size=32))  +
+labs(caption= "Data source: https://fueleconomy.gov", size="Luggage Vol\n(Cubic feet)", x = element_blank(), y = "Luggage Vol (Cubic feet)", title = "Which are the best family cars?") +
+    scale_size(range=c(2, 9)) 
+bs_col
+```

@@ -5,7 +5,7 @@
     <link>/tags/</link>
       <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 16 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 23 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/logo.png</url>
       <title>Tags</title>
@@ -15,16 +15,48 @@
     <item>
       <title>Data Visualization</title>
       <link>/tags/data-visualization/</link>
-      <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
       <guid>/tags/data-visualization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>data wrangling</title>
+      <link>/tags/data-wrangling/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/data-wrangling/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ggplot2</title>
       <link>/tags/ggplot2/</link>
-      <pubDate>Wed, 16 Oct 2019 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
       <guid>/tags/ggplot2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RStudio</title>
+      <link>/tags/rstudio/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/rstudio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidytuesday</title>
+      <link>/tags/tidytuesday/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/tidytuesday/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tidyverse</title>
+      <link>/tags/tidyverse/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/tidyverse/</guid>
       <description></description>
     </item>
     
@@ -57,14 +89,6 @@
       <link>/tags/data-integration/</link>
       <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
       <guid>/tags/data-integration/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>data wrangling</title>
-      <link>/tags/data-wrangling/</link>
-      <pubDate>Thu, 10 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/data-wrangling/</guid>
       <description></description>
     </item>
     
@@ -145,14 +169,6 @@
       <link>/tags/phyllotaxis/</link>
       <pubDate>Tue, 08 Oct 2019 00:00:00 +0000</pubDate>
       <guid>/tags/phyllotaxis/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>RStudio</title>
-      <link>/tags/rstudio/</link>
-      <pubDate>Tue, 08 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/rstudio/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.5.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Serdar Korur">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="This week, I will analyze Car Fuel Economy dataset from TidyTuesday.
+What is TidyTuesday?TidyTuesday is a weekly social data project in R organized by the R for Data Science community.
+It is a great way of improving your Data wrangling and visualization techniques, sharing and learning from others.
+You can find all the information on github on how to participate.
+Fuel economy data are the result of the work done by the US Environmental Protection Agency.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/r/tidytuesday-which-are-the-best-family-cars/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.min.54abc5f3f1ddc380a34d4103fd11d77a.css">
+
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-148414815-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="/r/tidytuesday-which-are-the-best-family-cars/">
+
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="SERDAR KORUR">
+  <meta property="og:url" content="/r/tidytuesday-which-are-the-best-family-cars/">
+  <meta property="og:title" content="#TidyTuesday: Which are the best family cars for your weekend trip? | SERDAR KORUR">
+  <meta property="og:description" content="This week, I will analyze Car Fuel Economy dataset from TidyTuesday.
+What is TidyTuesday?TidyTuesday is a weekly social data project in R organized by the R for Data Science community.
+It is a great way of improving your Data wrangling and visualization techniques, sharing and learning from others.
+You can find all the information on github on how to participate.
+Fuel economy data are the result of the work done by the US Environmental Protection Agency."><meta property="og:image" content="/img/logo.png">
+  <meta property="twitter:image" content="/img/logo.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-10-23T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2019-10-23T10:04:49&#43;02:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/r/tidytuesday-which-are-the-best-family-cars/"
+  },
+  "headline": "#TidyTuesday: Which are the best family cars for your weekend trip?",
+  
+  "datePublished": "2019-10-23T00:00:00Z",
+  "dateModified": "2019-10-23T10:04:49+02:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Serdar Korur"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "SERDAR KORUR",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/img/logo.png"
+    }
+  },
+  "description": "This week, I will analyze Car Fuel Economy dataset from TidyTuesday.\nWhat is TidyTuesday?\rTidyTuesday is a weekly social data project in R organized by the R for Data Science community.\nIt is a great way of improving your Data wrangling and visualization techniques, sharing and learning from others.\nYou can find all the information on github on how to participate.\nFuel economy data are the result of the work done by the US Environmental Protection Agency."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>#TidyTuesday: Which are the best family cars for your weekend trip? | SERDAR KORUR</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0 compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/"><img src="/img/logo.png" alt="SERDAR KORUR"></a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav mr-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span></span></a>
+        </li>
+
+        
+        
+
+      
+      </ul>
+      <ul class="navbar-nav ml-auto">
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>#TidyTuesday: Which are the best family cars for your weekend trip?</h1>
+
+  
+
+  
+    
+
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    Oct 23, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/r/tidytuesday-which-are-the-best-family-cars/#disqus_thread"></a>
+  
+
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/r/tidytuesday-which-are-the-best-family-cars/&amp;text=#TidyTuesday:%20Which%20are%20the%20best%20family%20cars%20for%20your%20weekend%20trip?" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/r/tidytuesday-which-are-the-best-family-cars/&amp;t=#TidyTuesday:%20Which%20are%20the%20best%20family%20cars%20for%20your%20weekend%20trip?" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=#TidyTuesday:%20Which%20are%20the%20best%20family%20cars%20for%20your%20weekend%20trip?&amp;body=/r/tidytuesday-which-are-the-best-family-cars/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/r/tidytuesday-which-are-the-best-family-cars/&amp;title=#TidyTuesday:%20Which%20are%20the%20best%20family%20cars%20for%20your%20weekend%20trip?" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=#TidyTuesday:%20Which%20are%20the%20best%20family%20cars%20for%20your%20weekend%20trip?%20/r/tidytuesday-which-are-the-best-family-cars/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/r/tidytuesday-which-are-the-best-family-cars/&amp;title=#TidyTuesday:%20Which%20are%20the%20best%20family%20cars%20for%20your%20weekend%20trip?" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+
+<p>This week, I will analyze Car Fuel Economy <a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-10-15">dataset</a> from TidyTuesday.</p>
+<div id="what-is-tidytuesday" class="section level2">
+<h2>What is TidyTuesday?</h2>
+<p>TidyTuesday is a weekly social data project in R organized by the <a href="https://thomasmock.netlify.com/post/tidytuesday-a-weekly-social-data-project-in-r/">R for Data Science community</a>.</p>
+<p>It is a great way of improving your Data wrangling and visualization techniques, <strong>sharing and learning from others</strong>.</p>
+<p>You can find all the information on <a href="https://github.com/rfordatascience/tidytuesday">github</a> on how to participate.</p>
+<p>Fuel economy <a href="https://www.fueleconomy.gov/feg/download.shtml">data</a> are the result of the work done by the US Environmental Protection Agency. Full data dictionary can be found at <a href="https://www.fueleconomy.gov/feg/ws/index.shtml#fuelType1">fueleconomy.gov</a>.</p>
+<p>The data contains information of 83 parameters from more than 40.000 Vehicles. That’s a lot of information!</p>
+</div>
+<div id="going-for-your-next-family-camping-adventure-first-check-your-car-model." class="section level1">
+<h1>Going for your next family camping adventure? First, check your car model.</h1>
+<p>Better Fuel economy and recent developments on longer running electric car batteries are great but one thing which does not change in families’ lives is the <strong>need for space</strong>.</p>
+<p>If you don’t want crying kids running around because of <strong>a missing teddy bear</strong> which did not fit in the baggage. Check, which brands will serve you best.</p>
+<p>Especially, if you have a daughter who likes to travel with a lot of toys.<img src="/img/raisa.jpg" alt="raisa.jpg" /><br />
+Let’s figure out a solution for peaceful weekend trip.</p>
+</div>
+<div id="which-brand-produce-most-family-friendly-cars-in-terms-of-baggage-volume." class="section level1">
+<h1>Which brand produce most family friendly cars? In terms of baggage volume.</h1>
+<pre class="r"><code>library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcats
+big_epa_cars &lt;- read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-15/big_epa_cars.csv&quot;)
+dim(big_epa_cars)</code></pre>
+<pre><code>## [1] 41804    83</code></pre>
+<p>I don’t need all of my data now, for easier computation I will subset it.
+Let’s keep the following columns:</p>
+<ul>
+<li>year - model year</li>
+<li>make - manufacturer (division)</li>
+<li>model - model name (carline)</li>
+<li>VClass - EPA vehicle size class</li>
+<li>hlv - hatchback luggage volume (cubic feet)</li>
+<li>hpv - hatchback passenger volume (cubic feet)</li>
+<li>displ - engine displacement in liters</li>
+<li>lv4 - 4 door luggage volume (cubic feet)</li>
+<li>pv4 - 4-door passenger volume</li>
+</ul>
+<pre class="r"><code>big_sub &lt;- big_epa_cars %&gt;% 
+  select(fuelType, year, make, model, VClass, hlv, hpv,lv4,pv4,displ)</code></pre>
+<p>I will start exploring the data. For the moment, first I will focus on Midsize cars (VClass)</p>
+<p>I will filter for main pool of Mid-size cars with 4 door and luggage vol &gt; 6 and pv4 &gt;75.</p>
+<pre class="r"><code>posn.j &lt;- position_jitter(width=0.2)
+big_sw &lt;- big_sub %&gt;% 
+  filter(VClass == &quot;Midsize Cars&quot; &amp; pv4 &gt; 75 &amp; lv4 &gt; 6) 
+
+big_sw %&gt;%
+  ggplot(aes(x=pv4, y=lv4)) + 
+  geom_point(shape=21, alpha=0.4,size =3, position = posn.j) + 
+  theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = &quot;none&quot;) +
+  geom_smooth(method = &quot;lm&quot;) + 
+  coord_fixed() +
+    labs(x = &quot;Passenger Vol (Cubic feet)&quot;, y = &quot;Luggage Vol (Cubic feet)&quot;, title = &quot;Luggage space negatively correlates with passenger space&quot;)</code></pre>
+<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-2-1.png" width="1152" /></p>
+<pre class="r"><code>big_sw</code></pre>
+<pre><code>## # A tibble: 4,120 x 10
+##    fuelType  year make  model   VClass         hlv   hpv   lv4   pv4 displ
+##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Premium   1993 Audi  100     Midsize Cars     0     0    17    96   2.8
+##  2 Premium   1993 Audi  100     Midsize Cars     0     0    17    96   2.8
+##  3 Premium   1993 BMW   740i    Midsize Cars     0     0    13   101   4  
+##  4 Premium   1993 BMW   740il   Midsize Cars     0     0    13   105   4  
+##  5 Regular   1993 BMW   750il   Midsize Cars     0     0    13   105   5  
+##  6 Regular   1993 Buick Century Midsize Cars     0     0    16    97   2.2
+##  7 Regular   1993 Buick Century Midsize Cars     0     0    16    97   3.3
+##  8 Regular   1993 Buick Century Midsize Cars     0     0    16    97   3.3
+##  9 Regular   1993 Buick Regal   Midsize Cars     0     0    16   100   3.1
+## 10 Regular   1993 Buick Regal   Midsize Cars     0     0    16   100   3.1
+## # ... with 4,110 more rows</code></pre>
+</div>
+<div id="insight-1-negative-correlation-between-luggage-size-and-passenger-space-in-mid-sized-cars" class="section level1">
+<h1>Insight 1: Negative correlation between luggage size and passenger space in Mid Sized Cars</h1>
+<p>Companies sacrifice Passenger space to produce bigger room for the luggage.</p>
+<p>Let’s look at the luggage volume in Midsized cars ordered according to highest average.</p>
+<pre class="r"><code>pp &lt;- big_sw %&gt;% 
+  mutate(make = fct_reorder(make, lv4)) %&gt;%
+  ggplot(aes(x=make, y=lv4, col=make)) + 
+  geom_boxplot(varwidth=TRUE) +
+  theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = &quot;none&quot;) +
+  coord_flip() + 
+  labs(x = element_blank(), y = &quot;Luggage size (cubic feet)&quot;, title = &quot;Average luggage volumes in Midsized cars&quot;)
+  pp</code></pre>
+<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-3-1.png" width="1152" /></p>
+<p>Averages does not seem differ too much. But, anyway I am looking for the top car with the biggest luggage space. Let’s see what other VClass types are in our dataset.</p>
+<p>There are 34 types of Vlass in our dataset. I will subset all the relevant ones, leaving some specialty vehicles and vans aside.</p>
+<p>You can have a look at other VClass types with this code here.</p>
+<pre class="r"><code>big_filtered &lt;- big_sub %&gt;% 
+  filter(VClass %in% c(&quot;Large Cars&quot;, &quot;Compact Cars&quot;, &quot;Midsize Cars&quot;, 
+                       &quot;Midsize Station Wagons&quot;, &quot;Midsize-Large Station Wagons&quot;,
+                       &quot;Minivan - 2WD&quot;, &quot;Minivan - 4WD&quot;)) %&gt;% 
+  group_by(make) %&gt;% 
+  mutate(n=n()) %&gt;% 
+  filter(n &gt; 10) %&gt;% 
+  ungroup()
+
+dim(big_filtered)</code></pre>
+<pre><code>## [1] 14710    11</code></pre>
+<p>To be on the safe side for the family trip, I will choose from cars not older than 5 years.</p>
+<pre class="r"><code># Cars ordered with luggage volume, but not older than 5 years 
+# and lv4 bigger than 10
+
+q &lt;- big_filtered %&gt;% 
+  filter(year &gt; 2016, lv4 &gt; 5) %&gt;%
+  mutate(make = fct_reorder(make, lv4)) %&gt;%
+  ggplot(aes(x=make, y=lv4, col=make)) + 
+  geom_boxplot(varwidth=TRUE) +
+  theme(text = element_text(size=15), legend.position = &quot;none&quot;) +
+  coord_flip()
+q</code></pre>
+<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>There are not big differences between average luggage size of different brands. Although, you will probably get a bigger space if you choose a Volkswagen or Ford rather than a BMW or Chevrolet.</p>
+<p>The real XL luggage volume cars are plenty and seemd to be more as outliers. To find our dream car let’s focus on those outliers, I will create a new data frame <strong>boot_space</strong> containing the top 50 cars according to the luggage volume.</p>
+<pre class="r"><code>boot_space &lt;- big_filtered %&gt;% filter(year &gt; 2016) %&gt;% arrange(desc(lv4)) %&gt;% top_n(50, lv4)
+
+# Top family cars - geom_point()
+bs &lt;- boot_space %&gt;% 
+  mutate(model = fct_reorder(model, lv4)) %&gt;%
+  mutate(make = fct_reorder(make, lv4)) %&gt;% 
+  ggplot(aes(x=make,y= model, size=lv4, col=VClass)) + 
+  geom_point() +
+  theme(plot.caption=element_text(size=11),axis.text.x=element_text(angle=45, hjust=1),text = element_text(size=18), plot.title = element_text(size=32)) +
+labs(caption= &quot;Data: https://fueleconomy.gov&quot;, size=&quot;Luggage Vol\n(Cubic feet)&quot;, x = element_blank(), y = element_blank(), title = &quot;Which are the best family cars?&quot;)  + guides(size = guide_legend(order = 1), shape = guide_legend(order = 2)) + scale_size(range=c(2, 9))
+bs</code></pre>
+<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-7-1.png" width="1152" /></p>
+<pre class="r"><code># Top family cars - geom_Col()
+bs_col &lt;- boot_space %&gt;% 
+    mutate(model = fct_reorder(model, lv4)) %&gt;%
+    mutate(make = fct_reorder(make, lv4)) %&gt;% 
+    ggplot(aes(x=model, y=lv4, fill=make)) + 
+    geom_col(position=&quot;dodge&quot;)+coord_flip() + 
+    theme(plot.caption=element_text(size=11), text = element_text(size=18), plot.title = element_text(size=32))  +
+labs(caption= &quot;Data source: https://fueleconomy.gov&quot;, size=&quot;Luggage Vol\n(Cubic feet)&quot;, x = element_blank(), y = &quot;Luggage Vol (Cubic feet)&quot;, title = &quot;Which are the best family cars?&quot;) +
+    scale_size(range=c(2, 9)) 
+bs_col</code></pre>
+<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-8-1.png" width="1152" /></p>
+</div>
+
+    </div>
+
+    
+
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/ggplot2/">ggplot2</a>
+  
+  <a class="badge badge-light" href="/tags/tidytuesday/">tidytuesday</a>
+  
+  <a class="badge badge-light" href="/tags/rstudio/">RStudio</a>
+  
+  <a class="badge badge-light" href="/tags/tidyverse/">tidyverse</a>
+  
+  <a class="badge badge-light" href="/tags/data-wrangling/">data wrangling</a>
+  
+  <a class="badge badge-light" href="/tags/data-visualization/">data visualization</a>
+  
+</div>
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card">
+    
+      
+      <img class="portrait mr-3" src="/authors/admin/avatar_huc20273ad926c00177316852a0ac5eb17_12606_250x250_fill_q90_lanczos_center.jpg" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Serdar Korur</a></h5>
+      <h6 class="card-subtitle">Senior Scientist in Drug Discovery</h6>
+      <p class="card-text">Serdar is a Data Scientist and PhD in Cell Biology</p>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="/#contact" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="https://www.linkedin.com/in/serdar-korur/" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a href="https://github.com/korur/" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+      
+      
+      <div class="article-widget">
+        <div class="hr-light"></div>
+        <h3>Related</h3>
+        <ul>
+          
+          <li><a href="/r/ggplot-shiny-app/">What is aesthetics and attributes in ggplot&#39;s world?</a></li>
+          
+          <li><a href="/r/scrape-tables-rvest/">Data Preparation: Web Scraping html tables with rvest</a></li>
+          
+          <li><a href="/r/stats-ggplot/">Add custom summary statistics in ggplot2</a></li>
+          
+          <li><a href="/r/data-wrangling-text-mining/">Data Wrangling for Text mining: Extract individual elements from a Book</a></li>
+          
+          <li><a href="/r/deploy-your-blog-in-5-minutes/">Start blogging in 5 minutes on Netlify with Hugo and blogdown (September 2019 Update)</a></li>
+          
+        </ul>
+      </div>
+      
+    
+
+    
+
+    
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "serdarkorur" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/r.min.js"></script>
+        
+      
+
+      
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://serdarkorur.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.130521ecfc6f534c52c158217bbff718.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+        
+  </p>
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
