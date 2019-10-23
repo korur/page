@@ -30,9 +30,9 @@ projects: []
 <h2>What is TidyTuesday?</h2>
 <p>TidyTuesday is a weekly social data project in R organized by the <a href="https://thomasmock.netlify.com/post/tidytuesday-a-weekly-social-data-project-in-r/">R for Data Science community</a>.</p>
 <p>It is a great way of improving your Data wrangling and visualization techniques, <strong>sharing and learning from others</strong>.</p>
-<p>You can find all the information on <a href="https://github.com/rfordatascience/tidytuesday">github</a> on how to participate.</p>
+<p>You can find all the information on <a href="https://github.com/rfordatascience/tidytuesday">github</a>.</p>
 <p>Fuel economy <a href="https://www.fueleconomy.gov/feg/download.shtml">data</a> are the result of the work done by the US Environmental Protection Agency. Full data dictionary can be found at <a href="https://www.fueleconomy.gov/feg/ws/index.shtml#fuelType1">fueleconomy.gov</a>.</p>
-<p>The data contains information of 83 parameters from more than 40.000 Vehicles. That’s a lot of information!</p>
+<p>The data contains information of 83 parameters of more than 40.000 Vehicles. That’s a lot of information!</p>
 </div>
 <div id="going-for-your-next-family-camping-adventure-first-check-your-car-model." class="section level1">
 <h1>Going for your next family camping adventure? First, check your car model.</h1>
@@ -48,8 +48,8 @@ Let’s figure out a solution for peaceful weekend trip.</p>
 big_epa_cars &lt;- read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-15/big_epa_cars.csv&quot;)
 dim(big_epa_cars)</code></pre>
 <pre><code>## [1] 41804    83</code></pre>
-<p>I don’t need all of my data now, for easier computation I will subset it.
-Let’s keep the following columns:</p>
+<p>I will subset my data for easier computation</p>
+<p>Let’s keep the following columns:</p>
 <ul>
 <li>year - model year</li>
 <li>make - manufacturer (division)</li>
@@ -64,7 +64,7 @@ Let’s keep the following columns:</p>
 <pre class="r"><code>big_sub &lt;- big_epa_cars %&gt;% 
   select(fuelType, year, make, model, VClass, hlv, hpv,lv4,pv4,displ)</code></pre>
 <p>I will start exploring the data. For the moment, first I will focus on Midsize cars (VClass)</p>
-<p>I will filter for main pool of Mid-size cars with 4 door and luggage vol &gt; 6 and pv4 &gt;75.</p>
+<p>I will filter for the main pool of Midsize cars with 4 door and luggage volume of bigger than 6 and passenger volume larger than 75.</p>
 <pre class="r"><code>posn.j &lt;- position_jitter(width=0.2)
 big_sw &lt;- big_sub %&gt;% 
   filter(VClass == &quot;Midsize Cars&quot; &amp; pv4 &gt; 75 &amp; lv4 &gt; 6) 
@@ -73,30 +73,15 @@ big_sw %&gt;%
   ggplot(aes(x=pv4, y=lv4)) + 
   geom_point(shape=21, alpha=0.4,size =3, position = posn.j) + 
   theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = &quot;none&quot;) +
-  geom_smooth(method = &quot;lm&quot;) + 
+  geom_smooth(method = &quot;lm&quot;, color =&quot;red&quot;) + 
   coord_fixed() +
-    labs(x = &quot;Passenger Vol (Cubic feet)&quot;, y = &quot;Luggage Vol (Cubic feet)&quot;, title = &quot;Luggage space negatively correlates with passenger space&quot;)</code></pre>
+    labs(x = &quot;Passenger Vol (Cubic feet)&quot;, y = &quot;Luggage Vol (Cubic feet)&quot;, title = &quot;Luggage space negatively \ncorrelates with passenger space&quot;)</code></pre>
 <p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-2-1.png" width="1152" /></p>
-<pre class="r"><code>big_sw</code></pre>
-<pre><code>## # A tibble: 4,120 x 10
-##    fuelType  year make  model   VClass         hlv   hpv   lv4   pv4 displ
-##    &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 Premium   1993 Audi  100     Midsize Cars     0     0    17    96   2.8
-##  2 Premium   1993 Audi  100     Midsize Cars     0     0    17    96   2.8
-##  3 Premium   1993 BMW   740i    Midsize Cars     0     0    13   101   4  
-##  4 Premium   1993 BMW   740il   Midsize Cars     0     0    13   105   4  
-##  5 Regular   1993 BMW   750il   Midsize Cars     0     0    13   105   5  
-##  6 Regular   1993 Buick Century Midsize Cars     0     0    16    97   2.2
-##  7 Regular   1993 Buick Century Midsize Cars     0     0    16    97   3.3
-##  8 Regular   1993 Buick Century Midsize Cars     0     0    16    97   3.3
-##  9 Regular   1993 Buick Regal   Midsize Cars     0     0    16   100   3.1
-## 10 Regular   1993 Buick Regal   Midsize Cars     0     0    16   100   3.1
-## # ... with 4,110 more rows</code></pre>
-</div>
-<div id="insight-1-negative-correlation-between-luggage-size-and-passenger-space-in-mid-sized-cars" class="section level1">
-<h1>Insight 1: Negative correlation between luggage size and passenger space in Mid Sized Cars</h1>
-<p>Companies sacrifice Passenger space to produce bigger room for the luggage.</p>
-<p>Let’s look at the luggage volume in Midsized cars ordered according to highest average.</p>
+<p>This is not unexpected. But good to see.</p>
+<blockquote>
+<p>Insight 1: Negative correlation suggests that producers sacrifice passenger space to produce bigger room for the luggage or vice versa.</p>
+</blockquote>
+<p>First, I will look at the luggage volume in Mid sized cars and I will order them according to highest average.</p>
 <pre class="r"><code>pp &lt;- big_sw %&gt;% 
   mutate(make = fct_reorder(make, lv4)) %&gt;%
   ggplot(aes(x=make, y=lv4, col=make)) + 
@@ -106,9 +91,15 @@ big_sw %&gt;%
   labs(x = element_blank(), y = &quot;Luggage size (cubic feet)&quot;, title = &quot;Average luggage volumes in Midsized cars&quot;)
   pp</code></pre>
 <p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-3-1.png" width="1152" /></p>
-<p>Averages does not seem differ too much. But, anyway I am looking for the top car with the biggest luggage space. Let’s see what other VClass types are in our dataset.</p>
-<p>There are 34 types of Vlass in our dataset. I will subset all the relevant ones, leaving some specialty vehicles and vans aside.</p>
+<p>If you follow the mean lines from bottom to top, you will see that cars cluster into three groups according to their mean of luggage sizes. But differences are not huge.</p>
+<blockquote>
+<p>Insight 2: Cars cluster into three groups according to their mean luggage size.</p>
+</blockquote>
+<p>Let’s focus. I am looking for the car with the biggest luggage space. Let’s see what other VClass types are in our dataset that we can include our exploration.</p>
+<p>There are 34 types of vehicle classes (Vlass) in our dataset. I will subset all the relevant ones, leaving some specialty vehicles and vans aside.</p>
 <p>You can have a look at other VClass types with this code here.</p>
+<p><code>big_epa_cars %&gt;% group_by(VClass) %&gt;% count() %&gt;% arrange(desc(n))</code></p>
+<p>I will also remove minor brands with less than 10 models in total.</p>
 <pre class="r"><code>big_filtered &lt;- big_sub %&gt;% 
   filter(VClass %in% c(&quot;Large Cars&quot;, &quot;Compact Cars&quot;, &quot;Midsize Cars&quot;, 
                        &quot;Midsize Station Wagons&quot;, &quot;Midsize-Large Station Wagons&quot;,
@@ -120,9 +111,9 @@ big_sw %&gt;%
 
 dim(big_filtered)</code></pre>
 <pre><code>## [1] 14710    11</code></pre>
-<p>To be on the safe side for the family trip, I will choose from cars not older than 5 years.</p>
+<p>To be on the safe side for the family trip, I will choose cars not older than 5 years.</p>
 <pre class="r"><code># Cars ordered with luggage volume, but not older than 5 years 
-# and lv4 bigger than 10
+# and lv4 bigger than 5
 
 q &lt;- big_filtered %&gt;% 
   filter(year &gt; 2016, lv4 &gt; 5) %&gt;%
@@ -132,10 +123,14 @@ q &lt;- big_filtered %&gt;%
   theme(text = element_text(size=15), legend.position = &quot;none&quot;) +
   coord_flip()
 q</code></pre>
-<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>There are not big differences between average luggage size of different brands. Although, you will probably get a bigger space if you choose a Volkswagen or Ford rather than a BMW or Chevrolet.</p>
-<p>The real XL luggage volume cars are plenty and seemd to be more as outliers. To find our dream car let’s focus on those outliers, I will create a new data frame <strong>boot_space</strong> containing the top 50 cars according to the luggage volume.</p>
-<pre class="r"><code>boot_space &lt;- big_filtered %&gt;% filter(year &gt; 2016) %&gt;% arrange(desc(lv4)) %&gt;% top_n(50, lv4)
+<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>There are not big differences between average luggage size of different brands. Although, you will probably get more space if you choose a Volkswagen or Ford rather than a BMW or Chevrolet.</p>
+<p>The real XL luggage volume cars are plenty and seem to be more outlier models. To find our dream car let’s focus on those outliers.</p>
+<p>I will create a new data frame <strong>boot_space</strong> containing the top 50 cars according to the luggage volume.</p>
+<pre class="r"><code>boot_space &lt;- big_filtered %&gt;% 
+  filter(year &gt; 2016) %&gt;% 
+  arrange(desc(lv4)) %&gt;% 
+  top_n(50, lv4)
 
 # Top family cars - geom_point()
 bs &lt;- boot_space %&gt;% 
@@ -143,10 +138,12 @@ bs &lt;- boot_space %&gt;%
   mutate(make = fct_reorder(make, lv4)) %&gt;% 
   ggplot(aes(x=make,y= model, size=lv4, col=VClass)) + 
   geom_point() +
-  theme(plot.caption=element_text(size=11),axis.text.x=element_text(angle=45, hjust=1),text = element_text(size=18), plot.title = element_text(size=32)) +
+  theme(plot.caption=element_text(size=12),axis.text.x=element_text(angle=45, hjust=1),text = element_text(size=18), plot.title = element_text(size=32)) +
 labs(caption= &quot;Data: https://fueleconomy.gov&quot;, size=&quot;Luggage Vol\n(Cubic feet)&quot;, x = element_blank(), y = element_blank(), title = &quot;Which are the best family cars?&quot;)  + guides(size = guide_legend(order = 1), shape = guide_legend(order = 2)) + scale_size(range=c(2, 9))
 bs</code></pre>
-<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-7-1.png" width="1152" /></p>
+<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-6-1.png" width="1152" /></p>
+<p>Mercedes AMG GLA45 is the winner with 42 cubic feet space!</p>
+<p>Here is another presentation, for easier comparision.</p>
 <pre class="r"><code># Top family cars - geom_Col()
 bs_col &lt;- boot_space %&gt;% 
     mutate(model = fct_reorder(model, lv4)) %&gt;%
@@ -157,5 +154,60 @@ bs_col &lt;- boot_space %&gt;%
 labs(caption= &quot;Data source: https://fueleconomy.gov&quot;, size=&quot;Luggage Vol\n(Cubic feet)&quot;, x = element_blank(), y = &quot;Luggage Vol (Cubic feet)&quot;, title = &quot;Which are the best family cars?&quot;) +
     scale_size(range=c(2, 9)) 
 bs_col</code></pre>
+<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-7-1.png" width="1152" /></p>
+<p>We found our answer and our camping gear is ready. Let’s tackle some other questions. We here a lot about them but how does the future looks like for Electric cars?</p>
+</div>
+<div id="how-does-electric-cars-evolving-in-the-last-years-compared-to-non-electric-cars" class="section level1">
+<h1>How does Electric cars evolving in the last years compared to non electric cars?</h1>
+<p>There are many of different types of engines capable of using one or two different fuel sources. Let’s look at how their numbers compare during the last years.</p>
+<pre class="r"><code># Using Varwidth: Ordered
+pp  &lt;- big_epa_cars %&gt;% 
+  mutate(fuelType=fct_reorder(fuelType, year)) %&gt;% 
+  ggplot(aes(x=fuelType, y =year, fill=fuelType)) + 
+  geom_boxplot(varwidth=TRUE) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  coord_flip() + 
+  theme(legend.position = &quot;none&quot;, text = element_text(size=18), 
+        plot.title = element_text(size=32)) + 
+  labs(x = &quot;Fuel Type&quot;, y = &quot;Year&quot;, title = &quot;How does prominence of Fuel Types \nchange with the year?&quot;)
+pp</code></pre>
 <p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-8-1.png" width="1152" /></p>
+<div id="group-electric-vs-non-electric-cars" class="section level3">
+<h3>Group Electric vs Non Electric cars</h3>
+<p>I will group cars according to which can use electricity vs which can’t.</p>
+<pre class="r"><code># Grouped: Electric vs no electric:
+big_epa_cars$fuelType &lt;- ifelse( big_epa_cars$fuelType %in% c(&quot;Regular Gas and Electricity&quot;, &quot;Premium Gas or Electricity&quot;, &quot;Premium and Electricity&quot;, &quot;Regular Gas or Electricity&quot;, &quot;Electricity&quot;), &quot;Electric&quot;, &quot;Non-Electric&quot;)
+
+pp  &lt;- big_epa_cars %&gt;% 
+  mutate(fuelType=fct_reorder(fuelType, year)) %&gt;% 
+  ggplot(aes(x=fuelType, y =year, fill=fuelType)) + 
+  geom_boxplot(varwidth=TRUE) +
+  coord_flip() + 
+  theme(text = element_text(size=18), 
+        plot.title = element_text(size=32), legend.position = &quot;none&quot;)+
+  theme(text = element_text(size=15)) +
+  labs(x = &quot;Fuel Type&quot;, y = &quot;Year&quot;, title = &quot;How does prominence of Fuel Types \nchange with the year?&quot;)
+pp</code></pre>
+<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-9-1.png" width="1152" /></p>
+<p>In the last couple of years, number of electric car models are increasing but they are still a minority.</p>
+<pre class="r"><code>big3 &lt;- big_epa_cars %&gt;% group_by(year, fuelType) %&gt;% mutate(n = n())
+
+big3 %&gt;% 
+    ggplot(aes(x=n, y =year, col=fuelType)) +
+    geom_point() +
+    theme(legend.position = c(0.9,0.9), legend.title= element_blank(), legend.background = element_blank()) + 
+    theme(plot.title = element_text(size=32), text = element_text(size=15)) + coord_flip() +
+    labs(x = &quot;Number of Car models&quot;, y = &quot;Year&quot;, title = &quot;How does the Numbers of Electric vs Non Electric cars \nchange by year?&quot;)</code></pre>
+<p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-10-1.png" width="1152" /></p>
+<p>Both Electric and Non Electric car models follows a similar increase in the last 10 years</p>
+<p>Increases in Electric car models in the last years might be a reflection of a general increase in total number of model types</p>
+</div>
+</div>
+<div id="future-thoughts" class="section level1">
+<h1>Future thoughts</h1>
+<p>This was a huge dataset that you can answer many more questions. Such as mileage of different car models? Carbon dioxide emissions? etc.</p>
+<p>I have selected some car models which might be worth to look at if luggage space is a priority for you!, and looked at how electric car models evolving in the last years.</p>
+<p>To see other examples of how people used this dataset follow the <a href="https://twitter.com/hashtag/tidytuesday?lang=en">Twitter hashtag #TidyTuesday</a>.</p>
+<p>Please share if you have other ideas in the comments below!</p>
+<p>Until next time!</p>
+<p>Serdar</p>
 </div>

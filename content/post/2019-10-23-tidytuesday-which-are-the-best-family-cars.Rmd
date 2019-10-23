@@ -22,7 +22,6 @@ image:
   preview_only: no
 projects: []
 ---
-
 This week, I will analyze Car Fuel Economy [dataset](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-10-15) from TidyTuesday.
 
 ## What is TidyTuesday? 
@@ -31,11 +30,11 @@ TidyTuesday is a weekly social data project in R organized by the [R for Data Sc
 
 It is a great way of improving your Data wrangling and visualization techniques, **sharing and learning from others**. 
 
-You can find all the information on [github](https://github.com/rfordatascience/tidytuesday) on how to participate. 
+You can find all the information on [github](https://github.com/rfordatascience/tidytuesday). 
 
 Fuel economy [data](https://www.fueleconomy.gov/feg/download.shtml) are the result of the work done by the US Environmental Protection Agency. Full data dictionary can be found at [fueleconomy.gov](https://www.fueleconomy.gov/feg/ws/index.shtml#fuelType1). 
 
-The data contains information of 83 parameters from more than 40.000 Vehicles. That's a lot of information!
+The data contains information of 83 parameters of more than 40.000 Vehicles. That's a lot of information!
 
 
 # Going for your next family camping adventure? First, check your car model. 
@@ -56,7 +55,8 @@ big_epa_cars <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidy
 dim(big_epa_cars)
 ```
 
-I don't need all of my data now, for easier computation I will subset it. 
+I will subset my data for easier computation  
+
 Let's keep the following columns:
 
 * year - model year
@@ -76,7 +76,7 @@ big_sub <- big_epa_cars %>%
 
 I will start exploring the data. For the moment, first I will focus on Midsize cars (VClass)
 
-I will filter for main pool of Mid-size cars with 4 door and luggage vol > 6 and pv4 >75.
+I will filter for the main pool of Midsize cars with 4 door and luggage volume of bigger than 6 and passenger volume larger than 75.
 
 ```{r, fig.width=12, fig.height=8}
 posn.j <- position_jitter(width=0.2)
@@ -87,21 +87,20 @@ big_sw %>%
   ggplot(aes(x=pv4, y=lv4)) + 
   geom_point(shape=21, alpha=0.4,size =3, position = posn.j) + 
   theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = "none") +
-  geom_smooth(method = "lm") + 
+  geom_smooth(method = "lm", color ="red") + 
   coord_fixed() +
-    labs(x = "Passenger Vol (Cubic feet)", y = "Luggage Vol (Cubic feet)", title = "Luggage space negatively correlates with passenger space")
+    labs(x = "Passenger Vol (Cubic feet)", y = "Luggage Vol (Cubic feet)", title = "Luggage space negatively \ncorrelates with passenger space")
 
-big_sw
 ```
 
-# Insight 1: Negative correlation between luggage size and passenger space in Mid Sized Cars
+This is not unexpected. But good to see.
 
-Companies sacrifice Passenger space to produce bigger room for the luggage. 
+> Insight 1: Negative correlation suggests that producers sacrifice  passenger space to produce bigger room for the luggage or vice versa. 
 
 
-Let's look at the luggage volume in Midsized cars ordered according to highest average.
+First, I will look at the luggage volume in Mid sized cars and I will order them according to highest average.
 
-```{r, fig.width=12, fig.height=8}
+```{r, fig.width=12, fig.height=12}
 pp <- big_sw %>% 
   mutate(make = fct_reorder(make, lv4)) %>%
   ggplot(aes(x=make, y=lv4, col=make)) + 
@@ -112,14 +111,20 @@ pp <- big_sw %>%
   pp
 ```
 
-Averages does not seem differ too much. But, anyway I am looking for the top car with the biggest luggage space. Let's see what other VClass types are in our dataset.
+If you follow the mean lines from bottom to top, you will see that cars cluster into three groups according to their mean of luggage sizes. But differences are not huge. 
 
-There are 34 types of Vlass in our dataset. I will subset all the relevant ones, leaving some specialty vehicles and vans aside. 
+> Insight 2: Cars cluster into three groups according to their mean luggage size.
 
-You can have a look at other VClass types with this code  here. 
-```{r, echo=FALSE, include=FALSE}
-big_epa_cars %>% group_by(VClass) %>% count() %>% arrange(desc(n)) %>% print(n=34)
-```
+Let's focus. I am looking for the car with the biggest luggage space. Let's see what other VClass types are in our dataset that we can include our exploration.
+
+There are 34 types of vehicle classes (Vlass) in our dataset. I will subset all the relevant ones, leaving some specialty vehicles and vans aside. 
+
+You can have a look at other VClass types with this code here. 
+
+`big_epa_cars %>% group_by(VClass) %>% count() %>% arrange(desc(n))`
+
+
+I will also remove minor brands with less than 10 models in total.
 
 ```{r}
 big_filtered <- big_sub %>% 
@@ -134,10 +139,10 @@ big_filtered <- big_sub %>%
 dim(big_filtered)
 ```
 
-To be on the safe side for the family trip, I will choose from cars not older than 5 years.
+To be on the safe side for the family trip, I will choose cars not older than 5 years.
 ```{r, }
 # Cars ordered with luggage volume, but not older than 5 years 
-# and lv4 bigger than 10
+# and lv4 bigger than 5
 
 q <- big_filtered %>% 
   filter(year > 2016, lv4 > 5) %>%
@@ -149,12 +154,17 @@ q <- big_filtered %>%
 q
 ```
 
-There are not big differences between average luggage size of different brands. Although, you will probably get a bigger space if you choose a Volkswagen or Ford rather than a BMW or Chevrolet. 
+There are not big differences between average luggage size of different brands. Although, you will probably get more space if you choose a Volkswagen or Ford rather than a BMW or Chevrolet. 
 
-The real XL luggage volume cars are plenty and seemd to be more as outliers.  To find our dream car let's focus on those outliers, I will create a new data frame **boot_space** containing the top 50 cars according to the luggage volume.
+The real XL luggage volume cars are plenty and seem to be more outlier models.  To find our dream car let's focus on those outliers. 
+
+I will create a new data frame **boot_space** containing the top 50 cars according to the luggage volume.
 
 ```{r, fig.width=12, fig.height=8}
-boot_space <- big_filtered %>% filter(year > 2016) %>% arrange(desc(lv4)) %>% top_n(50, lv4)
+boot_space <- big_filtered %>% 
+  filter(year > 2016) %>% 
+  arrange(desc(lv4)) %>% 
+  top_n(50, lv4)
 
 # Top family cars - geom_point()
 bs <- boot_space %>% 
@@ -162,11 +172,15 @@ bs <- boot_space %>%
   mutate(make = fct_reorder(make, lv4)) %>% 
   ggplot(aes(x=make,y= model, size=lv4, col=VClass)) + 
   geom_point() +
-  theme(plot.caption=element_text(size=11),axis.text.x=element_text(angle=45, hjust=1),text = element_text(size=18), plot.title = element_text(size=32)) +
+  theme(plot.caption=element_text(size=12),axis.text.x=element_text(angle=45, hjust=1),text = element_text(size=18), plot.title = element_text(size=32)) +
 labs(caption= "Data: https://fueleconomy.gov", size="Luggage Vol\n(Cubic feet)", x = element_blank(), y = element_blank(), title = "Which are the best family cars?")  + guides(size = guide_legend(order = 1), shape = guide_legend(order = 2)) + scale_size(range=c(2, 9))
 bs
 ```
 
+Mercedes AMG GLA45 is the winner with 42 cubic feet space!
+
+
+Here is another presentation, for easier comparision. 
 
 ```{r, fig.width=12, fig.height=8}
 # Top family cars - geom_Col()
@@ -180,3 +194,79 @@ labs(caption= "Data source: https://fueleconomy.gov", size="Luggage Vol\n(Cubic 
     scale_size(range=c(2, 9)) 
 bs_col
 ```
+
+We found our answer and our camping gear is ready. Let's tackle some other questions. We here a lot about them but how does the future looks like for Electric cars?
+
+# How does Electric cars evolving in the last years compared to non electric cars?
+
+There are many of different types of engines capable of using one or two different fuel sources. Let's look at how their numbers compare during the last years.
+
+```{r, fig.width=12, fig.height=8}
+# Using Varwidth: Ordered
+pp  <- big_epa_cars %>% 
+  mutate(fuelType=fct_reorder(fuelType, year)) %>% 
+  ggplot(aes(x=fuelType, y =year, fill=fuelType)) + 
+  geom_boxplot(varwidth=TRUE) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  coord_flip() + 
+  theme(legend.position = "none", text = element_text(size=18), 
+        plot.title = element_text(size=32)) + 
+  labs(x = "Fuel Type", y = "Year", title = "How does prominence of Fuel Types \nchange with the year?")
+pp
+```
+
+### Group Electric vs Non Electric cars
+
+I will group cars according to which can use electricity vs which can't.
+```{r, fig.width=12, fig.height=8}
+# Grouped: Electric vs no electric:
+big_epa_cars$fuelType <- ifelse( big_epa_cars$fuelType %in% c("Regular Gas and Electricity", "Premium Gas or Electricity", "Premium and Electricity", "Regular Gas or Electricity", "Electricity"), "Electric", "Non-Electric")
+
+pp  <- big_epa_cars %>% 
+  mutate(fuelType=fct_reorder(fuelType, year)) %>% 
+  ggplot(aes(x=fuelType, y =year, fill=fuelType)) + 
+  geom_boxplot(varwidth=TRUE) +
+  coord_flip() + 
+  theme(text = element_text(size=18), 
+        plot.title = element_text(size=32), legend.position = "none")+
+  theme(text = element_text(size=15)) +
+  labs(x = "Fuel Type", y = "Year", title = "How does prominence of Fuel Types \nchange with the year?")
+pp
+```
+
+In the last couple of years, number of electric car models are increasing but they are still a minority. 
+
+
+
+```{r, fig.width=12, fig.height=8}
+big3 <- big_epa_cars %>% group_by(year, fuelType) %>% mutate(n = n())
+
+big3 %>% 
+    ggplot(aes(x=n, y =year, col=fuelType)) +
+    geom_point() +
+    theme(legend.position = c(0.9,0.9), legend.title= element_blank(), legend.background = element_blank()) + 
+    theme(plot.title = element_text(size=32), text = element_text(size=15)) + coord_flip() +
+    labs(x = "Number of Car models", y = "Year", title = "How does the Numbers of Electric vs Non Electric cars \nchange by year?")
+
+```
+
+Both Electric and Non Electric car models follows a similar increase in the last 10 years
+
+Increases in Electric car models in the last years might be a reflection of a general increase in total number of model types
+
+# Future thoughts
+
+This was a huge dataset that you can answer many more questions. Such as mileage of different car models? Carbon dioxide emissions? etc. 
+
+I have selected some car models which might be worth to look at if luggage space is a priority for you!, and looked at how electric car models evolving in the last years.
+
+
+To see other examples of how people used this dataset follow the [Twitter hashtag #TidyTuesday](https://twitter.com/hashtag/tidytuesday?lang=en).
+
+
+Please share if you have other ideas in the comments below!
+
+Until next time!
+
+Serdar
+
+
