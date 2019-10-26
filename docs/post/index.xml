@@ -145,8 +145,19 @@ bs &amp;lt;- boot_space %&amp;gt;%
   mutate(make = fct_reorder(make, lv4)) %&amp;gt;% 
   ggplot(aes(x=make,y= model, size=lv4, col=VClass)) + 
   geom_point() +
-  theme(plot.caption=element_text(size=12),axis.text.x=element_text(angle=45, hjust=1),text = element_text(size=18), plot.title = element_text(size=32)) +
-labs(caption= &amp;quot;Data: https://fueleconomy.gov&amp;quot;, size=&amp;quot;Luggage Vol\n(Cubic feet)&amp;quot;, x = element_blank(), y = element_blank(), title = &amp;quot;Which are the best family cars?&amp;quot;)  + guides(size = guide_legend(order = 1), shape = guide_legend(order = 2)) + scale_size(range=c(2, 9))
+  theme(plot.caption=element_text(size=12),
+        axis.text.x=element_text(angle=45, hjust=1),
+        text = element_text(size=18), 
+        plot.title = element_text(size=32)) +
+labs(caption= &amp;quot;Data: https://fueleconomy.gov&amp;quot;, 
+     size=&amp;quot;Luggage Vol\n(Cubic feet)&amp;quot;,
+     x = element_blank(), 
+     y = element_blank(), 
+     title = &amp;quot;Which are the best family cars?&amp;quot;) + 
+  guides(size = guide_legend(order = 1), 
+         shape = guide_legend(order = 2)) +
+  scale_size(range=c(2, 9))
+
 bs&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Mercedes AMG GLA45 is the winner with 42 cubic feet space!&lt;/p&gt;
@@ -157,15 +168,22 @@ bs_col &amp;lt;- boot_space %&amp;gt;%
     mutate(make = fct_reorder(make, lv4)) %&amp;gt;% 
     ggplot(aes(x=model, y=lv4, fill=make)) + 
     geom_col(position=&amp;quot;dodge&amp;quot;)+coord_flip() + 
-    theme(plot.caption=element_text(size=11), text = element_text(size=18), plot.title = element_text(size=32))  +
-labs(caption= &amp;quot;Data source: https://fueleconomy.gov&amp;quot;, size=&amp;quot;Luggage Vol\n(Cubic feet)&amp;quot;, x = element_blank(), y = &amp;quot;Luggage Vol (Cubic feet)&amp;quot;, title = &amp;quot;Which are the best family cars?&amp;quot;) +
+    theme(plot.caption=element_text(size=11), 
+          text = element_text(size=18), 
+          plot.title = element_text(size=32))  +
+labs(caption= &amp;quot;Data source: https://fueleconomy.gov&amp;quot;, 
+     size=&amp;quot;Luggage Vol\n(Cubic feet)&amp;quot;, 
+     x = element_blank(), 
+     y = &amp;quot;Luggage Vol (Cubic feet)&amp;quot;, 
+     title = &amp;quot;Which are the best family cars?&amp;quot;) +
     scale_size(range=c(2, 9)) 
+
 bs_col&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We found our answer and our camping gear is ready. Let’s tackle some other questions. We hear a lot about them but how does the future looks like for Electric cars?&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;how-does-electric-cars-evolving-in-the-last-years-compared-to-non-electric-cars&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;How does Electric cars evolving in the last years compared to non electric cars?&lt;/h1&gt;
+&lt;div id=&#34;how-do-electric-cars-evolving-in-the-last-years-compared-to-non-electric-cars&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;How do Electric cars evolving in the last years compared to non electric cars?&lt;/h1&gt;
 &lt;p&gt;There are many of different types of engines capable of using one or two different fuel sources. Let’s look at how their numbers compare during the last years.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Using Varwidth: Ordered
 pp  &amp;lt;- big_epa_cars %&amp;gt;% 
@@ -173,16 +191,20 @@ pp  &amp;lt;- big_epa_cars %&amp;gt;%
   ggplot(aes(x=fuelType, y =year, fill=fuelType)) + 
   geom_boxplot(varwidth=TRUE) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   coord_flip() + 
-  theme(legend.position = &amp;quot;none&amp;quot;, text = element_text(size=18), 
+  theme(legend.position = &amp;quot;none&amp;quot;, 
+        text = element_text(size=18), 
         plot.title = element_text(size=32)) + 
-  labs(x = &amp;quot;Fuel Type&amp;quot;, y = &amp;quot;Year&amp;quot;, title = &amp;quot;How does prominence of Fuel Types \nchange with the year?&amp;quot;)
+  labs(x = &amp;quot;Fuel Type&amp;quot;,
+       y = &amp;quot;Year&amp;quot;, 
+       title = &amp;quot;How does prominence of Fuel Types \nchange with the year?&amp;quot;)
+
 pp&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;div id=&#34;group-electric-vs-non-electric-cars&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Group Electric vs Non Electric cars&lt;/h3&gt;
-&lt;p&gt;I will group cars according to which can use electricity vs which can’t.&lt;/p&gt;
+&lt;p&gt;I will group cars whehter or not they can use electricity.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Grouped: Electric vs no electric:
-big_epa_cars$fuelType &amp;lt;- ifelse( big_epa_cars$fuelType %in% c(&amp;quot;Regular Gas and Electricity&amp;quot;, &amp;quot;Premium Gas or Electricity&amp;quot;, &amp;quot;Premium and Electricity&amp;quot;, &amp;quot;Regular Gas or Electricity&amp;quot;, &amp;quot;Electricity&amp;quot;), &amp;quot;Electric&amp;quot;, &amp;quot;Non-Electric&amp;quot;)
+big_epa_cars$fuelType &amp;lt;- ifelse( big_epa_cars$fuelType %in%    c(&amp;quot;Regular Gas and Electricity&amp;quot;, &amp;quot;Premium Gas or Electricity&amp;quot;, &amp;quot;Premium and Electricity&amp;quot;, &amp;quot;Regular Gas or Electricity&amp;quot;, &amp;quot;Electricity&amp;quot;), &amp;quot;Electric&amp;quot;, &amp;quot;Non-Electric&amp;quot;)
 
 pp  &amp;lt;- big_epa_cars %&amp;gt;% 
   mutate(fuelType=fct_reorder(fuelType, year)) %&amp;gt;% 
@@ -192,18 +214,29 @@ pp  &amp;lt;- big_epa_cars %&amp;gt;%
   theme(text = element_text(size=18), 
         plot.title = element_text(size=32), legend.position = &amp;quot;none&amp;quot;)+
   theme(text = element_text(size=15)) +
-  labs(x = &amp;quot;Fuel Type&amp;quot;, y = &amp;quot;Year&amp;quot;, title = &amp;quot;How does prominence of Fuel Types \nchange with the year?&amp;quot;)
+  labs(x = &amp;quot;Fuel Type&amp;quot;,
+       y = &amp;quot;Year&amp;quot;,
+       title = &amp;quot;How does prominence of Fuel Types \nchange with the year?&amp;quot;)
+
 pp&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;In the last couple of years, number of electric car models are increasing but they are still a minority.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;big3 &amp;lt;- big_epa_cars %&amp;gt;% group_by(year, fuelType) %&amp;gt;% mutate(n = n())
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;big3 &amp;lt;- big_epa_cars %&amp;gt;% 
+  group_by(year, fuelType) %&amp;gt;% 
+  mutate(n = n())
 
 big3 %&amp;gt;% 
     ggplot(aes(x=n, y =year, col=fuelType)) +
     geom_point(size=4) +
-    theme(legend.position = c(0.9,0.9), legend.title= element_blank(), legend.background = element_blank()) + 
-    theme(plot.title = element_text(size=32), text = element_text(size=15)) + coord_flip() +
-    labs(x = &amp;quot;Number of Car models&amp;quot;, y = &amp;quot;Year&amp;quot;, title = &amp;quot;How does the Numbers of Electric vs Non Electric cars \nchange by year?&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+    theme(legend.position = c(0.9,0.9),
+          legend.title= element_blank(), 
+          legend.background = element_blank(),
+          plot.title = element_text(size=32), 
+          text = element_text(size=15)) + 
+  coord_flip() +
+    labs(x = &amp;quot;Number of Car models&amp;quot;, 
+         y = &amp;quot;Year&amp;quot;, 
+         title = &amp;quot;How does the Numbers of Electric vs Non Electric cars \nchange by year?&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Both Electric and Non Electric car models follows a similar increase in the last 10 years&lt;/p&gt;
 &lt;p&gt;Increases in Electric car models in the last years might be a reflection of a general increase in total number of model types&lt;/p&gt;
