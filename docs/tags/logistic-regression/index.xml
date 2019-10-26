@@ -56,11 +56,9 @@ by using 8 medical indicators.&lt;/p&gt;
 &lt;h1&gt;Data acquisition&lt;/h1&gt;
 &lt;p&gt;I downloaded the &lt;a href=&#34;https://www.kaggle.com/uciml/pima-indians-diabetes-database&#34;&gt;Pima Indians Diabetes Dataset&lt;/a&gt; from Kaggle and imported it from my local directory.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;diabetes &amp;lt;- read.csv(&amp;quot;posts_data/diabetes.csv&amp;quot;)
-
-library(dplyr)  
-library(tidyr)
+library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcats
 library(reshape2)
-library(ggplot2)
 library(ggcorrplot)
 library(pROC)
 library(lattice)
@@ -253,7 +251,9 @@ rows_with_zero &amp;lt;- unlist(zero_rows)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;zeros &amp;lt;- c(&amp;quot;Glucose&amp;quot; =rows_with_zero[1], &amp;quot;Blood Pressure&amp;quot; = rows_with_zero[2], 
            &amp;quot;Skin Thickness&amp;quot;= rows_with_zero[3], &amp;quot;Insulin&amp;quot; =rows_with_zero[4], 
            &amp;quot;BMI&amp;quot; = rows_with_zero[5])
-waffle(zeros, rows=20) + theme(text = element_text(size=15)) + ggtitle(&amp;quot;Number of rows with zero&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+waffle(zeros, rows=20) + 
+  theme(text = element_text(size=15)) + 
+  ggtitle(&amp;quot;Number of rows with zero&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/waffle%20plot%20of%20zero%20values-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
 df&lt;/code&gt;&lt;/pre&gt;

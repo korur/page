@@ -77,7 +77,8 @@ big_sw %&amp;gt;%
   coord_fixed() +
     labs(x = &amp;quot;Passenger Vol (Cubic feet)&amp;quot;, 
          y = &amp;quot;Luggage Vol (Cubic feet)&amp;quot;, 
-         title = &amp;quot;Luggage space negatively \ncorrelates with passenger space&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+         title = 
+    &amp;quot;Luggage space negatively \ncorrelates with passenger space&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This is not unexpected. But good to see.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -127,7 +128,8 @@ q &amp;lt;- big_filtered %&amp;gt;%
   mutate(make = fct_reorder(make, lv4)) %&amp;gt;%
   ggplot(aes(x=make, y=lv4, col=make)) + 
   geom_boxplot(varwidth=TRUE) +
-  theme(text = element_text(size=15), legend.position = &amp;quot;none&amp;quot;) +
+  theme(text = element_text(size=15),
+        legend.position = &amp;quot;none&amp;quot;) +
   coord_flip()
 q&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
@@ -157,7 +159,6 @@ labs(caption= &amp;quot;Data: https://fueleconomy.gov&amp;quot;,
   guides(size = guide_legend(order = 1), 
          shape = guide_legend(order = 2)) +
   scale_size(range=c(2, 9))
-
 bs&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Mercedes AMG GLA45 is the winner with 42 cubic feet space!&lt;/p&gt;
@@ -170,7 +171,7 @@ bs_col &amp;lt;- boot_space %&amp;gt;%
     geom_col(position=&amp;quot;dodge&amp;quot;)+coord_flip() + 
     theme(plot.caption=element_text(size=11), 
           text = element_text(size=18), 
-          plot.title = element_text(size=32))  +
+          plot.title = element_text(size=32)) +
 labs(caption= &amp;quot;Data source: https://fueleconomy.gov&amp;quot;, 
      size=&amp;quot;Luggage Vol\n(Cubic feet)&amp;quot;, 
      x = element_blank(), 
@@ -189,14 +190,16 @@ bs_col&lt;/code&gt;&lt;/pre&gt;
 pp  &amp;lt;- big_epa_cars %&amp;gt;% 
   mutate(fuelType=fct_reorder(fuelType, year)) %&amp;gt;% 
   ggplot(aes(x=fuelType, y =year, fill=fuelType)) + 
-  geom_boxplot(varwidth=TRUE) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  geom_boxplot(varwidth=TRUE) + 
   coord_flip() + 
   theme(legend.position = &amp;quot;none&amp;quot;, 
         text = element_text(size=18), 
-        plot.title = element_text(size=32)) + 
+        plot.title = element_text(size=32),
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
   labs(x = &amp;quot;Fuel Type&amp;quot;,
        y = &amp;quot;Year&amp;quot;, 
-       title = &amp;quot;How does prominence of Fuel Types \nchange with the year?&amp;quot;)
+       title = 
+         &amp;quot;How does prominence of Fuel Types \nchange with the year?&amp;quot;)
 
 pp&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
@@ -204,7 +207,12 @@ pp&lt;/code&gt;&lt;/pre&gt;
 &lt;h3&gt;Group Electric vs Non Electric cars&lt;/h3&gt;
 &lt;p&gt;I will group cars whehter or not they can use electricity.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Grouped: Electric vs no electric:
-big_epa_cars$fuelType &amp;lt;- ifelse( big_epa_cars$fuelType %in%    c(&amp;quot;Regular Gas and Electricity&amp;quot;, &amp;quot;Premium Gas or Electricity&amp;quot;, &amp;quot;Premium and Electricity&amp;quot;, &amp;quot;Regular Gas or Electricity&amp;quot;, &amp;quot;Electricity&amp;quot;), &amp;quot;Electric&amp;quot;, &amp;quot;Non-Electric&amp;quot;)
+big_epa_cars$fuelType &amp;lt;- ifelse(big_epa_cars$fuelType %in%
+               c(&amp;quot;Regular Gas and Electricity&amp;quot;,
+                &amp;quot;Premium Gas or Electricity&amp;quot;,
+                 &amp;quot;Premium and Electricity&amp;quot;, 
+                &amp;quot;Regular Gas or Electricity&amp;quot;,
+                &amp;quot;Electricity&amp;quot;), &amp;quot;Electric&amp;quot;, &amp;quot;Non-Electric&amp;quot;)
 
 pp  &amp;lt;- big_epa_cars %&amp;gt;% 
   mutate(fuelType=fct_reorder(fuelType, year)) %&amp;gt;% 
@@ -244,9 +252,9 @@ big3 %&amp;gt;%
 &lt;/div&gt;
 &lt;div id=&#34;conclusions-future-thoughts&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Conclusions / Future thoughts&lt;/h1&gt;
-&lt;p&gt;This was a huge dataset. You can answer other questions such as mileage of different car models, carbon dioxide emissions, fuel savings and many more.&lt;/p&gt;
+&lt;p&gt;This was a huge dataset. You can answer many other questions such as mileage of different car models, carbon dioxide emissions, fuel savings.&lt;/p&gt;
 &lt;p&gt;I have selected some car models which might be a good option if luggage space is a priority for you!&lt;/p&gt;
-&lt;p&gt;To see other examples of how people used this dataset follow the &lt;a href=&#34;https://twitter.com/hashtag/tidytuesday?lang=en&#34;&gt;Twitter hashtag #TidyTuesday&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To see other examples of how people used this dataset follow the &lt;strong&gt;Twitter&lt;/strong&gt; hashtag &lt;a href=&#34;https://twitter.com/hashtag/tidytuesday?lang=en&#34;&gt;#TidyTuesday&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Please share if you have other ideas in the comments below!&lt;/p&gt;
 &lt;p&gt;Until next time!&lt;/p&gt;
 &lt;p&gt;Serdar&lt;/p&gt;

@@ -83,7 +83,8 @@ big_sw %&gt;%
   coord_fixed() +
     labs(x = &quot;Passenger Vol (Cubic feet)&quot;, 
          y = &quot;Luggage Vol (Cubic feet)&quot;, 
-         title = &quot;Luggage space negatively \ncorrelates with passenger space&quot;)</code></pre>
+         title = 
+    &quot;Luggage space negatively \ncorrelates with passenger space&quot;)</code></pre>
 <p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-2-1.png" width="1152" /></p>
 <p>This is not unexpected. But good to see.</p>
 <blockquote>
@@ -133,7 +134,8 @@ q &lt;- big_filtered %&gt;%
   mutate(make = fct_reorder(make, lv4)) %&gt;%
   ggplot(aes(x=make, y=lv4, col=make)) + 
   geom_boxplot(varwidth=TRUE) +
-  theme(text = element_text(size=15), legend.position = &quot;none&quot;) +
+  theme(text = element_text(size=15),
+        legend.position = &quot;none&quot;) +
   coord_flip()
 q</code></pre>
 <p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
@@ -163,7 +165,6 @@ labs(caption= &quot;Data: https://fueleconomy.gov&quot;,
   guides(size = guide_legend(order = 1), 
          shape = guide_legend(order = 2)) +
   scale_size(range=c(2, 9))
-
 bs</code></pre>
 <p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-6-1.png" width="1152" /></p>
 <p>Mercedes AMG GLA45 is the winner with 42 cubic feet space!</p>
@@ -176,7 +177,7 @@ bs_col &lt;- boot_space %&gt;%
     geom_col(position=&quot;dodge&quot;)+coord_flip() + 
     theme(plot.caption=element_text(size=11), 
           text = element_text(size=18), 
-          plot.title = element_text(size=32))  +
+          plot.title = element_text(size=32)) +
 labs(caption= &quot;Data source: https://fueleconomy.gov&quot;, 
      size=&quot;Luggage Vol\n(Cubic feet)&quot;, 
      x = element_blank(), 
@@ -195,14 +196,16 @@ bs_col</code></pre>
 pp  &lt;- big_epa_cars %&gt;% 
   mutate(fuelType=fct_reorder(fuelType, year)) %&gt;% 
   ggplot(aes(x=fuelType, y =year, fill=fuelType)) + 
-  geom_boxplot(varwidth=TRUE) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  geom_boxplot(varwidth=TRUE) + 
   coord_flip() + 
   theme(legend.position = &quot;none&quot;, 
         text = element_text(size=18), 
-        plot.title = element_text(size=32)) + 
+        plot.title = element_text(size=32),
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
   labs(x = &quot;Fuel Type&quot;,
        y = &quot;Year&quot;, 
-       title = &quot;How does prominence of Fuel Types \nchange with the year?&quot;)
+       title = 
+         &quot;How does prominence of Fuel Types \nchange with the year?&quot;)
 
 pp</code></pre>
 <p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-8-1.png" width="1152" /></p>
@@ -210,7 +213,12 @@ pp</code></pre>
 <h3>Group Electric vs Non Electric cars</h3>
 <p>I will group cars whehter or not they can use electricity.</p>
 <pre class="r"><code># Grouped: Electric vs no electric:
-big_epa_cars$fuelType &lt;- ifelse( big_epa_cars$fuelType %in%    c(&quot;Regular Gas and Electricity&quot;, &quot;Premium Gas or Electricity&quot;, &quot;Premium and Electricity&quot;, &quot;Regular Gas or Electricity&quot;, &quot;Electricity&quot;), &quot;Electric&quot;, &quot;Non-Electric&quot;)
+big_epa_cars$fuelType &lt;- ifelse(big_epa_cars$fuelType %in%
+               c(&quot;Regular Gas and Electricity&quot;,
+                &quot;Premium Gas or Electricity&quot;,
+                 &quot;Premium and Electricity&quot;, 
+                &quot;Regular Gas or Electricity&quot;,
+                &quot;Electricity&quot;), &quot;Electric&quot;, &quot;Non-Electric&quot;)
 
 pp  &lt;- big_epa_cars %&gt;% 
   mutate(fuelType=fct_reorder(fuelType, year)) %&gt;% 
@@ -250,9 +258,9 @@ big3 %&gt;%
 </div>
 <div id="conclusions-future-thoughts" class="section level1">
 <h1>Conclusions / Future thoughts</h1>
-<p>This was a huge dataset. You can answer other questions such as mileage of different car models, carbon dioxide emissions, fuel savings and many more.</p>
+<p>This was a huge dataset. You can answer many other questions such as mileage of different car models, carbon dioxide emissions, fuel savings.</p>
 <p>I have selected some car models which might be a good option if luggage space is a priority for you!</p>
-<p>To see other examples of how people used this dataset follow the <a href="https://twitter.com/hashtag/tidytuesday?lang=en">Twitter hashtag #TidyTuesday</a>.</p>
+<p>To see other examples of how people used this dataset follow the <strong>Twitter</strong> hashtag <a href="https://twitter.com/hashtag/tidytuesday?lang=en">#TidyTuesday</a>.</p>
 <p>Please share if you have other ideas in the comments below!</p>
 <p>Until next time!</p>
 <p>Serdar</p>

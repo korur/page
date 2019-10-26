@@ -97,7 +97,8 @@ big_sw %>%
   coord_fixed() +
     labs(x = "Passenger Vol (Cubic feet)", 
          y = "Luggage Vol (Cubic feet)", 
-         title = "Luggage space negatively \ncorrelates with passenger space")
+         title = 
+    "Luggage space negatively \ncorrelates with passenger space")
 
 ```
 
@@ -162,7 +163,8 @@ q <- big_filtered %>%
   mutate(make = fct_reorder(make, lv4)) %>%
   ggplot(aes(x=make, y=lv4, col=make)) + 
   geom_boxplot(varwidth=TRUE) +
-  theme(text = element_text(size=15), legend.position = "none") +
+  theme(text = element_text(size=15),
+        legend.position = "none") +
   coord_flip()
 q
 ```
@@ -197,7 +199,6 @@ labs(caption= "Data: https://fueleconomy.gov",
   guides(size = guide_legend(order = 1), 
          shape = guide_legend(order = 2)) +
   scale_size(range=c(2, 9))
-
 bs
 ```
 
@@ -215,7 +216,7 @@ bs_col <- boot_space %>%
     geom_col(position="dodge")+coord_flip() + 
     theme(plot.caption=element_text(size=11), 
           text = element_text(size=18), 
-          plot.title = element_text(size=32))  +
+          plot.title = element_text(size=32)) +
 labs(caption= "Data source: https://fueleconomy.gov", 
      size="Luggage Vol\n(Cubic feet)", 
      x = element_blank(), 
@@ -237,14 +238,16 @@ There are many of different types of engines capable of using one or two differe
 pp  <- big_epa_cars %>% 
   mutate(fuelType=fct_reorder(fuelType, year)) %>% 
   ggplot(aes(x=fuelType, y =year, fill=fuelType)) + 
-  geom_boxplot(varwidth=TRUE) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  geom_boxplot(varwidth=TRUE) + 
   coord_flip() + 
   theme(legend.position = "none", 
         text = element_text(size=18), 
-        plot.title = element_text(size=32)) + 
+        plot.title = element_text(size=32),
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
   labs(x = "Fuel Type",
        y = "Year", 
-       title = "How does prominence of Fuel Types \nchange with the year?")
+       title = 
+         "How does prominence of Fuel Types \nchange with the year?")
 
 pp
 ```
@@ -255,7 +258,12 @@ I will group cars whehter or not they can use electricity.
 
 ```{r, fig.width=12, fig.height=8}
 # Grouped: Electric vs no electric:
-big_epa_cars$fuelType <- ifelse( big_epa_cars$fuelType %in%    c("Regular Gas and Electricity", "Premium Gas or Electricity", "Premium and Electricity", "Regular Gas or Electricity", "Electricity"), "Electric", "Non-Electric")
+big_epa_cars$fuelType <- ifelse(big_epa_cars$fuelType %in%
+               c("Regular Gas and Electricity",
+                "Premium Gas or Electricity",
+                 "Premium and Electricity", 
+                "Regular Gas or Electricity",
+                "Electricity"), "Electric", "Non-Electric")
 
 pp  <- big_epa_cars %>% 
   mutate(fuelType=fct_reorder(fuelType, year)) %>% 
@@ -302,12 +310,12 @@ Increases in Electric car models in the last years might be a reflection of a ge
 
 # Conclusions / Future thoughts
 
-This was a huge dataset. You can answer other questions such as mileage of different car models, carbon dioxide emissions, fuel savings and many more. 
+This was a huge dataset. You can answer many other questions such as mileage of different car models, carbon dioxide emissions, fuel savings. 
 
 I have selected some car models which might be a good option if luggage space is a priority for you! 
 
 
-To see other examples of how people used this dataset follow the [Twitter hashtag #TidyTuesday](https://twitter.com/hashtag/tidytuesday?lang=en).
+To see other examples of how people used this dataset follow the **Twitter** hashtag [#TidyTuesday](https://twitter.com/hashtag/tidytuesday?lang=en).
 
 
 Please share if you have other ideas in the comments below!

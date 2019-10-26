@@ -177,7 +177,9 @@ head(uk18)
 **I want to order my legend with the same order of teams final positions**. Let's filter for the last week of the season and arrange them in descending order. I will assign this list to the factor levels of the team variable. 
 ```{r organize}
 # Extract team names in the order as the season end
-uk18_filt <- uk18 %>% filter(week == 38) %>% arrange(desc(points))
+uk18_filt <- uk18 %>% 
+  filter(week == 38) %>%
+  arrange(desc(points))
 knitr::kable(uk18_filt)
 finallevels <- as.character(uk18_filt$team)
 uk18$team <- factor(uk18$team, levels = finallevels)
@@ -195,15 +197,21 @@ getPalette(colorCount)
 
 ```{r Season timeline}
 # Plot season timeline using the palette we just created
-uk <- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_point(size=3) + theme(text = element_text(size=15)) + scale_color_manual(values =getPalette(colorCount))
+uk <- ggplot(uk18, aes(x=week, y=points, col=team)) +   geom_point(size=3) + 
+  theme(text = element_text(size=15)) + 
+  scale_color_manual(values = getPalette(colorCount))
 ```
 
 Let's plot the regression lines
 ```{r Season timeline linear model}
 # Plot season timeline
-uk <- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=TRUE) + theme(text = element_text(size=15)) + scale_color_manual(values =getPalette(colorCount))
+uk <- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=TRUE) + 
+  theme(text = element_text(size=15)) + 
+  scale_color_manual(values = getPalette(colorCount))
 uk
-uk_facet <- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=FALSE) + theme(text = element_text(size=10)) + scale_color_manual(values =getPalette(colorCount)) + facet_wrap(ncol = 4, team~.)
+uk_facet <- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=FALSE) + 
+  theme(text = element_text(size=10)) + 
+  scale_color_manual(values = getPalette(colorCount)) + facet_wrap(ncol = 4, team~.)
 
 uk_facet
 ```
@@ -217,7 +225,8 @@ I can plot points against goal differences in the same plot. Same clusters pop u
 
 ```{r points vs goal differences}
 uk <- ggplot(uk18, aes(x=difference, y=points, col=team)) + 
-  geom_point(size=2) + scale_color_manual(values =getPalette(colorCount)) + 
+  geom_point(size=2) + 
+  scale_color_manual(values = getPalette(colorCount)) + 
   theme(text = element_text(size=15))
 uk
 ```

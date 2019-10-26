@@ -174,7 +174,9 @@ head(uk18)&lt;/code&gt;&lt;/pre&gt;
 ## 6      Watford FC    1   1     0    0      2       0          2      3&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;I want to order my legend with the same order of teams final positions&lt;/strong&gt;. Let’s filter for the last week of the season and arrange them in descending order. I will assign this list to the factor levels of the team variable.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Extract team names in the order as the season end
-uk18_filt &amp;lt;- uk18 %&amp;gt;% filter(week == 38) %&amp;gt;% arrange(desc(points))
+uk18_filt &amp;lt;- uk18 %&amp;gt;% 
+  filter(week == 38) %&amp;gt;%
+  arrange(desc(points))
 knitr::kable(uk18_filt)&lt;/code&gt;&lt;/pre&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -804,14 +806,20 @@ getPalette(colorCount)&lt;/code&gt;&lt;/pre&gt;
 ##  [8] &amp;quot;#94539E&amp;quot; &amp;quot;#BD6066&amp;quot; &amp;quot;#E97422&amp;quot; &amp;quot;#FF990A&amp;quot; &amp;quot;#FFCF20&amp;quot; &amp;quot;#FAF632&amp;quot; &amp;quot;#D4AE2D&amp;quot;
 ## [15] &amp;quot;#AF6729&amp;quot; &amp;quot;#BF6357&amp;quot; &amp;quot;#E17597&amp;quot; &amp;quot;#E884B9&amp;quot; &amp;quot;#C08EA9&amp;quot; &amp;quot;#999999&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot season timeline using the palette we just created
-uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_point(size=3) + theme(text = element_text(size=15)) + scale_color_manual(values =getPalette(colorCount))&lt;/code&gt;&lt;/pre&gt;
+uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) +   geom_point(size=3) + 
+  theme(text = element_text(size=15)) + 
+  scale_color_manual(values = getPalette(colorCount))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let’s plot the regression lines&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot season timeline
-uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=TRUE) + theme(text = element_text(size=15)) + scale_color_manual(values =getPalette(colorCount))
+uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=TRUE) + 
+  theme(text = element_text(size=15)) + 
+  scale_color_manual(values = getPalette(colorCount))
 uk&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/Season%20timeline%20linear%20model-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk_facet &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=FALSE) + theme(text = element_text(size=10)) + scale_color_manual(values =getPalette(colorCount)) + facet_wrap(ncol = 4, team~.)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk_facet &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=FALSE) + 
+  theme(text = element_text(size=10)) + 
+  scale_color_manual(values = getPalette(colorCount)) + facet_wrap(ncol = 4, team~.)
 
 uk_facet&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
@@ -825,7 +833,8 @@ Some insights from the plots:&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;I can plot points against goal differences in the same plot. Same clusters pop up here as well.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk &amp;lt;- ggplot(uk18, aes(x=difference, y=points, col=team)) + 
-  geom_point(size=2) + scale_color_manual(values =getPalette(colorCount)) + 
+  geom_point(size=2) + 
+  scale_color_manual(values = getPalette(colorCount)) + 
   theme(text = element_text(size=15))
 uk&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/points%20vs%20goal%20differences-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
@@ -906,11 +915,9 @@ by using 8 medical indicators.&lt;/p&gt;
 &lt;h1&gt;Data acquisition&lt;/h1&gt;
 &lt;p&gt;I downloaded the &lt;a href=&#34;https://www.kaggle.com/uciml/pima-indians-diabetes-database&#34;&gt;Pima Indians Diabetes Dataset&lt;/a&gt; from Kaggle and imported it from my local directory.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;diabetes &amp;lt;- read.csv(&amp;quot;posts_data/diabetes.csv&amp;quot;)
-
-library(dplyr)  
-library(tidyr)
+library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcats
 library(reshape2)
-library(ggplot2)
 library(ggcorrplot)
 library(pROC)
 library(lattice)
@@ -1103,7 +1110,9 @@ rows_with_zero &amp;lt;- unlist(zero_rows)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;zeros &amp;lt;- c(&amp;quot;Glucose&amp;quot; =rows_with_zero[1], &amp;quot;Blood Pressure&amp;quot; = rows_with_zero[2], 
            &amp;quot;Skin Thickness&amp;quot;= rows_with_zero[3], &amp;quot;Insulin&amp;quot; =rows_with_zero[4], 
            &amp;quot;BMI&amp;quot; = rows_with_zero[5])
-waffle(zeros, rows=20) + theme(text = element_text(size=15)) + ggtitle(&amp;quot;Number of rows with zero&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+waffle(zeros, rows=20) + 
+  theme(text = element_text(size=15)) + 
+  ggtitle(&amp;quot;Number of rows with zero&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/waffle%20plot%20of%20zero%20values-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
 df&lt;/code&gt;&lt;/pre&gt;

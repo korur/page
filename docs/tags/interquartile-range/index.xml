@@ -86,10 +86,22 @@ range &amp;lt;- function(x) {
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let’s replot with the statistics we wanted to overlay. You can use two &lt;code&gt;stat_summary()&lt;/code&gt; layers to add our stats. You can set the &lt;code&gt;fun.data&lt;/code&gt; argument to the specific function defined above.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Updated plot
-p + stat_summary(geom = &amp;quot;linerange&amp;quot;, fun.data = median_IQR, position = posn.d, size=3) + 
-  stat_summary(geom = &amp;quot;linerange&amp;quot;, fun.data = range, position = posn.d, size=3, alpha=0.5)+ 
-  stat_summary(geom = &amp;quot;point&amp;quot;, fun.y = &amp;quot;median&amp;quot;, position = posn.d, size = 3, 
-               col = &amp;quot;black&amp;quot;, shape = &amp;quot;X&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+p + 
+  stat_summary(geom = &amp;quot;linerange&amp;quot;,
+                 fun.data = median_IQR, 
+                 position = posn.d, 
+                 size=3) + 
+  stat_summary(geom = &amp;quot;linerange&amp;quot;, 
+               fun.data = range, 
+               position = posn.d, 
+               size=3, 
+               alpha=0.5)+ 
+  stat_summary(geom = &amp;quot;point&amp;quot;, 
+               fun.y = &amp;quot;median&amp;quot;, 
+               position = posn.d, 
+               size = 3, 
+               col = &amp;quot;black&amp;quot;, 
+               shape = &amp;quot;X&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-16-add-custom-summary-statistics-into-your-ggplot_files/figure-html/visualize%20with%20stats-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;In contrast, to the first plot here we easily see where the median and IQR lays. We can make our comparisions easier. Starting from dose 20, we see that glyphosate clearly outperforms bentazone. Big separation between the IQRs are obvious at doses 40 and 80. At higher doses, differences in IQRs starts to disappear.&lt;/p&gt;
 &lt;div id=&#34;conclusions&#34; class=&#34;section level3&#34;&gt;
