@@ -2,25 +2,26 @@
 title: '#TidyTuesday: Which are the best family cars for your weekend trip?'
 author: ''
 date: '2019-10-23'
-slug: tidytuesday-which-are-the-best-family-cars
-categories: []
-tags:
-  - ggplot2
-  - tidytuesday
-  - RStudio
-  - tidyverse
-  - data wrangling
-  - data visualization
-subtitle: ''
-summary: ''
-authors: []
-lastmod: '2019-10-23T10:04:49+02:00'
+output: pdf_document
 featured: no
 image:
   caption: ''
   focal_point: ''
   preview_only: no
+lastmod: '2019-10-23T10:04:49+02:00'
+categories: []
 projects: []
+slug: tidytuesday-which-are-the-best-family-cars
+subtitle: ''
+summary: ''
+tags:
+- ggplot2
+- tidytuesday
+- RStudio
+- tidyverse
+- data wrangling
+- data visualization
+authors: []
 ---
 This week, I will analyze Car Fuel Economy [dataset](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-10-15) from TidyTuesday.
 
@@ -30,16 +31,16 @@ TidyTuesday is a weekly social data project in R organized by the [R for Data Sc
 
 It is a great way of improving your Data wrangling and visualization techniques, **sharing and learning from others**. 
 
-You can find all the information on [github](https://github.com/rfordatascience/tidytuesday). 
+You can find more information on their [github](https://github.com/rfordatascience/tidytuesday). 
 
 Fuel economy [data](https://www.fueleconomy.gov/feg/download.shtml) are the result of the work done by the US Environmental Protection Agency. Full data dictionary can be found at [fueleconomy.gov](https://www.fueleconomy.gov/feg/ws/index.shtml#fuelType1). 
 
-The data contains information of 83 parameters of more than 40.000 Vehicles. That's a lot of information!
+The data contains 83 parameters of more than 40.000 Vehicles. That's a lot of information!
 
 
 # Going for your next family camping adventure? First, check your car model. 
 
-Better Fuel economy and recent developments on longer running electric car batteries are great but one thing which does not change in families' lives is the **need for space**. 
+Better Fuel economy and recent developments on longer running electric car batteries are great. But one thing which does not change in families' lives is the **need for space**. 
 
 If you don't want crying kids running around because of **a missing teddy bear** which did not fit in the baggage. Check, which brands will serve you best.
 
@@ -55,7 +56,7 @@ big_epa_cars <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidy
 dim(big_epa_cars)
 ```
 
-I will subset my data for easier computation  
+I will subset my data for easier computation.    
 
 Let's keep the following columns:
 
@@ -74,7 +75,7 @@ big_sub <- big_epa_cars %>%
   select(fuelType, year, make, model, VClass, hlv, hpv,lv4,pv4,displ)
 ```
 
-I will start exploring the data. For the moment, first I will focus on Midsize cars (VClass)
+I will start exploring the data. For the moment, first I will focus on **Midsize cars** (VClass).
 
 I will filter for the main pool of Midsize cars with 4 door and luggage volume of bigger than 6 and passenger volume larger than 75.
 
@@ -85,11 +86,18 @@ big_sw <- big_sub %>%
 
 big_sw %>%
   ggplot(aes(x=pv4, y=lv4)) + 
-  geom_point(shape=21, alpha=0.4,size =3, position = posn.j) + 
-  theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = "none") +
+  geom_point(shape=21,
+             alpha=0.4,size =3, 
+             position = posn.j) + 
+  theme(plot.caption=element_text(size=11), 
+        text = element_text(size=18),
+        plot.title = element_text(size=32), 
+        legend.position = "none") +
   geom_smooth(method = "lm", color ="red") + 
   coord_fixed() +
-    labs(x = "Passenger Vol (Cubic feet)", y = "Luggage Vol (Cubic feet)", title = "Luggage space negatively \ncorrelates with passenger space")
+    labs(x = "Passenger Vol (Cubic feet)", 
+         y = "Luggage Vol (Cubic feet)", 
+         title = "Luggage space negatively \ncorrelates with passenger space")
 
 ```
 
@@ -105,9 +113,14 @@ pp <- big_sw %>%
   mutate(make = fct_reorder(make, lv4)) %>%
   ggplot(aes(x=make, y=lv4, col=make)) + 
   geom_boxplot(varwidth=TRUE) +
-  theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = "none") +
+  theme(plot.caption=element_text(size=11), 
+        text = element_text(size=18),    
+        plot.title = element_text(size=32), 
+        legend.position = "none") +
   coord_flip() + 
-  labs(x = element_blank(), y = "Luggage size (cubic feet)", title = "Average luggage volumes in Midsized cars")
+  labs(x = element_blank(), 
+       y = "Luggage size (cubic feet)", 
+       title = "Average luggage volumes in Midsized cars")
   pp
 ```
 
