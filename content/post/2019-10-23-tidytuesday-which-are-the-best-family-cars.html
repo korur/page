@@ -2,25 +2,26 @@
 title: '#TidyTuesday: Which are the best family cars for your weekend trip?'
 author: ''
 date: '2019-10-23'
-slug: tidytuesday-which-are-the-best-family-cars
-categories: []
-tags:
-  - ggplot2
-  - tidytuesday
-  - RStudio
-  - tidyverse
-  - data wrangling
-  - data visualization
-subtitle: ''
-summary: ''
-authors: []
-lastmod: '2019-10-23T10:04:49+02:00'
+output: pdf_document
 featured: no
 image:
   caption: ''
   focal_point: ''
   preview_only: no
+lastmod: '2019-10-23T10:04:49+02:00'
+categories: []
 projects: []
+slug: tidytuesday-which-are-the-best-family-cars
+subtitle: ''
+summary: ''
+tags:
+- ggplot2
+- tidytuesday
+- RStudio
+- tidyverse
+- data wrangling
+- data visualization
+authors: []
 ---
 
 
@@ -30,13 +31,13 @@ projects: []
 <h2>What is TidyTuesday?</h2>
 <p>TidyTuesday is a weekly social data project in R organized by the <a href="https://thomasmock.netlify.com/post/tidytuesday-a-weekly-social-data-project-in-r/">R for Data Science community</a>.</p>
 <p>It is a great way of improving your Data wrangling and visualization techniques, <strong>sharing and learning from others</strong>.</p>
-<p>You can find all the information on <a href="https://github.com/rfordatascience/tidytuesday">github</a>.</p>
+<p>You can find more information on their <a href="https://github.com/rfordatascience/tidytuesday">github</a>.</p>
 <p>Fuel economy <a href="https://www.fueleconomy.gov/feg/download.shtml">data</a> are the result of the work done by the US Environmental Protection Agency. Full data dictionary can be found at <a href="https://www.fueleconomy.gov/feg/ws/index.shtml#fuelType1">fueleconomy.gov</a>.</p>
-<p>The data contains information of 83 parameters of more than 40.000 Vehicles. That’s a lot of information!</p>
+<p>The data contains 83 parameters of more than 40.000 Vehicles. That’s a lot of information!</p>
 </div>
 <div id="going-for-your-next-family-camping-adventure-first-check-your-car-model." class="section level1">
 <h1>Going for your next family camping adventure? First, check your car model.</h1>
-<p>Better Fuel economy and recent developments on longer running electric car batteries are great but one thing which does not change in families’ lives is the <strong>need for space</strong>.</p>
+<p>Better Fuel economy and recent developments on longer running electric car batteries are great. But one thing which does not change in families’ lives is the <strong>need for space</strong>.</p>
 <p>If you don’t want crying kids running around because of <strong>a missing teddy bear</strong> which did not fit in the baggage. Check, which brands will serve you best.</p>
 <p>Especially, if you have a daughter who likes to travel with a lot of toys.<img src="/img/raisa.jpg" alt="raisa.jpg" /><br />
 Let’s figure out a solution for peaceful weekend trip.</p>
@@ -48,7 +49,7 @@ Let’s figure out a solution for peaceful weekend trip.</p>
 big_epa_cars &lt;- read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-15/big_epa_cars.csv&quot;)
 dim(big_epa_cars)</code></pre>
 <pre><code>## [1] 41804    83</code></pre>
-<p>I will subset my data for easier computation</p>
+<p>I will subset my data for easier computation.</p>
 <p>Let’s keep the following columns:</p>
 <ul>
 <li>year - model year</li>
@@ -63,7 +64,7 @@ dim(big_epa_cars)</code></pre>
 </ul>
 <pre class="r"><code>big_sub &lt;- big_epa_cars %&gt;% 
   select(fuelType, year, make, model, VClass, hlv, hpv,lv4,pv4,displ)</code></pre>
-<p>I will start exploring the data. For the moment, first I will focus on Midsize cars (VClass)</p>
+<p>I will start exploring the data. For the moment, first I will focus on <strong>Midsize cars</strong> (VClass).</p>
 <p>I will filter for the main pool of Midsize cars with 4 door and luggage volume of bigger than 6 and passenger volume larger than 75.</p>
 <pre class="r"><code>posn.j &lt;- position_jitter(width=0.2)
 big_sw &lt;- big_sub %&gt;% 
@@ -71,11 +72,18 @@ big_sw &lt;- big_sub %&gt;%
 
 big_sw %&gt;%
   ggplot(aes(x=pv4, y=lv4)) + 
-  geom_point(shape=21, alpha=0.4,size =3, position = posn.j) + 
-  theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = &quot;none&quot;) +
+  geom_point(shape=21,
+             alpha=0.4,size =3, 
+             position = posn.j) + 
+  theme(plot.caption=element_text(size=11), 
+        text = element_text(size=18),
+        plot.title = element_text(size=32), 
+        legend.position = &quot;none&quot;) +
   geom_smooth(method = &quot;lm&quot;, color =&quot;red&quot;) + 
   coord_fixed() +
-    labs(x = &quot;Passenger Vol (Cubic feet)&quot;, y = &quot;Luggage Vol (Cubic feet)&quot;, title = &quot;Luggage space negatively \ncorrelates with passenger space&quot;)</code></pre>
+    labs(x = &quot;Passenger Vol (Cubic feet)&quot;, 
+         y = &quot;Luggage Vol (Cubic feet)&quot;, 
+         title = &quot;Luggage space negatively \ncorrelates with passenger space&quot;)</code></pre>
 <p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-2-1.png" width="1152" /></p>
 <p>This is not unexpected. But good to see.</p>
 <blockquote>
@@ -86,9 +94,14 @@ big_sw %&gt;%
   mutate(make = fct_reorder(make, lv4)) %&gt;%
   ggplot(aes(x=make, y=lv4, col=make)) + 
   geom_boxplot(varwidth=TRUE) +
-  theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = &quot;none&quot;) +
+  theme(plot.caption=element_text(size=11), 
+        text = element_text(size=18),    
+        plot.title = element_text(size=32), 
+        legend.position = &quot;none&quot;) +
   coord_flip() + 
-  labs(x = element_blank(), y = &quot;Luggage size (cubic feet)&quot;, title = &quot;Average luggage volumes in Midsized cars&quot;)
+  labs(x = element_blank(), 
+       y = &quot;Luggage size (cubic feet)&quot;, 
+       title = &quot;Average luggage volumes in Midsized cars&quot;)
   pp</code></pre>
 <p><img src="/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-3-1.png" width="1152" /></p>
 <p>If you follow the mean lines from bottom to top, you will see that cars cluster into three groups according to their mean of luggage sizes. But differences are not huge.</p>

@@ -25,13 +25,13 @@
 &lt;h2&gt;What is TidyTuesday?&lt;/h2&gt;
 &lt;p&gt;TidyTuesday is a weekly social data project in R organized by the &lt;a href=&#34;https://thomasmock.netlify.com/post/tidytuesday-a-weekly-social-data-project-in-r/&#34;&gt;R for Data Science community&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;It is a great way of improving your Data wrangling and visualization techniques, &lt;strong&gt;sharing and learning from others&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;You can find all the information on &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can find more information on their &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Fuel economy &lt;a href=&#34;https://www.fueleconomy.gov/feg/download.shtml&#34;&gt;data&lt;/a&gt; are the result of the work done by the US Environmental Protection Agency. Full data dictionary can be found at &lt;a href=&#34;https://www.fueleconomy.gov/feg/ws/index.shtml#fuelType1&#34;&gt;fueleconomy.gov&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;The data contains information of 83 parameters of more than 40.000 Vehicles. That’s a lot of information!&lt;/p&gt;
+&lt;p&gt;The data contains 83 parameters of more than 40.000 Vehicles. That’s a lot of information!&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;going-for-your-next-family-camping-adventure-first-check-your-car-model.&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Going for your next family camping adventure? First, check your car model.&lt;/h1&gt;
-&lt;p&gt;Better Fuel economy and recent developments on longer running electric car batteries are great but one thing which does not change in families’ lives is the &lt;strong&gt;need for space&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Better Fuel economy and recent developments on longer running electric car batteries are great. But one thing which does not change in families’ lives is the &lt;strong&gt;need for space&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;If you don’t want crying kids running around because of &lt;strong&gt;a missing teddy bear&lt;/strong&gt; which did not fit in the baggage. Check, which brands will serve you best.&lt;/p&gt;
 &lt;p&gt;Especially, if you have a daughter who likes to travel with a lot of toys.&lt;img src=&#34;/img/raisa.jpg&#34; alt=&#34;raisa.jpg&#34; /&gt;&lt;br /&gt;
 Let’s figure out a solution for peaceful weekend trip.&lt;/p&gt;
@@ -43,7 +43,7 @@ Let’s figure out a solution for peaceful weekend trip.&lt;/p&gt;
 big_epa_cars &amp;lt;- read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-15/big_epa_cars.csv&amp;quot;)
 dim(big_epa_cars)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 41804    83&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I will subset my data for easier computation&lt;/p&gt;
+&lt;p&gt;I will subset my data for easier computation.&lt;/p&gt;
 &lt;p&gt;Let’s keep the following columns:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;year - model year&lt;/li&gt;
@@ -58,7 +58,7 @@ dim(big_epa_cars)&lt;/code&gt;&lt;/pre&gt;
 &lt;/ul&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;big_sub &amp;lt;- big_epa_cars %&amp;gt;% 
   select(fuelType, year, make, model, VClass, hlv, hpv,lv4,pv4,displ)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I will start exploring the data. For the moment, first I will focus on Midsize cars (VClass)&lt;/p&gt;
+&lt;p&gt;I will start exploring the data. For the moment, first I will focus on &lt;strong&gt;Midsize cars&lt;/strong&gt; (VClass).&lt;/p&gt;
 &lt;p&gt;I will filter for the main pool of Midsize cars with 4 door and luggage volume of bigger than 6 and passenger volume larger than 75.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;posn.j &amp;lt;- position_jitter(width=0.2)
 big_sw &amp;lt;- big_sub %&amp;gt;% 
@@ -66,11 +66,18 @@ big_sw &amp;lt;- big_sub %&amp;gt;%
 
 big_sw %&amp;gt;%
   ggplot(aes(x=pv4, y=lv4)) + 
-  geom_point(shape=21, alpha=0.4,size =3, position = posn.j) + 
-  theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = &amp;quot;none&amp;quot;) +
+  geom_point(shape=21,
+             alpha=0.4,size =3, 
+             position = posn.j) + 
+  theme(plot.caption=element_text(size=11), 
+        text = element_text(size=18),
+        plot.title = element_text(size=32), 
+        legend.position = &amp;quot;none&amp;quot;) +
   geom_smooth(method = &amp;quot;lm&amp;quot;, color =&amp;quot;red&amp;quot;) + 
   coord_fixed() +
-    labs(x = &amp;quot;Passenger Vol (Cubic feet)&amp;quot;, y = &amp;quot;Luggage Vol (Cubic feet)&amp;quot;, title = &amp;quot;Luggage space negatively \ncorrelates with passenger space&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+    labs(x = &amp;quot;Passenger Vol (Cubic feet)&amp;quot;, 
+         y = &amp;quot;Luggage Vol (Cubic feet)&amp;quot;, 
+         title = &amp;quot;Luggage space negatively \ncorrelates with passenger space&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This is not unexpected. But good to see.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -81,9 +88,14 @@ big_sw %&amp;gt;%
   mutate(make = fct_reorder(make, lv4)) %&amp;gt;%
   ggplot(aes(x=make, y=lv4, col=make)) + 
   geom_boxplot(varwidth=TRUE) +
-  theme(plot.caption=element_text(size=11), text = element_text(size=18),    plot.title = element_text(size=32), legend.position = &amp;quot;none&amp;quot;) +
+  theme(plot.caption=element_text(size=11), 
+        text = element_text(size=18),    
+        plot.title = element_text(size=32), 
+        legend.position = &amp;quot;none&amp;quot;) +
   coord_flip() + 
-  labs(x = element_blank(), y = &amp;quot;Luggage size (cubic feet)&amp;quot;, title = &amp;quot;Average luggage volumes in Midsized cars&amp;quot;)
+  labs(x = element_blank(), 
+       y = &amp;quot;Luggage size (cubic feet)&amp;quot;, 
+       title = &amp;quot;Average luggage volumes in Midsized cars&amp;quot;)
   pp&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-23-tidytuesday-which-are-the-best-family-cars_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;If you follow the mean lines from bottom to top, you will see that cars cluster into three groups according to their mean of luggage sizes. But differences are not huge.&lt;/p&gt;
