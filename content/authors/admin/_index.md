@@ -43,7 +43,7 @@ education:
 social:
 - icon: envelope
   icon_pack: fas
-  link: '#contact'  # For a direct email link, use "mailto:serdar.korur@gmail.com".
+  link: "mailto:serdar.korur@gmail.com"
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/serdar-korur/
