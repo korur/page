@@ -3009,5 +3009,143 @@ Modify as Key = HUGO_VERSION and Value = 0.58.1&lt;br /&gt;
 </description>
     </item>
     
+    <item>
+      <title>TEST</title>
+      <link>/r/test/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/r/test/</guid>
+      <description>
+
+
+&lt;style&gt;
+#TOC {
+  top: 1%;
+  opacity: 0.5;
+}
+#TOC:hover {
+  opacity: 1;
+}
+&lt;/style&gt;
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com&#34;&gt;R markdown&lt;/a&gt; creates interactive reports from &lt;a href=&#34;https://www.r-project.org&#34;&gt;R&lt;/a&gt; code. This post provides a few tips I use on a daily basis to improve the appearance of output documents. In any case, an unavoidable resource is the &lt;a href=&#34;https://rmarkdown.rstudio.com/html_document_format.html&#34;&gt;Rstudio documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div id=&#34;text-formatting&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Text formating&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;R markdown allows to easily format your text. You can add &lt;a href=&#34;www.r-graph-gallery.com&#34;&gt;links&lt;/a&gt;, write in &lt;strong&gt;bold&lt;/strong&gt; or &lt;em&gt;italic&lt;/em&gt;. This is very well explained in the &lt;a href=&#34;https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf&#34;&gt;Rstudio cheatsheet&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here is the code I used to make this paragraph:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;R markdown allows to easily format your text. You can add [links](www.r-graph-gallery.com), write in **bold** or *italic*. This is very well explained in the [Rstudio cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf).&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;horizontal-line&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Horizontal lines&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;Add an horizontal line by adding 3 stars:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;***&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;auto-numbering&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Chapter auto numbering&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;Header of level 1, 2, 3 are set using #, ## and ###. You can auto number your chapters using this option in the header:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;---
+title: &amp;quot;Your title&amp;quot;
+output: 
+  html_document:
+    number_sections: TRUE
+---
+# Title
+## A subtitle
+## Another subtitle
+# Another title&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;skip-line&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Skip a line&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;I really like to add spaces in my document to give it a more uncluttered look. This is done using the &lt;code&gt;&amp;lt;br&amp;gt;&lt;/code&gt; command. This &lt;code&gt;.rmd&lt;/code&gt; code:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;A first sentence
+&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;
+A seconde sentence&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;will give this &lt;code&gt;html&lt;/code&gt;output:&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;A first sentence
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+A seconde sentence&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;center-image&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Center an image&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;To center an image, use this code:&lt;/p&gt;
+&lt;/center&gt;
+&lt;/div&gt;
+&lt;div id=&#34;white-space-around-img&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;White space around img&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;If you’re struggling with to much white space around your image, try to play with the &lt;code&gt;fig.asp&lt;/code&gt; argument. Here I used &lt;code&gt;fig.asp=0.50&lt;/code&gt;.
+`
+Note: thanks to &lt;a href=&#34;https://twitter.com/annaquagli&#34;&gt;Anna Quaglieri&lt;/a&gt; for this suggestion.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;add-footer&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Footer and header&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;You can add some html code at the beginning or at the end of your document. Here is the html code I’ve added at the end of this document:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;&amp;amp;nbsp;
+&amp;lt;hr /&amp;gt;
+&amp;lt;p style=&amp;quot;text-align: center;&amp;quot;&amp;gt;A work by &amp;lt;a href=&amp;quot;https://github.com/holtzy/&amp;quot;&amp;gt;Yan Holtz&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;p style=&amp;quot;text-align: center;&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot;color: #808080;&amp;quot;&amp;gt;&amp;lt;em&amp;gt;Yan.holtz.data@gmail.com&amp;lt;/em&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;!-- Add icon library --&amp;gt;
+&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css&amp;quot;&amp;gt;
+&amp;lt;!-- Add font awesome icons --&amp;gt;
+&amp;lt;p style=&amp;quot;text-align: center;&amp;quot;&amp;gt;
+    &amp;lt;a href=&amp;quot;https://twitter.com/r_graph_gallery?lang=en&amp;quot; class=&amp;quot;fa fa-twitter&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;
+    &amp;lt;a href=&amp;quot;https://www.linkedin.com/in/yan-holtz-2477534a/&amp;quot; class=&amp;quot;fa fa-linkedin&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;
+    &amp;lt;a href=&amp;quot;https://github.com/holtzy/&amp;quot; class=&amp;quot;fa fa-github&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;
+&amp;lt;/p&amp;gt;
+&amp;amp;nbsp;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Put it in a &lt;code&gt;footer.html&lt;/code&gt; file that you save in the folder of your &lt;code&gt;.rmd&lt;/code&gt; file. Then ask to put it at the end of the document in the YAML header:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;add-space&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Space before title&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;I find it pleasant to have a bit of space before starting a new chapter. You can use a &lt;code&gt;&amp;lt;br&amp;gt;&lt;/code&gt; before each header. A more convenient way is to add some margin in your CSS. Create a &lt;code&gt;style.css&lt;/code&gt; file:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;h1, .h1, h2, .h2, h3, .h3 {
+    margin-top: 84px;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A &lt;code&gt;rmd&lt;/code&gt; document that takes into account this &lt;code&gt;.css&lt;/code&gt; file:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;---
+title: &amp;quot;A document with a CSS included&amp;quot;
+output:
+  html_document:
+    css: style.css
+---
+A title will follow, but with a lot of space before it
+# Title 1
+content of part 1
+# Title 2
+content of part 2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The document you are reading uses this &lt;code&gt;css&lt;/code&gt;. See the separation between chapters.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;add-caption&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Figures caption&lt;/h1&gt;
+&lt;hr /&gt;
+&lt;p&gt;Specify the caption of your figure in the chunk header. Example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;{r, fig.align=&amp;quot;center&amp;quot;, fig.width=6, fig.height=6, fig.cap=&amp;quot;Figure: Here is a really important caption.&amp;quot;}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+mpg %&amp;gt;%
+  ggplot( aes(x=reorder(class, hwy), y=hwy, fill=class)) + 
+    geom_boxplot() +
+    xlab(&amp;quot;class&amp;quot;) +
+    theme(legend.position=&amp;quot;none&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34; style=&#34;text-align: center&#34;&gt;&lt;span id=&#34;fig:unnamed-chunk-9&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2019-10-28-sidebar_files/figure-html/unnamed-chunk-9-1.png&#34; alt=&#34;Figure: Here is a really important caption.&#34; width=&#34;576&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figure 1: Figure: Here is a really important caption.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
