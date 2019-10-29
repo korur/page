@@ -268,7 +268,7 @@ p_val_binom <- 2 * (1 - pbinom(124, 2782, 1/30))
 p_val_binom
 ```
 
-Let's visualize the significant days which movie makers more or less likely to relase a movie. I will highlighted the significant days with darker color.
+Let's visualize the significant days which movie makers more or less likely to release a movie. I will highlighted the significant days with darker color.
 
 
 ```{r, fig.width=12, fig.height=8}
