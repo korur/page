@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>animate | SERDAR KORUR</title>
+    <link>/tags/animate/</link>
+      <atom:link href="/tags/animate/index.xml" rel="self" type="application/rss+xml" />
+    <description>animate</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 28 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/img/logo.png</url>
+      <title>animate</title>
+      <link>/tags/animate/</link>
+    </image>
+    
+    <item>
+      <title>An intuitive real life example of a binomial distribution and how to simulate it in R</title>
+      <link>/r/probability-distributions/</link>
+      <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/r/probability-distributions/</guid>
+      <description>
+
+
+&lt;p&gt;Last week, I came accross a data that I thought it is a great opportunity to write about Binomial probability distributions.&lt;/p&gt;
+&lt;div id=&#34;what-is-a-binomial-distribution-and-why-we-need-to-know-it&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;What is a binomial distribution and why we need to know it?&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Binomial distributions&lt;/strong&gt; refer to a repeated set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are decribed as &lt;strong&gt;Success&lt;/strong&gt; or &lt;strong&gt;no Success&lt;/strong&gt;. A “yes” or “no”.&lt;/p&gt;
+&lt;p&gt;For example, in flipping coins, the two possibilities are getting a head (success) or tails (no success) or vice versa.&lt;/p&gt;
+&lt;div id=&#34;why-is-this-interesting&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Why is this interesting?&lt;/h2&gt;
+&lt;p&gt;What is the probability of getting 25 heads out of 50 coin flips? You are right, 25 is an expected outcome. &lt;strong&gt;But how about getting 49 heads out of 50 flips?&lt;/strong&gt; What is the probability of that given the coin is fair?&lt;/p&gt;
+&lt;p&gt;Let’s repeat this set of 50 times coin flipping, 100.000 times and look at the probability distribution.&lt;/p&gt;
+&lt;p&gt;Luckily, we can simulate this in R.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rbinom&lt;/code&gt; function can make a given number of repeated (here 100.000) sets (50 times of coin flipping) of experiments. It takes 3 arguments.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rbinom(n, size, p)&lt;/code&gt;&lt;br /&gt;
+&lt;strong&gt;n&lt;/strong&gt; = number of repetitions/trials = 100.000.&lt;br /&gt;
+&lt;strong&gt;size&lt;/strong&gt; = sample size = 50.&lt;br /&gt;
+&lt;strong&gt;p&lt;/strong&gt; is the probability of success (Here chance of throwing a heads is 0.5).&lt;/p&gt;
+&lt;p&gt;By wrapping &lt;code&gt;rbinom&lt;/code&gt; inside &lt;code&gt;mean()&lt;/code&gt; function we can actually calculate the probability of that event.&lt;/p&gt;
+&lt;p&gt;Let’s compare the probabilities of getting 25, 30 or 35 or more heads.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+
+# Probability of getting 25 or more heads
+mean(rbinom(100000, 50, .5) &amp;gt; 24)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.5544&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 30 or more heads
+mean(rbinom(100000, 50, .5) &amp;gt; 29)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.10152&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 35 or more heads
+mean(rbinom(100000, 50, .5) &amp;gt; 34)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.00326&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As we see to get more than 35 heads is very unlikely in a set. Let’s visualize this. The bars in red represents the sets which had 35 or more heads.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flips &amp;lt;- rbinom(100000, 50, 0.5)
+flips &amp;lt;- data.frame(flips)
+flips &amp;lt;- flips %&amp;gt;% mutate(more_than_35 = ifelse(flips &amp;gt; 35, &amp;quot;Yes&amp;quot;, &amp;quot;No&amp;quot;))
+flips %&amp;gt;%  ggplot(aes(x=flips, fill = more_than_35)) + 
+  geom_histogram(binwidth = 0.5) + 
+  scale_fill_manual(values = c(&amp;quot;black&amp;quot;, &amp;quot;red&amp;quot;)) +
+  theme_classic() +
+  theme(legend.position = c(0.85, 0.85))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;You can also see here a key difference of a binomial distribution is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, &lt;strong&gt;when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;So what are all those will be useful for?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Coin flipping expertise may not have useful real life applications but let’s give some other examples.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Number of patients responding to a treatment.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Let’s say you know that a cancer medicine has 10% probability to cure a patient. You have multiple groups of 500 patients each with a different genetic mutation. You want to identify patient subgroups which better respond to your therapy. The expected number of patients responded to the therapy ( like above E = size * p) which is 500 * 0.1. So each group will have around 50 recovered patients, if there were no effects of those genetic mutations. But you found in one group that 65 patients responded. Is that due to chance or a significant effect?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Think about a hospital emergency station.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you know 3.000 patients came in one year because of alcohol abuse. You can compare whether it was Friday or Saturday or another evening of a week. Each day has 1/7 chance of getting a patient visit. You can find out the whether events happening in the weekends more likely than expected and organize the staff numbers accordingly.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;If you are running a webserver.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can allocate your resources better by identifying times when traffic will be higher.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Number of people who answered ‘yes’ to a survey question&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;How many games a team will win in one season?&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Vote counts for a candidate in an election.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Number of defective products in a production run.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Binomial distributions are common and they are very useful. Let’s come back to our case.
+The data comes from TidyTuesday which I introduced you in my last &lt;a href=&#34;https://dataatomic.com/r/tidytuesday-which-are-the-best-family-cars/&#34;&gt;post&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Having the &lt;strong&gt;correct mindset&lt;/strong&gt; for anything gives us a better feeling of the moment.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;If you go to the cinema at the 13th to watch a horror movie, are you more likely to view it positively than any other date?&lt;/strong&gt; I was curious if movie makers had the same idea and I analyzed Horror movies data to calculate numbers releases in different days of the month. This is a good example of a binomial probability distribution. Let’s look at the data.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcats
+library(animation)
+library(viridis)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I need some &lt;strong&gt;data pre-processing&lt;/strong&gt; before I can make my visualizations. Dates are given in &lt;code&gt;day:month:year&lt;/code&gt; format. I need to split them to individual columns. Also couple of movies does not have the day of the month. I will remove them.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;horror_movies &amp;lt;- readr::read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-22/horror_movies.csv&amp;quot;)
+
+dim(horror_movies)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 3328   12&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(horror_movies)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 12
+##   title genres release_date release_country movie_rating review_rating
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;chr&amp;gt;        &amp;lt;chr&amp;gt;           &amp;lt;chr&amp;gt;                &amp;lt;dbl&amp;gt;
+## 1 Gut ~ Drama~ 26-Oct-12    USA             &amp;lt;NA&amp;gt;                   3.9
+## 2 The ~ Horror 13-Jan-17    USA             &amp;lt;NA&amp;gt;                  NA  
+## 3 Slee~ Horror 21-Oct-17    Canada          &amp;lt;NA&amp;gt;                  NA  
+## 4 Trea~ Comed~ 23-Apr-13    USA             NOT RATED              3.7
+## 5 Infi~ Crime~ 10-Apr-15    USA             &amp;lt;NA&amp;gt;                   5.8
+## 6 In E~ Horro~ 2017         UK              &amp;lt;NA&amp;gt;                  NA  
+## # ... with 6 more variables: movie_run_time &amp;lt;chr&amp;gt;, plot &amp;lt;chr&amp;gt;, cast &amp;lt;chr&amp;gt;,
+## #   language &amp;lt;chr&amp;gt;, filming_locations &amp;lt;chr&amp;gt;, budget &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;horror_date &amp;lt;-  horror_movies %&amp;gt;% 
+                separate(
+                  release_date, 
+                  c(&amp;quot;day&amp;quot;, &amp;quot;month&amp;quot;, &amp;quot;year&amp;quot;),
+                  sep = &amp;quot;-&amp;quot;)
+
+horror_date$day &amp;lt;- as.numeric(horror_date$day)
+
+# Remove rows without Date of the month
+
+horror_date &amp;lt;- horror_date %&amp;gt;% filter(day &amp;lt; 32) 
+
+# I am excluding Day 1 from the analysis (Most aggreements starts at 1st)
+
+horror_date_table &amp;lt;- horror_date %&amp;gt;% filter(day &amp;gt; 1)
+
+# Let&amp;#39;s check what is the most common day in the month for a horror movie release
+horror_date_table &amp;lt;-  horror_date_table %&amp;gt;%
+  group_by(day) %&amp;gt;% 
+  count() %&amp;gt;% 
+  arrange(desc(n))
+horror_date_table&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 30 x 2
+## # Groups:   day [30]
+##      day     n
+##    &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;
+##  1    13   124
+##  2    18   119
+##  3    25   119
+##  4    21   110
+##  5    31   107
+##  6    28   102
+##  7    10   100
+##  8    20   100
+##  9     5    99
+## 10     7    98
+## # ... with 20 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s visualize the data.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Final
+horror_date_table$day &amp;lt;- as.character(horror_date_table$day)
+
+my_title &amp;lt;- &amp;quot;Horror movies are more likely to be released at the 13th&amp;quot;
+
+p &amp;lt;- horror_date_table %&amp;gt;% 
+    ungroup() %&amp;gt;% 
+    mutate(day=fct_reorder(day, n, .desc=TRUE)) %&amp;gt;% 
+    ggplot(aes(x=day, y=n)) +
+    geom_col(aes(fill=n)) +
+    scale_fill_viridis( direction =-1) + 
+    theme(
+      plot.title = element_text(size=24, color= &amp;quot;black&amp;quot;, hjust=0.5, vjust = -1),
+      plot.subtitle = element_text(size=36, color= &amp;quot;red&amp;quot;, hjust=0.5, vjust = -1),
+      panel.background = element_rect(fill = &amp;quot;white&amp;quot;), 
+      plot.background = element_rect(fill = &amp;quot;white&amp;quot;),
+      panel.grid = element_blank(),
+      legend.position = &amp;quot;none&amp;quot;, 
+      text = element_text(size=18), 
+      axis.text.x =element_text(vjust=12, size=17, colour= &amp;quot;white&amp;quot;, face= &amp;quot;bold&amp;quot;),
+      axis.title.x = element_text(vjust=9.5), 
+      axis.text.y=element_blank(),
+      axis.ticks= element_blank(), 
+      plot.caption = element_text(hjust = 1, vjust = 10)) +
+    labs(
+          caption= &amp;quot;Source: IMDb, Plot: @dataatomic&amp;quot;,
+          x = &amp;quot;Day of the Month&amp;quot;, 
+          y = &amp;quot;Number of movies released&amp;quot;,
+          title = my_title) +
+    geom_label(aes(label = n), size=5, fill=&amp;quot;yellow&amp;quot;, alpha=0.9) 
+p&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;is-this-significant&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Is this significant?&lt;/h1&gt;
+&lt;p&gt;In our data, there are &lt;strong&gt;2782&lt;/strong&gt; movies associated with a release date. Since these are random events each day have an equal chance of 1/30 for a movie release. &lt;strong&gt;We expect a similar distribution of movies at each day, e.g. around the 92 (mean=2782/30).&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;What we want to know is, are there any specific days in the month Movie industry prefers intentionally to release or not to release a movie?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Size of our distribution is the total number of movies released 
+n_value &amp;lt;- horror_date_table %&amp;gt;% ungroup() %&amp;gt;% summarize(n2 = sum(n))
+size &amp;lt;- n_value$n2
+size&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 2782&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# The probability (= success rate = a given outcome to occur = movie released)
+p &amp;lt;-  1/30  # Since it can occur any of the 30 days in a months&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I want to know which days are in the &lt;strong&gt;range of random chance&lt;/strong&gt; and which days there is a &lt;strong&gt;significant preference or an aversion&lt;/strong&gt; to release a movie. To do this I can define a lower and upper boundary for significance (p value &amp;lt; 0.05).&lt;/p&gt;
+&lt;p&gt;You can simulate this 2782 movie release dates events 100.000 times with rbinom function and calculate the mean and variance.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated statistics
+ 
+estimates &amp;lt;-  rbinom(100000, size, p)
+
+# Simulated mean
+mean(estimates)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.6769&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated variance
+var(estimates)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 89.95813&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The average value is around 92 movies released in one day.&lt;/p&gt;
+&lt;p&gt;We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:&lt;/p&gt;
+&lt;p&gt;Mean = size * p&lt;br /&gt;
+Variance = size * p * (1 - p)&lt;/p&gt;
+&lt;p&gt;Let’s calculate.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Theoretical statistics
+
+# Expected mean = size * p
+mean_theoretical &amp;lt;- 2782 * 1/30
+mean_theoretical&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.73333&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Expected Variance = size * p * (1-p)
+var_theoretical &amp;lt;- size * 1/30 * (1-1/30)
+var_theoretical&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 89.64222&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Great, simulated and theoretical values are almost the same. So, I can use my simulations to find out 95% confidence interval which will contain the values that can happen due to random chance.&lt;/p&gt;
+&lt;p&gt;We can do this by the qbinom() function in r. We can calculate the quantile 97.5 and 2.5 as our upper and lower boundaries respectively.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Boundaries for p values smaller than 0.05
+
+lower &amp;lt;- qbinom(0.975, 2782, 1/30)
+lower&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 112&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;upper &amp;lt;- qbinom(0.025, 2782, 1/30)
+upper&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 75&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Values higher than &lt;code&gt;112&lt;/code&gt; and values lower than &lt;code&gt;75&lt;/code&gt; can not happen due to random chance in our binomial distribution.&lt;/p&gt;
+&lt;p&gt;Our value at the 13th is 124. Above the 97.5th quantile. So it is significant. But what is the exact p value?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 124 movie releases in a day like here it happened on the 13th. # Probability of getting at least 124 success
+
+p_val_binom &amp;lt;- 2 * (1 - pbinom(124, 2782, 1/30))
+p_val_binom&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.001335455&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s visualize the significant days which movie makers more or less likely to relase a movie. I will highlighted the significant days with darker color.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# I will add a new column so I can separetly define values outside the 95% confidence interval.
+
+horror_date_table_ci &amp;lt;- horror_date_table %&amp;gt;% mutate(significant = ifelse((n &amp;lt; 112 &amp;amp; n &amp;gt; 75), 0,1))
+
+# Visualize the significant days 
+p_ci &amp;lt;- horror_date_table_ci %&amp;gt;% 
+    ungroup() %&amp;gt;% 
+    mutate(day=fct_reorder(day, n, .desc=TRUE)) %&amp;gt;% 
+    ggplot(aes(x=day, y=n)) +
+    geom_col(aes(fill=significant)) +
+    scale_fill_viridis( direction =-1) + 
+    theme(
+        plot.title = element_text(size=24, color= &amp;quot;black&amp;quot;, hjust=0.5, vjust = -1),
+        plot.subtitle = element_text(size=36, color= &amp;quot;red&amp;quot;, hjust=0.5, vjust = -1),
+        panel.background = element_rect(fill = &amp;quot;white&amp;quot;), 
+        plot.background = element_rect(fill = &amp;quot;white&amp;quot;),
+        panel.grid = element_blank(),
+        text = element_text(size=18), 
+        axis.text.x =element_text(vjust=12, size=17, colour= &amp;quot;white&amp;quot;, face= &amp;quot;bold&amp;quot;),
+        axis.title.x = element_text(vjust=9.5), 
+        axis.text.y=element_blank(),
+        axis.ticks= element_blank(), 
+        plot.caption = element_text(hjust = 1, vjust = 10)) +
+    labs(
+        caption= &amp;quot;Source: IMDb, Plot: @dataatomic&amp;quot;,
+        x = &amp;quot;Day of the Month&amp;quot;, 
+        y = &amp;quot;Number of movies released&amp;quot;,
+        title = my_title) +
+        geom_label(aes(label = n), size=5, fill=&amp;quot;yellow&amp;quot;, alpha=0.9)
+p_ci                                                     &lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We performed a hypothesis testing by calculating the p value by using the pbinom() function.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;However, another widely used way to do so is to calculate the mean (the expected probability) of our distribution and its standard deviation and to verify how many standard deviations the observed value is away from the mean (the z score).&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Because we usually test our hypothesis using a sample, we work with the sampling distribution instead of the population distribution. This means that we use the standard error.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sample_mean &amp;lt;- horror_date_table %&amp;gt;% ungroup() %&amp;gt;% summarise(n=mean(n))
+sample_mean&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 1
+##       n
+##   &amp;lt;dbl&amp;gt;
+## 1  92.7&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;p &amp;lt;- 1/30
+
+sample_variance &amp;lt;-  2782 * p * (1-p)
+sample_variance&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 89.64222&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sample_sd &amp;lt;- sqrt(sample_variance)
+
+# Calculate z-score for observation 13th of the month = 124 movies are 
+# released
+observation &amp;lt;- 124
+z_score &amp;lt;- (observation - sample_mean) / sample_sd
+z_score&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##          n
+## 1 3.302367&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate the p-value of observing 124 or more movie releases in a day
+
+p_val_nor &amp;lt;- 2 * pnorm(3.302, lower.tail = FALSE)
+p_val_nor&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.0009599807&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;P_value found by using an approximation of a normal distribution and the other one with a simulation of a binomial distribution in this case are very close, Normal: &lt;code&gt;9.599807\times 10^{-4}&lt;/code&gt;, Binomial &lt;code&gt;0.0013355&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;future-thoughts-conclusions&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Future thoughts / Conclusions&lt;/h1&gt;
+&lt;p&gt;As we saw, many events in real life can be explained by binomial probability distributions, and they allow us to calculate whether or not the events happened to to random chance and test different hypothesis.&lt;/p&gt;
+&lt;p&gt;Until next time!&lt;/p&gt;
+&lt;p&gt;Serdar&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

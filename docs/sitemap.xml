@@ -3,6 +3,56 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/r/probability-distributions/</loc>
+    <lastmod>2019-10-28T20:48:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/animate/</loc>
+    <lastmod>2019-10-28T20:48:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/binomial-distribution/</loc>
+    <lastmod>2019-10-28T20:48:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ggplot2/</loc>
+    <lastmod>2019-10-28T20:48:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2019-10-28T20:48:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/probability/</loc>
+    <lastmod>2019-10-28T20:48:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/pvalue/</loc>
+    <lastmod>2019-10-28T20:48:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-10-28T20:48:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/statistics/</loc>
+    <lastmod>2019-10-28T20:48:21+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-10-28T20:48:21+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/r/tidytuesday-which-are-the-best-family-cars/</loc>
     <lastmod>2019-10-23T10:04:49+02:00</lastmod>
   </url>
@@ -18,27 +68,7 @@
   </url>
   
   <url>
-    <loc>/tags/ggplot2/</loc>
-    <lastmod>2019-10-23T10:04:49+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2019-10-23T10:04:49+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/rstudio/</loc>
-    <lastmod>2019-10-23T10:04:49+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2019-10-23T10:04:49+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2019-10-23T10:04:49+02:00</lastmod>
   </url>
   
@@ -373,10 +403,6 @@
   
   <url>
     <loc>/talk/</loc>
-  </url>
-  
-  <url>
-    <loc>/r/test/</loc>
   </url>
   
 </urlset>
