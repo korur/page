@@ -10,7 +10,6 @@ tags:
   - statistics
   - probability
   - pvalue
-  - animate
 subtitle: ''
 summary: ''
 authors: []
@@ -334,12 +333,12 @@ p_val_nor
 
 ```
 
-P_value found by using an approximation of a normal distribution and the other one with a simulation of a binomial distribution in this case are very close, Normal: ```r p_val_nor```, Binomial ```r p_val_binom```.  
+P values found by using an approximation of a normal distribution and  with a simulation of a binomial distribution are very close, Normal: `0.00095`, Binomial ` 0.00133`.  
 
 
 # Future thoughts / Conclusions
 
-As we saw, many events in real life can be explained by binomial probability distributions, and they allow us to calculate whether or not the events happened to to random chance and test different hypothesis.
+As we saw, many events in real life can be explained by binomial probability distributions, and they allow us to calculate whether or not the events happened due to random chance and test different hypotheses.
 
 Until next time!
 

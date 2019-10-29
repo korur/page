@@ -41,13 +41,13 @@
 
 # Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 24)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.55601&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.55545&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 30 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 29)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.10233&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.10084&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 34)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.00324&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.00354&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As we see to get more than 35 heads is very unlikely in a set. Let’s visualize this. The bars in red represents the sets which had 35 or more heads.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flips &amp;lt;- rbinom(100000, 50, 0.5)
 flips &amp;lt;- data.frame(flips)
@@ -195,10 +195,10 @@ estimates &amp;lt;-  rbinom(100000, size, p)
 
 # Simulated mean
 mean(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 92.76346&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.71845&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated variance
 var(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 90.18583&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 89.20341&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The average value is around 92 movies released in one day.&lt;/p&gt;
 &lt;p&gt;We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:&lt;/p&gt;
 &lt;p&gt;Mean = size * p&lt;br /&gt;
@@ -291,11 +291,11 @@ z_score&lt;/code&gt;&lt;/pre&gt;
 p_val_nor &amp;lt;- 2 * pnorm(3.302, lower.tail = FALSE)
 p_val_nor&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.0009599807&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;P_value found by using an approximation of a normal distribution and the other one with a simulation of a binomial distribution in this case are very close, Normal: &lt;code&gt;9.599807\times 10^{-4}&lt;/code&gt;, Binomial &lt;code&gt;0.0013355&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;P values found by using an approximation of a normal distribution and with a simulation of a binomial distribution are very close, Normal: &lt;code&gt;0.00095&lt;/code&gt;, Binomial &lt;code&gt;0.00133&lt;/code&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;future-thoughts-conclusions&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Future thoughts / Conclusions&lt;/h1&gt;
-&lt;p&gt;As we saw, many events in real life can be explained by binomial probability distributions, and they allow us to calculate whether or not the events happened to to random chance and test different hypothesis.&lt;/p&gt;
+&lt;p&gt;As we saw, many events in real life can be explained by binomial probability distributions, and they allow us to calculate whether or not the events happened due to random chance and test different hypotheses.&lt;/p&gt;
 &lt;p&gt;Until next time!&lt;/p&gt;
 &lt;p&gt;Serdar&lt;/p&gt;
 &lt;/div&gt;

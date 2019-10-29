@@ -10,7 +10,6 @@ tags:
   - statistics
   - probability
   - pvalue
-  - animate
 subtitle: ''
 summary: ''
 authors: []
@@ -46,13 +45,13 @@ projects: []
 
 # Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &gt; 24)</code></pre>
-<pre><code>## [1] 0.55601</code></pre>
+<pre><code>## [1] 0.55545</code></pre>
 <pre class="r"><code># Probability of getting 30 or more heads
 mean(rbinom(100000, 50, .5) &gt; 29)</code></pre>
-<pre><code>## [1] 0.10233</code></pre>
+<pre><code>## [1] 0.10084</code></pre>
 <pre class="r"><code># Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &gt; 34)</code></pre>
-<pre><code>## [1] 0.00324</code></pre>
+<pre><code>## [1] 0.00354</code></pre>
 <p>As we see to get more than 35 heads is very unlikely in a set. Let’s visualize this. The bars in red represents the sets which had 35 or more heads.</p>
 <pre class="r"><code>flips &lt;- rbinom(100000, 50, 0.5)
 flips &lt;- data.frame(flips)
@@ -200,10 +199,10 @@ estimates &lt;-  rbinom(100000, size, p)
 
 # Simulated mean
 mean(estimates)</code></pre>
-<pre><code>## [1] 92.76346</code></pre>
+<pre><code>## [1] 92.71845</code></pre>
 <pre class="r"><code># Simulated variance
 var(estimates)</code></pre>
-<pre><code>## [1] 90.18583</code></pre>
+<pre><code>## [1] 89.20341</code></pre>
 <p>The average value is around 92 movies released in one day.</p>
 <p>We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:</p>
 <p>Mean = size * p<br />
@@ -296,11 +295,11 @@ z_score</code></pre>
 p_val_nor &lt;- 2 * pnorm(3.302, lower.tail = FALSE)
 p_val_nor</code></pre>
 <pre><code>## [1] 0.0009599807</code></pre>
-<p>P_value found by using an approximation of a normal distribution and the other one with a simulation of a binomial distribution in this case are very close, Normal: <code>9.599807\times 10^{-4}</code>, Binomial <code>0.0013355</code>.</p>
+<p>P values found by using an approximation of a normal distribution and with a simulation of a binomial distribution are very close, Normal: <code>0.00095</code>, Binomial <code>0.00133</code>.</p>
 </div>
 <div id="future-thoughts-conclusions" class="section level1">
 <h1>Future thoughts / Conclusions</h1>
-<p>As we saw, many events in real life can be explained by binomial probability distributions, and they allow us to calculate whether or not the events happened to to random chance and test different hypothesis.</p>
+<p>As we saw, many events in real life can be explained by binomial probability distributions, and they allow us to calculate whether or not the events happened due to random chance and test different hypotheses.</p>
 <p>Until next time!</p>
 <p>Serdar</p>
 </div>
