@@ -20,7 +20,7 @@
       <description>
 
 
-&lt;p&gt;Last week, I came accross a data that I thought it is a great opportunity to write about Binomial probability distributions.&lt;/p&gt;
+&lt;p&gt;Last week, I came across a data that I thought it is a great opportunity to write about Binomial probability distributions.&lt;/p&gt;
 &lt;div id=&#34;what-is-a-binomial-distribution-and-why-we-need-to-know-it&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;What is a binomial distribution and why we need to know it?&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Binomial distributions&lt;/strong&gt; refer to a repeated set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are decribed as &lt;strong&gt;Success&lt;/strong&gt; or &lt;strong&gt;no Success&lt;/strong&gt;. A “yes” or “no”.&lt;/p&gt;
@@ -41,13 +41,13 @@
 
 # Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 24)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.5544&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.55601&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 30 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 29)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.10152&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.10233&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 34)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.00326&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.00324&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As we see to get more than 35 heads is very unlikely in a set. Let’s visualize this. The bars in red represents the sets which had 35 or more heads.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flips &amp;lt;- rbinom(100000, 50, 0.5)
 flips &amp;lt;- data.frame(flips)
@@ -87,7 +87,6 @@ The data comes from TidyTuesday which I introduced you in my last &lt;a href=&#3
                    # purrr, tibble, stringr, forcats
 library(animation)
 library(viridis)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I need some &lt;strong&gt;data pre-processing&lt;/strong&gt; before I can make my visualizations. Dates are given in &lt;code&gt;day:month:year&lt;/code&gt; format. I need to split them to individual columns. Also couple of movies does not have the day of the month. I will remove them.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;horror_movies &amp;lt;- readr::read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-22/horror_movies.csv&amp;quot;)
 
 dim(horror_movies)&lt;/code&gt;&lt;/pre&gt;
@@ -104,6 +103,7 @@ dim(horror_movies)&lt;/code&gt;&lt;/pre&gt;
 ## 6 In E~ Horro~ 2017         UK              &amp;lt;NA&amp;gt;                  NA  
 ## # ... with 6 more variables: movie_run_time &amp;lt;chr&amp;gt;, plot &amp;lt;chr&amp;gt;, cast &amp;lt;chr&amp;gt;,
 ## #   language &amp;lt;chr&amp;gt;, filming_locations &amp;lt;chr&amp;gt;, budget &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I need some &lt;strong&gt;data pre-processing&lt;/strong&gt; before I can make my visualizations. Dates are given in &lt;code&gt;day:month:year&lt;/code&gt; format. I need to split them to individual columns. Also couple of movies does not have the day of the month. I will remove them.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;horror_date &amp;lt;-  horror_movies %&amp;gt;% 
                 separate(
                   release_date, 
@@ -195,10 +195,10 @@ estimates &amp;lt;-  rbinom(100000, size, p)
 
 # Simulated mean
 mean(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 92.6769&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.76346&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated variance
 var(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 89.95813&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 90.18583&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The average value is around 92 movies released in one day.&lt;/p&gt;
 &lt;p&gt;We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:&lt;/p&gt;
 &lt;p&gt;Mean = size * p&lt;br /&gt;
@@ -231,7 +231,7 @@ upper&lt;/code&gt;&lt;/pre&gt;
 p_val_binom &amp;lt;- 2 * (1 - pbinom(124, 2782, 1/30))
 p_val_binom&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.001335455&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Let’s visualize the significant days which movie makers more or less likely to relase a movie. I will highlighted the significant days with darker color.&lt;/p&gt;
+&lt;p&gt;Let’s visualize the significant days which movie makers more or less likely to release a movie. I will highlighted the significant days with darker color.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# I will add a new column so I can separetly define values outside the 95% confidence interval.
 
 horror_date_table_ci &amp;lt;- horror_date_table %&amp;gt;% mutate(significant = ifelse((n &amp;lt; 112 &amp;amp; n &amp;gt; 75), 0,1))
@@ -262,7 +262,7 @@ p_ci &amp;lt;- horror_date_table_ci %&amp;gt;%
         title = my_title) +
         geom_label(aes(label = n), size=5, fill=&amp;quot;yellow&amp;quot;, alpha=0.9)
 p_ci                                                     &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/6-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We performed a hypothesis testing by calculating the p value by using the pbinom() function.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;However, another widely used way to do so is to calculate the mean (the expected probability) of our distribution and its standard deviation and to verify how many standard deviations the observed value is away from the mean (the z score).&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Because we usually test our hypothesis using a sample, we work with the sampling distribution instead of the population distribution. This means that we use the standard error.&lt;/p&gt;

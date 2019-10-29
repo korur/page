@@ -28,7 +28,7 @@
   
     
   
-  <meta name="description" content="Last week, I came accross a data that I thought it is a great opportunity to write about Binomial probability distributions.
+  <meta name="description" content="Last week, I came across a data that I thought it is a great opportunity to write about Binomial probability distributions.
 What is a binomial distribution and why we need to know it?Binomial distributions refer to a repeated set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are decribed as Success or no Success.">
 
   
@@ -127,7 +127,7 @@ What is a binomial distribution and why we need to know it?Binomial distributio
   <meta property="og:site_name" content="SERDAR KORUR">
   <meta property="og:url" content="/r/probability-distributions/">
   <meta property="og:title" content="An intuitive real life example of a binomial distribution and how to simulate it in R | SERDAR KORUR">
-  <meta property="og:description" content="Last week, I came accross a data that I thought it is a great opportunity to write about Binomial probability distributions.
+  <meta property="og:description" content="Last week, I came across a data that I thought it is a great opportunity to write about Binomial probability distributions.
 What is a binomial distribution and why we need to know it?Binomial distributions refer to a repeated set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are decribed as Success or no Success."><meta property="og:image" content="/img/logo.png">
   <meta property="twitter:image" content="/img/logo.png"><meta property="og:locale" content="en-us">
   
@@ -191,7 +191,7 @@ What is a binomial distribution and why we need to know it?Binomial distributio
       "url": "/img/logo.png"
     }
   },
-  "description": "Last week, I came accross a data that I thought it is a great opportunity to write about Binomial probability distributions.\nWhat is a binomial distribution and why we need to know it?\rBinomial distributions refer to a repeated set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are decribed as Success or no Success."
+  "description": "Last week, I came across a data that I thought it is a great opportunity to write about Binomial probability distributions.\nWhat is a binomial distribution and why we need to know it?\rBinomial distributions refer to a repeated set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are decribed as Success or no Success."
 }
 </script>
 
@@ -566,7 +566,7 @@ What is a binomial distribution and why we need to know it?Binomial distributio
       
 
 
-<p>Last week, I came accross a data that I thought it is a great opportunity to write about Binomial probability distributions.</p>
+<p>Last week, I came across a data that I thought it is a great opportunity to write about Binomial probability distributions.</p>
 <div id="what-is-a-binomial-distribution-and-why-we-need-to-know-it" class="section level1">
 <h1>What is a binomial distribution and why we need to know it?</h1>
 <p><strong>Binomial distributions</strong> refer to a repeated set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are decribed as <strong>Success</strong> or <strong>no Success</strong>. A “yes” or “no”.</p>
@@ -587,13 +587,13 @@ What is a binomial distribution and why we need to know it?Binomial distributio
 
 # Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &gt; 24)</code></pre>
-<pre><code>## [1] 0.5544</code></pre>
+<pre><code>## [1] 0.55601</code></pre>
 <pre class="r"><code># Probability of getting 30 or more heads
 mean(rbinom(100000, 50, .5) &gt; 29)</code></pre>
-<pre><code>## [1] 0.10152</code></pre>
+<pre><code>## [1] 0.10233</code></pre>
 <pre class="r"><code># Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &gt; 34)</code></pre>
-<pre><code>## [1] 0.00326</code></pre>
+<pre><code>## [1] 0.00324</code></pre>
 <p>As we see to get more than 35 heads is very unlikely in a set. Let’s visualize this. The bars in red represents the sets which had 35 or more heads.</p>
 <pre class="r"><code>flips &lt;- rbinom(100000, 50, 0.5)
 flips &lt;- data.frame(flips)
@@ -633,7 +633,6 @@ The data comes from TidyTuesday which I introduced you in my last <a href="https
                    # purrr, tibble, stringr, forcats
 library(animation)
 library(viridis)</code></pre>
-<p>I need some <strong>data pre-processing</strong> before I can make my visualizations. Dates are given in <code>day:month:year</code> format. I need to split them to individual columns. Also couple of movies does not have the day of the month. I will remove them.</p>
 <pre class="r"><code>horror_movies &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-22/horror_movies.csv&quot;)
 
 dim(horror_movies)</code></pre>
@@ -650,6 +649,7 @@ dim(horror_movies)</code></pre>
 ## 6 In E~ Horro~ 2017         UK              &lt;NA&gt;                  NA  
 ## # ... with 6 more variables: movie_run_time &lt;chr&gt;, plot &lt;chr&gt;, cast &lt;chr&gt;,
 ## #   language &lt;chr&gt;, filming_locations &lt;chr&gt;, budget &lt;chr&gt;</code></pre>
+<p>I need some <strong>data pre-processing</strong> before I can make my visualizations. Dates are given in <code>day:month:year</code> format. I need to split them to individual columns. Also couple of movies does not have the day of the month. I will remove them.</p>
 <pre class="r"><code>horror_date &lt;-  horror_movies %&gt;% 
                 separate(
                   release_date, 
@@ -741,10 +741,10 @@ estimates &lt;-  rbinom(100000, size, p)
 
 # Simulated mean
 mean(estimates)</code></pre>
-<pre><code>## [1] 92.6769</code></pre>
+<pre><code>## [1] 92.76346</code></pre>
 <pre class="r"><code># Simulated variance
 var(estimates)</code></pre>
-<pre><code>## [1] 89.95813</code></pre>
+<pre><code>## [1] 90.18583</code></pre>
 <p>The average value is around 92 movies released in one day.</p>
 <p>We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:</p>
 <p>Mean = size * p<br />
@@ -777,7 +777,7 @@ upper</code></pre>
 p_val_binom &lt;- 2 * (1 - pbinom(124, 2782, 1/30))
 p_val_binom</code></pre>
 <pre><code>## [1] 0.001335455</code></pre>
-<p>Let’s visualize the significant days which movie makers more or less likely to relase a movie. I will highlighted the significant days with darker color.</p>
+<p>Let’s visualize the significant days which movie makers more or less likely to release a movie. I will highlighted the significant days with darker color.</p>
 <pre class="r"><code># I will add a new column so I can separetly define values outside the 95% confidence interval.
 
 horror_date_table_ci &lt;- horror_date_table %&gt;% mutate(significant = ifelse((n &lt; 112 &amp; n &gt; 75), 0,1))
@@ -808,7 +808,7 @@ p_ci &lt;- horror_date_table_ci %&gt;%
         title = my_title) +
         geom_label(aes(label = n), size=5, fill=&quot;yellow&quot;, alpha=0.9)
 p_ci                                                     </code></pre>
-<p><img src="/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-9-1.png" width="1152" /></p>
+<p><img src="/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/6-1.png" width="1152" /></p>
 <p>We performed a hypothesis testing by calculating the p value by using the pbinom() function.</p>
 <p><strong>However, another widely used way to do so is to calculate the mean (the expected probability) of our distribution and its standard deviation and to verify how many standard deviations the observed value is away from the mean (the z score).</strong></p>
 <p>Because we usually test our hypothesis using a sample, we work with the sampling distribution instead of the population distribution. This means that we use the standard error.</p>
