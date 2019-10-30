@@ -36,7 +36,7 @@ Advances in **microfluidic technologies** enabled us to barcode single cells in 
 Here, I will focus on a recent [paper](https://www.atsjournals.org/doi/pdf/10.1164/rccm.201712-2410OC) which explored transcriptome of lung cells from Pulmonary fibrosis patients by scRNAseq.
 
 * **Pulmonary fibrosis** is a progressive scarring of the lung tissue leading to death within 3-4 years.
-* **Current therapies does not increase the survival** 
+* **Current therapies do not increase the survival** 
 * Many Biotech companies are developing **novel drugs**
 
 {{% alert note %}}
@@ -49,7 +49,7 @@ Our workflow will be in three steps
 2. Identify cell types on a tSNE plot
 3. Visualize drug targets on single cell plots
 
-I picked up scRNA-seq data from a patient with Polymyositis associated intersitial lung disease. 
+I picked up scRNA-seq data from a patient with Polymyositis associated interstitial lung disease. 
 
 ---> [Download Single Cell RNA seq data](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3489196)
 
@@ -189,7 +189,7 @@ Fib <- ScaleData(Fib, vars.to.regress =
 
 ### Perform linear dimensional reduction
 
-Each gene creates another dimension in our dataset, but most of those does not play a role in differenting subgroups of cells. Principal components analyses (PCA) helps us by reducing the dimensions of our data into compoments which explains most of the variation. 
+Each gene creates another dimension in our dataset, but most of those do not play a role in differentiating subgroups of cells. Principal components analyses (PCA) helps us by reducing the dimensions of our data into components which explains most of the variation. 
 
 
 
@@ -219,7 +219,7 @@ For clustering analyses we will choose the principal components which explain mo
 ElbowPlot(object = Fib)
 ```
 
-We did not get a clear elbow shape here, but after 10th principal component additional dimensions does not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.
+We did not get a clear elbow shape here, but after 10th principal component additional dimensions do not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.
 
 ### Cluster the cells
 
@@ -294,7 +294,7 @@ Novel therapies in pulmonary fibrosis are urgently needed. Let's look at few pro
 
 #### Fibrinogen
 
-Fibrinoge's lead compound pamrevlumab blocks CTGF. Let's have a look which cells produce it.  
+Fibrinogen's lead compound pamrevlumab blocks CTGF. Let's have a look which cells produce it.  
 
 ```{r Fibrinogen}
 

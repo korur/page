@@ -51,8 +51,11 @@ By wrapping `rbinom` inside `mean()` function we can actually calculate the prob
 
 Let's compare the probabilities of getting 25, 30 or 35 or more heads.
 
-```{r, warning = FALSE, message=FALSE}
-library(tidyverse)
+
+```{r Install packages, message=FALSE, warning=FALSE}
+library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcats
+library(viridis)
 
 # Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) > 24)
@@ -107,14 +110,6 @@ The data comes from TidyTuesday which I introduced you in my last [post](https:/
 Having the **correct mindset** for anything gives us a better feeling of the moment.  
 
 **If you go to the cinema at the 13th to watch a horror movie, are you more likely to view it positively than any other date?** I was curious if movie makers had the same idea and I analyzed Horror movies data to calculate numbers releases in different days of the month. This is a good example of a binomial probability distribution. Let's look at the data.
-
-
-```{r Install packages, message=FALSE, warning=FALSE}
-library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
-                   # purrr, tibble, stringr, forcats
-library(animation)
-library(viridis)
-```
 
 
 ```{r Data preparation, message=FALSE, warning=FALSE}

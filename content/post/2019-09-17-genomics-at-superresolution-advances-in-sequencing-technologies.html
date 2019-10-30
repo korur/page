@@ -36,7 +36,7 @@ projects: []
 <p>Here, I will focus on a recent <a href="https://www.atsjournals.org/doi/pdf/10.1164/rccm.201712-2410OC">paper</a> which explored transcriptome of lung cells from Pulmonary fibrosis patients by scRNAseq.</p>
 <ul>
 <li><strong>Pulmonary fibrosis</strong> is a progressive scarring of the lung tissue leading to death within 3-4 years.</li>
-<li><strong>Current therapies does not increase the survival</strong></li>
+<li><strong>Current therapies do not increase the survival</strong></li>
 <li>Many Biotech companies are developing <strong>novel drugs</strong></li>
 </ul>
 <p>{{% alert note %}}
@@ -48,7 +48,7 @@ What types of cells those drugs are acting on?
 <li>Identify cell types on a tSNE plot</li>
 <li>Visualize drug targets on single cell plots</li>
 </ol>
-<p>I picked up scRNA-seq data from a patient with Polymyositis associated intersitial lung disease.</p>
+<p>I picked up scRNA-seq data from a patient with Polymyositis associated interstitial lung disease.</p>
 <p>—&gt; <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3489196">Download Single Cell RNA seq data</a></p>
 <div id="seurat-workflow" class="section level3">
 <h3>Seurat Workflow</h3>
@@ -181,7 +181,7 @@ Fib &lt;- ScaleData(Fib, vars.to.regress =
 </div>
 <div id="perform-linear-dimensional-reduction" class="section level3">
 <h3>Perform linear dimensional reduction</h3>
-<p>Each gene creates another dimension in our dataset, but most of those does not play a role in differenting subgroups of cells. Principal components analyses (PCA) helps us by reducing the dimensions of our data into compoments which explains most of the variation.</p>
+<p>Each gene creates another dimension in our dataset, but most of those do not play a role in differentiating subgroups of cells. Principal components analyses (PCA) helps us by reducing the dimensions of our data into components which explains most of the variation.</p>
 <pre class="r"><code>Fib &lt;- RunPCA(object = Fib, features = VariableFeatures(object = Fib), 
               ndims.print = 10, nfeatures.print = 10)</code></pre>
 <pre><code>## PC_ 10 
@@ -219,7 +219,7 @@ print(x = Fib[[&#39;pca&#39;]], dims = 1:5, nfeatures = 5)</code></pre>
 <p>For clustering analyses we will choose the principal components which explain most of the variation in our data. <code>Elbow plot</code> uses a ranking of principle components based on the percentage explained by each one.</p>
 <pre class="r"><code>ElbowPlot(object = Fib)</code></pre>
 <p><img src="/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/elbow_plot-1.png" width="960" /></p>
-<p>We did not get a clear elbow shape here, but after 10th principal component additional dimensions does not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.</p>
+<p>We did not get a clear elbow shape here, but after 10th principal component additional dimensions do not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.</p>
 </div>
 <div id="cluster-the-cells" class="section level3">
 <h3>Cluster the cells</h3>
@@ -377,7 +377,7 @@ VlnPlot(Fib, features = c(&quot;SPP1&quot;, &quot;CHIT1&quot;))</code></pre>
 <p>Novel therapies in pulmonary fibrosis are urgently needed. Let’s look at few promising drugs currently in clinical trials.</p>
 <div id="fibrinogen" class="section level4">
 <h4>Fibrinogen</h4>
-<p>Fibrinoge’s lead compound pamrevlumab blocks CTGF. Let’s have a look which cells produce it.</p>
+<p>Fibrinogen’s lead compound pamrevlumab blocks CTGF. Let’s have a look which cells produce it.</p>
 <pre class="r"><code>VlnPlot(Fib, features =c(&quot;CTGF&quot;))</code></pre>
 <p><img src="/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/Fibrinogen-1.png" width="672" /></p>
 <pre class="r"><code>FeaturePlot(Fib, features = c(&quot;CTGF&quot;), pt.size = 1)</code></pre>

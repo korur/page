@@ -37,17 +37,19 @@
 &lt;strong&gt;p&lt;/strong&gt; is the probability of success (Here chance of throwing a heads is 0.5).&lt;/p&gt;
 &lt;p&gt;By wrapping &lt;code&gt;rbinom&lt;/code&gt; inside &lt;code&gt;mean()&lt;/code&gt; function we can actually calculate the probability of that event.&lt;/p&gt;
 &lt;p&gt;Let’s compare the probabilities of getting 25, 30 or 35 or more heads.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcats
+library(viridis)
 
 # Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 24)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.55545&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.55744&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 30 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 29)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.10084&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.09992&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 34)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.00354&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.003&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As we see to get more than 35 heads is very unlikely in a set. Let’s visualize this. The bars in red represents the sets which had 35 or more heads.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flips &amp;lt;- rbinom(100000, 50, 0.5)
 flips &amp;lt;- data.frame(flips)
@@ -57,7 +59,7 @@ flips %&amp;gt;%  ggplot(aes(x=flips, fill = more_than_35)) +
   scale_fill_manual(values = c(&amp;quot;black&amp;quot;, &amp;quot;red&amp;quot;)) +
   theme_classic() +
   theme(legend.position = c(0.85, 0.85))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;You can also see here a key difference of a binomial distribution is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, &lt;strong&gt;when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;So what are all those will be useful for?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Coin flipping expertise may not have useful real life applications but let’s give some other examples.&lt;/p&gt;
@@ -83,10 +85,6 @@ flips %&amp;gt;%  ggplot(aes(x=flips, fill = more_than_35)) +
 The data comes from TidyTuesday which I introduced you in my last &lt;a href=&#34;https://dataatomic.com/r/tidytuesday-which-are-the-best-family-cars/&#34;&gt;post&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Having the &lt;strong&gt;correct mindset&lt;/strong&gt; for anything gives us a better feeling of the moment.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;If you go to the cinema at the 13th to watch a horror movie, are you more likely to view it positively than any other date?&lt;/strong&gt; I was curious if movie makers had the same idea and I analyzed Horror movies data to calculate numbers releases in different days of the month. This is a good example of a binomial probability distribution. Let’s look at the data.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
-                   # purrr, tibble, stringr, forcats
-library(animation)
-library(viridis)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;horror_movies &amp;lt;- readr::read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-22/horror_movies.csv&amp;quot;)
 
 dim(horror_movies)&lt;/code&gt;&lt;/pre&gt;
@@ -173,7 +171,7 @@ p &amp;lt;- horror_date_table %&amp;gt;%
           title = my_title) +
     geom_label(aes(label = n), size=5, fill=&amp;quot;yellow&amp;quot;, alpha=0.9) 
 p&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;is-this-significant&#34; class=&#34;section level1&#34;&gt;
@@ -195,10 +193,10 @@ estimates &amp;lt;-  rbinom(100000, size, p)
 
 # Simulated mean
 mean(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 92.71845&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.71017&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated variance
 var(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 89.20341&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 90.49285&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The average value is around 92 movies released in one day.&lt;/p&gt;
 &lt;p&gt;We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:&lt;/p&gt;
 &lt;p&gt;Mean = size * p&lt;br /&gt;

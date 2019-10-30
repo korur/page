@@ -37,17 +37,19 @@
 &lt;strong&gt;p&lt;/strong&gt; is the probability of success (Here chance of throwing a heads is 0.5).&lt;/p&gt;
 &lt;p&gt;By wrapping &lt;code&gt;rbinom&lt;/code&gt; inside &lt;code&gt;mean()&lt;/code&gt; function we can actually calculate the probability of that event.&lt;/p&gt;
 &lt;p&gt;Let’s compare the probabilities of getting 25, 30 or 35 or more heads.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcats
+library(viridis)
 
 # Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 24)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.55545&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.55744&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 30 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 29)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.10084&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.09992&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 34)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.00354&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.003&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As we see to get more than 35 heads is very unlikely in a set. Let’s visualize this. The bars in red represents the sets which had 35 or more heads.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flips &amp;lt;- rbinom(100000, 50, 0.5)
 flips &amp;lt;- data.frame(flips)
@@ -57,7 +59,7 @@ flips %&amp;gt;%  ggplot(aes(x=flips, fill = more_than_35)) +
   scale_fill_manual(values = c(&amp;quot;black&amp;quot;, &amp;quot;red&amp;quot;)) +
   theme_classic() +
   theme(legend.position = c(0.85, 0.85))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;You can also see here a key difference of a binomial distribution is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, &lt;strong&gt;when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;So what are all those will be useful for?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Coin flipping expertise may not have useful real life applications but let’s give some other examples.&lt;/p&gt;
@@ -83,10 +85,6 @@ flips %&amp;gt;%  ggplot(aes(x=flips, fill = more_than_35)) +
 The data comes from TidyTuesday which I introduced you in my last &lt;a href=&#34;https://dataatomic.com/r/tidytuesday-which-are-the-best-family-cars/&#34;&gt;post&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Having the &lt;strong&gt;correct mindset&lt;/strong&gt; for anything gives us a better feeling of the moment.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;If you go to the cinema at the 13th to watch a horror movie, are you more likely to view it positively than any other date?&lt;/strong&gt; I was curious if movie makers had the same idea and I analyzed Horror movies data to calculate numbers releases in different days of the month. This is a good example of a binomial probability distribution. Let’s look at the data.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
-                   # purrr, tibble, stringr, forcats
-library(animation)
-library(viridis)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;horror_movies &amp;lt;- readr::read_csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-22/horror_movies.csv&amp;quot;)
 
 dim(horror_movies)&lt;/code&gt;&lt;/pre&gt;
@@ -173,7 +171,7 @@ p &amp;lt;- horror_date_table %&amp;gt;%
           title = my_title) +
     geom_label(aes(label = n), size=5, fill=&amp;quot;yellow&amp;quot;, alpha=0.9) 
 p&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;1152&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;is-this-significant&#34; class=&#34;section level1&#34;&gt;
@@ -195,10 +193,10 @@ estimates &amp;lt;-  rbinom(100000, size, p)
 
 # Simulated mean
 mean(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 92.71845&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.71017&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated variance
 var(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 89.20341&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 90.49285&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The average value is around 92 movies released in one day.&lt;/p&gt;
 &lt;p&gt;We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:&lt;/p&gt;
 &lt;p&gt;Mean = size * p&lt;br /&gt;
@@ -2769,7 +2767,7 @@ writeLines(poems[[1]])&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Here, I will focus on a recent &lt;a href=&#34;https://www.atsjournals.org/doi/pdf/10.1164/rccm.201712-2410OC&#34;&gt;paper&lt;/a&gt; which explored transcriptome of lung cells from Pulmonary fibrosis patients by scRNAseq.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Pulmonary fibrosis&lt;/strong&gt; is a progressive scarring of the lung tissue leading to death within 3-4 years.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Current therapies does not increase the survival&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Current therapies do not increase the survival&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;Many Biotech companies are developing &lt;strong&gt;novel drugs&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
@@ -2784,7 +2782,7 @@ writeLines(poems[[1]])&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;Identify cell types on a tSNE plot&lt;/li&gt;
 &lt;li&gt;Visualize drug targets on single cell plots&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;I picked up scRNA-seq data from a patient with Polymyositis associated intersitial lung disease.&lt;/p&gt;
+&lt;p&gt;I picked up scRNA-seq data from a patient with Polymyositis associated interstitial lung disease.&lt;/p&gt;
 &lt;p&gt;—&amp;gt; &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3489196&#34;&gt;Download Single Cell RNA seq data&lt;/a&gt;&lt;/p&gt;
 &lt;div id=&#34;seurat-workflow&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Seurat Workflow&lt;/h3&gt;
@@ -2917,7 +2915,7 @@ Fib &amp;lt;- ScaleData(Fib, vars.to.regress =
 &lt;/div&gt;
 &lt;div id=&#34;perform-linear-dimensional-reduction&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Perform linear dimensional reduction&lt;/h3&gt;
-&lt;p&gt;Each gene creates another dimension in our dataset, but most of those does not play a role in differenting subgroups of cells. Principal components analyses (PCA) helps us by reducing the dimensions of our data into compoments which explains most of the variation.&lt;/p&gt;
+&lt;p&gt;Each gene creates another dimension in our dataset, but most of those do not play a role in differentiating subgroups of cells. Principal components analyses (PCA) helps us by reducing the dimensions of our data into components which explains most of the variation.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- RunPCA(object = Fib, features = VariableFeatures(object = Fib), 
               ndims.print = 10, nfeatures.print = 10)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## PC_ 10 
@@ -2955,7 +2953,7 @@ print(x = Fib[[&amp;#39;pca&amp;#39;]], dims = 1:5, nfeatures = 5)&lt;/code&gt;&
 &lt;p&gt;For clustering analyses we will choose the principal components which explain most of the variation in our data. &lt;code&gt;Elbow plot&lt;/code&gt; uses a ranking of principle components based on the percentage explained by each one.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ElbowPlot(object = Fib)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/elbow_plot-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;We did not get a clear elbow shape here, but after 10th principal component additional dimensions does not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.&lt;/p&gt;
+&lt;p&gt;We did not get a clear elbow shape here, but after 10th principal component additional dimensions do not explain big amount of the variance. So we will use first 10 dimensions for the subsequent analyses.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;cluster-the-cells&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Cluster the cells&lt;/h3&gt;
@@ -3113,7 +3111,7 @@ VlnPlot(Fib, features = c(&amp;quot;SPP1&amp;quot;, &amp;quot;CHIT1&amp;quot;))&
 &lt;p&gt;Novel therapies in pulmonary fibrosis are urgently needed. Let’s look at few promising drugs currently in clinical trials.&lt;/p&gt;
 &lt;div id=&#34;fibrinogen&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Fibrinogen&lt;/h4&gt;
-&lt;p&gt;Fibrinoge’s lead compound pamrevlumab blocks CTGF. Let’s have a look which cells produce it.&lt;/p&gt;
+&lt;p&gt;Fibrinogen’s lead compound pamrevlumab blocks CTGF. Let’s have a look which cells produce it.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VlnPlot(Fib, features =c(&amp;quot;CTGF&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/Fibrinogen-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features = c(&amp;quot;CTGF&amp;quot;), pt.size = 1)&lt;/code&gt;&lt;/pre&gt;
