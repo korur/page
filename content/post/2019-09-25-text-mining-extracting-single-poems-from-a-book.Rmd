@@ -132,7 +132,7 @@ str_which(lawrence_body, pattern = TOC[1])
 Selecting the lines from the beginning of the **first poem** until the beginning of the **second poem** will give us the first poem. By iterating everything by +1 we will capture all 42 poems.
 
 
-Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To correct this, I will remove first apperance of index 768 and second appearence of 621.
+Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To correct this, I will remove first appearance of index 768 and second appearance of 621.
 
 ```{r index}
 index <- index[-c(23,27)]
@@ -142,7 +142,7 @@ length(index)
 # end of the main text. We can use the end of the main body as above.
 index[43] <- end_main -1
 ```
-Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separetely.   
+Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separately.   
 
 ### Second for loop
 

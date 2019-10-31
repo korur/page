@@ -38,7 +38,7 @@ Advances in fields, such as omics and internet of things (sensors that collect d
 Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;
 
 * Diagnosing diseases earlier
-* Identifiying drugs with reduced side effects
+* Identifying drugs with reduced side effects
 * Select patient groups responding to an experimental therapy
 * Utilize existing therapies better
 
@@ -408,7 +408,7 @@ but they are less interpretable and slower than glmnet.
 
 Random forests **capture threshold effects and variable interactions. both of which occur often in real world data** 
 
-**mtry** is the number of variables used at each split point in individual decison tree that make up the rf. Default is 3, I will use here 8. 
+**mtry** is the number of variables used at each split point in individual decision tree that make up the rf. Default is 3, I will use here 8. 
 
 tuneLength = how many different mtry values to be tested. 
 

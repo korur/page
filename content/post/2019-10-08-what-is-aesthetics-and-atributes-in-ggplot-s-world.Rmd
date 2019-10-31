@@ -35,7 +35,7 @@ We typically understand **aesthetics** as how something looks, color, size etc.
 But in ggplot's world how things look is just an **attribute.**
 
 {{% alert note %}}
-Aesthetics does not refer how something looks, **but to which variable is mapped onto it.**
+Aesthetics do not refer how something looks, **but to which variable is mapped onto it.**
 {{% /alert %}}
 
 

@@ -121,7 +121,7 @@ head(horror_movies)
 
 
  
-I need some **data pre-processing** before I can make my visualizations. Dates are given in `day:month:year` format. I need to split them to individual columns. Also couple of movies does not have the day of the month. I will remove them.
+I need some **data pre-processing** before I can make my visualizations. Dates are given in `day:month:year` format. I need to split them to individual columns. Also couple of movies do not have the day of the month. I will remove them.
 
 
 ```{r Data, message=FALSE, warning=FALSE}
