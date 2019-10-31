@@ -197,7 +197,8 @@ getPalette(colorCount)
 
 ```{r Season timeline}
 # Plot season timeline using the palette we just created
-uk <- ggplot(uk18, aes(x=week, y=points, col=team)) +   geom_point(size=3) + 
+uk <- ggplot(uk18, aes(x=week, y=points, col=team)) +   
+  geom_point(size=3) + 
   theme(text = element_text(size=15)) + 
   scale_color_manual(values = getPalette(colorCount))
 ```
@@ -205,13 +206,17 @@ uk <- ggplot(uk18, aes(x=week, y=points, col=team)) +   geom_point(size=3) +
 Let's plot the regression lines
 ```{r Season timeline linear model}
 # Plot season timeline
-uk <- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=TRUE) + 
+uk <- ggplot(uk18, aes(x=week, y=points, col=team)) + 
+  geom_smooth(se=TRUE) + 
   theme(text = element_text(size=15)) + 
   scale_color_manual(values = getPalette(colorCount))
+
 uk
-uk_facet <- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=FALSE) + 
+uk_facet <- ggplot(uk18, aes(x=week, y=points, col=team)) + 
+  geom_smooth(se=FALSE) + 
   theme(text = element_text(size=10)) + 
-  scale_color_manual(values = getPalette(colorCount)) + facet_wrap(ncol = 4, team~.)
+  scale_color_manual(values = getPalette(colorCount)) + 
+  facet_wrap(ncol = 4, team~.)
 
 uk_facet
 ```
