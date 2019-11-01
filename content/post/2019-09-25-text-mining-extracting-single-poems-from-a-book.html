@@ -123,7 +123,7 @@ index</code></pre>
 <pre><code>## [1] 9</code></pre>
 <pre class="r"><code># e.g. The poem Apprehension starts at line index number 9</code></pre>
 <p>Selecting the lines from the beginning of the <strong>first poem</strong> until the beginning of the <strong>second poem</strong> will give us the first poem. By iterating everything by +1 we will capture all 42 poems.</p>
-<p>Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To correct this, I will remove first apperance of index 768 and second appearence of 621.</p>
+<p>Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To correct this, I will remove first appearance of index 768 and second appearance of 621.</p>
 <pre class="r"><code>index &lt;- index[-c(23,27)]
 index</code></pre>
 <pre><code>##  [1]    9   37   59   82  110  126  164  192  209  253  276  314  332  347
@@ -134,7 +134,7 @@ index</code></pre>
 <pre class="r"><code># Not to miss the last poem, I have to add the line index of the
 # end of the main text. We can use the end of the main body as above.
 index[43] &lt;- end_main -1</code></pre>
-<p>Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separetely.</p>
+<p>Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separately.</p>
 </div>
 <div id="second-for-loop" class="section level3">
 <h3>Second for loop</h3>

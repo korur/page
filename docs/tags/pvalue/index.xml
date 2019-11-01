@@ -43,13 +43,13 @@ library(viridis)
 
 # Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 24)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.55744&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.55279&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 30 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 29)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.09992&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.10009&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 34)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.003&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.00308&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As we see to get more than 35 heads is very unlikely in a set. Let’s visualize this. The bars in red represents the sets which had 35 or more heads.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flips &amp;lt;- rbinom(100000, 50, 0.5)
 flips &amp;lt;- data.frame(flips)
@@ -101,7 +101,7 @@ dim(horror_movies)&lt;/code&gt;&lt;/pre&gt;
 ## 6 In E~ Horro~ 2017         UK              &amp;lt;NA&amp;gt;                  NA  
 ## # ... with 6 more variables: movie_run_time &amp;lt;chr&amp;gt;, plot &amp;lt;chr&amp;gt;, cast &amp;lt;chr&amp;gt;,
 ## #   language &amp;lt;chr&amp;gt;, filming_locations &amp;lt;chr&amp;gt;, budget &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I need some &lt;strong&gt;data pre-processing&lt;/strong&gt; before I can make my visualizations. Dates are given in &lt;code&gt;day:month:year&lt;/code&gt; format. I need to split them to individual columns. Also couple of movies does not have the day of the month. I will remove them.&lt;/p&gt;
+&lt;p&gt;I need some &lt;strong&gt;data pre-processing&lt;/strong&gt; before I can make my visualizations. Dates are given in &lt;code&gt;day:month:year&lt;/code&gt; format. I need to split them to individual columns. Also couple of movies do not have the day of the month. I will remove them.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;horror_date &amp;lt;-  horror_movies %&amp;gt;% 
                 separate(
                   release_date, 
@@ -193,10 +193,10 @@ estimates &amp;lt;-  rbinom(100000, size, p)
 
 # Simulated mean
 mean(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 92.71017&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.70279&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated variance
 var(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 90.49285&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 89.76371&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The average value is around 92 movies released in one day.&lt;/p&gt;
 &lt;p&gt;We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:&lt;/p&gt;
 &lt;p&gt;Mean = size * p&lt;br /&gt;

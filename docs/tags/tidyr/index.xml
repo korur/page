@@ -806,20 +806,25 @@ getPalette(colorCount)&lt;/code&gt;&lt;/pre&gt;
 ##  [8] &amp;quot;#94539E&amp;quot; &amp;quot;#BD6066&amp;quot; &amp;quot;#E97422&amp;quot; &amp;quot;#FF990A&amp;quot; &amp;quot;#FFCF20&amp;quot; &amp;quot;#FAF632&amp;quot; &amp;quot;#D4AE2D&amp;quot;
 ## [15] &amp;quot;#AF6729&amp;quot; &amp;quot;#BF6357&amp;quot; &amp;quot;#E17597&amp;quot; &amp;quot;#E884B9&amp;quot; &amp;quot;#C08EA9&amp;quot; &amp;quot;#999999&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot season timeline using the palette we just created
-uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) +   geom_point(size=3) + 
+uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) +   
+  geom_point(size=3) + 
   theme(text = element_text(size=15)) + 
   scale_color_manual(values = getPalette(colorCount))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let’s plot the regression lines&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot season timeline
-uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=TRUE) + 
+uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + 
+  geom_smooth(se=TRUE) + 
   theme(text = element_text(size=15)) + 
   scale_color_manual(values = getPalette(colorCount))
+
 uk&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/Season%20timeline%20linear%20model-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk_facet &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=FALSE) + 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk_facet &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + 
+  geom_smooth(se=FALSE) + 
   theme(text = element_text(size=10)) + 
-  scale_color_manual(values = getPalette(colorCount)) + facet_wrap(ncol = 4, team~.)
+  scale_color_manual(values = getPalette(colorCount)) + 
+  facet_wrap(ncol = 4, team~.)
 
 uk_facet&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;

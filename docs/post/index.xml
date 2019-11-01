@@ -43,13 +43,13 @@ library(viridis)
 
 # Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 24)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.55744&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.55279&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 30 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 29)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.09992&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.10009&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt; 34)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.003&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.00308&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As we see to get more than 35 heads is very unlikely in a set. Let’s visualize this. The bars in red represents the sets which had 35 or more heads.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;flips &amp;lt;- rbinom(100000, 50, 0.5)
 flips &amp;lt;- data.frame(flips)
@@ -101,7 +101,7 @@ dim(horror_movies)&lt;/code&gt;&lt;/pre&gt;
 ## 6 In E~ Horro~ 2017         UK              &amp;lt;NA&amp;gt;                  NA  
 ## # ... with 6 more variables: movie_run_time &amp;lt;chr&amp;gt;, plot &amp;lt;chr&amp;gt;, cast &amp;lt;chr&amp;gt;,
 ## #   language &amp;lt;chr&amp;gt;, filming_locations &amp;lt;chr&amp;gt;, budget &amp;lt;chr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I need some &lt;strong&gt;data pre-processing&lt;/strong&gt; before I can make my visualizations. Dates are given in &lt;code&gt;day:month:year&lt;/code&gt; format. I need to split them to individual columns. Also couple of movies does not have the day of the month. I will remove them.&lt;/p&gt;
+&lt;p&gt;I need some &lt;strong&gt;data pre-processing&lt;/strong&gt; before I can make my visualizations. Dates are given in &lt;code&gt;day:month:year&lt;/code&gt; format. I need to split them to individual columns. Also couple of movies do not have the day of the month. I will remove them.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;horror_date &amp;lt;-  horror_movies %&amp;gt;% 
                 separate(
                   release_date, 
@@ -193,10 +193,10 @@ estimates &amp;lt;-  rbinom(100000, size, p)
 
 # Simulated mean
 mean(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 92.71017&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.70279&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated variance
 var(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 90.49285&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 89.76371&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The average value is around 92 movies released in one day.&lt;/p&gt;
 &lt;p&gt;We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:&lt;/p&gt;
 &lt;p&gt;Mean = size * p&lt;br /&gt;
@@ -1447,20 +1447,25 @@ getPalette(colorCount)&lt;/code&gt;&lt;/pre&gt;
 ##  [8] &amp;quot;#94539E&amp;quot; &amp;quot;#BD6066&amp;quot; &amp;quot;#E97422&amp;quot; &amp;quot;#FF990A&amp;quot; &amp;quot;#FFCF20&amp;quot; &amp;quot;#FAF632&amp;quot; &amp;quot;#D4AE2D&amp;quot;
 ## [15] &amp;quot;#AF6729&amp;quot; &amp;quot;#BF6357&amp;quot; &amp;quot;#E17597&amp;quot; &amp;quot;#E884B9&amp;quot; &amp;quot;#C08EA9&amp;quot; &amp;quot;#999999&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot season timeline using the palette we just created
-uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) +   geom_point(size=3) + 
+uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) +   
+  geom_point(size=3) + 
   theme(text = element_text(size=15)) + 
   scale_color_manual(values = getPalette(colorCount))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let’s plot the regression lines&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot season timeline
-uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=TRUE) + 
+uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + 
+  geom_smooth(se=TRUE) + 
   theme(text = element_text(size=15)) + 
   scale_color_manual(values = getPalette(colorCount))
+
 uk&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/Season%20timeline%20linear%20model-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk_facet &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=FALSE) + 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk_facet &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + 
+  geom_smooth(se=FALSE) + 
   theme(text = element_text(size=10)) + 
-  scale_color_manual(values = getPalette(colorCount)) + facet_wrap(ncol = 4, team~.)
+  scale_color_manual(values = getPalette(colorCount)) + 
+  facet_wrap(ncol = 4, team~.)
 
 uk_facet&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
@@ -1532,7 +1537,7 @@ fullanimation&lt;/code&gt;&lt;/pre&gt;
 But in ggplot’s world how things look is just an &lt;strong&gt;attribute.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
-    Aesthetics does not refer how something looks, &lt;strong&gt;but to which variable is mapped onto it.&lt;/strong&gt;
+    Aesthetics do not refer how something looks, &lt;strong&gt;but to which variable is mapped onto it.&lt;/strong&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;/p&gt;
@@ -1627,7 +1632,7 @@ Serdar&lt;/p&gt;
 &lt;p&gt;Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Diagnosing diseases earlier&lt;/li&gt;
-&lt;li&gt;Identifiying drugs with reduced side effects&lt;/li&gt;
+&lt;li&gt;Identifying drugs with reduced side effects&lt;/li&gt;
 &lt;li&gt;Select patient groups responding to an experimental therapy&lt;/li&gt;
 &lt;li&gt;Utilize existing therapies better&lt;/li&gt;
 &lt;/ul&gt;
@@ -2272,7 +2277,7 @@ model_glmnet &amp;lt;- train(x = diab, y = outcome,
 &lt;p&gt;advantages: no need to log transform or normalize,
 but they are less interpretable and slower than glmnet.&lt;/p&gt;
 &lt;p&gt;Random forests &lt;strong&gt;capture threshold effects and variable interactions. both of which occur often in real world data&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;mtry&lt;/strong&gt; is the number of variables used at each split point in individual decison tree that make up the rf. Default is 3, I will use here 8.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;mtry&lt;/strong&gt; is the number of variables used at each split point in individual decision tree that make up the rf. Default is 3, I will use here 8.&lt;/p&gt;
 &lt;p&gt;tuneLength = how many different mtry values to be tested.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Random forest model
 model_rf &amp;lt;- train(x = diab, y = outcome,
@@ -2648,7 +2653,7 @@ index&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 9&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# e.g. The poem Apprehension starts at line index number 9&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Selecting the lines from the beginning of the &lt;strong&gt;first poem&lt;/strong&gt; until the beginning of the &lt;strong&gt;second poem&lt;/strong&gt; will give us the first poem. By iterating everything by +1 we will capture all 42 poems.&lt;/p&gt;
-&lt;p&gt;Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To correct this, I will remove first apperance of index 768 and second appearence of 621.&lt;/p&gt;
+&lt;p&gt;Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To correct this, I will remove first appearance of index 768 and second appearance of 621.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;index &amp;lt;- index[-c(23,27)]
 index&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  [1]    9   37   59   82  110  126  164  192  209  253  276  314  332  347
@@ -2659,7 +2664,7 @@ index&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Not to miss the last poem, I have to add the line index of the
 # end of the main text. We can use the end of the main body as above.
 index[43] &amp;lt;- end_main -1&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separetely.&lt;/p&gt;
+&lt;p&gt;Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separately.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;second-for-loop&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Second for loop&lt;/h3&gt;
@@ -3169,7 +3174,7 @@ Although changes associated with fibrosis are well defined the causal factors ar
       <description>
 
 
-&lt;p&gt;This guide will help you to get your website online in a few minutes. Then, customize and add your own material in RStudio environment, push it to your Github repository and benefit from the continous deployment feature of Netlify.
+&lt;p&gt;This guide will help you to get your website online in a few minutes. Then, customize and add your own material in RStudio environment, push it to your Github repository and benefit from the continuous deployment feature of Netlify.
 It took me many days of work, reading tens of blog posts, YouTube videos and a lot of testing to figure out all of this.&lt;/p&gt;
 &lt;p&gt;Here is an up to date workflow of &lt;strong&gt;how I created my Blog on Github and deployed at Netlify.&lt;/strong&gt;&lt;/p&gt;
 &lt;div id=&#34;tools-we-need&#34; class=&#34;section level3&#34;&gt;

@@ -282,7 +282,7 @@ big3 %&amp;gt;%
 But in ggplot’s world how things look is just an &lt;strong&gt;attribute.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
-    Aesthetics does not refer how something looks, &lt;strong&gt;but to which variable is mapped onto it.&lt;/strong&gt;
+    Aesthetics do not refer how something looks, &lt;strong&gt;but to which variable is mapped onto it.&lt;/strong&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;/p&gt;
@@ -473,7 +473,7 @@ index&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 9&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# e.g. The poem Apprehension starts at line index number 9&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Selecting the lines from the beginning of the &lt;strong&gt;first poem&lt;/strong&gt; until the beginning of the &lt;strong&gt;second poem&lt;/strong&gt; will give us the first poem. By iterating everything by +1 we will capture all 42 poems.&lt;/p&gt;
-&lt;p&gt;Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To correct this, I will remove first apperance of index 768 and second appearence of 621.&lt;/p&gt;
+&lt;p&gt;Since the title EMBANKMENT AT NIGHT appears in the titles of two poems we will do a slight correction here. To correct this, I will remove first appearance of index 768 and second appearance of 621.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;index &amp;lt;- index[-c(23,27)]
 index&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  [1]    9   37   59   82  110  126  164  192  209  253  276  314  332  347
@@ -484,7 +484,7 @@ index&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Not to miss the last poem, I have to add the line index of the
 # end of the main text. We can use the end of the main body as above.
 index[43] &amp;lt;- end_main -1&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separetely.&lt;/p&gt;
+&lt;p&gt;Now, we have 42 index numbers matching the title of each poem 1 index number to label the end of the main text. We will use those to extract poems separately.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;second-for-loop&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Second for loop&lt;/h3&gt;
@@ -584,7 +584,7 @@ writeLines(poems[[1]])&lt;/code&gt;&lt;/pre&gt;
       <description>
 
 
-&lt;p&gt;This guide will help you to get your website online in a few minutes. Then, customize and add your own material in RStudio environment, push it to your Github repository and benefit from the continous deployment feature of Netlify.
+&lt;p&gt;This guide will help you to get your website online in a few minutes. Then, customize and add your own material in RStudio environment, push it to your Github repository and benefit from the continuous deployment feature of Netlify.
 It took me many days of work, reading tens of blog posts, YouTube videos and a lot of testing to figure out all of this.&lt;/p&gt;
 &lt;p&gt;Here is an up to date workflow of &lt;strong&gt;how I created my Blog on Github and deployed at Netlify.&lt;/strong&gt;&lt;/p&gt;
 &lt;div id=&#34;tools-we-need&#34; class=&#34;section level3&#34;&gt;

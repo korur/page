@@ -47,13 +47,13 @@ library(viridis)
 
 # Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &gt; 24)</code></pre>
-<pre><code>## [1] 0.55744</code></pre>
+<pre><code>## [1] 0.55279</code></pre>
 <pre class="r"><code># Probability of getting 30 or more heads
 mean(rbinom(100000, 50, .5) &gt; 29)</code></pre>
-<pre><code>## [1] 0.09992</code></pre>
+<pre><code>## [1] 0.10009</code></pre>
 <pre class="r"><code># Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &gt; 34)</code></pre>
-<pre><code>## [1] 0.003</code></pre>
+<pre><code>## [1] 0.00308</code></pre>
 <p>As we see to get more than 35 heads is very unlikely in a set. Let’s visualize this. The bars in red represents the sets which had 35 or more heads.</p>
 <pre class="r"><code>flips &lt;- rbinom(100000, 50, 0.5)
 flips &lt;- data.frame(flips)
@@ -105,7 +105,7 @@ dim(horror_movies)</code></pre>
 ## 6 In E~ Horro~ 2017         UK              &lt;NA&gt;                  NA  
 ## # ... with 6 more variables: movie_run_time &lt;chr&gt;, plot &lt;chr&gt;, cast &lt;chr&gt;,
 ## #   language &lt;chr&gt;, filming_locations &lt;chr&gt;, budget &lt;chr&gt;</code></pre>
-<p>I need some <strong>data pre-processing</strong> before I can make my visualizations. Dates are given in <code>day:month:year</code> format. I need to split them to individual columns. Also couple of movies does not have the day of the month. I will remove them.</p>
+<p>I need some <strong>data pre-processing</strong> before I can make my visualizations. Dates are given in <code>day:month:year</code> format. I need to split them to individual columns. Also couple of movies do not have the day of the month. I will remove them.</p>
 <pre class="r"><code>horror_date &lt;-  horror_movies %&gt;% 
                 separate(
                   release_date, 
@@ -197,10 +197,10 @@ estimates &lt;-  rbinom(100000, size, p)
 
 # Simulated mean
 mean(estimates)</code></pre>
-<pre><code>## [1] 92.71017</code></pre>
+<pre><code>## [1] 92.70279</code></pre>
 <pre class="r"><code># Simulated variance
 var(estimates)</code></pre>
-<pre><code>## [1] 90.49285</code></pre>
+<pre><code>## [1] 89.76371</code></pre>
 <p>The average value is around 92 movies released in one day.</p>
 <p>We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:</p>
 <p>Mean = size * p<br />

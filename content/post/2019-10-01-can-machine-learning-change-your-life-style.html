@@ -38,7 +38,7 @@ projects: []
 <p>Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;</p>
 <ul>
 <li>Diagnosing diseases earlier</li>
-<li>Identifiying drugs with reduced side effects</li>
+<li>Identifying drugs with reduced side effects</li>
 <li>Select patient groups responding to an experimental therapy</li>
 <li>Utilize existing therapies better</li>
 </ul>
@@ -683,7 +683,7 @@ model_glmnet &lt;- train(x = diab, y = outcome,
 <p>advantages: no need to log transform or normalize,
 but they are less interpretable and slower than glmnet.</p>
 <p>Random forests <strong>capture threshold effects and variable interactions. both of which occur often in real world data</strong></p>
-<p><strong>mtry</strong> is the number of variables used at each split point in individual decison tree that make up the rf. Default is 3, I will use here 8.</p>
+<p><strong>mtry</strong> is the number of variables used at each split point in individual decision tree that make up the rf. Default is 3, I will use here 8.</p>
 <p>tuneLength = how many different mtry values to be tested.</p>
 <pre class="r"><code># Random forest model
 model_rf &lt;- train(x = diab, y = outcome,

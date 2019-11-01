@@ -810,20 +810,25 @@ getPalette(colorCount)</code></pre>
 ##  [8] &quot;#94539E&quot; &quot;#BD6066&quot; &quot;#E97422&quot; &quot;#FF990A&quot; &quot;#FFCF20&quot; &quot;#FAF632&quot; &quot;#D4AE2D&quot;
 ## [15] &quot;#AF6729&quot; &quot;#BF6357&quot; &quot;#E17597&quot; &quot;#E884B9&quot; &quot;#C08EA9&quot; &quot;#999999&quot;</code></pre>
 <pre class="r"><code># Plot season timeline using the palette we just created
-uk &lt;- ggplot(uk18, aes(x=week, y=points, col=team)) +   geom_point(size=3) + 
+uk &lt;- ggplot(uk18, aes(x=week, y=points, col=team)) +   
+  geom_point(size=3) + 
   theme(text = element_text(size=15)) + 
   scale_color_manual(values = getPalette(colorCount))</code></pre>
 <p>Let’s plot the regression lines</p>
 <pre class="r"><code># Plot season timeline
-uk &lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=TRUE) + 
+uk &lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + 
+  geom_smooth(se=TRUE) + 
   theme(text = element_text(size=15)) + 
   scale_color_manual(values = getPalette(colorCount))
+
 uk</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/Season%20timeline%20linear%20model-1.png" width="672" /></p>
-<pre class="r"><code>uk_facet &lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=FALSE) + 
+<pre class="r"><code>uk_facet &lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + 
+  geom_smooth(se=FALSE) + 
   theme(text = element_text(size=10)) + 
-  scale_color_manual(values = getPalette(colorCount)) + facet_wrap(ncol = 4, team~.)
+  scale_color_manual(values = getPalette(colorCount)) + 
+  facet_wrap(ncol = 4, team~.)
 
 uk_facet</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>

@@ -25,7 +25,7 @@
 &lt;p&gt;Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Diagnosing diseases earlier&lt;/li&gt;
-&lt;li&gt;Identifiying drugs with reduced side effects&lt;/li&gt;
+&lt;li&gt;Identifying drugs with reduced side effects&lt;/li&gt;
 &lt;li&gt;Select patient groups responding to an experimental therapy&lt;/li&gt;
 &lt;li&gt;Utilize existing therapies better&lt;/li&gt;
 &lt;/ul&gt;
@@ -670,7 +670,7 @@ model_glmnet &amp;lt;- train(x = diab, y = outcome,
 &lt;p&gt;advantages: no need to log transform or normalize,
 but they are less interpretable and slower than glmnet.&lt;/p&gt;
 &lt;p&gt;Random forests &lt;strong&gt;capture threshold effects and variable interactions. both of which occur often in real world data&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;mtry&lt;/strong&gt; is the number of variables used at each split point in individual decison tree that make up the rf. Default is 3, I will use here 8.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;mtry&lt;/strong&gt; is the number of variables used at each split point in individual decision tree that make up the rf. Default is 3, I will use here 8.&lt;/p&gt;
 &lt;p&gt;tuneLength = how many different mtry values to be tested.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Random forest model
 model_rf &amp;lt;- train(x = diab, y = outcome,

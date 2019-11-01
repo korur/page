@@ -806,20 +806,25 @@ getPalette(colorCount)&lt;/code&gt;&lt;/pre&gt;
 ##  [8] &amp;quot;#94539E&amp;quot; &amp;quot;#BD6066&amp;quot; &amp;quot;#E97422&amp;quot; &amp;quot;#FF990A&amp;quot; &amp;quot;#FFCF20&amp;quot; &amp;quot;#FAF632&amp;quot; &amp;quot;#D4AE2D&amp;quot;
 ## [15] &amp;quot;#AF6729&amp;quot; &amp;quot;#BF6357&amp;quot; &amp;quot;#E17597&amp;quot; &amp;quot;#E884B9&amp;quot; &amp;quot;#C08EA9&amp;quot; &amp;quot;#999999&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot season timeline using the palette we just created
-uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) +   geom_point(size=3) + 
+uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) +   
+  geom_point(size=3) + 
   theme(text = element_text(size=15)) + 
   scale_color_manual(values = getPalette(colorCount))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Let’s plot the regression lines&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot season timeline
-uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=TRUE) + 
+uk &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + 
+  geom_smooth(se=TRUE) + 
   theme(text = element_text(size=15)) + 
   scale_color_manual(values = getPalette(colorCount))
+
 uk&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-10-data-preparation-web-scraping-data-tables-with-rvest_files/figure-html/Season%20timeline%20linear%20model-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk_facet &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + geom_smooth(se=FALSE) + 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;uk_facet &amp;lt;- ggplot(uk18, aes(x=week, y=points, col=team)) + 
+  geom_smooth(se=FALSE) + 
   theme(text = element_text(size=10)) + 
-  scale_color_manual(values = getPalette(colorCount)) + facet_wrap(ncol = 4, team~.)
+  scale_color_manual(values = getPalette(colorCount)) + 
+  facet_wrap(ncol = 4, team~.)
 
 uk_facet&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## `geom_smooth()` using method = &amp;#39;loess&amp;#39; and formula &amp;#39;y ~ x&amp;#39;&lt;/code&gt;&lt;/pre&gt;
@@ -884,7 +889,7 @@ fullanimation&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Diagnosing diseases earlier&lt;/li&gt;
-&lt;li&gt;Identifiying drugs with reduced side effects&lt;/li&gt;
+&lt;li&gt;Identifying drugs with reduced side effects&lt;/li&gt;
 &lt;li&gt;Select patient groups responding to an experimental therapy&lt;/li&gt;
 &lt;li&gt;Utilize existing therapies better&lt;/li&gt;
 &lt;/ul&gt;
@@ -1529,7 +1534,7 @@ model_glmnet &amp;lt;- train(x = diab, y = outcome,
 &lt;p&gt;advantages: no need to log transform or normalize,
 but they are less interpretable and slower than glmnet.&lt;/p&gt;
 &lt;p&gt;Random forests &lt;strong&gt;capture threshold effects and variable interactions. both of which occur often in real world data&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;mtry&lt;/strong&gt; is the number of variables used at each split point in individual decison tree that make up the rf. Default is 3, I will use here 8.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;mtry&lt;/strong&gt; is the number of variables used at each split point in individual decision tree that make up the rf. Default is 3, I will use here 8.&lt;/p&gt;
 &lt;p&gt;tuneLength = how many different mtry values to be tested.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Random forest model
 model_rf &amp;lt;- train(x = diab, y = outcome,
@@ -1804,7 +1809,7 @@ knitr::kable(df)&lt;/code&gt;&lt;/pre&gt;
       <description>
 
 
-&lt;p&gt;This guide will help you to get your website online in a few minutes. Then, customize and add your own material in RStudio environment, push it to your Github repository and benefit from the continous deployment feature of Netlify.
+&lt;p&gt;This guide will help you to get your website online in a few minutes. Then, customize and add your own material in RStudio environment, push it to your Github repository and benefit from the continuous deployment feature of Netlify.
 It took me many days of work, reading tens of blog posts, YouTube videos and a lot of testing to figure out all of this.&lt;/p&gt;
 &lt;p&gt;Here is an up to date workflow of &lt;strong&gt;how I created my Blog on Github and deployed at Netlify.&lt;/strong&gt;&lt;/p&gt;
 &lt;div id=&#34;tools-we-need&#34; class=&#34;section level3&#34;&gt;
