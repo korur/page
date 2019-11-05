@@ -216,11 +216,9 @@ ani.width = 800)
 
 White background
 
-<p align="center">
-  <img src="survival.gif">
-</p>
 
-![](survival.gif)
+
+![](/img/survival.gif)
 # Animated in Black
 
 ```{r animate in Black}
@@ -285,11 +283,8 @@ ani.width = 800)
 
 Black background
 
-<p align="center">
-  <img src="survival_black.gif">
-</p>
 
-![](survival_black.gif)
+![](/img/survival_black.gif)
 # Future toughts / Conclusions
 
 
