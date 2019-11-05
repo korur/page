@@ -29,7 +29,7 @@
     
   
   <meta name="description" content="Last week, I came across a data that I thought it is a great opportunity to write about Binomial probability distributions.
-What is a binomial distribution and why we need to know it?Binomial distributions refer to a repeated set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are decribed as Success or no Success.">
+What is a binomial distribution and why we need to know it?Binomial distributions are formed when we repeat a set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are usually described as Success or no Success.">
 
   
   <link rel="alternate" hreflang="en-us" href="/r/probability-distributions/">
@@ -128,7 +128,7 @@ What is a binomial distribution and why we need to know it?Binomial distributio
   <meta property="og:url" content="/r/probability-distributions/">
   <meta property="og:title" content="An intuitive real life example of a binomial distribution and how to simulate it in R | SERDAR KORUR">
   <meta property="og:description" content="Last week, I came across a data that I thought it is a great opportunity to write about Binomial probability distributions.
-What is a binomial distribution and why we need to know it?Binomial distributions refer to a repeated set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are decribed as Success or no Success."><meta property="og:image" content="/img/logo.png">
+What is a binomial distribution and why we need to know it?Binomial distributions are formed when we repeat a set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are usually described as Success or no Success."><meta property="og:image" content="/img/logo.png">
   <meta property="twitter:image" content="/img/logo.png"><meta property="og:locale" content="en-us">
   
     
@@ -191,7 +191,7 @@ What is a binomial distribution and why we need to know it?Binomial distributio
       "url": "/img/logo.png"
     }
   },
-  "description": "Last week, I came across a data that I thought it is a great opportunity to write about Binomial probability distributions.\nWhat is a binomial distribution and why we need to know it?\rBinomial distributions refer to a repeated set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are decribed as Success or no Success."
+  "description": "Last week, I came across a data that I thought it is a great opportunity to write about Binomial probability distributions.\nWhat is a binomial distribution and why we need to know it?\rBinomial distributions are formed when we repeat a set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are usually described as Success or no Success."
 }
 </script>
 
@@ -435,7 +435,7 @@ What is a binomial distribution and why we need to know it?Binomial distributio
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    10 min read
+    13 min read
   </span>
   
 
@@ -569,68 +569,81 @@ What is a binomial distribution and why we need to know it?Binomial distributio
 <p>Last week, I came across a data that I thought it is a great opportunity to write about Binomial probability distributions.</p>
 <div id="what-is-a-binomial-distribution-and-why-we-need-to-know-it" class="section level1">
 <h1>What is a binomial distribution and why we need to know it?</h1>
-<p><strong>Binomial distributions</strong> refer to a repeated set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are decribed as <strong>Success</strong> or <strong>no Success</strong>. A “yes” or “no”.</p>
-<p>For example, in flipping coins, the two possibilities are getting a head (success) or tails (no success) or vice versa.</p>
+<p><strong>Binomial distributions</strong> are formed when we repeat a set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are usually described as <strong>Success</strong> or <strong>no Success</strong>. A “yes” or “no”.</p>
+<p>For example, in flipping coins, the two possibilities are getting a head (success) or tails (no success) or vice versa. And one set can be, e.g. 10 or 50 times coin flipping. We can repeat this set as many times as we like and record how many times we got heads (success) in each repetition.</p>
 <div id="why-is-this-interesting" class="section level2">
 <h2>Why is this interesting?</h2>
-<p>What is the probability of getting 25 heads out of 50 coin flips? You are right, 25 is an expected outcome. <strong>But how about getting 49 heads out of 50 flips?</strong> What is the probability of that given the coin is fair?</p>
-<p>Let’s repeat this set of 50 times coin flipping, 100.000 times and look at the probability distribution.</p>
+<p>What is the probability of getting 25 heads out of 50 coin flips? This is not very unusual. <strong>But how about getting 49 heads out of 50 flips? Is this really possible?</strong></p>
+<p>Let’s figure it out. We can repeat this set of 50 times coin flipping 100.000 times and record the results of each set.</p>
 <p>Luckily, we can simulate this in R.</p>
-<p><code>rbinom</code> function can make a given number of repeated (here 100.000) sets (50 times of coin flipping) of experiments. It takes 3 arguments.</p>
-<p><code>rbinom(n, size, p)</code><br />
-<strong>n</strong> = number of repetitions/trials = 100.000.<br />
-<strong>size</strong> = sample size = 50.<br />
-<strong>p</strong> is the probability of success (Here chance of throwing a heads is 0.5).</p>
-<p>By wrapping <code>rbinom</code> inside <code>mean()</code> function we can actually calculate the probability of that event.</p>
-<p>Let’s compare the probabilities of getting 25, 30 or 35 or more heads.</p>
+<p>We can simulate a given number of repeated (here 100.000) sets (50 times of coin flipping) of experiments with <strong>rbinom()</strong> function. It takes 3 arguments.</p>
+<p><strong>rbinom(</strong><br />
+n = number of repetitions = 100.000,<br />
+size = sample size = 50,<br />
+p = the probability of success (chance of throwing heads is 0.5)<strong>)</strong></p>
+<p>Let’s compare the probabilities of getting more than 25, 35 or even 49 heads. You can combine rbinom with mean function to find the percentage of the events with a chosen outcome.</p>
+<pre class="r"><code># Probability of getting 25 or more heads
+mean(rbinom(100000, 50, .5) &gt;= 25)</code></pre>
+<pre><code>## [1] 0.55811</code></pre>
+<pre class="r"><code># Probability of getting 35 or more heads
+mean(rbinom(100000, 50, .5) &gt;= 35)</code></pre>
+<pre><code>## [1] 0.00313</code></pre>
+<pre class="r"><code># Probability of getting 49 or more heads
+mean(rbinom(100000, 50, .5) &gt;= 49)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<p>We found the probability of throwing 49 or more heads to be 0. But to be technically precise it is one in 375 trillion times
+(= <span class="math inline">\(1/((1/(2^{49}) + (1/2^{50})))\)</span>).</p>
+<p>Let’s visualize our simulation. The bars in red represents the sets which had 35 or more heads.</p>
 <pre class="r"><code>library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
                    # purrr, tibble, stringr, forcats
 library(viridis)
 
-# Probability of getting 25 or more heads
-mean(rbinom(100000, 50, .5) &gt; 24)</code></pre>
-<pre><code>## [1] 0.55279</code></pre>
-<pre class="r"><code># Probability of getting 30 or more heads
-mean(rbinom(100000, 50, .5) &gt; 29)</code></pre>
-<pre><code>## [1] 0.10009</code></pre>
-<pre class="r"><code># Probability of getting 35 or more heads
-mean(rbinom(100000, 50, .5) &gt; 34)</code></pre>
-<pre><code>## [1] 0.00308</code></pre>
-<p>As we see to get more than 35 heads is very unlikely in a set. Let’s visualize this. The bars in red represents the sets which had 35 or more heads.</p>
-<pre class="r"><code>flips &lt;- rbinom(100000, 50, 0.5)
-flips &lt;- data.frame(flips)
-flips &lt;- flips %&gt;% mutate(more_than_35 = ifelse(flips &gt; 35, &quot;Yes&quot;, &quot;No&quot;))
-flips %&gt;%  ggplot(aes(x=flips, fill = more_than_35)) + 
+heads &lt;- rbinom(100000, 50, 0.5)
+heads &lt;- data.frame(heads)
+heads &lt;- heads %&gt;% mutate(events = ifelse(heads &gt; 35, &quot;&gt; 35&quot;, &quot;&lt; 35&quot;))
+heads %&gt;%  ggplot(aes(x=heads, fill = events)) + 
   geom_histogram(binwidth = 0.5) + 
   scale_fill_manual(values = c(&quot;black&quot;, &quot;red&quot;)) +
   theme_classic() +
-  theme(legend.position = c(0.85, 0.85))</code></pre>
-<p><img src="/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<p>You can also see here a key difference of a binomial distribution is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, <strong>when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities</strong>.</p>
+  theme(text = element_text(size = 18),
+        legend.position = c(0.85, 0.85)) +
+  labs(x = &quot;Number of heads in 50 coin flips&quot;)</code></pre>
+<p><img src="/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/install%20packages-1.png" width="672" /></p>
+<p>Even to get 35 or more heads has very low probability. Most of the events will be an integer between 15 and 35.</p>
+<p>Binomial probability distributions help us to understand the likelihood of such rare events.</p>
+<p>You can also see here a key difference of a binomial distribution with normal distributuion is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, <strong>when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities</strong>.</p>
 <p><strong>So what are all those will be useful for?</strong></p>
-<p>Coin flipping expertise may not have useful real life applications but let’s give some other examples.</p>
+<p>Coin flipping expertise may have limited real life applications but let’s give some other examples.</p>
+<ul>
+<li><strong>The performance of a machine learning model</strong></li>
+</ul>
+<p>You built a machine learning model with a binary outcome. Let’s say pathological image recognition algorithm for liver cancer that works with 90% accuracy. You tested 100 patients and you want to know your 95% confidence interval? Or your new results showed that your model detected less than 70 patients correctly. Is it possible? Or you should start optimizing your parameters again?</p>
 <ul>
 <li><strong>Number of patients responding to a treatment.</strong></li>
 </ul>
-<p>Let’s say you know that a cancer medicine has 10% probability to cure a patient. You have multiple groups of 500 patients each with a different genetic mutation. You want to identify patient subgroups which better respond to your therapy. The expected number of patients responded to the therapy ( like above E = size * p) which is 500 * 0.1. So each group will have around 50 recovered patients, if there were no effects of those genetic mutations. But you found in one group that 65 patients responded. Is that due to chance or a significant effect?</p>
+<p>Let’s say you have a new therapy for cancer which has 10% probability to cure a patient. You have 500 patients which took the drug. The expected number of recovering patients is 50. But you found that 75 patients responded. Is that due to chance or a significant effect? Or you should start looking underlying factors if there is something about the therapy or the patient group?</p>
 <ul>
 <li><strong>Think about a hospital emergency station.</strong></li>
 </ul>
-<p>If you know 3.000 patients came in one year because of alcohol abuse. You can compare whether it was Friday or Saturday or another evening of a week. Each day has 1/7 chance of getting a patient visit. You can find out the whether events happening in the weekends more likely than expected and organize the staff numbers accordingly.</p>
+<p>You are a hospital manager and you want to organize the staff numbers correctly for different weekdays. You know total number of patients came in to a emergency station because of alcohol poisoning in a given time period. You can analyse the distribution of patient numbers for each day of the week. Most likely you will have more such cases in the weekend and you need larger staff.</p>
+<p>This will be also true for other businesses. They can use binomial distributions to calculate changes in demand and plan accordingly.</p>
 <ul>
 <li><strong>If you are running a webserver.</strong></li>
 </ul>
 <p>You can allocate your resources better by identifying times when traffic will be higher.</p>
+<p>Some other questions in which binomial distributions will come in handy are:</p>
 <ul>
 <li><strong>Number of people who answered ‘yes’ to a survey question</strong></li>
 <li><strong>How many games a team will win in one season?</strong></li>
 <li><strong>Vote counts for a candidate in an election.</strong></li>
 <li><strong>Number of defective products in a production run.</strong></li>
 </ul>
-<p>Binomial distributions are common and they are very useful. Let’s come back to our case.
-The data comes from TidyTuesday which I introduced you in my last <a href="https://dataatomic.com/r/tidytuesday-which-are-the-best-family-cars/">post</a>.</p>
-<p>Having the <strong>correct mindset</strong> for anything gives us a better feeling of the moment.</p>
-<p><strong>If you go to the cinema at the 13th to watch a horror movie, are you more likely to view it positively than any other date?</strong> I was curious if movie makers had the same idea and I analyzed Horror movies data to calculate numbers releases in different days of the month. This is a good example of a binomial probability distribution. Let’s look at the data.</p>
+<blockquote>
+<p>Binomial distributions are common and they have many applications of real life situations.</p>
+</blockquote>
+<p>Let’s use some real life data to apply our knowledge so far. The data comes from TidyTuesday which I introduced in my last <a href="https://dataatomic.com/r/tidytuesday-which-are-the-best-family-cars/">post</a>.</p>
+<p>It contains information about Horror Movies released since 2012. And the question I asked was whether horror movies are more likely be released at the 13th each month?</p>
+<p>Being in <strong>the right mindset</strong> for anything gives us a better feeling of it. <strong>If you go to the cinema at the 13th to watch a horror movie, do you like it more than other days?</strong> We don’t know if this is true but movie makers might be counting on that. I analyzed Horror movies data and calculated number of releases in different days of the month. <strong>This is a good example of a binomial probability distribution.</strong> Let’s look at the data.</p>
 <pre class="r"><code>horror_movies &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-22/horror_movies.csv&quot;)
 
 dim(horror_movies)</code></pre>
@@ -689,7 +702,7 @@ horror_date_table</code></pre>
 <pre class="r"><code># Final
 horror_date_table$day &lt;- as.character(horror_date_table$day)
 
-my_title &lt;- &quot;Horror movies are more likely to be released at the 13th&quot;
+my_title &lt;- &quot;Highest number of Horror movies are released at the 13th&quot;
 
 p &lt;- horror_date_table %&gt;% 
     ungroup() %&gt;% 
@@ -717,13 +730,13 @@ p &lt;- horror_date_table %&gt;%
           title = my_title) +
     geom_label(aes(label = n), size=5, fill=&quot;yellow&quot;, alpha=0.9) 
 p</code></pre>
-<p><img src="/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-2-1.png" width="1152" /></p>
+<p><img src="/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-1-1.png" width="1152" /></p>
 </div>
 </div>
 <div id="is-this-significant" class="section level1">
 <h1>Is this significant?</h1>
-<p>In our data, there are <strong>2782</strong> movies associated with a release date. Since these are random events each day have an equal chance of 1/30 for a movie release. <strong>We expect a similar distribution of movies at each day, e.g. around the 92 (mean=2782/30).</strong></p>
-<p>What we want to know is, are there any specific days in the month Movie industry prefers intentionally to release or not to release a movie?</p>
+<p>In the data, there were <strong>2782</strong> movies associated with a release date. So expected movie release per day is <strong>92</strong> (2782 / 30).</p>
+<p>But, we see above that some days are much higher than that. What we want to know is, which days are in the <strong>range of random chance</strong> and which days there is a <strong>significant preference or an aversion</strong> to release a movie. So that we can conclude our insight about movie makers.</p>
 <pre class="r"><code># Size of our distribution is the total number of movies released 
 n_value &lt;- horror_date_table %&gt;% ungroup() %&gt;% summarize(n2 = sum(n))
 size &lt;- n_value$n2
@@ -731,18 +744,17 @@ size</code></pre>
 <pre><code>## [1] 2782</code></pre>
 <pre class="r"><code># The probability (= success rate = a given outcome to occur = movie released)
 p &lt;-  1/30  # Since it can occur any of the 30 days in a months</code></pre>
-<p>I want to know which days are in the <strong>range of random chance</strong> and which days there is a <strong>significant preference or an aversion</strong> to release a movie. To do this I can define a lower and upper boundary for significance (p value &lt; 0.05).</p>
 <p>You can simulate this 2782 movie release dates events 100.000 times with rbinom function and calculate the mean and variance.</p>
 <pre class="r"><code># Simulated statistics
  
-estimates &lt;-  rbinom(100000, size, p)
+estimates &lt;-  rbinom(100000, 2782, 1/30)
 
 # Simulated mean
 mean(estimates)</code></pre>
-<pre><code>## [1] 92.70279</code></pre>
+<pre><code>## [1] 92.77169</code></pre>
 <pre class="r"><code># Simulated variance
 var(estimates)</code></pre>
-<pre><code>## [1] 89.76371</code></pre>
+<pre><code>## [1] 89.10082</code></pre>
 <p>The average value is around 92 movies released in one day.</p>
 <p>We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:</p>
 <p>Mean = size * p<br />
@@ -759,7 +771,8 @@ var_theoretical &lt;- size * 1/30 * (1-1/30)
 var_theoretical</code></pre>
 <pre><code>## [1] 89.64222</code></pre>
 <p>Great, simulated and theoretical values are almost the same. So, I can use my simulations to find out 95% confidence interval which will contain the values that can happen due to random chance.</p>
-<p>We can do this by the qbinom() function in r. We can calculate the quantile 97.5 and 2.5 as our upper and lower boundaries respectively.</p>
+<p>I will define an interval that contains 95% of probabilities in our simulated distributions. And the values outside will be the ones which were not due to random chance. To do this I need 2.5th and 97.5th quantiles of the distribution.</p>
+<p>We can do this by the qbinom() function in r. For example qbinom(0.975, size, p) will return the value which will define the cut off which contains 0.975 of the probabilities. And our confidence interval will be the interval between:</p>
 <pre class="r"><code># Boundaries for p values smaller than 0.05
 
 lower &lt;- qbinom(0.975, 2782, 1/30)
@@ -768,25 +781,53 @@ lower</code></pre>
 <pre class="r"><code>upper &lt;- qbinom(0.025, 2782, 1/30)
 upper</code></pre>
 <pre><code>## [1] 75</code></pre>
-<p>Values higher than <code>112</code> and values lower than <code>75</code> can not happen due to random chance in our binomial distribution.</p>
-<p>Our value at the 13th is 124. Above the 97.5th quantile. So it is significant. But what is the exact p value?</p>
+<p>qbinom(0.025, size, p) &lt; Confidence Interval &lt; qbinom(0.975, size, p)</p>
+<pre class="r"><code>movies &lt;- rbinom(100000, 2782, 1/30)
+movies &lt;- data.frame(movies)
+movies &lt;- movies %&gt;% mutate(events = ifelse(movies &gt; qbinom(.025, 2782, 1/30) &amp; movies &lt;  qbinom(.975, 2782, 1/30), &quot;95% Conf. Int.&quot;, &quot;significant&quot;))
+movies %&gt;%  ggplot(aes(x=movies, fill = events)) + 
+  geom_histogram(binwidth = 0.5) + 
+  scale_fill_manual(values = c(&quot;black&quot;, &quot;red&quot;)) +
+  theme_classic() +
+  theme(text = element_text(size = 18),
+        legend.position = c(0.85, 0.85)) +
+  labs(x = &quot;Number of movie releases in a day&quot;)</code></pre>
+<p><img src="/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>95% of the time, days in one month will have between 75 and 112 movie releases. Higher or lower values than this range can not happen due to random chance according to our binomial distribution.</p>
+</div>
+<div id="how-to-calculate-the-p-value-for-a-binomial-test-using-pbinom" class="section level1">
+<h1>How to calculate the p-value for a binomial test using pbinom?</h1>
+<p>Our value at the 13th is 124. Above the 97.5th quantile. So it is significant. But what is the exact p value? Let’s define p value first.</p>
+<p><div class="alert alert-note">
+  <div>
+    P value is the sum of the probability of that event plus the sum of the probabilities of similar events that are equally likely or less likely.
+  </div>
+</div>
+</p>
+<p>In coin flipping probability of heads is (0.5) and following our definition p value is the sum of the probability of that event (0.5) and similar event which is equally or less likely i.e. tails (0.5) which is 0.5 + 0.5 = 1</p>
+<p>And in our horror movie data This will be the sum of the probabilities of getting 124 movie releases and higher.</p>
+<p>In R, <strong>pbinom</strong> function defines the cumulative probabilities. For example, pbinom(124, 2782, 1/30) will give us the cumulative probabilities of any number of movie releases up to 124. By using 1-pbinom(124, 2782, 1/30) we can find the sum of the probabilities with equal or lower chance than having 124.</p>
+<p>Thus, p value for getting at least 124 movie release is;</p>
 <pre class="r"><code># Probability of getting 124 movie releases in a day like here it happened on the 13th. # Probability of getting at least 124 success
 
 p_val_binom &lt;- 2 * (1 - pbinom(124, 2782, 1/30))
 p_val_binom</code></pre>
 <pre><code>## [1] 0.001335455</code></pre>
-<p>Let’s visualize the significant days which movie makers more or less likely to release a movie. I will highlighted the significant days with darker color.</p>
-<pre class="r"><code># I will add a new column so I can separetly define values outside the 95% confidence interval.
+<p>We multiplied by two because same rare events can happen in the left side of our confidence interval as well.</p>
+<p>Let’s put those p values on our barplot to highlight the significant days.</p>
+<pre class="r"><code># I will add a new column so I can separately define values outside the 95% confidence interval.
 
-horror_date_table_ci &lt;- horror_date_table %&gt;% mutate(significant = ifelse((n &lt; 112 &amp; n &gt; 75), 0,1))
+horror_date_table &lt;- horror_date_table %&gt;% 
+                     mutate(p_val = 2 * (1 - pbinom(n, 2782, 1/30, lower.tail = ifelse(n&gt;93, TRUE, FALSE)))) %&gt;% 
+                     mutate(p_val = cut(p_val, breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),  labels = c(&quot;&lt; 0.001&quot;,&quot;&lt; 0.01&quot;, &quot;&lt; 0.05&quot;, &quot;NS&quot;)))      
 
 # Visualize the significant days 
-p_ci &lt;- horror_date_table_ci %&gt;% 
+p_ci &lt;- horror_date_table %&gt;% 
     ungroup() %&gt;% 
     mutate(day=fct_reorder(day, n, .desc=TRUE)) %&gt;% 
     ggplot(aes(x=day, y=n)) +
-    geom_col(aes(fill=significant)) +
-    scale_fill_viridis( direction =-1) + 
+    geom_col(aes(fill=p_val)) +
+    scale_fill_manual(values = viridis(4))  + 
     theme(
         plot.title = element_text(size=24, color= &quot;black&quot;, hjust=0.5, vjust = -1),
         plot.subtitle = element_text(size=36, color= &quot;red&quot;, hjust=0.5, vjust = -1),
@@ -800,16 +841,18 @@ p_ci &lt;- horror_date_table_ci %&gt;%
         axis.ticks= element_blank(), 
         plot.caption = element_text(hjust = 1, vjust = 10)) +
     labs(
-        caption= &quot;Source: IMDb, Plot: @dataatomic&quot;,
+        caption= &quot;&quot;,
         x = &quot;Day of the Month&quot;, 
         y = &quot;Number of movies released&quot;,
-        title = my_title) +
-        geom_label(aes(label = n), size=5, fill=&quot;yellow&quot;, alpha=0.9)
-p_ci                                                     </code></pre>
+        title = &quot;Calculating p values in binomial distributions&quot;) +
+    geom_label(aes(label = n), size=5, fill=&quot;yellow&quot;, alpha=0.9) 
+p_ci</code></pre>
 <p><img src="/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/6-1.png" width="1152" /></p>
-<p>We performed a hypothesis testing by calculating the p value by using the pbinom() function.</p>
+<p>We performed a hypothesis testing by calculating the p value by using the pbinom() function and found couple of other days where movies are more or less likely to be released.</p>
 <p><strong>However, another widely used way to do so is to calculate the mean (the expected probability) of our distribution and its standard deviation and to verify how many standard deviations the observed value is away from the mean (the z score).</strong></p>
-<p>Because we usually test our hypothesis using a sample, we work with the sampling distribution instead of the population distribution. This means that we use the standard error.</p>
+<div id="calculating-the-p-value-by-normal-approximation" class="section level3">
+<h3>Calculating the p-value by normal approximation</h3>
+<p>When the sample size is large, binomial distributions can be approximated by a normal distribution. To build the normal distribution, I need mean and standard deviation.</p>
 <pre class="r"><code>sample_mean &lt;- horror_date_table %&gt;% ungroup() %&gt;% summarise(n=mean(n))
 sample_mean</code></pre>
 <pre><code>## # A tibble: 1 x 1
@@ -836,6 +879,7 @@ p_val_nor &lt;- 2 * pnorm(3.302, lower.tail = FALSE)
 p_val_nor</code></pre>
 <pre><code>## [1] 0.0009599807</code></pre>
 <p>P values found by using an approximation of a normal distribution and with a simulation of a binomial distribution are very close, Normal: <code>0.00095</code>, Binomial <code>0.00133</code>.</p>
+</div>
 </div>
 <div id="future-thoughts-conclusions" class="section level1">
 <h1>Future thoughts / Conclusions</h1>
