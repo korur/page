@@ -273,4 +273,8 @@ Until next time!
 
 Serdar
 
-PS: If you liked my blog you can find here some other blogs on R at [https://www.r-bloggers.com](https://www.r-bloggers.com).
+
+PS: If you are looking for more blogs to learn R you might check also:
+
+* [https://www.r-bloggers.com](https://www.r-bloggers.com)
+* [https://rweekly.org](https://rweekly.org)
