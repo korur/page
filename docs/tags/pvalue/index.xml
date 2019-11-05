@@ -38,10 +38,10 @@ p = the probability of success (chance of throwing heads is 0.5)&lt;strong&gt;)&
 &lt;p&gt;Let’s compare the probabilities of getting more than 25, 35 or even 49 heads. You can combine rbinom with mean function to find the percentage of the events with a chosen outcome.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 25)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.55579&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.55489&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 35)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.00315&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.00366&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 49 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 49)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0&lt;/code&gt;&lt;/pre&gt;
@@ -69,7 +69,7 @@ heads %&amp;gt;%  ggplot(aes(x=heads, fill = events)) +
 &lt;p&gt;&lt;strong&gt;So what are all those will be useful for?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Coin flipping expertise may have limited real life applications but let’s give some other examples.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;The performance of a machine learning model&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Binomial distributions in machine learning&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;You built a machine learning model with a binary outcome. Let’s say pathological image recognition algorithm for liver cancer that works with 90% accuracy. You tested 100 patients and you want to know your 95% confidence interval? Or your new results showed that your model detected less than 70 patients correctly. Is it possible? Or you should start optimizing your parameters again?&lt;/p&gt;
 &lt;ul&gt;
@@ -205,10 +205,10 @@ estimates &amp;lt;-  rbinom(100000, 2782, 1/30)
 
 # Simulated mean
 mean(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 92.76592&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.73647&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated variance
 var(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 89.18096&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 89.9432&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The average value is around 92 movies released in one day.&lt;/p&gt;
 &lt;p&gt;We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:&lt;/p&gt;
 &lt;p&gt;Mean = size * p&lt;br /&gt;

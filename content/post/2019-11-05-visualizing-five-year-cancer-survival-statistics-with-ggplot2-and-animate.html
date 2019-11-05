@@ -1,0 +1,260 @@
+---
+title: Cleaning and visualizing Five-year cancer survival statistics with ggplot2 and animation
+author: ''
+date: '2019-11-05'
+slug: ggplot2-waffle
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2019-11-05T15:45:43+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<div id="where-are-we-standing-on-fight-against-cancer" class="section level1">
+<h1>Where are we standing on fight against cancer?</h1>
+<p>Five-year survival rates is a good indicator of improvement in cancer medicine.</p>
+<p>I am using the from the article by Jemal et. al. published on the Journal of the National Cancer institute. Original article: <a href="https://academic.oup.com/jnci/article/109/9/djx030/3092246" class="uri">https://academic.oup.com/jnci/article/109/9/djx030/3092246</a></p>
+<p>Final take home messages were:</p>
+<ul>
+<li>Cancer death rates continue to decrease in the United States</li>
+<li>But <strong>progress</strong> is <strong>very limited in some cancers</strong></li>
+</ul>
+<p><strong>What is needed?</strong></p>
+<ul>
+<li>New strategies for prevention, early detection and treatment is crucial.</li>
+</ul>
+<p>Applications of healthcare informatics continue to rise.</p>
+<p>One of the main findings in the paper is changes in five year cancer survival rates between the years 1975-77 to 2006-12. I want to create data visualizations to have an overview on the progress we made so far and compare different types of cancers.</p>
+<p>You can access the data on my Github repository at <a href="https://github.com/korur/healthcareinformatics">https://github.com/korur/healthcareinformatics</a>.</p>
+<p>Setting up and loading in data</p>
+<pre class="r"><code>library(readxl)
+library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcat
+library(ggdark)
+library(animation)
+library(waffle)
+
+cancer &lt;- read_excel(&quot;posts_data/cancersurvivalstatistics.xls&quot;, sheet = 3)
+cancer</code></pre>
+<pre><code>## # A tibble: 42 x 13
+##    Info  `1975-1977...2` `2006-2012...3` `Absolute (%)..~ `Proportional (~
+##    &lt;chr&gt; &lt;chr&gt;           &lt;chr&gt;           &lt;chr&gt;            &lt;chr&gt;           
+##  1 All ~ 50.29999999999~ 66.40000000000~ 16               31.899999999999~
+##  2 (cas~ (50.1, 50.6)    (66.2, 66.5)    (15.7, 16.3)     (31.1, 32.6)    
+##  3 Oral~ 52.5            67              14.4             27.399999999999~
+##  4 &lt;NA&gt;  (51.1, 54.0)    (66.1, 67.9)    (12.7, 16.1)     (23.5, 31.4)    
+##  5 Esop~ 5               20.5            15.5             308.10000000000~
+##  6 &lt;NA&gt;  (4.0, 6.2)      (19.4, 21.7)    (13.9, 17.1)     (217.6, 398.6)  
+##  7 Stom~ 15.19999999999~ 31.10000000000~ 15.9             104.7           
+##  8 &lt;NA&gt;  (14.1, 16.3)    (30.1, 32.2)    (14.4, 17.4)     (88.2, 121.1)   
+##  9 Colo~ 49.79999999999~ 66.20000000000~ 16.399999999999~ 32.899999999999~
+## 10 &lt;NA&gt;  (49.1, 50.6)    (65.7, 66.7)    (15.5, 17.3)     (30.7, 35.1)    
+## # ... with 32 more rows, and 8 more variables: `1975-1977...6` &lt;chr&gt;,
+## #   `2006-2012...7` &lt;chr&gt;, `Absolute (%)...8` &lt;chr&gt;, `Proportional
+## #   (%)...9` &lt;chr&gt;, `1975-1977...10` &lt;chr&gt;, `2006-2012...11` &lt;chr&gt;,
+## #   `Absolute (%)...12` &lt;chr&gt;, `Proportional (%)...13` &lt;chr&gt;</code></pre>
+<p>I will use lolipop charts to plot the change in the survival rates. We need some data preparation first. You can see the <code>NAs</code> in the first row. These actually contain the confidence intervals for the survival rates. Since I will not use them I can use <code>na.omit()</code> function to remove them.</p>
+<p>I will also change column names and some long cancer types for easier typing.</p>
+<pre class="r"><code>cancer &lt;- na.omit(cancer)[-2, 1:5]
+colnames(cancer) &lt;- c(&quot;type&quot;, &quot;Y1977&quot;, &quot;Y2012&quot;, &quot;Absolute&quot;, &quot;Proportional&quot;)
+cancer[,2:5] &lt;- sapply(cancer[,2:5], as.numeric)
+cancer$type[19] &lt;- &quot;Uterus&quot;
+cancer$type[16] &lt;- &quot;Prostate (Men)&quot;
+cancer$type[1] &lt;- &quot;All Cancers&quot;
+cancer$type[12] &lt;- &quot;Brain / Nervous System&quot;
+cancer$type[6] &lt;- &quot;Liver&quot;
+head(cancer)</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   type                    Y1977 Y2012 Absolute Proportional
+##   &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
+## 1 All Cancers              50.3  66.4     16           31.9
+## 2 Oral Cavity and Pharynx  52.5  67       14.4         27.4
+## 3 Esophagus                 5    20.5     15.5        308. 
+## 4 Stomach                  15.2  31.1     15.9        105. 
+## 5 Colon and Rectum         49.8  66.2     16.4         32.9
+## 6 Liver                     3.4  18.1     14.6        428.</code></pre>
+<p>Most often I prefer data in tidy format which is:</p>
+<ul>
+<li>Each observation has its own row.<br />
+</li>
+<li>Each variable has its own column.<br />
+For an <a href="https://dataatomic.com/r/predict-diseases/">example</a>post where I tidied my data with gather() function.</li>
+</ul>
+<p>In my data two variables Y1977 and Y2012 are in separate columns and for lolipop charts and similars it is better this way.</p>
+<p><strong>fct_reorder()</strong> function from <strong>forcats</strong> package is great for ordering factor variables according to a numeric vector. This comes with the <strong>tidyverse</strong> package we installed in the beginning. I will order my graph according to highest values of Y2012, which is the survival rates between 2006-2012.</p>
+<pre class="r"><code>cancer %&gt;% 
+    mutate(type = fct_reorder(type, Y2012)) %&gt;% 
+    ggplot() + 
+    geom_segment(aes(x=Y1977, xend=Y2012-1, 
+                     y=type, yend=type), 
+                     color=&quot;#00AFBB&quot;, size=1, 
+                     arrow = arrow(length = unit(0.3,&quot;cm&quot;), type = &quot;closed&quot;)) +
+    geom_point(aes(x=Y1977, y=type),  color=&quot;#E7B800&quot;, size=2) + 
+    geom_point(aes(x=Y2012, y=type), size=2.5, color = &quot;#FC4E07&quot;) + 
+    geom_point(aes(x=100, y=5), size = 2, color = &quot;#E7B800&quot;) +
+    geom_point(aes(x=100, y=4), size =2, color = &quot;#FC4E07&quot;) + 
+    geom_text(aes(x=95, y=5), color =&quot;#B2B2B2&quot;,label =&quot;1975-77&quot;) + 
+    geom_text(aes(x=95, y=4), color =&quot;#B2B2B2&quot;, label =&quot;2006-12&quot;) +
+    dark_theme_gray() +
+    theme(plot.margin=unit(c(1,1,1.5,1.2),&quot;cm&quot;),
+          text = element_text(size=16),
+          legend.position = &quot;none&quot;,
+          axis.text.y = element_text(size=16),
+          axis.title.y = element_blank(),
+          axis.title.x = element_blank(),
+          axis.line.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          plot.caption = element_text(size= 12, hjust = 0, vjust = -10),
+          plot.subtitle=element_text(size=12, face=&quot;italic&quot;)) +
+    geom_text(mapping = aes(x = ifelse(cancer$type != &quot;Uterus&quot;, Y1977-1, Y1977+2), 
+                            y=type, label=Y1977), hjust = ifelse(cancer$type != &quot;Uterus&quot;,&quot;right&quot;, &quot;left&quot;), vjust=0.28) +
+    geom_text(mapping = aes(x = ifelse(cancer$type != &quot;Uterus&quot;, Y2012+2, Y2012-1), 
+                            y=type, label=Y2012), hjust = ifelse(cancer$type != &quot;Uterus&quot;, &quot;left&quot;,&quot;right&quot;), vjust=0.28) +
+    coord_cartesian(xlim = c(0, 110), expand =1) +
+    scale_x_continuous(labels = function(x) paste0(x, &quot;%&quot;)) + 
+    labs( caption= &quot;Data: https://doi.org/10.1093/jnci/djx030 \nVisualization: Serdar Korur&quot;,
+          title = &quot;Improvement in cancer survival rates in US&quot;, 
+          subtitle=&quot;Five year survival rates of most common cancer types \ncompared between 1975-77 and 2006-12&quot;)</code></pre>
+<pre><code>## Inverted geom defaults of fill and color/colour.
+## To change them back, use invert_geom_defaults().</code></pre>
+<p><img src="/post/2019-11-05-visualizing-five-year-cancer-survival-statistics-with-ggplot2-and-animate_files/figure-html/Final-1.png" width="1152" /></p>
+</div>
+<div id="cancer-waffle-graph-1975-1977" class="section level1">
+<h1>Cancer waffle graph (1975-1977)</h1>
+<pre class="r"><code>waffle_77 &lt;- cancer %&gt;% mutate(Y1977 = round(Y1977, 0), Y2012=round(Y2012,0)) 
+waffle_77 &lt;- waffle_77 %&gt;% mutate(Yes = Y1977)
+waffle_77 &lt;- waffle_77 %&gt;% mutate(No = 100-Yes)
+waffle_77 &lt;- waffle_77[ ,c(1,6,7)]
+# Gather the values 
+waffle_tall &lt;- waffle_77 %&gt;% gather(survived, n, -type)
+
+# Final 1
+# cancer Survival rates in 20 most common cancers
+p1 &lt;- waffle_tall %&gt;%
+  ggplot(aes(fill=survived, values=n)) + 
+  geom_waffle(color = &quot;white&quot;, 
+              size = .25, 
+              n_rows = 10,
+              flip = TRUE) + facet_wrap(~type, nrow = 5, strip.position = &quot;top&quot;) +
+  theme( plot.title = element_text(size=24, color= &quot;black&quot;, hjust=0.5),
+        legend.position = c(0.55,0.1), 
+        text = element_text(size=18),
+         axis.text.x =element_blank(),
+      axis.title.x = element_blank(), 
+      axis.text.y=element_blank(),
+      axis.ticks= element_blank()) +
+      scale_fill_manual(values = c(&quot;#dfdedc&quot;,&quot;#16a1c6&quot;)) +
+      labs(title = &quot;Five-year survival rates in most common cancers - 1975-77&quot;)</code></pre>
+</div>
+<div id="cancer-waffle-graph-2006-12" class="section level1">
+<h1>Cancer waffle graph (2006-12)</h1>
+<pre class="r"><code>waffle_12 &lt;- cancer %&gt;% mutate(Y2012 = round(Y2012, 0), Yes=round(Y2012,0)) 
+waffle_12 &lt;- waffle_12 %&gt;% mutate(Yes =Y2012)
+waffle_12 &lt;- waffle_12 %&gt;% mutate(No = 100-Y2012)
+waffle_12 &lt;- waffle_12[ ,c(1,6,7)]
+
+# Gather the values 
+waffle_tall_12 &lt;- waffle_12 %&gt;% gather(survived, n, -type)
+
+
+# Final 1
+# Cancer survival rates in 20 most common cancers
+p2 &lt;- waffle_tall_12 %&gt;% 
+  ggplot(aes(fill=survived, values=n)) + 
+  geom_waffle(color = &quot;white&quot;, 
+              size = .25, 
+              n_rows = 10,
+              flip = TRUE) + facet_wrap(~type, nrow = 5, strip.position = &quot;top&quot;) +
+  theme( plot.title = element_text(size=24, color= &quot;black&quot;, hjust=0.5),
+        legend.position = c(0.55,0.1), 
+        text = element_text(size=18),
+         axis.text.x =element_blank(),
+      axis.title.x = element_blank(), 
+      axis.text.y=element_blank(),
+      axis.ticks= element_blank()) +
+      scale_fill_manual(values = c(&quot;#dfdedc&quot;,&quot;#16a1c6&quot;)) +
+      labs(title = &quot;Five-year survival rates in most common cancers - 2006-12&quot;)</code></pre>
+<p>To animate my graphs I will use R package <strong>“animation”</strong> created by Yihui Xie.<br />
+For more information you can read the original paper published in the Journal of Statistical Software here: <a href="https://www.jstatsoft.org/article/view/v053i01">An R Package for Creating Animations and Demonstrating Statistical Methods.</a></p>
+<p>You can install from CRAN, or the development version from GitHub:</p>
+<pre class="r"><code>install.packages(&quot;animation&quot;)
+# or development version
+# devtools::install_github(&#39;yihui/animation&#39;)</code></pre>
+</div>
+<div id="animated-in-white-waffle-chart" class="section level1">
+<h1>Animated in white waffle chart</h1>
+<pre class="r"><code>p &lt;- list(p1,p2)
+
+saveGIF({
+    for(i in 1:2) plot(p[[i]])
+},movie.name = &quot;survival.gif&quot;, interval = 0.25, nmax = 30, 
+ani.width = 800)</code></pre>
+<pre><code>## Output at: survival.gif</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>White background</p>
+<p align="center">
+<img src="survival.gif">
+</p>
+<p><img src="survival.gif" />
+# Animated in Black</p>
+<pre class="r"><code># Final 1
+# cancer Survival rates in 20 most common cancers
+p1 &lt;- waffle_tall %&gt;% 
+  filter(survived %in% c(&quot;Yes&quot;, &quot;No&quot;)) %&gt;% ggplot(aes(fill=survived, values=n)) + 
+  geom_waffle(color = &quot;white&quot;, 
+              size = .25, 
+              n_rows = 10,
+              flip = TRUE) + facet_wrap(~type, nrow = 5, strip.position = &quot;top&quot;) + dark_theme_gray() +
+  theme( plot.title = element_text(size=24, color= &quot;white&quot;, hjust=0.5),
+        legend.position = c(0.55,0.1), 
+        text = element_text(size=18),
+         axis.text.x =element_blank(),
+      axis.title.x = element_blank(), 
+      axis.text.y=element_blank(),
+      axis.ticks= element_blank()) +
+      scale_fill_manual(values = c(&quot;#dfdedc&quot;,&quot;#16a1c6&quot;)) +
+      labs(title = &quot;Five-year survival rates in most common cancers - 1975-77&quot;)</code></pre>
+</div>
+<div id="cancer-waffle-graph-2006-12-1" class="section level1">
+<h1>Cancer waffle graph (2006-12)</h1>
+<pre class="r"><code># Final 1
+# cancer Survival rates in 20 most common cancers
+p2 &lt;- waffle_tall_12 %&gt;% 
+  filter(survived %in% c(&quot;Yes&quot;, &quot;No&quot;)) %&gt;% ggplot(aes(fill=survived, values=n)) + 
+  geom_waffle(color = &quot;white&quot;, 
+              size = .25, 
+              n_rows = 10,
+              flip = TRUE) + facet_wrap(~type, nrow = 5, strip.position = &quot;top&quot;) + dark_theme_gray() +
+  theme( plot.title = element_text(size=24, color= &quot;white&quot;, hjust=0.5),
+        legend.position = c(0.55,0.1), 
+        text = element_text(size=18),
+         axis.text.x =element_blank(),
+      axis.title.x = element_blank(), 
+      axis.text.y=element_blank(),
+      axis.ticks= element_blank()) +
+      scale_fill_manual(values = c(&quot;#dfdedc&quot;,&quot;#16a1c6&quot;)) +
+      labs(title = &quot;Five-year survival rates in most common cancers - 2006-12&quot;)</code></pre>
+<pre class="r"><code>p &lt;- list(p1,p2)
+
+saveGIF({
+    for(i in 1:2) plot(p[[i]])
+},movie.name = &quot;survival_black.gif&quot;, interval = 0.25, nmax = 30, 
+ani.width = 800)</code></pre>
+<pre><code>## Output at: survival_black.gif</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>Black background</p>
+<p align="center">
+<img src="survival_black.gif">
+</p>
+<p><img src="survival_black.gif" />
+# Future toughts / Conclusions</p>
+</div>

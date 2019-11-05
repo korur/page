@@ -97,7 +97,7 @@ You can also see here a key difference of a binomial distribution with normal di
 
 Coin flipping expertise may have limited real life applications but let's give some other examples.
 
-* **The performance of a machine learning model**
+* **Binomial distributions in machine learning**
 
 You built a machine learning model with a binary outcome. Let's say pathological image recognition algorithm for liver cancer that works with 90% accuracy. You tested 100 patients and you want to know your 95% confidence interval? Or your new results showed that your model detected less than 70 patients correctly. Is it possible? Or you should start optimizing your parameters again?
 
