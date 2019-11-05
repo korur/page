@@ -272,3 +272,5 @@ Please share if you have other ideas in the comments below!
 Until next time!
 
 Serdar
+
+PS: If you liked my blog you can find here some other blogs on R at [https://www.r-bloggers.com](https://www.r-bloggers.com).
