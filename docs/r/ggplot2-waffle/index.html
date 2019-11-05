@@ -29,8 +29,8 @@
     
   
   <meta name="description" content="Where are we standing on fight against cancer?Five-year survival rates is a good indicator of improvement in cancer medicine.
-I am using the from the article by Jemal et. al. published on the Journal of the National Cancer institute. Original article: https://academic.oup.com/jnci/article/109/9/djx030/3092246
-Final take home messages were:
+I am using the article by Jemal et. al. published on the Journal of the National Cancer institute. You can find the original publication here: https://academic.oup.com/jnci/article/109/9/djx030/3092246
+Final take home messages in this article were:
 Cancer death rates continue to decrease in the United StatesBut progress is very limited in some cancersWhat is needed?">
 
   
@@ -130,8 +130,8 @@ Final take home messages were:
   <meta property="og:url" content="/r/ggplot2-waffle/">
   <meta property="og:title" content="Cleaning and visualizing Five-year cancer survival statistics with ggplot2 and animation | SERDAR KORUR">
   <meta property="og:description" content="Where are we standing on fight against cancer?Five-year survival rates is a good indicator of improvement in cancer medicine.
-I am using the from the article by Jemal et. al. published on the Journal of the National Cancer institute. Original article: https://academic.oup.com/jnci/article/109/9/djx030/3092246
-Final take home messages were:
+I am using the article by Jemal et. al. published on the Journal of the National Cancer institute. You can find the original publication here: https://academic.oup.com/jnci/article/109/9/djx030/3092246
+Final take home messages in this article were:
 Cancer death rates continue to decrease in the United StatesBut progress is very limited in some cancersWhat is needed?"><meta property="og:image" content="/img/logo.png">
   <meta property="twitter:image" content="/img/logo.png"><meta property="og:locale" content="en-us">
   
@@ -195,7 +195,7 @@ Final take home messages were:
       "url": "/img/logo.png"
     }
   },
-  "description": "Where are we standing on fight against cancer?\rFive-year survival rates is a good indicator of improvement in cancer medicine.\nI am using the from the article by Jemal et. al. published on the Journal of the National Cancer institute. Original article: https://academic.oup.com/jnci/article/109/9/djx030/3092246\nFinal take home messages were:\n\rCancer death rates continue to decrease in the United States\rBut progress is very limited in some cancers\r\rWhat is needed?"
+  "description": "Where are we standing on fight against cancer?\rFive-year survival rates is a good indicator of improvement in cancer medicine.\nI am using the article by Jemal et. al. published on the Journal of the National Cancer institute. You can find the original publication here: https://academic.oup.com/jnci/article/109/9/djx030/3092246\nFinal take home messages in this article were:\n\rCancer death rates continue to decrease in the United States\rBut progress is very limited in some cancers\r\rWhat is needed?"
 }
 </script>
 
@@ -439,7 +439,7 @@ Final take home messages were:
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    7 min read
+    9 min read
   </span>
   
 
@@ -570,11 +570,11 @@ Final take home messages were:
       
 
 
-<div id="where-are-we-standing-on-fight-against-cancer" class="section level1">
-<h1>Where are we standing on fight against cancer?</h1>
+<div id="where-are-we-standing-on-fight-against-cancer" class="section level2">
+<h2>Where are we standing on fight against cancer?</h2>
 <p>Five-year survival rates is a good indicator of improvement in cancer medicine.</p>
-<p>I am using the from the article by Jemal et. al. published on the Journal of the National Cancer institute. Original article: <a href="https://academic.oup.com/jnci/article/109/9/djx030/3092246" class="uri">https://academic.oup.com/jnci/article/109/9/djx030/3092246</a></p>
-<p>Final take home messages were:</p>
+<p>I am using the article by Jemal et. al. published on the Journal of the National Cancer institute. You can find the original publication here: <a href="https://academic.oup.com/jnci/article/109/9/djx030/3092246" class="uri">https://academic.oup.com/jnci/article/109/9/djx030/3092246</a></p>
+<p>Final take home messages in this article were:</p>
 <ul>
 <li>Cancer death rates continue to decrease in the United States</li>
 <li>But <strong>progress</strong> is <strong>very limited in some cancers</strong></li>
@@ -583,8 +583,7 @@ Final take home messages were:
 <ul>
 <li>New strategies for prevention, early detection and treatment is crucial.</li>
 </ul>
-<p>Applications of healthcare informatics continue to rise.</p>
-<p>One of the main findings in the paper is changes in five year cancer survival rates between the years 1975-77 to 2006-12. I want to create data visualizations to have an overview on the progress we made so far and compare different types of cancers.</p>
+<p>The authors made an extensive study to investigate changes in five year cancer survival rates between the years 1975-77 to 2006-12. I want to create data visualizations to have an overview on the progress we made so far and also compare different types of cancers.</p>
 <p>You can access the data on my Github repository at <a href="https://github.com/korur/healthcareinformatics">https://github.com/korur/healthcareinformatics</a>.</p>
 <p>Setting up and loading in data</p>
 <pre class="r"><code>library(readxl)
@@ -638,25 +637,30 @@ head(cancer)</code></pre>
 <li>Each observation has its own row.<br />
 </li>
 <li>Each variable has its own column.<br />
-For an <a href="https://dataatomic.com/r/predict-diseases/">example</a>post where I tidied my data with gather() function.</li>
+For an <a href="https://dataatomic.com/r/predict-diseases/">example</a> post where I tidied my data with gather() function.</li>
 </ul>
-<p>In my data two variables Y1977 and Y2012 are in separate columns and for lolipop charts and similars it is better this way.</p>
-<p><strong>fct_reorder()</strong> function from <strong>forcats</strong> package is great for ordering factor variables according to a numeric vector. This comes with the <strong>tidyverse</strong> package we installed in the beginning. I will order my graph according to highest values of Y2012, which is the survival rates between 2006-2012.</p>
+<p>In my data although two variables Y1977 and Y2012 are in two separate columns instead of one, I leave it as it is since it is better this way for lolipop charts and similar line charts.</p>
+<p><strong>fct_reorder()</strong> function from <strong>forcats</strong> package is great for ordering factor variables according to a numeric vector. This comes with the <strong>tidyverse</strong> package we installed in the beginning. I will order my graph so that cancers with highest survival will be at the top of the graph.</p>
 <pre class="r"><code>cancer %&gt;% 
     mutate(type = fct_reorder(type, Y2012)) %&gt;% 
     ggplot() + 
+  # Define the start and end positions of the line of the lolipop
     geom_segment(aes(x=Y1977, xend=Y2012-1, 
                      y=type, yend=type), 
                      color=&quot;#00AFBB&quot;, size=1, 
                      arrow = arrow(length = unit(0.3,&quot;cm&quot;), type = &quot;closed&quot;)) +
+  # Two geom_point for placing at beginning and end 
     geom_point(aes(x=Y1977, y=type),  color=&quot;#E7B800&quot;, size=2) + 
-    geom_point(aes(x=Y2012, y=type), size=2.5, color = &quot;#FC4E07&quot;) + 
+    geom_point(aes(x=Y2012, y=type), size=2.5, color = &quot;#FC4E07&quot;) +
+  # Two Geom_point and two geom_tezt for defining the legend for points
     geom_point(aes(x=100, y=5), size = 2, color = &quot;#E7B800&quot;) +
     geom_point(aes(x=100, y=4), size =2, color = &quot;#FC4E07&quot;) + 
     geom_text(aes(x=95, y=5), color =&quot;#B2B2B2&quot;,label =&quot;1975-77&quot;) + 
     geom_text(aes(x=95, y=4), color =&quot;#B2B2B2&quot;, label =&quot;2006-12&quot;) +
-    dark_theme_gray() +
-    theme(plot.margin=unit(c(1,1,1.5,1.2),&quot;cm&quot;),
+  # Apply dark theme from ggdark package  
+  dark_theme_gray() +
+  # Describe additional theme parameters  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),&quot;cm&quot;),
           text = element_text(size=16),
           legend.position = &quot;none&quot;,
           axis.text.y = element_text(size=16),
@@ -666,29 +670,47 @@ For an <a href="https://dataatomic.com/r/predict-diseases/">example</a>post wher
           axis.ticks.y = element_blank(),
           plot.caption = element_text(size= 12, hjust = 0, vjust = -10),
           plot.subtitle=element_text(size=12, face=&quot;italic&quot;)) +
+  # Text for placing survival %s 
+  # And I need a small trick here by using an ifelse statement 
+  # Since in some cancers survival rate decreased and points are in reverse order 
     geom_text(mapping = aes(x = ifelse(cancer$type != &quot;Uterus&quot;, Y1977-1, Y1977+2), 
-                            y=type, label=Y1977), hjust = ifelse(cancer$type != &quot;Uterus&quot;,&quot;right&quot;, &quot;left&quot;), vjust=0.28) +
+                            y=type, label=Y1977), 
+              hjust = ifelse(cancer$type != &quot;Uterus&quot;,&quot;right&quot;, &quot;left&quot;), vjust=0.28) +
     geom_text(mapping = aes(x = ifelse(cancer$type != &quot;Uterus&quot;, Y2012+2, Y2012-1), 
-                            y=type, label=Y2012), hjust = ifelse(cancer$type != &quot;Uterus&quot;, &quot;left&quot;,&quot;right&quot;), vjust=0.28) +
+                            y=type, label=Y2012), 
+              hjust = ifelse(cancer$type != &quot;Uterus&quot;, &quot;left&quot;,&quot;right&quot;), vjust=0.28) +
     coord_cartesian(xlim = c(0, 110), expand =1) +
     scale_x_continuous(labels = function(x) paste0(x, &quot;%&quot;)) + 
     labs( caption= &quot;Data: https://doi.org/10.1093/jnci/djx030 \nVisualization: Serdar Korur&quot;,
           title = &quot;Improvement in cancer survival rates in US&quot;, 
           subtitle=&quot;Five year survival rates of most common cancer types \ncompared between 1975-77 and 2006-12&quot;)</code></pre>
-<pre><code>## Inverted geom defaults of fill and color/colour.
-## To change them back, use invert_geom_defaults().</code></pre>
 <p><img src="/post/2019-11-05-visualizing-five-year-cancer-survival-statistics-with-ggplot2-and-animate_files/figure-html/Final-1.png" width="1152" /></p>
 </div>
-<div id="cancer-waffle-graph-1975-1977" class="section level1">
-<h1>Cancer waffle graph (1975-1977)</h1>
+<div id="visualize-cancer-statistics-with-waffle-plots" class="section level2">
+<h2>Visualize Cancer statistics with waffle plots</h2>
+<p>Now, to make the waffle plot I need my data in the tidy format. I will use gather function to bring together the year variables. Plot p1 will be for years 1975-77 and p2 is for the years 2006-12.</p>
 <pre class="r"><code>waffle_77 &lt;- cancer %&gt;% mutate(Y1977 = round(Y1977, 0), Y2012=round(Y2012,0)) 
 waffle_77 &lt;- waffle_77 %&gt;% mutate(Yes = Y1977)
 waffle_77 &lt;- waffle_77 %&gt;% mutate(No = 100-Yes)
 waffle_77 &lt;- waffle_77[ ,c(1,6,7)]
 # Gather the values 
 waffle_tall &lt;- waffle_77 %&gt;% gather(survived, n, -type)
-
-# Final 1
+waffle_tall</code></pre>
+<pre><code>## # A tibble: 42 x 3
+##    type                    survived     n
+##    &lt;chr&gt;                   &lt;chr&gt;    &lt;dbl&gt;
+##  1 All Cancers             Yes         50
+##  2 Oral Cavity and Pharynx Yes         52
+##  3 Esophagus               Yes          5
+##  4 Stomach                 Yes         15
+##  5 Colon and Rectum        Yes         50
+##  6 Liver                   Yes          3
+##  7 Pancreas                Yes          2
+##  8 Lung and Bronchus       Yes         12
+##  9 Melanoma of the Skin    Yes         82
+## 10 Urinary Bladder         Yes         72
+## # ... with 32 more rows</code></pre>
+<pre class="r"><code># Final 1
 # cancer Survival rates in 20 most common cancers
 p1 &lt;- waffle_tall %&gt;%
   ggplot(aes(fill=survived, values=n)) + 
@@ -705,9 +727,6 @@ p1 &lt;- waffle_tall %&gt;%
       axis.ticks= element_blank()) +
       scale_fill_manual(values = c(&quot;#dfdedc&quot;,&quot;#16a1c6&quot;)) +
       labs(title = &quot;Five-year survival rates in most common cancers - 1975-77&quot;)</code></pre>
-</div>
-<div id="cancer-waffle-graph-2006-12" class="section level1">
-<h1>Cancer waffle graph (2006-12)</h1>
 <pre class="r"><code>waffle_12 &lt;- cancer %&gt;% mutate(Y2012 = round(Y2012, 0), Yes=round(Y2012,0)) 
 waffle_12 &lt;- waffle_12 %&gt;% mutate(Yes =Y2012)
 waffle_12 &lt;- waffle_12 %&gt;% mutate(No = 100-Y2012)
@@ -715,9 +734,22 @@ waffle_12 &lt;- waffle_12[ ,c(1,6,7)]
 
 # Gather the values 
 waffle_tall_12 &lt;- waffle_12 %&gt;% gather(survived, n, -type)
-
-
-# Final 1
+waffle_tall_12</code></pre>
+<pre><code>## # A tibble: 42 x 3
+##    type                    survived     n
+##    &lt;chr&gt;                   &lt;chr&gt;    &lt;dbl&gt;
+##  1 All Cancers             Yes         66
+##  2 Oral Cavity and Pharynx Yes         67
+##  3 Esophagus               Yes         20
+##  4 Stomach                 Yes         31
+##  5 Colon and Rectum        Yes         66
+##  6 Liver                   Yes         18
+##  7 Pancreas                Yes          8
+##  8 Lung and Bronchus       Yes         19
+##  9 Melanoma of the Skin    Yes         93
+## 10 Urinary Bladder         Yes         78
+## # ... with 32 more rows</code></pre>
+<pre class="r"><code># Final 1
 # Cancer survival rates in 20 most common cancers
 p2 &lt;- waffle_tall_12 %&gt;% 
   ggplot(aes(fill=survived, values=n)) + 
@@ -741,8 +773,8 @@ For more information you can read the original paper published in the Journal of
 # or development version
 # devtools::install_github(&#39;yihui/animation&#39;)</code></pre>
 </div>
-<div id="animated-in-white-waffle-chart" class="section level1">
-<h1>Animated in white waffle chart</h1>
+<div id="animate-waffle-plots-years-1975-77-and-2006-2012" class="section level2">
+<h2>Animate waffle plots (years 1975-77 and 2006-2012)</h2>
 <pre class="r"><code>p &lt;- list(p1,p2)
 
 saveGIF({
@@ -751,9 +783,11 @@ saveGIF({
 ani.width = 800)</code></pre>
 <pre><code>## Output at: survival.gif</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p>White background</p>
-<p><img src="/img/survival.gif" />
-# Animated in Black</p>
+<p><img src="/img/survival.gif" /></p>
+</div>
+<div id="apply-ggdark-theme" class="section level2">
+<h2>Apply ggdark theme</h2>
+<p>I will use <a href="https://github.com/nsgrantham/ggdark">ggdark package</a> to apply a dark theme. This package contains a couple of beautiful themes. p1 will be for years 1975-77 and p2 is for the years 2006-12.</p>
 <pre class="r"><code># Final 1
 # cancer Survival rates in 20 most common cancers
 p1 &lt;- waffle_tall %&gt;% 
@@ -771,9 +805,6 @@ p1 &lt;- waffle_tall %&gt;%
       axis.ticks= element_blank()) +
       scale_fill_manual(values = c(&quot;#dfdedc&quot;,&quot;#16a1c6&quot;)) +
       labs(title = &quot;Five-year survival rates in most common cancers - 1975-77&quot;)</code></pre>
-</div>
-<div id="cancer-waffle-graph-2006-12-1" class="section level1">
-<h1>Cancer waffle graph (2006-12)</h1>
 <pre class="r"><code># Final 1
 # cancer Survival rates in 20 most common cancers
 p2 &lt;- waffle_tall_12 %&gt;% 
@@ -799,9 +830,17 @@ saveGIF({
 ani.width = 800)</code></pre>
 <pre><code>## Output at: survival_black.gif</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p>Black background</p>
-<p><img src="/img/survival_black.gif" />
-# Future toughts / Conclusions</p>
+<p><img src="/img/survival_black.gif" /></p>
+</div>
+<div id="future-thoughts-conclusions" class="section level1">
+<h1>Future thoughts / Conclusions</h1>
+<p>Here, I made two different charts, lolipop and waffle plots by using ggplot2 and animated them with the ‘Animation’ R package.</p>
+<p>Creating visuals to have a good overview of data helps to understand it better and helps us to think about future directions.</p>
+<p>In some type of cancers such as lung and pancreas survival rates remained very low.
+How can we make it better?</p>
+<p>Please comment below what do you think. What are the emerging data science applications / AI in healthcare?</p>
+<p>Until next time!</p>
+<p>Serdar</p>
 </div>
 
     </div>

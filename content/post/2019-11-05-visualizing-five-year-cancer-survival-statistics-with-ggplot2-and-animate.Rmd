@@ -17,14 +17,14 @@ image:
 projects: []
 ---
 
-# Where are we standing on fight against cancer?
+## Where are we standing on fight against cancer?
 
 Five-year survival rates is a good indicator of improvement in cancer medicine.
 
 
-I am using the from the article by Jemal et. al. published on the Journal of the National Cancer institute. Original article: https://academic.oup.com/jnci/article/109/9/djx030/3092246
+I am using the article by Jemal et. al. published on the Journal of the National Cancer institute. You can find the original publication here: https://academic.oup.com/jnci/article/109/9/djx030/3092246
 
-Final take home messages were:
+Final take home messages in this article were:
 
 * Cancer death rates continue to decrease in the United States 
 * But **progress** is **very limited in some cancers**
@@ -33,9 +33,7 @@ Final take home messages were:
 
 * New strategies for prevention, early detection and treatment is crucial. 
 
-Applications of healthcare informatics continue to rise. 
-
-One of the main findings in the paper is changes in five year cancer survival rates between the years 1975-77 to 2006-12. I want to create data visualizations to have an overview on the progress we made so far and compare different types of cancers. 
+The authors made an extensive study to investigate changes in five year cancer survival rates between the years 1975-77 to 2006-12. I want to create data visualizations to have an overview on the progress we made so far and also compare different types of cancers. 
 
 
 You can access the data on my Github repository at [https://github.com/korur/healthcareinformatics](https://github.com/korur/healthcareinformatics).
@@ -80,29 +78,34 @@ Most often I prefer data in tidy format which is:
 
 * Each observation has its own row.  
 * Each variable has its own column.  
-For an [example](https://dataatomic.com/r/predict-diseases/)post where I tidied my data with gather() function.
+For an [example](https://dataatomic.com/r/predict-diseases/) post where I tidied my data with gather() function.
 
-In my data two variables Y1977 and Y2012 are in separate columns and for lolipop charts and similars it is better this way. 
+In my data although two variables Y1977 and Y2012 are in two separate columns instead of one, I leave it as it is since it is better this way for lolipop charts and similar line charts.
 
 
-**fct_reorder()** function from **forcats** package is great for ordering factor variables according to a numeric vector. This comes with the **tidyverse** package we installed in the beginning. I will order my graph according to highest values of Y2012, which is the survival rates between 2006-2012. 
+**fct_reorder()** function from **forcats** package is great for ordering factor variables according to a numeric vector. This comes with the **tidyverse** package we installed in the beginning. I will order my graph so that cancers with highest survival will be at the top of the graph. 
 
-```{r Final, fig.width=12, fig.height=9}
+```{r Final, fig.width=12, fig.height=9, warning = FALSE, message=FALSE}
 cancer %>% 
     mutate(type = fct_reorder(type, Y2012)) %>% 
     ggplot() + 
+  # Define the start and end positions of the line of the lolipop
     geom_segment(aes(x=Y1977, xend=Y2012-1, 
                      y=type, yend=type), 
                      color="#00AFBB", size=1, 
                      arrow = arrow(length = unit(0.3,"cm"), type = "closed")) +
+  # Two geom_point for placing at beginning and end 
     geom_point(aes(x=Y1977, y=type),  color="#E7B800", size=2) + 
-    geom_point(aes(x=Y2012, y=type), size=2.5, color = "#FC4E07") + 
+    geom_point(aes(x=Y2012, y=type), size=2.5, color = "#FC4E07") +
+  # Two Geom_point and two geom_tezt for defining the legend for points
     geom_point(aes(x=100, y=5), size = 2, color = "#E7B800") +
     geom_point(aes(x=100, y=4), size =2, color = "#FC4E07") + 
     geom_text(aes(x=95, y=5), color ="#B2B2B2",label ="1975-77") + 
     geom_text(aes(x=95, y=4), color ="#B2B2B2", label ="2006-12") +
-    dark_theme_gray() +
-    theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
+  # Apply dark theme from ggdark package  
+  dark_theme_gray() +
+  # Describe additional theme parameters  
+  theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"),
           text = element_text(size=16),
           legend.position = "none",
           axis.text.y = element_text(size=16),
@@ -112,10 +115,15 @@ cancer %>%
           axis.ticks.y = element_blank(),
           plot.caption = element_text(size= 12, hjust = 0, vjust = -10),
           plot.subtitle=element_text(size=12, face="italic")) +
+  # Text for placing survival %s 
+  # And I need a small trick here by using an ifelse statement 
+  # Since in some cancers survival rate decreased and points are in reverse order 
     geom_text(mapping = aes(x = ifelse(cancer$type != "Uterus", Y1977-1, Y1977+2), 
-                            y=type, label=Y1977), hjust = ifelse(cancer$type != "Uterus","right", "left"), vjust=0.28) +
+                            y=type, label=Y1977), 
+              hjust = ifelse(cancer$type != "Uterus","right", "left"), vjust=0.28) +
     geom_text(mapping = aes(x = ifelse(cancer$type != "Uterus", Y2012+2, Y2012-1), 
-                            y=type, label=Y2012), hjust = ifelse(cancer$type != "Uterus", "left","right"), vjust=0.28) +
+                            y=type, label=Y2012), 
+              hjust = ifelse(cancer$type != "Uterus", "left","right"), vjust=0.28) +
     coord_cartesian(xlim = c(0, 110), expand =1) +
     scale_x_continuous(labels = function(x) paste0(x, "%")) + 
     labs( caption= "Data: https://doi.org/10.1093/jnci/djx030 \nVisualization: Serdar Korur",
@@ -124,7 +132,9 @@ cancer %>%
 ```
 
 
-# Cancer waffle graph (1975-1977)
+## Visualize Cancer statistics with waffle plots 
+
+Now, to make the waffle plot I need my data in the tidy format. I will use gather function to bring together the year variables. Plot p1 will be for years 1975-77 and p2 is for the years 2006-12.
 
 ```{r 1975-77 period}
 waffle_77 <- cancer %>% mutate(Y1977 = round(Y1977, 0), Y2012=round(Y2012,0)) 
@@ -133,7 +143,11 @@ waffle_77 <- waffle_77 %>% mutate(No = 100-Yes)
 waffle_77 <- waffle_77[ ,c(1,6,7)]
 # Gather the values 
 waffle_tall <- waffle_77 %>% gather(survived, n, -type)
+waffle_tall
+```
 
+
+```{r 1975-77 period a}
 # Final 1
 # cancer Survival rates in 20 most common cancers
 p1 <- waffle_tall %>%
@@ -156,10 +170,8 @@ p1 <- waffle_tall %>%
 
 
 
-# Cancer waffle graph (2006-12)
 
 ```{r 2006-12 period}
-
 waffle_12 <- cancer %>% mutate(Y2012 = round(Y2012, 0), Yes=round(Y2012,0)) 
 waffle_12 <- waffle_12 %>% mutate(Yes =Y2012)
 waffle_12 <- waffle_12 %>% mutate(No = 100-Y2012)
@@ -167,8 +179,11 @@ waffle_12 <- waffle_12[ ,c(1,6,7)]
 
 # Gather the values 
 waffle_tall_12 <- waffle_12 %>% gather(survived, n, -type)
+waffle_tall_12
+```
 
 
+```{r 2006-12 period a}
 # Final 1
 # Cancer survival rates in 20 most common cancers
 p2 <- waffle_tall_12 %>% 
@@ -201,9 +216,9 @@ install.packages("animation")
 ```
 
 
-# Animated in white waffle chart
+## Animate waffle plots (years 1975-77 and 2006-2012)
 
-```{r animate waffle chart, fig.show='animate'}
+```{r animate waffle chart}
 
 p <- list(p1,p2)
 
@@ -214,14 +229,15 @@ ani.width = 800)
 
 ```
 
-White background
-
 
 
 ![](/img/survival.gif)
-# Animated in Black
 
-```{r animate in Black}
+## Apply ggdark theme
+
+I will use [ggdark package](https://github.com/nsgrantham/ggdark) to apply a dark theme. This package contains a couple of beautiful themes. p1 will be for years 1975-77 and p2 is for the years 2006-12.
+
+```{r animate in Black 1975-77}
 # Final 1
 # cancer Survival rates in 20 most common cancers
 p1 <- waffle_tall %>% 
@@ -243,9 +259,7 @@ p1 <- waffle_tall %>%
 ```
 
 
-# Cancer waffle graph (2006-12)
-
-```{r 2006-12 period a}
+```{r Black 2006-12}
 
 # Final 1
 # cancer Survival rates in 20 most common cancers
@@ -281,10 +295,20 @@ ani.width = 800)
 ```
 
 
-Black background
-
 
 ![](/img/survival_black.gif)
-# Future toughts / Conclusions
 
+# Future thoughts / Conclusions
 
+Here, I made two different charts, lolipop and waffle plots by using ggplot2 and animated them with the 'Animation' R package. 
+
+Creating visuals to have a good overview of data helps to understand it better and helps us to think about future directions. 
+
+In some type of cancers such as lung and pancreas survival rates remained very low. 
+How can we make it better? 
+
+Please comment below what do you think. What are the emerging data science applications / AI in healthcare?
+
+Until next time!
+
+Serdar
