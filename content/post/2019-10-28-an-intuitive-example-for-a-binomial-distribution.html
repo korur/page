@@ -42,10 +42,10 @@ p = the probability of success (chance of throwing heads is 0.5)<strong>)</stron
 <p>Let’s compare the probabilities of getting more than 25, 35 or even 49 heads. You can combine rbinom with mean function to find the percentage of the events with a chosen outcome.</p>
 <pre class="r"><code># Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &gt;= 25)</code></pre>
-<pre><code>## [1] 0.55811</code></pre>
+<pre><code>## [1] 0.55579</code></pre>
 <pre class="r"><code># Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &gt;= 35)</code></pre>
-<pre><code>## [1] 0.00313</code></pre>
+<pre><code>## [1] 0.00315</code></pre>
 <pre class="r"><code># Probability of getting 49 or more heads
 mean(rbinom(100000, 50, .5) &gt;= 49)</code></pre>
 <pre><code>## [1] 0</code></pre>
@@ -69,7 +69,7 @@ heads %&gt;%  ggplot(aes(x=heads, fill = events)) +
 <p><img src="/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/install%20packages-1.png" width="672" /></p>
 <p>Even to get 35 or more heads has very low probability. Most of the events will be an integer between 15 and 35.</p>
 <p>Binomial probability distributions help us to understand the likelihood of such rare events.</p>
-<p>You can also see here a key difference of a binomial distribution with normal distributuion is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, <strong>when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities</strong>.</p>
+<p>You can also see here a key difference of a binomial distribution with normal distribution is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, <strong>when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities</strong>.</p>
 <p><strong>So what are all those will be useful for?</strong></p>
 <p>Coin flipping expertise may have limited real life applications but let’s give some other examples.</p>
 <ul>
@@ -209,10 +209,10 @@ estimates &lt;-  rbinom(100000, 2782, 1/30)
 
 # Simulated mean
 mean(estimates)</code></pre>
-<pre><code>## [1] 92.77169</code></pre>
+<pre><code>## [1] 92.76592</code></pre>
 <pre class="r"><code># Simulated variance
 var(estimates)</code></pre>
-<pre><code>## [1] 89.10082</code></pre>
+<pre><code>## [1] 89.18096</code></pre>
 <p>The average value is around 92 movies released in one day.</p>
 <p>We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:</p>
 <p>Mean = size * p<br />
@@ -231,6 +231,7 @@ var_theoretical</code></pre>
 <p>Great, simulated and theoretical values are almost the same. So, I can use my simulations to find out 95% confidence interval which will contain the values that can happen due to random chance.</p>
 <p>I will define an interval that contains 95% of probabilities in our simulated distributions. And the values outside will be the ones which were not due to random chance. To do this I need 2.5th and 97.5th quantiles of the distribution.</p>
 <p>We can do this by the qbinom() function in r. For example qbinom(0.975, size, p) will return the value which will define the cut off which contains 0.975 of the probabilities. And our confidence interval will be the interval between:</p>
+<p>qbinom(0.025, size, p) &lt; Confidence Interval &lt; qbinom(0.975, size, p)</p>
 <pre class="r"><code># Boundaries for p values smaller than 0.05
 
 lower &lt;- qbinom(0.975, 2782, 1/30)
@@ -239,7 +240,6 @@ lower</code></pre>
 <pre class="r"><code>upper &lt;- qbinom(0.025, 2782, 1/30)
 upper</code></pre>
 <pre><code>## [1] 75</code></pre>
-<p>qbinom(0.025, size, p) &lt; Confidence Interval &lt; qbinom(0.975, size, p)</p>
 <pre class="r"><code>movies &lt;- rbinom(100000, 2782, 1/30)
 movies &lt;- data.frame(movies)
 movies &lt;- movies %&gt;% mutate(events = ifelse(movies &gt; qbinom(.025, 2782, 1/30) &amp; movies &lt;  qbinom(.975, 2782, 1/30), &quot;95% Conf. Int.&quot;, &quot;significant&quot;))
@@ -255,12 +255,12 @@ movies %&gt;%  ggplot(aes(x=movies, fill = events)) +
 </div>
 <div id="how-to-calculate-the-p-value-for-a-binomial-test-using-pbinom" class="section level1">
 <h1>How to calculate the p-value for a binomial test using pbinom?</h1>
-<p>Our value at the 13th is 124. Above the 97.5th quantile. So it is significant. But what is the exact p value? Let’s define p value first.</p>
+<p>Our observed value for the 13th is 124. Above the 97.5th quantile. So it is significant. But what is the exact p value? Let’s define p value first.</p>
 <p>{{% alert note %}}
 P value is the sum of the probability of that event plus the sum of the probabilities of similar events that are equally likely or less likely.
 {{% /alert %}}</p>
 <p>In coin flipping probability of heads is (0.5) and following our definition p value is the sum of the probability of that event (0.5) and similar event which is equally or less likely i.e. tails (0.5) which is 0.5 + 0.5 = 1</p>
-<p>And in our horror movie data This will be the sum of the probabilities of getting 124 movie releases and higher.</p>
+<p>And in our horror movie data, this will be the sum of the probabilities of getting 124 movie releases and higher.</p>
 <p>In R, <strong>pbinom</strong> function defines the cumulative probabilities. For example, pbinom(124, 2782, 1/30) will give us the cumulative probabilities of any number of movie releases up to 124. By using 1-pbinom(124, 2782, 1/30) we can find the sum of the probabilities with equal or lower chance than having 124.</p>
 <p>Thus, p value for getting at least 124 movie release is;</p>
 <pre class="r"><code># Probability of getting 124 movie releases in a day like here it happened on the 13th. # Probability of getting at least 124 success
@@ -273,8 +273,10 @@ p_val_binom</code></pre>
 <pre class="r"><code># I will add a new column so I can separately define values outside the 95% confidence interval.
 
 horror_date_table &lt;- horror_date_table %&gt;% 
-                     mutate(p_val = 2 * (1 - pbinom(n, 2782, 1/30, lower.tail = ifelse(n&gt;93, TRUE, FALSE)))) %&gt;% 
-                     mutate(p_val = cut(p_val, breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),  labels = c(&quot;&lt; 0.001&quot;,&quot;&lt; 0.01&quot;, &quot;&lt; 0.05&quot;, &quot;NS&quot;)))      
+                     mutate(p_val = 2 * (1 - pbinom(n, 2782, 1/30, 
+                            lower.tail = ifelse(n&gt;93, TRUE, FALSE)))) %&gt;% 
+                     mutate(p_val = cut(p_val, breaks = c(-Inf, 0.001, 0.01, 0.05, Inf), 
+                                        labels = c(&quot;&lt; 0.001&quot;,&quot;&lt; 0.01&quot;, &quot;&lt; 0.05&quot;, &quot;NS&quot;)))      
 
 # Visualize the significant days 
 p_ci &lt;- horror_date_table %&gt;% 

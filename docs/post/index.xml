@@ -38,10 +38,10 @@ p = the probability of success (chance of throwing heads is 0.5)&lt;strong&gt;)&
 &lt;p&gt;Let’s compare the probabilities of getting more than 25, 35 or even 49 heads. You can combine rbinom with mean function to find the percentage of the events with a chosen outcome.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 25)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.55811&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.55579&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 35)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.00313&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.00315&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 49 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 49)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0&lt;/code&gt;&lt;/pre&gt;
@@ -65,7 +65,7 @@ heads %&amp;gt;%  ggplot(aes(x=heads, fill = events)) +
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-28-an-intuitive-example-for-a-binomial-distribution_files/figure-html/install%20packages-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Even to get 35 or more heads has very low probability. Most of the events will be an integer between 15 and 35.&lt;/p&gt;
 &lt;p&gt;Binomial probability distributions help us to understand the likelihood of such rare events.&lt;/p&gt;
-&lt;p&gt;You can also see here a key difference of a binomial distribution with normal distributuion is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, &lt;strong&gt;when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;You can also see here a key difference of a binomial distribution with normal distribution is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, &lt;strong&gt;when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;So what are all those will be useful for?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Coin flipping expertise may have limited real life applications but let’s give some other examples.&lt;/p&gt;
 &lt;ul&gt;
@@ -205,10 +205,10 @@ estimates &amp;lt;-  rbinom(100000, 2782, 1/30)
 
 # Simulated mean
 mean(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 92.77169&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.76592&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated variance
 var(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 89.10082&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 89.18096&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The average value is around 92 movies released in one day.&lt;/p&gt;
 &lt;p&gt;We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:&lt;/p&gt;
 &lt;p&gt;Mean = size * p&lt;br /&gt;
@@ -227,6 +227,7 @@ var_theoretical&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Great, simulated and theoretical values are almost the same. So, I can use my simulations to find out 95% confidence interval which will contain the values that can happen due to random chance.&lt;/p&gt;
 &lt;p&gt;I will define an interval that contains 95% of probabilities in our simulated distributions. And the values outside will be the ones which were not due to random chance. To do this I need 2.5th and 97.5th quantiles of the distribution.&lt;/p&gt;
 &lt;p&gt;We can do this by the qbinom() function in r. For example qbinom(0.975, size, p) will return the value which will define the cut off which contains 0.975 of the probabilities. And our confidence interval will be the interval between:&lt;/p&gt;
+&lt;p&gt;qbinom(0.025, size, p) &amp;lt; Confidence Interval &amp;lt; qbinom(0.975, size, p)&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Boundaries for p values smaller than 0.05
 
 lower &amp;lt;- qbinom(0.975, 2782, 1/30)
@@ -235,7 +236,6 @@ lower&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;upper &amp;lt;- qbinom(0.025, 2782, 1/30)
 upper&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 75&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;qbinom(0.025, size, p) &amp;lt; Confidence Interval &amp;lt; qbinom(0.975, size, p)&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;movies &amp;lt;- rbinom(100000, 2782, 1/30)
 movies &amp;lt;- data.frame(movies)
 movies &amp;lt;- movies %&amp;gt;% mutate(events = ifelse(movies &amp;gt; qbinom(.025, 2782, 1/30) &amp;amp; movies &amp;lt;  qbinom(.975, 2782, 1/30), &amp;quot;95% Conf. Int.&amp;quot;, &amp;quot;significant&amp;quot;))
@@ -251,7 +251,7 @@ movies %&amp;gt;%  ggplot(aes(x=movies, fill = events)) +
 &lt;/div&gt;
 &lt;div id=&#34;how-to-calculate-the-p-value-for-a-binomial-test-using-pbinom&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;How to calculate the p-value for a binomial test using pbinom?&lt;/h1&gt;
-&lt;p&gt;Our value at the 13th is 124. Above the 97.5th quantile. So it is significant. But what is the exact p value? Let’s define p value first.&lt;/p&gt;
+&lt;p&gt;Our observed value for the 13th is 124. Above the 97.5th quantile. So it is significant. But what is the exact p value? Let’s define p value first.&lt;/p&gt;
 &lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     P value is the sum of the probability of that event plus the sum of the probabilities of similar events that are equally likely or less likely.
@@ -259,7 +259,7 @@ movies %&amp;gt;%  ggplot(aes(x=movies, fill = events)) +
 &lt;/div&gt;
 &lt;/p&gt;
 &lt;p&gt;In coin flipping probability of heads is (0.5) and following our definition p value is the sum of the probability of that event (0.5) and similar event which is equally or less likely i.e. tails (0.5) which is 0.5 + 0.5 = 1&lt;/p&gt;
-&lt;p&gt;And in our horror movie data This will be the sum of the probabilities of getting 124 movie releases and higher.&lt;/p&gt;
+&lt;p&gt;And in our horror movie data, this will be the sum of the probabilities of getting 124 movie releases and higher.&lt;/p&gt;
 &lt;p&gt;In R, &lt;strong&gt;pbinom&lt;/strong&gt; function defines the cumulative probabilities. For example, pbinom(124, 2782, 1/30) will give us the cumulative probabilities of any number of movie releases up to 124. By using 1-pbinom(124, 2782, 1/30) we can find the sum of the probabilities with equal or lower chance than having 124.&lt;/p&gt;
 &lt;p&gt;Thus, p value for getting at least 124 movie release is;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 124 movie releases in a day like here it happened on the 13th. # Probability of getting at least 124 success
@@ -272,8 +272,10 @@ p_val_binom&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# I will add a new column so I can separately define values outside the 95% confidence interval.
 
 horror_date_table &amp;lt;- horror_date_table %&amp;gt;% 
-                     mutate(p_val = 2 * (1 - pbinom(n, 2782, 1/30, lower.tail = ifelse(n&amp;gt;93, TRUE, FALSE)))) %&amp;gt;% 
-                     mutate(p_val = cut(p_val, breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),  labels = c(&amp;quot;&amp;lt; 0.001&amp;quot;,&amp;quot;&amp;lt; 0.01&amp;quot;, &amp;quot;&amp;lt; 0.05&amp;quot;, &amp;quot;NS&amp;quot;)))      
+                     mutate(p_val = 2 * (1 - pbinom(n, 2782, 1/30, 
+                            lower.tail = ifelse(n&amp;gt;93, TRUE, FALSE)))) %&amp;gt;% 
+                     mutate(p_val = cut(p_val, breaks = c(-Inf, 0.001, 0.01, 0.05, Inf), 
+                                        labels = c(&amp;quot;&amp;lt; 0.001&amp;quot;,&amp;quot;&amp;lt; 0.01&amp;quot;, &amp;quot;&amp;lt; 0.05&amp;quot;, &amp;quot;NS&amp;quot;)))      
 
 # Visualize the significant days 
 p_ci &amp;lt;- horror_date_table %&amp;gt;% 

@@ -90,7 +90,7 @@ Even to get 35 or more heads has very low probability. Most of the events will b
 
 Binomial probability distributions help us to understand the likelihood of such rare events.
 
-You can also see here a key difference of a binomial distribution with normal distributuion is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, **when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities**.
+You can also see here a key difference of a binomial distribution with normal distribution is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, **when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities**.
 
 
 **So what are all those will be useful for?**
@@ -262,6 +262,9 @@ Great, simulated and theoretical values are almost the same. So, I can use my si
 I will define an interval that contains 95% of probabilities in our simulated distributions. And the values outside will be the ones which were not due to random chance. To do this I need 2.5th and 97.5th quantiles of the distribution.
 
 We can do this by the qbinom() function in r. For example qbinom(0.975, size, p) will return the value which will define the cut off which contains 0.975 of the probabilities. And our confidence interval will be the interval between:
+
+qbinom(0.025, size, p) < Confidence Interval < qbinom(0.975, size, p)
+
 ```{r, 4}
 # Boundaries for p values smaller than 0.05
 
@@ -271,7 +274,6 @@ upper <- qbinom(0.025, 2782, 1/30)
 upper
 ```
 
-qbinom(0.025, size, p) < Confidence Interval < qbinom(0.975, size, p)
 
 ```{r}
 movies <- rbinom(100000, 2782, 1/30)
@@ -292,7 +294,7 @@ movies %>%  ggplot(aes(x=movies, fill = events)) +
 
 # How to calculate the p-value for a binomial test using pbinom?
 
-Our value at the 13th is 124. Above the 97.5th quantile. So it is significant. But what is the exact p value? Let's define p value first.
+Our observed value for the 13th is 124. Above the 97.5th quantile. So it is significant. But what is the exact p value? Let's define p value first.
 
 {{% alert note %}}
 P value is the sum of the probability of that event plus the sum of the probabilities of similar events that are equally likely or less likely.
@@ -300,7 +302,7 @@ P value is the sum of the probability of that event plus the sum of the probabil
 
 In coin flipping probability of heads is (0.5) and following our definition p value is the sum of the probability of that event (0.5) and similar event which is equally or less likely i.e. tails (0.5) which is 0.5 + 0.5 = 1
 
-And in our horror movie data This will be the sum of the probabilities of getting 124 movie releases and higher.
+And in our horror movie data, this will be the sum of the probabilities of getting 124 movie releases and higher.
 
 In R, **pbinom** function defines the cumulative probabilities. For example, pbinom(124, 2782, 1/30) will give us the cumulative probabilities of any number of movie releases up to 124. By using 1-pbinom(124, 2782, 1/30) we can find the sum of the probabilities with equal or lower chance than having 124.
 
@@ -323,8 +325,10 @@ Let's put those p values on our barplot to highlight the significant days.
 # I will add a new column so I can separately define values outside the 95% confidence interval.
 
 horror_date_table <- horror_date_table %>% 
-                     mutate(p_val = 2 * (1 - pbinom(n, 2782, 1/30, lower.tail = ifelse(n>93, TRUE, FALSE)))) %>% 
-                     mutate(p_val = cut(p_val, breaks = c(-Inf, 0.001, 0.01, 0.05, Inf),  labels = c("< 0.001","< 0.01", "< 0.05", "NS")))      
+                     mutate(p_val = 2 * (1 - pbinom(n, 2782, 1/30, 
+                            lower.tail = ifelse(n>93, TRUE, FALSE)))) %>% 
+                     mutate(p_val = cut(p_val, breaks = c(-Inf, 0.001, 0.01, 0.05, Inf), 
+                                        labels = c("< 0.001","< 0.01", "< 0.05", "NS")))      
 
 # Visualize the significant days 
 p_ci <- horror_date_table %>% 
