@@ -13,7 +13,7 @@
     </image>
     
     <item>
-      <title>An intuitive real life example of a binomial distribution and how to simulate it in R</title>
+      <title>An intuitive real life example of a binomial distribution and how to simulate it in R: Learn it once, use it everyday</title>
       <link>/r/probability-distributions/</link>
       <pubDate>Mon, 28 Oct 2019 00:00:00 +0000</pubDate>
       <guid>/r/probability-distributions/</guid>
@@ -38,10 +38,10 @@ p = the probability of success (chance of throwing heads is 0.5)&lt;strong&gt;)&
 &lt;p&gt;Let’s compare the probabilities of getting more than 25, 35 or even 49 heads. You can combine rbinom with mean function to find the percentage of the events with a chosen outcome.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 25)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.55489&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.5555&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 35)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.00366&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.0033&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 49 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 49)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0&lt;/code&gt;&lt;/pre&gt;
@@ -205,10 +205,10 @@ estimates &amp;lt;-  rbinom(100000, 2782, 1/30)
 
 # Simulated mean
 mean(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 92.73647&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.70875&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated variance
 var(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 89.9432&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 89.51934&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The average value is around 92 movies released in one day.&lt;/p&gt;
 &lt;p&gt;We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:&lt;/p&gt;
 &lt;p&gt;Mean = size * p&lt;br /&gt;
@@ -258,8 +258,8 @@ movies %&amp;gt;%  ggplot(aes(x=movies, fill = events)) +
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;/p&gt;
-&lt;p&gt;In coin flipping probability of heads is (0.5) and following our definition p value is the sum of the probability of that event (0.5) and similar event which is equally or less likely i.e. tails (0.5) which is 0.5 + 0.5 = 1&lt;/p&gt;
-&lt;p&gt;And in our horror movie data, this will be the sum of the probabilities of getting 124 movie releases and higher.&lt;/p&gt;
+&lt;p&gt;For example in coin flipping, probability of heads is (0.5). If we follow our definition, p value is the sum of the probability of that event (0.5) and similar events which is equally or less likely i.e. tails (0.5). This makes our p value 0.5 + 0.5 = 1.&lt;/p&gt;
+&lt;p&gt;Similarly, in our horror movie data this will be the sum of the probabilities of getting 124 movie releases or events that are equally probable or rarer.&lt;/p&gt;
 &lt;p&gt;In R, &lt;strong&gt;pbinom&lt;/strong&gt; function defines the cumulative probabilities. For example, pbinom(124, 2782, 1/30) will give us the cumulative probabilities of any number of movie releases up to 124. By using 1-pbinom(124, 2782, 1/30) we can find the sum of the probabilities with equal or lower chance than having 124.&lt;/p&gt;
 &lt;p&gt;Thus, p value for getting at least 124 movie release is;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 124 movie releases in a day like here it happened on the 13th. # Probability of getting at least 124 success
@@ -308,7 +308,7 @@ p_ci&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;However, another widely used way to do so is to calculate the mean (the expected probability) of our distribution and its standard deviation and to verify how many standard deviations the observed value is away from the mean (the z score).&lt;/strong&gt;&lt;/p&gt;
 &lt;div id=&#34;calculating-the-p-value-by-normal-approximation&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Calculating the p-value by normal approximation&lt;/h3&gt;
-&lt;p&gt;When the sample size is large, binomial distributions can be approximated by a normal distribution. To build the normal distribution, I need mean and standard deviation.&lt;/p&gt;
+&lt;p&gt;When the sample size is large, binomial distributions can be approximated by a normal distribution. To build the normal distribution, I need mean and standard deviation. I can calculate this from the horror movie data.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sample_mean &amp;lt;- horror_date_table %&amp;gt;% ungroup() %&amp;gt;% summarise(n=mean(n))
 sample_mean&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 1
@@ -321,25 +321,29 @@ sample_variance &amp;lt;-  2782 * p * (1-p)
 sample_variance&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 89.64222&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sample_sd &amp;lt;- sqrt(sample_variance)
-
-# Calculate z-score for observation 13th of the month = 124 movies are 
+sample_sd&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 9.467958&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I can calculate the z-score for our observation of 124 movies that are released on the 13th. &lt;strong&gt;Simply, z-score is: how many standard deviations an observation is away from the mean.&lt;/strong&gt; Since 95% of the observations will fall within 1.96 standard deviations from the mean in a normal distribution, a higher z-score will show that our p value is indeed significant.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate z-score for observation 13th of the month = 124 movies are 
 # released
 observation &amp;lt;- 124
 z_score &amp;lt;- (observation - sample_mean) / sample_sd
 z_score&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##          n
 ## 1 3.302367&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I can calculate the exact p value by using a normal distribution function pnorm() and the z score we found.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate the p-value of observing 124 or more movie releases in a day
 
 p_val_nor &amp;lt;- 2 * pnorm(3.302, lower.tail = FALSE)
 p_val_nor&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0.0009599807&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;P values found by using an approximation of a normal distribution and with a simulation of a binomial distribution are very close, Normal: &lt;code&gt;0.00095&lt;/code&gt;, Binomial &lt;code&gt;0.00133&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;As expected, I found similar values (Normal: &lt;strong&gt;0.00095&lt;/strong&gt;, Binomial: &lt;strong&gt;0.00133&lt;/strong&gt;) by using an approximation of a normal distribution and by using binomial distributions. Both methods proves that Horror movies are more likely to be released at the 13th.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;future-thoughts-conclusions&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Future thoughts / Conclusions&lt;/h1&gt;
-&lt;p&gt;As we saw, many events in real life can be explained by binomial probability distributions, and they allow us to calculate whether or not the events happened due to random chance and test different hypotheses.&lt;/p&gt;
+&lt;p&gt;Many events in real life can be explained by binomial probability distributions, and they allow us to calculate whether or not the events happened due to random chance and test our hypotheses.&lt;/p&gt;
+&lt;p&gt;It can be a fun data analysis such as in horror movies, or more serious subjects like testing of new medicines or predicting accuracy of machine learning algorithms detecting diseases.&lt;/p&gt;
 &lt;p&gt;Until next time!&lt;/p&gt;
 &lt;p&gt;Serdar&lt;/p&gt;
 &lt;/div&gt;
