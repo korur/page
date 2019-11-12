@@ -309,7 +309,7 @@ In R, **pbinom** function defines the cumulative probabilities. For example, pbi
 Thus, p value for getting at least 124 movie release is;
 
 ```{r, 5}
-# Probability of getting 124 movie releases in a day like here it happened on the 13th. # Probability of getting at least 124 success
+# Probability of getting at least 124 movie releases (e.g. the 13th)
 
 p_val_binom <- 2 * (1 - pbinom(124, 2782, 1/30))
 p_val_binom

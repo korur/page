@@ -267,6 +267,8 @@ The earliest time, we can predict top teams final positions was around 10th. We 
 
 What else we can ask? For example, we can connect performance changes to new transfers. Or whether changing coaches benefited any team. 
 
+As we saw web is a great source for data. If you want to use it more effectively, learn about different data formats such as JSON or XML and interact with APIs, here is a great course from [Datacamp.](https://www.datacamp.com/courses/working-with-web-data-in-r)
+
 Please share if you have other ideas in the comments below!
 
 Until next time!
