@@ -890,7 +890,8 @@ fullanimation&lt;/code&gt;&lt;/pre&gt;
       <description>
 
 
-&lt;p&gt;We are developing new technologies at lightning speed. We can now analyse genes from a single cell which was not even possible couple of years back, and extract the knowledge hidden in rare genes or rare cell types. Sensors collect data from patients e.g. in diabetic patients, we started to pool healthcare information which accumulate during the use of drugs (e.g. &lt;a href=&#34;https://www.ohdsi.org/data-standardization/the-common-data-model/&#34;&gt;OMOP common data model&lt;/a&gt; that is called real world evidence. &lt;strong&gt;The data that we have access now is enormous and is growing everyday.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We are developing new technologies at lightning speed. We can now analyse genes from a single cell which was not even possible couple of years back, and extract the knowledge hidden in rare genes or rare cell types.&lt;/p&gt;
+&lt;p&gt;Sensors collect data from patients e.g. in diabetic patients, we started to pool healthcare information which accumulate during the use of drugs (e.g. &lt;a href=&#34;https://www.ohdsi.org/data-standardization/the-common-data-model/&#34;&gt;OMOP common data model&lt;/a&gt; that is called real world evidence. &lt;strong&gt;The data that we have access now is enormous and is growing everyday.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Data Science&lt;/strong&gt; tools are more than ever needed to mold this data into better therapies.&lt;/p&gt;
 &lt;p&gt;We can build new machine learning models and;&lt;/p&gt;
 &lt;ul&gt;
@@ -994,7 +995,7 @@ library(waffle)&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;I look at what atomic data types my variables has. I see that the outcome variable is represented as an integer. I will keep this in mind because many machine learning models will accept the binary outcome as factor data type.&lt;/p&gt;
+&lt;p&gt;I look for atomic data types my variables have. I see that the outcome variable is represented as an integer. I will keep this in mind because many machine learning models will accept the binary outcome as factor data type.&lt;/p&gt;
 &lt;p&gt;Next, what catches my attention is &lt;strong&gt;unexpected zero values in Insulin&lt;/strong&gt;. See below.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::kable(head(diabetes))&lt;/code&gt;&lt;/pre&gt;
 &lt;table&gt;
@@ -1107,7 +1108,8 @@ library(waffle)&lt;/code&gt;&lt;/pre&gt;
 ##  3rd Qu.:1.000  
 ##  Max.   :1.000&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Plotting how the variables are distributed will give a good overview to spot problems.&lt;/p&gt;
-&lt;p&gt;I will change the data format so that I can plot all the variables in different facets. melt() function from reshape2 package can create a tall version of my data. &lt;strong&gt;This function will collect all variable names in one column and corresponding values in the next column.&lt;/strong&gt; This data structure will allow me to plot all variables together.&lt;/p&gt;
+&lt;p&gt;I will change the data format so that I can plot all the variables in different facets. &lt;strong&gt;melt()&lt;/strong&gt; function from reshape2 package can create a tall version of my data.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;This function will collect all variable names in one column and corresponding values in the next column.&lt;/strong&gt; This data structure will allow me to plot all variables together.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gg &amp;lt;- melt(diabetes)
 
 # Check how the new data structure looks like
@@ -1124,51 +1126,24 @@ ggplot(gg, aes(x=value, fill=variable)) +
   geom_histogram(binwidth=5) + 
   facet_wrap(~variable) &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20the%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Multiple variavles have peaks at zero. E.g. peaks at zero of Skin Thickness and Insulin is obvious here.&lt;/p&gt;
+&lt;p&gt;Multiple variables have peaks at zero. E.g. Skin Thickness and Insulin. It is not possible that those variables are zero.&lt;/p&gt;
 &lt;p&gt;I want to know how many zeros each variables has. In cases where the numbers are small we might remove them. &lt;strong&gt;Let’s figure it out with a for loop.&lt;/strong&gt; and then visualize on a waffle plot.&lt;/p&gt;
-&lt;p&gt;I am selecting only variables from 2 to 6 because they can’t be zero. Let’s count number of zeros on those variables.&lt;/p&gt;
-&lt;p&gt;How to count zeros in each column using dplyr?&lt;/p&gt;
-&lt;p&gt;Approach 1: Using which and []&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;start &amp;lt;- Sys.time()
-zero_rows &amp;lt;- list()
+&lt;p&gt;I am selecting only variables from 2 to 6 because only those can’t be zero. Let’s count number of zeros.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to count zeros in each column?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Approach 1:&lt;/strong&gt; Using a for loop, which() function and []&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;zero_rows &amp;lt;- list()
 for(i in 2:6){
 zero_rows[[i]] &amp;lt;- length(which(diabetes[,i] == 0))  
 }
-rows_with_zero &amp;lt;- unlist(zero_rows)
-end &amp;lt;- Sys.time()
-with_loop &amp;lt;- end-start&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;As a bonus, I can recommend a shorter and faster approach
-Approach 2: Using dplyr functions and &lt;strong&gt;summarise_each()&lt;/strong&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;start &amp;lt;- Sys.time()
-gg %&amp;gt;% group_by(variable) %&amp;gt;% summarise_each(funs(sum(.==0)))&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: funs() is soft deprecated as of dplyr 0.8.0
-## Please use a list of either functions or lambdas: 
-## 
-##   # Simple named list: 
-##   list(mean = mean, median = median)
-## 
-##   # Auto named with `tibble::lst()`: 
-##   tibble::lst(mean, median)
-## 
-##   # Using lambdas
-##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-## This warning is displayed once per session.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 9 x 2
-##   variable                 value
-##   &amp;lt;fct&amp;gt;                    &amp;lt;int&amp;gt;
-## 1 Pregnancies                111
-## 2 Glucose                      5
-## 3 BloodPressure               35
-## 4 SkinThickness              227
-## 5 Insulin                    374
-## 6 BMI                         11
-## 7 DiabetesPedigreeFunction     0
-## 8 Age                          0
-## 9 Outcome                    500&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;end &amp;lt;- Sys.time()
-with_dplyr &amp;lt;- end-start&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Using dplyr is easier and faster. For loop: &lt;code&gt;with_loop&lt;/code&gt;, Dplyr: &lt;code&gt;with_dplyr&lt;/code&gt;
-Feed those numbers to a waffle plot.&lt;/p&gt;
+rows_with_zero &amp;lt;- unlist(zero_rows)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As a bonus, I can recommend using dplyr package.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Approach 2:&lt;/strong&gt; Much simpler with dplyr &lt;strong&gt;summarise_all()&lt;/strong&gt; function&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;diabetes %&amp;gt;%  summarise_all(funs(sum(.==0)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   Pregnancies Glucose BloodPressure SkinThickness Insulin BMI
+## 1         111       5            35           227     374  11
+##   DiabetesPedigreeFunction Age Outcome
+## 1                        0   0     500&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feed those numbers from the for loop into a waffle plot.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;zeros &amp;lt;- c(&amp;quot;Glucose&amp;quot; =rows_with_zero[1], &amp;quot;Blood Pressure&amp;quot; = rows_with_zero[2], 
            &amp;quot;Skin Thickness&amp;quot;= rows_with_zero[3], &amp;quot;Insulin&amp;quot; =rows_with_zero[4], 
            &amp;quot;BMI&amp;quot; = rows_with_zero[5])
