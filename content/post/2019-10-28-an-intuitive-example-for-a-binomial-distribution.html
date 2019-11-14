@@ -42,10 +42,10 @@ p = the probability of success (chance of throwing heads is 0.5)<strong>)</stron
 <p>Let’s compare the probabilities of getting more than 25, 35 or even 49 heads. You can combine rbinom with mean function to find the percentage of the events with a chosen outcome.</p>
 <pre class="r"><code># Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &gt;= 25)</code></pre>
-<pre><code>## [1] 0.5555</code></pre>
+<pre><code>## [1] 0.55649</code></pre>
 <pre class="r"><code># Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &gt;= 35)</code></pre>
-<pre><code>## [1] 0.0033</code></pre>
+<pre><code>## [1] 0.00301</code></pre>
 <pre class="r"><code># Probability of getting 49 or more heads
 mean(rbinom(100000, 50, .5) &gt;= 49)</code></pre>
 <pre><code>## [1] 0</code></pre>
@@ -209,10 +209,10 @@ estimates &lt;-  rbinom(100000, 2782, 1/30)
 
 # Simulated mean
 mean(estimates)</code></pre>
-<pre><code>## [1] 92.70875</code></pre>
+<pre><code>## [1] 92.7603</code></pre>
 <pre class="r"><code># Simulated variance
 var(estimates)</code></pre>
-<pre><code>## [1] 89.51934</code></pre>
+<pre><code>## [1] 89.4458</code></pre>
 <p>The average value is around 92 movies released in one day.</p>
 <p>We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:</p>
 <p>Mean = size * p<br />
@@ -263,7 +263,7 @@ P value is the sum of the probability of that event plus the sum of the probabil
 <p>Similarly, in our horror movie data this will be the sum of the probabilities of getting 124 movie releases or events that are equally probable or rarer.</p>
 <p>In R, <strong>pbinom</strong> function defines the cumulative probabilities. For example, pbinom(124, 2782, 1/30) will give us the cumulative probabilities of any number of movie releases up to 124. By using 1-pbinom(124, 2782, 1/30) we can find the sum of the probabilities with equal or lower chance than having 124.</p>
 <p>Thus, p value for getting at least 124 movie release is;</p>
-<pre class="r"><code># Probability of getting 124 movie releases in a day like here it happened on the 13th. # Probability of getting at least 124 success
+<pre class="r"><code># Probability of getting at least 124 movie releases (e.g. the 13th)
 
 p_val_binom &lt;- 2 * (1 - pbinom(124, 2782, 1/30))
 p_val_binom</code></pre>

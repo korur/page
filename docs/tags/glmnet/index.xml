@@ -20,18 +20,19 @@
       <description>
 
 
-&lt;p&gt;Would you be taking care of yourself better if your doctor told today that you have &lt;strong&gt;high risk of diabetes?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Advances in fields, such as omics and internet of things (sensors that collect data), and centralization of healthcare information (e.g. &lt;a href=&#34;https://www.ohdsi.org/data-standardization/the-common-data-model/&#34;&gt;OMOP common data model&lt;/a&gt;) enable us to access much wider data sources.&lt;/p&gt;
-&lt;p&gt;Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;&lt;/p&gt;
+&lt;p&gt;We are developing new technologies at lightning speed. We can now analyse genes from a single cell which was not even possible couple of years back, and extract the knowledge hidden in rare genes or rare cell types. Sensors collect data from patients e.g. in diabetic patients, we started to pool healthcare information which accumulate during the use of drugs (e.g. &lt;a href=&#34;https://www.ohdsi.org/data-standardization/the-common-data-model/&#34;&gt;OMOP common data model&lt;/a&gt; that is called real world evidence. &lt;strong&gt;The data that we have access now is enormous and is growing everyday.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Data Science&lt;/strong&gt; tools are more than ever needed to mold this data into better therapies.&lt;/p&gt;
+&lt;p&gt;We can build new machine learning models and;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Diagnosing diseases earlier&lt;/li&gt;
-&lt;li&gt;Identifying drugs with reduced side effects&lt;/li&gt;
-&lt;li&gt;Select patient groups responding to an experimental therapy&lt;/li&gt;
-&lt;li&gt;Utilize existing therapies better&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;diagnose diseases earlier&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;develop better drugs which are more effective and have less side effects&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;identify patients groups which benefit most from existing drugs&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Let’s look at an example and try to help some doctors in diagnosing their patients.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Let’s look at an example&lt;/strong&gt; and try to help doctors in diagnosing patients.&lt;/p&gt;
+&lt;p&gt;First part of data science process is problem formulation.&lt;/p&gt;
 &lt;div id=&#34;problem-formulation&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Problem formulation&lt;/h1&gt;
+&lt;p&gt;Our problem, or question that we want to answer is:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Can we build a Machine learning algorithm to predict which patients will develop Diabetes?&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -54,7 +55,8 @@ by using 8 medical indicators.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;data-acquisition&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Data acquisition&lt;/h1&gt;
-&lt;p&gt;I downloaded the &lt;a href=&#34;https://www.kaggle.com/uciml/pima-indians-diabetes-database&#34;&gt;Pima Indians Diabetes Dataset&lt;/a&gt; from Kaggle and imported it from my local directory.&lt;/p&gt;
+&lt;p&gt;You can download the &lt;a href=&#34;https://www.kaggle.com/uciml/pima-indians-diabetes-database&#34;&gt;Pima Indians Diabetes Dataset&lt;/a&gt; from Kaggle and load it in RStudio.&lt;/p&gt;
+&lt;p&gt;Setting up and loading in the data.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;diabetes &amp;lt;- read.csv(&amp;quot;posts_data/diabetes.csv&amp;quot;)
 library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
                    # purrr, tibble, stringr, forcats
@@ -64,11 +66,12 @@ library(pROC)
 library(lattice)
 library(caret)
 library(waffle)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next step in our data science process is to check whether the data quality is good.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;data-quality-control&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Data Quality control&lt;/h1&gt;
-&lt;p&gt;Before counting on any algorithm a good starting point is to &lt;strong&gt;check obvious mistakes and abnormalities in your data.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here, I would look at &lt;strong&gt;Missing values&lt;/strong&gt;, variable ranges (&lt;strong&gt;min, max values&lt;/strong&gt;). A very extreme value might be basically a sign of typing error.&lt;/p&gt;
+&lt;p&gt;Before running any algorithm a good starting point is to &lt;strong&gt;check obvious mistakes and abnormalities in your data.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I would first look at &lt;strong&gt;Missing values&lt;/strong&gt;, &lt;strong&gt;NAs&lt;/strong&gt;, variable ranges (&lt;strong&gt;min, max values&lt;/strong&gt;). A very extreme value might be basically a typing error.&lt;/p&gt;
 &lt;div id=&#34;understand-your-data&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Understand your Data&lt;/h2&gt;
 &lt;p&gt;How big is the data? Classes of variables?&lt;/p&gt;
@@ -121,7 +124,8 @@ library(waffle)&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Next, what catches my attention is &lt;strong&gt;unexpected zero values in Insulin&lt;/strong&gt;. Look below.&lt;/p&gt;
+&lt;p&gt;I look at what atomic data types my variables has. I see that the outcome variable is represented as an integer. I will keep this in mind because many machine learning models will accept the binary outcome as factor data type.&lt;/p&gt;
+&lt;p&gt;Next, what catches my attention is &lt;strong&gt;unexpected zero values in Insulin&lt;/strong&gt;. See below.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::kable(head(diabetes))&lt;/code&gt;&lt;/pre&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -209,7 +213,7 @@ library(waffle)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;missing-values&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Missing Values&lt;/h2&gt;
-&lt;p&gt;Summary gives a good overview of the variables. Any missing data will show up here listed as &lt;strong&gt;“NA’s”&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Summary gives a good overview of the variables. Any missing data would show up here listed as &lt;strong&gt;“NA’s”&lt;/strong&gt;. But we have none here.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(diabetes)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##   Pregnancies        Glucose      BloodPressure    SkinThickness  
 ##  Min.   : 0.000   Min.   :  0.0   Min.   :  0.00   Min.   : 0.00  
@@ -232,22 +236,69 @@ library(waffle)&lt;/code&gt;&lt;/pre&gt;
 ##  Mean   :0.349  
 ##  3rd Qu.:1.000  
 ##  Max.   :1.000&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I will make visualizations of the variables to see how they are distributed.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gg &amp;lt;- melt(diabetes)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## No id variables; using all as measure variables&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(gg, aes(x=value, fill=variable)) +
-  geom_histogram(binwidth=5)+ 
+&lt;p&gt;Plotting how the variables are distributed will give a good overview to spot problems.&lt;/p&gt;
+&lt;p&gt;I will change the data format so that I can plot all the variables in different facets. melt() function from reshape2 package can create a tall version of my data. &lt;strong&gt;This function will collect all variable names in one column and corresponding values in the next column.&lt;/strong&gt; This data structure will allow me to plot all variables together.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gg &amp;lt;- melt(diabetes)
+
+# Check how the new data structure looks like
+head(gg)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      variable value
+## 1 Pregnancies     6
+## 2 Pregnancies     1
+## 3 Pregnancies     8
+## 4 Pregnancies     1
+## 5 Pregnancies     0
+## 6 Pregnancies     5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Plot all variables
+ggplot(gg, aes(x=value, fill=variable)) +
+  geom_histogram(binwidth=5) + 
   facet_wrap(~variable) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Peaks at zero of Skin Thickness and Insulin is obvious here.&lt;/p&gt;
-&lt;p&gt;In cases where the numbers are small we might remove them. &lt;strong&gt;Let’s figure it out with a for loop.&lt;/strong&gt; and then visualize on a waffle plot.&lt;/p&gt;
-&lt;p&gt;This will bring me the number of zero containing rows in variables from 2 to 6.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;zero_rows &amp;lt;- list()
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20the%20variables%20are%20distributed-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Multiple variavles have peaks at zero. E.g. peaks at zero of Skin Thickness and Insulin is obvious here.&lt;/p&gt;
+&lt;p&gt;I want to know how many zeros each variables has. In cases where the numbers are small we might remove them. &lt;strong&gt;Let’s figure it out with a for loop.&lt;/strong&gt; and then visualize on a waffle plot.&lt;/p&gt;
+&lt;p&gt;I am selecting only variables from 2 to 6 because they can’t be zero. Let’s count number of zeros on those variables.&lt;/p&gt;
+&lt;p&gt;How to count zeros in each column using dplyr?&lt;/p&gt;
+&lt;p&gt;Approach 1: Using which and []&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;start &amp;lt;- Sys.time()
+zero_rows &amp;lt;- list()
 for(i in 2:6){
 zero_rows[[i]] &amp;lt;- length(which(diabetes[,i] == 0))  
 }
-rows_with_zero &amp;lt;- unlist(zero_rows)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Feed those numbers to a waffle plot.&lt;/p&gt;
+rows_with_zero &amp;lt;- unlist(zero_rows)
+end &amp;lt;- Sys.time()
+with_loop &amp;lt;- end-start&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As a bonus, I can recommend a shorter and faster approach
+Approach 2: Using dplyr functions and &lt;strong&gt;summarise_each()&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;start &amp;lt;- Sys.time()
+gg %&amp;gt;% group_by(variable) %&amp;gt;% summarise_each(funs(sum(.==0)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: funs() is soft deprecated as of dplyr 0.8.0
+## Please use a list of either functions or lambdas: 
+## 
+##   # Simple named list: 
+##   list(mean = mean, median = median)
+## 
+##   # Auto named with `tibble::lst()`: 
+##   tibble::lst(mean, median)
+## 
+##   # Using lambdas
+##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+## This warning is displayed once per session.&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 9 x 2
+##   variable                 value
+##   &amp;lt;fct&amp;gt;                    &amp;lt;int&amp;gt;
+## 1 Pregnancies                111
+## 2 Glucose                      5
+## 3 BloodPressure               35
+## 4 SkinThickness              227
+## 5 Insulin                    374
+## 6 BMI                         11
+## 7 DiabetesPedigreeFunction     0
+## 8 Age                          0
+## 9 Outcome                    500&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;end &amp;lt;- Sys.time()
+with_dplyr &amp;lt;- end-start&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Using dplyr is easier and faster. For loop: &lt;code&gt;with_loop&lt;/code&gt;, Dplyr: &lt;code&gt;with_dplyr&lt;/code&gt;
+Feed those numbers to a waffle plot.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;zeros &amp;lt;- c(&amp;quot;Glucose&amp;quot; =rows_with_zero[1], &amp;quot;Blood Pressure&amp;quot; = rows_with_zero[2], 
            &amp;quot;Skin Thickness&amp;quot;= rows_with_zero[3], &amp;quot;Insulin&amp;quot; =rows_with_zero[4], 
            &amp;quot;BMI&amp;quot; = rows_with_zero[5])
@@ -263,7 +314,7 @@ df&lt;/code&gt;&lt;/pre&gt;
 ## SkinThickness            227
 ## Insulin                  374
 ## BMI                       11&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;For instance, &lt;strong&gt;374&lt;/strong&gt; Insulin values are zero. Other variables also contain zeros. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with &lt;strong&gt;zeros&lt;/strong&gt; in the data collection phase.&lt;/p&gt;
+&lt;p&gt;For instance, &lt;strong&gt;374&lt;/strong&gt; rows of Insulin are zero. Other variables also contain zeros. Somethin is wrong. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with &lt;strong&gt;zeros&lt;/strong&gt; in the data collection phase.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to circumvent this?&lt;/strong&gt;&lt;/p&gt;
 &lt;div id=&#34;convert-all-zeroes-to-nas-and-then-perform-median-imputation&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Convert all &lt;strong&gt;zeroes&lt;/strong&gt; to &lt;strong&gt;NAs&lt;/strong&gt; and then perform &lt;strong&gt;Median Imputation&lt;/strong&gt;&lt;/h3&gt;

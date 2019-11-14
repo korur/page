@@ -28,9 +28,7 @@
   
     
   
-  <meta name="description" content="Would you be taking care of yourself better if your doctor told today that you have high risk of diabetes?
-Advances in fields, such as omics and internet of things (sensors that collect data), and centralization of healthcare information (e.g. OMOP common data model) enable us to access much wider data sources.
-Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;">
+  <meta name="description" content="We are developing new technologies at lightning speed. We can now analyse genes from a single cell which was not even possible couple of years back, and extract the knowledge hidden in rare genes or rare cell types. Sensors collect data from patients e.g. in diabetic patients, we started to pool healthcare information which accumulate during the use of drugs (e.g. OMOP common data model that is called real world evidence.">
 
   
   <link rel="alternate" hreflang="en-us" href="/r/predict-diseases/">
@@ -128,9 +126,7 @@ Gaining insights from those we can improve our well being with better healthcare
   <meta property="og:site_name" content="SERDAR KORUR">
   <meta property="og:url" content="/r/predict-diseases/">
   <meta property="og:title" content="Can machine learning change your lifestyle? Predicting Diabetes | SERDAR KORUR">
-  <meta property="og:description" content="Would you be taking care of yourself better if your doctor told today that you have high risk of diabetes?
-Advances in fields, such as omics and internet of things (sensors that collect data), and centralization of healthcare information (e.g. OMOP common data model) enable us to access much wider data sources.
-Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;"><meta property="og:image" content="/img/logo.png">
+  <meta property="og:description" content="We are developing new technologies at lightning speed. We can now analyse genes from a single cell which was not even possible couple of years back, and extract the knowledge hidden in rare genes or rare cell types. Sensors collect data from patients e.g. in diabetic patients, we started to pool healthcare information which accumulate during the use of drugs (e.g. OMOP common data model that is called real world evidence."><meta property="og:image" content="/img/logo.png">
   <meta property="twitter:image" content="/img/logo.png"><meta property="og:locale" content="en-us">
   
     
@@ -193,7 +189,7 @@ Gaining insights from those we can improve our well being with better healthcare
       "url": "/img/logo.png"
     }
   },
-  "description": "Would you be taking care of yourself better if your doctor told today that you have high risk of diabetes?\nAdvances in fields, such as omics and internet of things (sensors that collect data), and centralization of healthcare information (e.g. OMOP common data model) enable us to access much wider data sources.\nGaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;"
+  "description": "We are developing new technologies at lightning speed. We can now analyse genes from a single cell which was not even possible couple of years back, and extract the knowledge hidden in rare genes or rare cell types. Sensors collect data from patients e.g. in diabetic patients, we started to pool healthcare information which accumulate during the use of drugs (e.g. OMOP common data model that is called real world evidence."
 }
 </script>
 
@@ -437,7 +433,7 @@ Gaining insights from those we can improve our well being with better healthcare
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    20 min read
+    22 min read
   </span>
   
 
@@ -568,18 +564,19 @@ Gaining insights from those we can improve our well being with better healthcare
       
 
 
-<p>Would you be taking care of yourself better if your doctor told today that you have <strong>high risk of diabetes?</strong></p>
-<p>Advances in fields, such as omics and internet of things (sensors that collect data), and centralization of healthcare information (e.g. <a href="https://www.ohdsi.org/data-standardization/the-common-data-model/">OMOP common data model</a>) enable us to access much wider data sources.</p>
-<p>Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;</p>
+<p>We are developing new technologies at lightning speed. We can now analyse genes from a single cell which was not even possible couple of years back, and extract the knowledge hidden in rare genes or rare cell types. Sensors collect data from patients e.g. in diabetic patients, we started to pool healthcare information which accumulate during the use of drugs (e.g. <a href="https://www.ohdsi.org/data-standardization/the-common-data-model/">OMOP common data model</a> that is called real world evidence. <strong>The data that we have access now is enormous and is growing everyday.</strong></p>
+<p><strong>Data Science</strong> tools are more than ever needed to mold this data into better therapies.</p>
+<p>We can build new machine learning models and;</p>
 <ul>
-<li>Diagnosing diseases earlier</li>
-<li>Identifying drugs with reduced side effects</li>
-<li>Select patient groups responding to an experimental therapy</li>
-<li>Utilize existing therapies better</li>
+<li><strong>diagnose diseases earlier</strong></li>
+<li><strong>develop better drugs which are more effective and have less side effects</strong></li>
+<li><strong>identify patients groups which benefit most from existing drugs</strong></li>
 </ul>
-<p><strong>Let’s look at an example and try to help some doctors in diagnosing their patients.</strong></p>
+<p><strong>Let’s look at an example</strong> and try to help doctors in diagnosing patients.</p>
+<p>First part of data science process is problem formulation.</p>
 <div id="problem-formulation" class="section level1">
 <h1>Problem formulation</h1>
+<p>Our problem, or question that we want to answer is:</p>
 <blockquote>
 <p>Can we build a Machine learning algorithm to predict which patients will develop Diabetes?</p>
 </blockquote>
@@ -602,7 +599,8 @@ by using 8 medical indicators.</p>
 </div>
 <div id="data-acquisition" class="section level1">
 <h1>Data acquisition</h1>
-<p>I downloaded the <a href="https://www.kaggle.com/uciml/pima-indians-diabetes-database">Pima Indians Diabetes Dataset</a> from Kaggle and imported it from my local directory.</p>
+<p>You can download the <a href="https://www.kaggle.com/uciml/pima-indians-diabetes-database">Pima Indians Diabetes Dataset</a> from Kaggle and load it in RStudio.</p>
+<p>Setting up and loading in the data.</p>
 <pre class="r"><code>diabetes &lt;- read.csv(&quot;posts_data/diabetes.csv&quot;)
 library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
                    # purrr, tibble, stringr, forcats
@@ -612,11 +610,12 @@ library(pROC)
 library(lattice)
 library(caret)
 library(waffle)</code></pre>
+<p>Next step in our data science process is to check whether the data quality is good.</p>
 </div>
 <div id="data-quality-control" class="section level1">
 <h1>Data Quality control</h1>
-<p>Before counting on any algorithm a good starting point is to <strong>check obvious mistakes and abnormalities in your data.</strong></p>
-<p>Here, I would look at <strong>Missing values</strong>, variable ranges (<strong>min, max values</strong>). A very extreme value might be basically a sign of typing error.</p>
+<p>Before running any algorithm a good starting point is to <strong>check obvious mistakes and abnormalities in your data.</strong></p>
+<p>I would first look at <strong>Missing values</strong>, <strong>NAs</strong>, variable ranges (<strong>min, max values</strong>). A very extreme value might be basically a typing error.</p>
 <div id="understand-your-data" class="section level2">
 <h2>Understand your Data</h2>
 <p>How big is the data? Classes of variables?</p>
@@ -669,7 +668,8 @@ library(waffle)</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Next, what catches my attention is <strong>unexpected zero values in Insulin</strong>. Look below.</p>
+<p>I look at what atomic data types my variables has. I see that the outcome variable is represented as an integer. I will keep this in mind because many machine learning models will accept the binary outcome as factor data type.</p>
+<p>Next, what catches my attention is <strong>unexpected zero values in Insulin</strong>. See below.</p>
 <pre class="r"><code>knitr::kable(head(diabetes))</code></pre>
 <table>
 <thead>
@@ -757,7 +757,7 @@ library(waffle)</code></pre>
 </div>
 <div id="missing-values" class="section level2">
 <h2>Missing Values</h2>
-<p>Summary gives a good overview of the variables. Any missing data will show up here listed as <strong>“NA’s”</strong>.</p>
+<p>Summary gives a good overview of the variables. Any missing data would show up here listed as <strong>“NA’s”</strong>. But we have none here.</p>
 <pre class="r"><code>summary(diabetes)</code></pre>
 <pre><code>##   Pregnancies        Glucose      BloodPressure    SkinThickness  
 ##  Min.   : 0.000   Min.   :  0.0   Min.   :  0.00   Min.   : 0.00  
@@ -780,22 +780,69 @@ library(waffle)</code></pre>
 ##  Mean   :0.349  
 ##  3rd Qu.:1.000  
 ##  Max.   :1.000</code></pre>
-<p>I will make visualizations of the variables to see how they are distributed.</p>
-<pre class="r"><code>gg &lt;- melt(diabetes)</code></pre>
-<pre><code>## No id variables; using all as measure variables</code></pre>
-<pre class="r"><code>ggplot(gg, aes(x=value, fill=variable)) +
-  geom_histogram(binwidth=5)+ 
+<p>Plotting how the variables are distributed will give a good overview to spot problems.</p>
+<p>I will change the data format so that I can plot all the variables in different facets. melt() function from reshape2 package can create a tall version of my data. <strong>This function will collect all variable names in one column and corresponding values in the next column.</strong> This data structure will allow me to plot all variables together.</p>
+<pre class="r"><code>gg &lt;- melt(diabetes)
+
+# Check how the new data structure looks like
+head(gg)</code></pre>
+<pre><code>##      variable value
+## 1 Pregnancies     6
+## 2 Pregnancies     1
+## 3 Pregnancies     8
+## 4 Pregnancies     1
+## 5 Pregnancies     0
+## 6 Pregnancies     5</code></pre>
+<pre class="r"><code># Plot all variables
+ggplot(gg, aes(x=value, fill=variable)) +
+  geom_histogram(binwidth=5) + 
   facet_wrap(~variable) </code></pre>
-<p><img src="/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20variables%20are%20distributed-1.png" width="672" /></p>
-<p>Peaks at zero of Skin Thickness and Insulin is obvious here.</p>
-<p>In cases where the numbers are small we might remove them. <strong>Let’s figure it out with a for loop.</strong> and then visualize on a waffle plot.</p>
-<p>This will bring me the number of zero containing rows in variables from 2 to 6.</p>
-<pre class="r"><code>zero_rows &lt;- list()
+<p><img src="/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20the%20variables%20are%20distributed-1.png" width="672" /></p>
+<p>Multiple variavles have peaks at zero. E.g. peaks at zero of Skin Thickness and Insulin is obvious here.</p>
+<p>I want to know how many zeros each variables has. In cases where the numbers are small we might remove them. <strong>Let’s figure it out with a for loop.</strong> and then visualize on a waffle plot.</p>
+<p>I am selecting only variables from 2 to 6 because they can’t be zero. Let’s count number of zeros on those variables.</p>
+<p>How to count zeros in each column using dplyr?</p>
+<p>Approach 1: Using which and []</p>
+<pre class="r"><code>start &lt;- Sys.time()
+zero_rows &lt;- list()
 for(i in 2:6){
 zero_rows[[i]] &lt;- length(which(diabetes[,i] == 0))  
 }
-rows_with_zero &lt;- unlist(zero_rows)</code></pre>
-<p>Feed those numbers to a waffle plot.</p>
+rows_with_zero &lt;- unlist(zero_rows)
+end &lt;- Sys.time()
+with_loop &lt;- end-start</code></pre>
+<p>As a bonus, I can recommend a shorter and faster approach
+Approach 2: Using dplyr functions and <strong>summarise_each()</strong></p>
+<pre class="r"><code>start &lt;- Sys.time()
+gg %&gt;% group_by(variable) %&gt;% summarise_each(funs(sum(.==0)))</code></pre>
+<pre><code>## Warning: funs() is soft deprecated as of dplyr 0.8.0
+## Please use a list of either functions or lambdas: 
+## 
+##   # Simple named list: 
+##   list(mean = mean, median = median)
+## 
+##   # Auto named with `tibble::lst()`: 
+##   tibble::lst(mean, median)
+## 
+##   # Using lambdas
+##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+## This warning is displayed once per session.</code></pre>
+<pre><code>## # A tibble: 9 x 2
+##   variable                 value
+##   &lt;fct&gt;                    &lt;int&gt;
+## 1 Pregnancies                111
+## 2 Glucose                      5
+## 3 BloodPressure               35
+## 4 SkinThickness              227
+## 5 Insulin                    374
+## 6 BMI                         11
+## 7 DiabetesPedigreeFunction     0
+## 8 Age                          0
+## 9 Outcome                    500</code></pre>
+<pre class="r"><code>end &lt;- Sys.time()
+with_dplyr &lt;- end-start</code></pre>
+<p>Using dplyr is easier and faster. For loop: <code>with_loop</code>, Dplyr: <code>with_dplyr</code>
+Feed those numbers to a waffle plot.</p>
 <pre class="r"><code>zeros &lt;- c(&quot;Glucose&quot; =rows_with_zero[1], &quot;Blood Pressure&quot; = rows_with_zero[2], 
            &quot;Skin Thickness&quot;= rows_with_zero[3], &quot;Insulin&quot; =rows_with_zero[4], 
            &quot;BMI&quot; = rows_with_zero[5])
@@ -811,7 +858,7 @@ df</code></pre>
 ## SkinThickness            227
 ## Insulin                  374
 ## BMI                       11</code></pre>
-<p>For instance, <strong>374</strong> Insulin values are zero. Other variables also contain zeros. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with <strong>zeros</strong> in the data collection phase.</p>
+<p>For instance, <strong>374</strong> rows of Insulin are zero. Other variables also contain zeros. Somethin is wrong. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with <strong>zeros</strong> in the data collection phase.</p>
 <p><strong>How to circumvent this?</strong></p>
 <div id="convert-all-zeroes-to-nas-and-then-perform-median-imputation" class="section level3">
 <h3>Convert all <strong>zeroes</strong> to <strong>NAs</strong> and then perform <strong>Median Imputation</strong></h3>

@@ -38,10 +38,10 @@ p = the probability of success (chance of throwing heads is 0.5)&lt;strong&gt;)&
 &lt;p&gt;Let’s compare the probabilities of getting more than 25, 35 or even 49 heads. You can combine rbinom with mean function to find the percentage of the events with a chosen outcome.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 25 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 25)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.5555&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.55649&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 35 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 35)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.0033&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.00301&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 49 or more heads
 mean(rbinom(100000, 50, .5) &amp;gt;= 49)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 0&lt;/code&gt;&lt;/pre&gt;
@@ -205,10 +205,10 @@ estimates &amp;lt;-  rbinom(100000, 2782, 1/30)
 
 # Simulated mean
 mean(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 92.70875&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 92.7603&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Simulated variance
 var(estimates)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 89.51934&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 89.4458&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The average value is around 92 movies released in one day.&lt;/p&gt;
 &lt;p&gt;We can also calculate theoretical values by the derived mathematical formulas that define the binomial function:&lt;/p&gt;
 &lt;p&gt;Mean = size * p&lt;br /&gt;
@@ -262,7 +262,7 @@ movies %&amp;gt;%  ggplot(aes(x=movies, fill = events)) +
 &lt;p&gt;Similarly, in our horror movie data this will be the sum of the probabilities of getting 124 movie releases or events that are equally probable or rarer.&lt;/p&gt;
 &lt;p&gt;In R, &lt;strong&gt;pbinom&lt;/strong&gt; function defines the cumulative probabilities. For example, pbinom(124, 2782, 1/30) will give us the cumulative probabilities of any number of movie releases up to 124. By using 1-pbinom(124, 2782, 1/30) we can find the sum of the probabilities with equal or lower chance than having 124.&lt;/p&gt;
 &lt;p&gt;Thus, p value for getting at least 124 movie release is;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting 124 movie releases in a day like here it happened on the 13th. # Probability of getting at least 124 success
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Probability of getting at least 124 movie releases (e.g. the 13th)
 
 p_val_binom &amp;lt;- 2 * (1 - pbinom(124, 2782, 1/30))
 p_val_binom&lt;/code&gt;&lt;/pre&gt;
