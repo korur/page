@@ -31,20 +31,24 @@ image:
 projects: []
 ---
 
-Would you be taking care of yourself better if your doctor told today that you have **high risk of diabetes?**
+We are developing new technologies at lightning speed. We can now analyse genes from a single cell which was not possible couple of years back, and extract the knowledge hidden in rare genes or rare cell types. Sensors collect data from patients e.g. in diabetic patients, we started to pool healthcare information which accumulate during the use of drugs (e.g. [OMOP common data model](https://www.ohdsi.org/data-standardization/the-common-data-model/) that is called real world evidence. **The data that we have access now is enormous and is growing everyday.** 
 
-Advances in fields, such as omics and internet of things (sensors that collect data), and centralization of healthcare information (e.g. [OMOP common data model](https://www.ohdsi.org/data-standardization/the-common-data-model/)) enable us to access much wider data sources. 
+Data Science tools are more than ever needed to mold this data into better therapies.
 
-Gaining insights from those we can improve our well being with better healthcare. Some applications of machine learning tools are;
+We can build new machine learning models and;
 
-* Diagnosing diseases earlier
-* Identifying drugs with reduced side effects
-* Select patient groups responding to an experimental therapy
-* Utilize existing therapies better
+* diagnose diseases earlier
+* develop better drugs which are more effective and have less side effects
+* identify patients groups which benefit most from existing drugs 
 
-**Let's look at an example and try to help some doctors in diagnosing their patients.**
+
+**Let's look at an example and try to help doctors in diagnosing patients.**
+
+First part of data science process is problem formulation.
 
 # Problem formulation
+
+Our problem, or question that we want to answer is:
 
 > Can we build a Machine learning algorithm to predict which patients will develop Diabetes?
 
@@ -52,7 +56,6 @@ The goal is to predict a Binary **Outcome**: ```Diabetes``` vs ```Healthy```
 by using 8 medical indicators.
 
 # Overview of the data
-  
   
 **The Pima Indians of Arizona and Mexico** have contributed to numerous scientific gains. Their involvement has led to significant findings on genetics of both **type 2 diabetes** and **obesity.** 
 
@@ -70,7 +73,9 @@ The medical indicators recorded are;
 
 # Data acquisition
 
-I downloaded the [Pima Indians Diabetes Dataset](https://www.kaggle.com/uciml/pima-indians-diabetes-database) from Kaggle and imported it from my local directory.
+You can download the [Pima Indians Diabetes Dataset](https://www.kaggle.com/uciml/pima-indians-diabetes-database) from Kaggle and load it in RStudio.
+
+Setting up and loading in the data.
 
 ```{r import data and packages, message=FALSE, warning=FALSE}
 diabetes <- read.csv("posts_data/diabetes.csv")
