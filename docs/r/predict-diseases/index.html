@@ -435,7 +435,7 @@ Sensors collect real time data from patients e.g. in diabetic patients, we star
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    22 min read
+    23 min read
   </span>
   
 
@@ -1259,6 +1259,23 @@ summary_stats</code></pre>
 <div id="modeling-the-data-build-fit-and-validate-a-model" class="section level1">
 <h1>Modeling the data (build, fit and validate a model)</h1>
 <p>Before going into any complicated model starting with a simple model is a good idea. It might do surprisingly well and will give us more insights.</p>
+<div id="model-assumptions" class="section level2">
+<h2>Model assumptions</h2>
+<p>One of the assumptions of logistic regression that it requires large sample size.</p>
+<div id="what-should-be-the-minimum-sample-size-for-running-logistic-regression" class="section level3">
+<h3>What should be the minimum sample size for running logistic regression?</h3>
+<p>Minimum sample size is given by the following formula:</p>
+<p>N = 10 k / p</p>
+<p>where,</p>
+<p>p is the proportion of the least frequent class of the Outcome variable. We have 768 cases of which 500 are diabetic and 268 non diabetic.</p>
+<p>p = 268/768 = 0.34</p>
+<p>And k is the number of covariates ( the number of predictor variables)</p>
+<p>k = 8</p>
+<p>N = 10 * 8 / 268/768
+N = 229</p>
+<p>Since we have a total of 768 cases we can apply logistic regression model.</p>
+</div>
+</div>
 <div id="logistic-regression-model" class="section level2">
 <h2>Logistic Regression Model</h2>
 <p>We will create two random subsets of our data in 80/20 proportion as <strong>training and test data.</strong> Training data will be used to build our model and test data will be reserved to validate it.</p>

@@ -241,7 +241,32 @@ So far, we made some visualizations to understand the dataset better, made some 
 
 Before going into any complicated model starting with a simple model is a good idea. It might do surprisingly well and will give us more insights. 
 
-## Logistic Regression Model
+## Model assumptions
+
+One of the assumptions of logistic regression that it requires large sample size. 
+
+### What should be the minimum sample size for running logistic regression?
+
+Minimum sample size is given by the following formula:
+
+N = 10 k / p 
+
+where,
+
+p is the proportion of the least frequent class of the Outcome variable. We have 768 cases of which 500 are diabetic and 268 non diabetic. 
+
+p = 268/768 = 0.34
+
+And k is the number of covariates ( the number of predictor variables)
+
+k = 8
+
+N = 10 * 8 / 268/768 
+N = 229
+
+Since we have a total of 768 cases we can apply logistic regression model.
+
+## Logistic Regression Model  
 
 We will create two random subsets of our data in 80/20 proportion as **training and test data.** Training data will be used to build our model and test data will be reserved to validate it. 
 ```{r Create Train/test split}
