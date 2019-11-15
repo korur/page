@@ -256,7 +256,7 @@ dia_test <- diabetes[-sample_rows, ]
 
 ```{r Build a simple model}
 # Build a logistic regression model with the train data
-glm_dia <- glm(Outcome ~ .,data = dia_train)
+glm_dia <- glm(Outcome ~ .,data = dia_train, family = "binomial")
 summary(glm_dia)
 ```
 
@@ -319,7 +319,7 @@ for(i in 1:x){
   dia_train[[i]] <- diabetes[sample_rows[[i]], ]
   # Create the test dataset
   dia_test[[i]] <- diabetes[-sample_rows[[i]], ]
-  glm[[i]] <- glm(Outcome ~ .,data = dia_train[[i]])
+  glm[[i]] <- glm(Outcome ~ .,data = dia_train[[i]], family = "binomial")
   p[[i]] <- predict(glm[[i]], dia_test[[i]])
   
   # Calculate AUC for all "x" number of random splits
@@ -417,6 +417,7 @@ myControl <- trainControl(
 model_glm <- train(x = diab, y = outcome,
                    metric = "ROC",
                    method = "glm",
+                   family = binomial(),
                    trControl = myControl
 )
 model_glm

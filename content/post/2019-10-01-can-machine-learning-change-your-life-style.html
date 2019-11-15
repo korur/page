@@ -737,37 +737,37 @@ dia_train &lt;- diabetes[sample_rows, ]
 # Create the test dataset
 dia_test &lt;- diabetes[-sample_rows, ]</code></pre>
 <pre class="r"><code># Build a logistic regression model with the train data
-glm_dia &lt;- glm(Outcome ~ .,data = dia_train)
+glm_dia &lt;- glm(Outcome ~ .,data = dia_train, family = &quot;binomial&quot;)
 summary(glm_dia)</code></pre>
 <pre><code>## 
 ## Call:
-## glm(formula = Outcome ~ ., data = dia_train)
+## glm(formula = Outcome ~ ., family = &quot;binomial&quot;, data = dia_train)
 ## 
 ## Deviance Residuals: 
-##      Min        1Q    Median        3Q       Max  
-## -1.01862  -0.28264  -0.07603   0.29983   0.86403  
+##     Min       1Q   Median       3Q      Max  
+## -2.5941  -0.7143  -0.3887   0.7330   2.1417  
 ## 
 ## Coefficients:
-##                            Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)              -1.0441425  0.1180483  -8.845  &lt; 2e-16 ***
-## Pregnancies               0.0173561  0.0056433   3.076 0.002196 ** 
-## Glucose                   0.0063034  0.0006150  10.250  &lt; 2e-16 ***
-## BloodPressure            -0.0013212  0.0014700  -0.899 0.369137    
-## SkinThickness             0.0008966  0.0023291   0.385 0.700395    
-## Insulin                  -0.0003233  0.0002088  -1.548 0.122077    
-## BMI                       0.0150019  0.0030523   4.915 1.15e-06 ***
-## DiabetesPedigreeFunction  0.1661357  0.0489591   3.393 0.000736 ***
-## Age                       0.0036157  0.0017283   2.092 0.036845 *  
+##                           Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)              -9.371525   0.926425 -10.116  &lt; 2e-16 ***
+## Pregnancies               0.108782   0.036022   3.020 0.002529 ** 
+## Glucose                   0.036465   0.004309   8.462  &lt; 2e-16 ***
+## BloodPressure            -0.010359   0.009470  -1.094 0.273974    
+## SkinThickness             0.005730   0.014928   0.384 0.701105    
+## Insulin                  -0.002056   0.001279  -1.607 0.107995    
+## BMI                       0.102303   0.021009   4.870 1.12e-06 ***
+## DiabetesPedigreeFunction  1.154731   0.327099   3.530 0.000415 ***
+## Age                       0.021617   0.010619   2.036 0.041780 *  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## (Dispersion parameter for gaussian family taken to be 0.1572889)
+## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 139.41  on 613  degrees of freedom
-## Residual deviance:  95.16  on 605  degrees of freedom
-## AIC: 617.69
+##     Null deviance: 793.94  on 613  degrees of freedom
+## Residual deviance: 570.22  on 605  degrees of freedom
+## AIC: 588.22
 ## 
-## Number of Fisher Scoring iterations: 2</code></pre>
+## Number of Fisher Scoring iterations: 5</code></pre>
 <p>The summary shows us not all the variables play a role in predicting outcome. The significant correlations was found for Pregnancies, Glucose, BMI and Pedigree function.</p>
 <p>The predict function will give us probabilities. To compute our model accuracy we need to <strong>convert them to class predictions by setting a threshold level.</strong></p>
 <pre class="r"><code># We will predict the Outcome for the test data
@@ -777,13 +777,13 @@ p_05 &lt;- ifelse(p &gt; 0.5, 1, 0)
 table(p_05, dia_test$Outcome)</code></pre>
 <pre><code>##     
 ## p_05  0  1
-##    0 85 17
-##    1 15 37</code></pre>
+##    0 88 23
+##    1 12 31</code></pre>
 <p>We will build a confusion matrix to calculate how accurate our model is in this particular random train/test split and at 0.5 threshold level.</p>
 <pre class="r"><code>conf_mat &lt;- table(p_05, dia_test$Outcome)
 accuracy &lt;- sum(diag(conf_mat))/sum(conf_mat)
 accuracy</code></pre>
-<pre><code>## [1] 0.7922078</code></pre>
+<pre><code>## [1] 0.7727273</code></pre>
 <p><strong>roc</strong> function pROC package, can plot us a ROC curve which tests accuracy of our model at multiple threshold levels and is a good estimate on how well our model is performing.</p>
 <pre class="r"><code># Calculate AUC(Area under the curve)
 roc(dia_test$Outcome, p)</code></pre>
@@ -794,7 +794,7 @@ roc(dia_test$Outcome, p)</code></pre>
 ## roc.default(response = dia_test$Outcome, predictor = p)
 ## 
 ## Data: p in 100 controls (dia_test$Outcome 0) &lt; 54 cases (dia_test$Outcome 1).
-## Area under the curve: 0.8498</code></pre>
+## Area under the curve: 0.8446</code></pre>
 <p>However, this process is little fragile, presence or absence of a single outlier might vastly change the results you might get from a given random train/test split.</p>
 <p>A better approach than a simple train/test split is using multiple test sets and averaging their accuracies.</p>
 <p>Let’s test that. I will create 1, 30 or 1000 random test sets, build models and compare their accuracies.</p>
@@ -817,7 +817,7 @@ for(i in 1:x){
   dia_train[[i]] &lt;- diabetes[sample_rows[[i]], ]
   # Create the test dataset
   dia_test[[i]] &lt;- diabetes[-sample_rows[[i]], ]
-  glm[[i]] &lt;- glm(Outcome ~ .,data = dia_train[[i]])
+  glm[[i]] &lt;- glm(Outcome ~ .,data = dia_train[[i]], family = &quot;binomial&quot;)
   p[[i]] &lt;- predict(glm[[i]], dia_test[[i]])
   
   # Calculate AUC for all &quot;x&quot; number of random splits
@@ -830,32 +830,32 @@ print(mean(unlist(roc_auc)))
 <p>I will run my <strong>multi_split() function</strong> 3x for 1, 30 and 1000 random train/test splits. I can then compare variances at each level of sampling.</p>
 <p>Here are the results from my multi_site function at each randomization.</p>
 <pre class="r"><code>auc_1_1 &lt;- multi_split(1)</code></pre>
-<pre><code>## [1] 0.8769133</code></pre>
+<pre><code>## [1] 0.8737245</code></pre>
 <pre class="r"><code>auc_1_2 &lt;- multi_split(1)</code></pre>
-<pre><code>## [1] 0.8283688</code></pre>
+<pre><code>## [1] 0.8271277</code></pre>
 <pre class="r"><code>auc_1_3 &lt;- multi_split(1)</code></pre>
-<pre><code>## [1] 0.8216108</code></pre>
+<pre><code>## [1] 0.824344</code></pre>
 <pre class="r"><code>auc_30_1 &lt;- multi_split(30)</code></pre>
-<pre><code>## [1] 0.840713</code></pre>
+<pre><code>## [1] 0.8399321</code></pre>
 <pre class="r"><code>auc_30_2 &lt;- multi_split(30)</code></pre>
-<pre><code>## [1] 0.8501071</code></pre>
+<pre><code>## [1] 0.8492238</code></pre>
 <pre class="r"><code>auc_30_3 &lt;- multi_split(30)</code></pre>
-<pre><code>## [1] 0.8294741</code></pre>
+<pre><code>## [1] 0.8294277</code></pre>
 <pre class="r"><code>auc_1000_1 &lt;- multi_split(1000)</code></pre>
-<pre><code>## [1] 0.8362065</code></pre>
+<pre><code>## [1] 0.8356283</code></pre>
 <pre class="r"><code>auc_1000_2 &lt;- multi_split(1000)</code></pre>
-<pre><code>## [1] 0.8364364</code></pre>
+<pre><code>## [1] 0.836047</code></pre>
 <pre class="r"><code>auc_1000_3 &lt;- multi_split(1000)</code></pre>
-<pre><code>## [1] 0.8350323</code></pre>
+<pre><code>## [1] 0.8345809</code></pre>
 <p>Let’s compare Variance levels at <strong>1, 30 and 1000</strong> random splits</p>
 <pre class="r"><code>var(c(auc_1_1, auc_1_2, auc_1_3))</code></pre>
-<pre><code>## [1] 0.0009101001</code></pre>
+<pre><code>## [1] 0.0007695739</code></pre>
 <pre class="r"><code>var(c(auc_30_1, auc_30_2, auc_30_3))</code></pre>
-<pre><code>## [1] 0.0001067148</code></pre>
+<pre><code>## [1] 9.809343e-05</code></pre>
 <pre class="r"><code>var(c(auc_1000_1, auc_1000_2, auc_1000_3))</code></pre>
-<pre><code>## [1] 5.672518e-07</code></pre>
+<pre><code>## [1] 5.702925e-07</code></pre>
 <p>What we see here as we increase the number of iterations to 30 and 1000 the variability
-gradually stabilizes around a trustable AUC of <code>0.836</code>.</p>
+gradually stabilizes around a trustable AUC of <code>0.835</code>.</p>
 <p>Seeing is believing. Let’s plot it.</p>
 <pre class="r"><code># Create a data.frame containing accuracies
 random_1X &lt;- c(auc_1_1, auc_1_2, auc_1_3)
@@ -865,23 +865,23 @@ random_1000X &lt;- c(auc_1000_1, auc_1000_2, auc_1000_3)
 df_r &lt;- data.frame(random_1X, random_30X, random_1000X)
 df_r</code></pre>
 <pre><code>##   random_1X random_30X random_1000X
-## 1 0.8769133  0.8407130    0.8362065
-## 2 0.8283688  0.8501071    0.8364364
-## 3 0.8216108  0.8294741    0.8350323</code></pre>
+## 1 0.8737245  0.8399321    0.8356283
+## 2 0.8271277  0.8492238    0.8360470
+## 3 0.8243440  0.8294277    0.8345809</code></pre>
 <pre class="r"><code># Here, I will reformat my data for easy plotting by using gather() function from tidyr
 # It takes multiple columns, and gathers them into key-value pairs: it makes “wide” data longer.
 df_long &lt;- gather(df_r, sampling, auc)
 df_long</code></pre>
 <pre><code>##       sampling       auc
-## 1    random_1X 0.8769133
-## 2    random_1X 0.8283688
-## 3    random_1X 0.8216108
-## 4   random_30X 0.8407130
-## 5   random_30X 0.8501071
-## 6   random_30X 0.8294741
-## 7 random_1000X 0.8362065
-## 8 random_1000X 0.8364364
-## 9 random_1000X 0.8350323</code></pre>
+## 1    random_1X 0.8737245
+## 2    random_1X 0.8271277
+## 3    random_1X 0.8243440
+## 4   random_30X 0.8399321
+## 5   random_30X 0.8492238
+## 6   random_30X 0.8294277
+## 7 random_1000X 0.8356283
+## 8 random_1000X 0.8360470
+## 9 random_1000X 0.8345809</code></pre>
 <pre class="r"><code>df_long$sampling &lt;- factor(df_long$sampling, levels = c(&quot;random_1X&quot;, &quot;random_30X&quot;, &quot;random_1000X&quot;))
 
 # 
@@ -917,6 +917,7 @@ myControl &lt;- trainControl(
 model_glm &lt;- train(x = diab, y = outcome,
                    metric = &quot;ROC&quot;,
                    method = &quot;glm&quot;,
+                   family = binomial(),
                    trControl = myControl
 )</code></pre>
 <pre><code>## + Fold1: parameter=none 
