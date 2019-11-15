@@ -34,23 +34,23 @@ projects: []
 
 
 <p>We are developing new technologies at lightning speed. We can now analyse genes from a single cell which was not even possible couple of years back, and extract the knowledge hidden in rare genes or rare cell types.</p>
-<p>Sensors collect data from patients e.g. in diabetic patients, we started to pool healthcare information which accumulate during the use of drugs (e.g. <a href="https://www.ohdsi.org/data-standardization/the-common-data-model/">OMOP common data model</a> that is called real world evidence. <strong>The data that we have access now is enormous and is growing everyday.</strong></p>
+<p>Sensors collect real time data from patients e.g. in diabetic patients, we started to pool data (real world evidence) generated during the actual use of drugs by patients (e.g. <a href="https://www.ohdsi.org/data-standardization/the-common-data-model/">OMOP common data model</a>. <strong>The data that we have access now is enormous and is growing rapidly.</strong></p>
 <p><strong>Data Science</strong> tools are more than ever needed to mold this data into better therapies.</p>
 <p>We can build new machine learning models and;</p>
 <ul>
 <li><strong>diagnose diseases earlier</strong></li>
 <li><strong>develop better drugs which are more effective and have less side effects</strong></li>
-<li><strong>identify patients groups which benefit most from existing drugs</strong></li>
+<li><strong>identify patient groups which benefit most from existing drugs</strong></li>
 </ul>
-<p><strong>Let’s look at an example</strong> and try to help doctors in diagnosing patients.</p>
-<p>First part of data science process is problem formulation.</p>
+<p><strong>Let’s look at an example</strong> and see how we can do this.</p>
+<p>First part in any data science process is <strong>problem formulation.</strong></p>
 <div id="problem-formulation" class="section level1">
 <h1>Problem formulation</h1>
 <p>Our problem, or question that we want to answer is:</p>
 <blockquote>
-<p>Can we build a Machine learning algorithm to predict which patients will develop Diabetes?</p>
+<p>Can we predict which patients will develop Diabetes by building a Machine learning algorithm?</p>
 </blockquote>
-<p>The goal is to predict a Binary <strong>Outcome</strong>: <code>Diabetes</code> vs <code>Healthy</code>
+<p>We will predict a Binary <strong>Outcome</strong>: <code>Diabetes</code> vs <code>Healthy</code>
 by using 8 medical indicators.</p>
 </div>
 <div id="overview-of-the-data" class="section level1">
@@ -72,14 +72,15 @@ by using 8 medical indicators.</p>
 <p>You can download the <a href="https://www.kaggle.com/uciml/pima-indians-diabetes-database">Pima Indians Diabetes Dataset</a> from Kaggle and load it in RStudio.</p>
 <p>Setting up and loading in the data.</p>
 <pre class="r"><code>diabetes &lt;- read.csv(&quot;posts_data/diabetes.csv&quot;)
-library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+library(tidyverse) # Includes packages: ggplot2, dplyr, tidyr, readr, 
                    # purrr, tibble, stringr, forcats
-library(reshape2)
+library(reshape2) # Main function: melt()
 library(ggcorrplot)
 library(pROC)
 library(lattice)
 library(caret)
-library(waffle)</code></pre>
+library(waffle)
+library(compareGroups) # Main functions: compareGroups(), createTable()</code></pre>
 <p>Next step in our data science process is to check whether the data quality is good.</p>
 </div>
 <div id="data-quality-control" class="section level1">
@@ -94,133 +95,298 @@ library(waffle)</code></pre>
 <pre class="r"><code>knitr::kable(sapply(diabetes, class))</code></pre>
 <table>
 <thead>
-<tr class="header">
-<th></th>
-<th align="left">x</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+x
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td>Pregnancies</td>
-<td align="left">integer</td>
+<tr>
+<td style="text-align:left;">
+Pregnancies
+</td>
+<td style="text-align:left;">
+integer
+</td>
 </tr>
-<tr class="even">
-<td>Glucose</td>
-<td align="left">integer</td>
+<tr>
+<td style="text-align:left;">
+Glucose
+</td>
+<td style="text-align:left;">
+integer
+</td>
 </tr>
-<tr class="odd">
-<td>BloodPressure</td>
-<td align="left">integer</td>
+<tr>
+<td style="text-align:left;">
+BloodPressure
+</td>
+<td style="text-align:left;">
+integer
+</td>
 </tr>
-<tr class="even">
-<td>SkinThickness</td>
-<td align="left">integer</td>
+<tr>
+<td style="text-align:left;">
+SkinThickness
+</td>
+<td style="text-align:left;">
+integer
+</td>
 </tr>
-<tr class="odd">
-<td>Insulin</td>
-<td align="left">integer</td>
+<tr>
+<td style="text-align:left;">
+Insulin
+</td>
+<td style="text-align:left;">
+integer
+</td>
 </tr>
-<tr class="even">
-<td>BMI</td>
-<td align="left">numeric</td>
+<tr>
+<td style="text-align:left;">
+BMI
+</td>
+<td style="text-align:left;">
+numeric
+</td>
 </tr>
-<tr class="odd">
-<td>DiabetesPedigreeFunction</td>
-<td align="left">numeric</td>
+<tr>
+<td style="text-align:left;">
+DiabetesPedigreeFunction
+</td>
+<td style="text-align:left;">
+numeric
+</td>
 </tr>
-<tr class="even">
-<td>Age</td>
-<td align="left">integer</td>
+<tr>
+<td style="text-align:left;">
+Age
+</td>
+<td style="text-align:left;">
+integer
+</td>
 </tr>
-<tr class="odd">
-<td>Outcome</td>
-<td align="left">integer</td>
+<tr>
+<td style="text-align:left;">
+Outcome
+</td>
+<td style="text-align:left;">
+integer
+</td>
 </tr>
 </tbody>
 </table>
-<p>I look for atomic data types my variables have. I see that the outcome variable is represented as an integer. I will keep this in mind because many machine learning models will accept the binary outcome as factor data type.</p>
-<p>Next, what catches my attention is <strong>unexpected zero values in Insulin</strong>. See below.</p>
+<p>I look which atomic data types my variables are. I see that the outcome variable is represented as an <strong>integer.</strong> We will keep this in mind because many machine learning models will accept the binary outcome when converted to a factor atomic data type.</p>
+<p>Next, what catches my attention is <strong>unexpected zeros in Insulin</strong>. See below.</p>
 <pre class="r"><code>knitr::kable(head(diabetes))</code></pre>
 <table>
 <thead>
-<tr class="header">
-<th align="right">Pregnancies</th>
-<th align="right">Glucose</th>
-<th align="right">BloodPressure</th>
-<th align="right">SkinThickness</th>
-<th align="right">Insulin</th>
-<th align="right">BMI</th>
-<th align="right">DiabetesPedigreeFunction</th>
-<th align="right">Age</th>
-<th align="right">Outcome</th>
+<tr>
+<th style="text-align:right;">
+Pregnancies
+</th>
+<th style="text-align:right;">
+Glucose
+</th>
+<th style="text-align:right;">
+BloodPressure
+</th>
+<th style="text-align:right;">
+SkinThickness
+</th>
+<th style="text-align:right;">
+Insulin
+</th>
+<th style="text-align:right;">
+BMI
+</th>
+<th style="text-align:right;">
+DiabetesPedigreeFunction
+</th>
+<th style="text-align:right;">
+Age
+</th>
+<th style="text-align:right;">
+Outcome
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">6</td>
-<td align="right">148</td>
-<td align="right">72</td>
-<td align="right">35</td>
-<td align="right">0</td>
-<td align="right">33.6</td>
-<td align="right">0.627</td>
-<td align="right">50</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+148
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+33.6
+</td>
+<td style="text-align:right;">
+0.627
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">85</td>
-<td align="right">66</td>
-<td align="right">29</td>
-<td align="right">0</td>
-<td align="right">26.6</td>
-<td align="right">0.351</td>
-<td align="right">31</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+26.6
+</td>
+<td style="text-align:right;">
+0.351
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="right">8</td>
-<td align="right">183</td>
-<td align="right">64</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">23.3</td>
-<td align="right">0.672</td>
-<td align="right">32</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+23.3
+</td>
+<td style="text-align:right;">
+0.672
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">89</td>
-<td align="right">66</td>
-<td align="right">23</td>
-<td align="right">94</td>
-<td align="right">28.1</td>
-<td align="right">0.167</td>
-<td align="right">21</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+94
+</td>
+<td style="text-align:right;">
+28.1
+</td>
+<td style="text-align:right;">
+0.167
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="right">0</td>
-<td align="right">137</td>
-<td align="right">40</td>
-<td align="right">35</td>
-<td align="right">168</td>
-<td align="right">43.1</td>
-<td align="right">2.288</td>
-<td align="right">33</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+137
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+43.1
+</td>
+<td style="text-align:right;">
+2.288
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">116</td>
-<td align="right">74</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">25.6</td>
-<td align="right">0.201</td>
-<td align="right">30</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+116
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+25.6
+</td>
+<td style="text-align:right;">
+0.201
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
 </tbody>
 </table>
@@ -267,6 +433,7 @@ head(gg)</code></pre>
 <pre class="r"><code># Plot all variables
 ggplot(gg, aes(x=value, fill=variable)) +
   geom_histogram(binwidth=5) + 
+  theme(legend.position = &quot;none&quot;) +
   facet_wrap(~variable) </code></pre>
 <p><img src="/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/Check%20out%20how%20the%20variables%20are%20distributed-1.png" width="672" /></p>
 <p>Multiple variables have peaks at zero. E.g. Skin Thickness and Insulin. It is not possible that those variables are zero.</p>
@@ -278,31 +445,28 @@ ggplot(gg, aes(x=value, fill=variable)) +
 for(i in 2:6){
 zero_rows[[i]] &lt;- length(which(diabetes[,i] == 0))  
 }
-rows_with_zero &lt;- unlist(zero_rows)</code></pre>
-<p>As a bonus, I can recommend using dplyr package.</p>
+rows_with_zero &lt;- unlist(zero_rows)
+rows_with_zero</code></pre>
+<pre><code>## [1]   5  35 227 374  11</code></pre>
+<p>As a bonus, I- can recommend using dplyr package.</p>
 <p><strong>Approach 2:</strong> Much simpler with dplyr <strong>summarise_all()</strong> function</p>
-<pre class="r"><code>diabetes %&gt;%  summarise_all(funs(sum(.==0)))</code></pre>
-<pre><code>##   Pregnancies Glucose BloodPressure SkinThickness Insulin BMI
-## 1         111       5            35           227     374  11
-##   DiabetesPedigreeFunction Age Outcome
-## 1                        0   0     500</code></pre>
-<p>Feed those numbers from the for loop into a waffle plot.</p>
-<pre class="r"><code>zeros &lt;- c(&quot;Glucose&quot; =rows_with_zero[1], &quot;Blood Pressure&quot; = rows_with_zero[2], 
-           &quot;Skin Thickness&quot;= rows_with_zero[3], &quot;Insulin&quot; =rows_with_zero[4], 
-           &quot;BMI&quot; = rows_with_zero[5])
+<pre class="r"><code>zeros &lt;- diabetes[,2:6] %&gt;%  summarise_all(funs(sum(.==0)))
+t(zeros)</code></pre>
+<pre><code>##               [,1]
+## Glucose          5
+## BloodPressure   35
+## SkinThickness  227
+## Insulin        374
+## BMI             11</code></pre>
+<p>Feed those numbers into a waffle plot.</p>
+<pre class="r"><code>zeros &lt;- c(&quot;Glucose&quot; =zeros[1,1], &quot;Blood Pressure&quot; = zeros[1,2], 
+           &quot;Skin Thickness&quot;= zeros[1,3], &quot;Insulin&quot; =zeros[1,4], 
+           &quot;BMI&quot; = zeros[1,5])
 waffle(zeros, rows=20) + 
   theme(text = element_text(size=15)) + 
   ggtitle(&quot;Number of rows with zero&quot;)</code></pre>
 <p><img src="/post/2019-10-01-can-machine-learning-change-your-life-style_files/figure-html/waffle%20plot%20of%20zero%20values-1.png" width="672" /></p>
-<pre class="r"><code>df &lt;- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
-df</code></pre>
-<pre><code>##               rows_with_zero
-## Glucose                    5
-## BloodPressure             35
-## SkinThickness            227
-## Insulin                  374
-## BMI                       11</code></pre>
-<p>For instance, <strong>374</strong> rows of Insulin are zero. Other variables also contain zeros. Somethin is wrong. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with <strong>zeros</strong> in the data collection phase.</p>
+<p>For instance, <strong>374</strong> rows of Insulin are zero. Other variables also contain zeros. Something is wrong. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with <strong>zeros</strong> in the data collection phase.</p>
 <p><strong>How to circumvent this?</strong></p>
 <div id="convert-all-zeroes-to-nas-and-then-perform-median-imputation" class="section level3">
 <h3>Convert all <strong>zeroes</strong> to <strong>NAs</strong> and then perform <strong>Median Imputation</strong></h3>
@@ -320,89 +484,242 @@ diabetes[, i][is.na(diabetes[, i])] &lt;- median
 <pre class="r"><code>knitr::kable(head(diabetes))</code></pre>
 <table>
 <thead>
-<tr class="header">
-<th align="right">Pregnancies</th>
-<th align="right">Glucose</th>
-<th align="right">BloodPressure</th>
-<th align="right">SkinThickness</th>
-<th align="right">Insulin</th>
-<th align="right">BMI</th>
-<th align="right">DiabetesPedigreeFunction</th>
-<th align="right">Age</th>
-<th align="right">Outcome</th>
+<tr>
+<th style="text-align:right;">
+Pregnancies
+</th>
+<th style="text-align:right;">
+Glucose
+</th>
+<th style="text-align:right;">
+BloodPressure
+</th>
+<th style="text-align:right;">
+SkinThickness
+</th>
+<th style="text-align:right;">
+Insulin
+</th>
+<th style="text-align:right;">
+BMI
+</th>
+<th style="text-align:right;">
+DiabetesPedigreeFunction
+</th>
+<th style="text-align:right;">
+Age
+</th>
+<th style="text-align:right;">
+Outcome
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">6</td>
-<td align="right">148</td>
-<td align="right">72</td>
-<td align="right">35</td>
-<td align="right">125</td>
-<td align="right">33.6</td>
-<td align="right">0.627</td>
-<td align="right">50</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+148
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+125
+</td>
+<td style="text-align:right;">
+33.6
+</td>
+<td style="text-align:right;">
+0.627
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">85</td>
-<td align="right">66</td>
-<td align="right">29</td>
-<td align="right">125</td>
-<td align="right">26.6</td>
-<td align="right">0.351</td>
-<td align="right">31</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+125
+</td>
+<td style="text-align:right;">
+26.6
+</td>
+<td style="text-align:right;">
+0.351
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="right">8</td>
-<td align="right">183</td>
-<td align="right">64</td>
-<td align="right">29</td>
-<td align="right">125</td>
-<td align="right">23.3</td>
-<td align="right">0.672</td>
-<td align="right">32</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+125
+</td>
+<td style="text-align:right;">
+23.3
+</td>
+<td style="text-align:right;">
+0.672
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="right">1</td>
-<td align="right">89</td>
-<td align="right">66</td>
-<td align="right">23</td>
-<td align="right">94</td>
-<td align="right">28.1</td>
-<td align="right">0.167</td>
-<td align="right">21</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+94
+</td>
+<td style="text-align:right;">
+28.1
+</td>
+<td style="text-align:right;">
+0.167
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="right">0</td>
-<td align="right">137</td>
-<td align="right">40</td>
-<td align="right">35</td>
-<td align="right">168</td>
-<td align="right">43.1</td>
-<td align="right">2.288</td>
-<td align="right">33</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+137
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+43.1
+</td>
+<td style="text-align:right;">
+2.288
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="right">116</td>
-<td align="right">74</td>
-<td align="right">29</td>
-<td align="right">125</td>
-<td align="right">25.6</td>
-<td align="right">0.201</td>
-<td align="right">30</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+116
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+125
+</td>
+<td style="text-align:right;">
+25.6
+</td>
+<td style="text-align:right;">
+0.201
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
 </tbody>
 </table>
 <p>For instance, I see that zero values in the insulin variable is replaced with median of insulin which is 125.</p>
-<p><strong>Now, the data is clean and ready for the modeling phase.</strong></p>
+<p>I will also look at the differences between variables in diabetic versus healthy groups so that I know more which variables might play a role in the Outcome.</p>
+<p>I can also use dplyr functions but I will use <strong>compareGroups</strong> package because it creates a nice output of the summary statistics in a table format. compareGroups() function will do the analysis and createTable() will output it in a nice format.</p>
+<pre class="r"><code>base &lt;- compareGroups(Outcome~Pregnancies+Glucose+BloodPressure+
+                        SkinThickness+Insulin+BMI +
+                        DiabetesPedigreeFunction+Age, 
+                        data = diabetes)
+
+summary_stats &lt;- createTable(base, show.ratio = FALSE, show.p.overall=TRUE)
+summary_stats</code></pre>
+<pre><code>## 
+## --------Summary descriptives table by &#39;Outcome&#39;---------
+## 
+## __________________________________________________________ 
+##                               0           1      p.overall 
+##                             N=500       N=268              
+## ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ 
+## Pregnancies              3.30 (3.02) 4.87 (3.74)  &lt;0.001   
+## Glucose                  111 (24.7)  142 (29.6)   &lt;0.001   
+## BloodPressure            70.9 (11.9) 75.1 (12.0)  &lt;0.001   
+## SkinThickness            27.7 (8.55) 31.7 (8.66)  &lt;0.001   
+## Insulin                  128 (74.4)   165 (101)   &lt;0.001   
+## BMI                      30.9 (6.50) 35.4 (6.60)  &lt;0.001   
+## DiabetesPedigreeFunction 0.43 (0.30) 0.55 (0.37)  &lt;0.001   
+## Age                      31.2 (11.7) 37.1 (11.0)  &lt;0.001   
+## ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯</code></pre>
+<p>You can see here that couple of variables are significantly higher in diabetic patients, such as Pregnancies, glucose, insulin, bmi and so on. This can give hints on what to expect from the linear model.</p>
+<p>So far, we made some visualizations to understand the dataset better, made some quality checks and cleaning.</p>
+<p><strong>Now, the data is ready for the modeling phase.</strong></p>
 </div>
 </div>
 </div>
@@ -451,7 +768,7 @@ summary(glm_dia)</code></pre>
 ## AIC: 617.69
 ## 
 ## Number of Fisher Scoring iterations: 2</code></pre>
-<p>The summary shows us not all the variables play a role in predicting outcome. The signicant correlations was found for Pregnancies, Glucose, BMI and Pedigree function.</p>
+<p>The summary shows us not all the variables play a role in predicting outcome. The significant correlations was found for Pregnancies, Glucose, BMI and Pedigree function.</p>
 <p>The predict function will give us probabilities. To compute our model accuracy we need to <strong>convert them to class predictions by setting a threshold level.</strong></p>
 <pre class="r"><code># We will predict the Outcome for the test data
 p&lt;-predict(glm_dia, dia_test)
@@ -928,37 +1245,72 @@ df&lt;- df[order(df[,2], decreasing=TRUE), ]
 knitr::kable(df)</code></pre>
 <table>
 <thead>
-<tr class="header">
-<th></th>
-<th align="left">models</th>
-<th align="right">AUC</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+models
+</th>
+<th style="text-align:right;">
+AUC
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td>3</td>
-<td align="left">rf</td>
-<td align="right">0.8247223</td>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+rf
+</td>
+<td style="text-align:right;">
+0.8247223
+</td>
 </tr>
-<tr class="even">
-<td>2</td>
-<td align="left">glmnet</td>
-<td align="right">0.8242214</td>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+glmnet
+</td>
+<td style="text-align:right;">
+0.8242214
+</td>
 </tr>
-<tr class="odd">
-<td>4</td>
-<td align="left">gbm</td>
-<td align="right">0.8222721</td>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+gbm
+</td>
+<td style="text-align:right;">
+0.8222721
+</td>
 </tr>
-<tr class="even">
-<td>1</td>
-<td align="left">glm</td>
-<td align="right">0.8136093</td>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+glm
+</td>
+<td style="text-align:right;">
+0.8136093
+</td>
 </tr>
-<tr class="odd">
-<td>5</td>
-<td align="left">naive</td>
-<td align="right">0.8029047</td>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+naive
+</td>
+<td style="text-align:right;">
+0.8029047
+</td>
 </tr>
 </tbody>
 </table>

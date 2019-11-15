@@ -33,7 +33,7 @@ projects: []
 
 We are developing new technologies at lightning speed. We can now analyse genes from a single cell which was not even possible couple of years back, and extract the knowledge hidden in rare genes or rare cell types.
 
-Sensors collect data from patients e.g. in diabetic patients, we started to pool healthcare information which accumulate during the use of drugs (e.g. [OMOP common data model](https://www.ohdsi.org/data-standardization/the-common-data-model/) that is called real world evidence. **The data that we have access now is enormous and is growing everyday.** 
+Sensors collect real time data from patients e.g. in diabetic patients, we started to pool data (real world evidence) generated during the actual use of drugs by patients (e.g. [OMOP common data model](https://www.ohdsi.org/data-standardization/the-common-data-model/). **The data that we have access now is enormous and is growing rapidly.** 
 
 **Data Science** tools are more than ever needed to mold this data into better therapies.
 
@@ -41,20 +41,20 @@ We can build new machine learning models and;
 
 * **diagnose diseases earlier**
 * **develop better drugs which are more effective and have less side effects**
-* **identify patients groups which benefit most from existing drugs**
+* **identify patient groups which benefit most from existing drugs**
 
 
-**Let's look at an example** and try to help doctors in diagnosing patients.
+**Let's look at an example** and see how we can do this. 
 
-First part of data science process is problem formulation.
+First part in any data science process is **problem formulation.**
 
 # Problem formulation
 
 Our problem, or question that we want to answer is:
 
-> Can we build a Machine learning algorithm to predict which patients will develop Diabetes?
+> Can we predict which patients will develop Diabetes by building a Machine learning algorithm?
 
-The goal is to predict a Binary **Outcome**: ```Diabetes``` vs ```Healthy```
+We will predict a Binary **Outcome**: ```Diabetes``` vs ```Healthy```
 by using 8 medical indicators.
 
 # Overview of the data
@@ -81,14 +81,15 @@ Setting up and loading in the data.
 
 ```{r import data and packages, message=FALSE, warning=FALSE}
 diabetes <- read.csv("posts_data/diabetes.csv")
-library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+library(tidyverse) # Includes packages: ggplot2, dplyr, tidyr, readr, 
                    # purrr, tibble, stringr, forcats
-library(reshape2)
+library(reshape2) # Main function: melt()
 library(ggcorrplot)
 library(pROC)
 library(lattice)
 library(caret)
 library(waffle)
+library(compareGroups) # Main functions: compareGroups(), createTable()
 
 ```
 
@@ -109,9 +110,10 @@ dim(diabetes)
 knitr::kable(sapply(diabetes, class))
 ```
 
-I look for atomic data types my variables have. I see that the outcome variable is represented as an integer. I will keep this in mind because many machine learning models will accept the binary outcome as factor data type.
+I look which atomic data types my variables are. I see that the outcome variable is represented as an **integer.** We will keep this in mind because many machine learning models will accept the binary outcome when converted to a factor atomic data type.
 
-Next, what catches my attention is **unexpected zero values in Insulin**. See below.
+Next, what catches my attention is **unexpected zeros in Insulin**. See below.
+
 ```{r head}
 knitr::kable(head(diabetes))
 ```
@@ -139,6 +141,7 @@ head(gg)
 # Plot all variables
 ggplot(gg, aes(x=value, fill=variable)) +
   geom_histogram(binwidth=5) + 
+  theme(legend.position = "none") +
   facet_wrap(~variable) 
 ```
 
@@ -159,38 +162,33 @@ for(i in 2:6){
 zero_rows[[i]] <- length(which(diabetes[,i] == 0))  
 }
 rows_with_zero <- unlist(zero_rows)
-
+rows_with_zero
 ```
 
-As a bonus, I can recommend using dplyr package.
+As a bonus, I- can recommend using dplyr package.
 
 **Approach 2:** Much simpler with dplyr **summarise_all()** function
 
 ```{r, message=FALSE, warning=FALSE}
 
-diabetes %>%  summarise_all(funs(sum(.==0)))
-
+zeros <- diabetes[,2:6] %>%  summarise_all(funs(sum(.==0)))
+t(zeros)
 ```
 
 
-Feed those numbers from the for loop into a waffle plot.
+Feed those numbers into a waffle plot.
 
 ```{r waffle plot of zero values}
-zeros <- c("Glucose" =rows_with_zero[1], "Blood Pressure" = rows_with_zero[2], 
-           "Skin Thickness"= rows_with_zero[3], "Insulin" =rows_with_zero[4], 
-           "BMI" = rows_with_zero[5])
+zeros <- c("Glucose" =zeros[1,1], "Blood Pressure" = zeros[1,2], 
+           "Skin Thickness"= zeros[1,3], "Insulin" =zeros[1,4], 
+           "BMI" = zeros[1,5])
 waffle(zeros, rows=20) + 
   theme(text = element_text(size=15)) + 
   ggtitle("Number of rows with zero")
 ```
 
-```{r zero rows on a dataframe}
-df <- data.frame(rows_with_zero, row.names = names(diabetes[2:6]))
-df
-```
 
-
-For instance, **374** rows of Insulin are zero. Other variables also contain zeros. Somethin is wrong. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with **zeros** in the data collection phase. 
+For instance, **374** rows of Insulin are zero. Other variables also contain zeros. Something is wrong. It is impossible to have Blood Pressure or Glucose levels at 0. It is unlikely that those are simply entry mistakes. It seems missing values are filled with **zeros** in the data collection phase. 
 
 **How to circumvent this?**
 
@@ -219,7 +217,25 @@ knitr::kable(head(diabetes))
 
 For instance, I see that zero values in the insulin variable is replaced with median of insulin which is 125. 
 
-**Now, the data is clean and ready for the modeling phase.**
+I will also look at the differences between variables in diabetic versus healthy groups so that I know more which variables might play a role in the Outcome.
+
+I can also use dplyr functions but I will use **compareGroups** package because it creates a nice output of the summary statistics in a table format. compareGroups() function will do the analysis and createTable() will output it in a nice format.
+
+```{r compareGroups}
+base <- compareGroups(Outcome~Pregnancies+Glucose+BloodPressure+
+                        SkinThickness+Insulin+BMI +
+                        DiabetesPedigreeFunction+Age, 
+                        data = diabetes)
+
+summary_stats <- createTable(base, show.ratio = FALSE, show.p.overall=TRUE)
+summary_stats
+```
+
+You can see here that couple of variables are significantly higher in diabetic patients, such as Pregnancies, glucose, insulin, bmi and so on. This can give hints on what to expect from the linear model. 
+
+So far, we made some visualizations to understand the dataset better, made some quality checks and cleaning. 
+
+**Now, the data is ready for the modeling phase.**
 
 # Modeling the data (build, fit and validate a model)
 
@@ -244,7 +260,7 @@ glm_dia <- glm(Outcome ~ .,data = dia_train)
 summary(glm_dia)
 ```
 
-The summary shows us not all the variables play a role in predicting outcome. The signicant correlations was found for Pregnancies, Glucose, BMI and Pedigree function.
+The summary shows us not all the variables play a role in predicting outcome. The significant correlations was found for Pregnancies, Glucose, BMI and Pedigree function.
 
 The predict function will give us probabilities. To compute our model accuracy we need to **convert them to class predictions by setting a threshold level.**
 
