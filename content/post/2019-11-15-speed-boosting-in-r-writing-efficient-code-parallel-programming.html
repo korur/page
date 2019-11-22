@@ -1,0 +1,360 @@
+---
+title: 'Speed boosting in R: Writing efficient code & parallel programming'
+author: ''
+date: '2019-11-15'
+slug: speed-boosting-in-r-writing-efficient-code-parallel-programming
+categories: []
+tags:
+  - parallel programming
+  - writing efficient code
+  - parallel package
+  - For loop
+  - vectorised operations
+  - rmultinom
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2019-11-15T15:29:24+01:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<div id="have-more-things-happen-at-once-parallel-programming" class="section level2">
+<h2>Have more things happen at once: Parallel Programming</h2>
+<p>Parallel processing is about <strong>using multiple cores of your computer’s CPU</strong> to run multiple tasks simultaneously. This enables you to complete <strong>the same task multiple times quicker!</strong><img src="/img/veri-ivanova-unsplash.jpg" alt="Photo by Veri Ivanova on Unsplash" /></p>
+<p>In R, usually computations run sequentially. When we initiate multiple tasks they are performed one after the other, new task starts only after the previous one is completed.</p>
+<p>This might become the bottleneck when you come across a computationally heavy process. Such as running monte carlo simulations or fitting multiple machine learning models.<strong>Typically, if I have a process which runs longer than 3 minutes, I consider using parallel processing.</strong></p>
+<p>It might sound complicated but parallel computing is simple. When you have a repetitive task which takes too much of your valuable time why not implement it and <strong>save time?</strong> Even if you have a single task, you can benefit from parallel processing by <strong>dividing the task into smaller pieces.</strong></p>
+<p>Two widely used packages for parallel processing are <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf">parallel</a> and <a href="foreach%20cran%20page">foreach</a>.</p>
+<p>Let’s do some parallel processing..</p>
+</div>
+<div id="what-is-our-goal" class="section level2">
+<h2>What is our goal?</h2>
+<p>I recently analyzed data from horror movies released in the world between 2012 and 2017. What caught my attention was that movies are more likely to be released at the 13th of each month. You can visit my recent <a href="https://dataatomic.com/r/probability-distributions/">post</a> if you want to know more about this data.</p>
+<div id="lets-get-the-data" class="section level3">
+<h3>Let’s get the data</h3>
+<p>There are 2782 movies released in one of the 30 days (categories). The resulting table below shows the days of the month and how many movies released at that day.</p>
+<pre class="r"><code>library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcats</code></pre>
+<pre class="r"><code>horror_movies &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-22/horror_movies.csv&quot;)
+
+dim(horror_movies)</code></pre>
+<pre><code>## [1] 3328   12</code></pre>
+<pre class="r"><code>horror_date &lt;-  horror_movies %&gt;% 
+                separate(
+                  release_date, 
+                  c(&quot;day&quot;, &quot;month&quot;, &quot;year&quot;),
+                  sep = &quot;-&quot;)
+
+horror_date$day &lt;- as.numeric(horror_date$day)
+
+# Remove rows without Date of the month
+
+horror_date &lt;- horror_date %&gt;% filter(day &lt; 32) 
+
+# I am excluding Day 1 from the analysis (Most aggreements starts at 1st)
+
+horror_date_table &lt;- horror_date %&gt;% filter(day &gt; 1)
+
+# let&#39;s check what is the most common day in the month for a horror movie release
+data &lt;-  horror_date_table %&gt;%
+  group_by(day) %&gt;% 
+  count() %&gt;% 
+  arrange(desc(n))
+
+data %&gt;% print(n=30)</code></pre>
+<pre><code>## # A tibble: 30 x 2
+## # Groups:   day [30]
+##      day     n
+##    &lt;dbl&gt; &lt;int&gt;
+##  1    13   124
+##  2    18   119
+##  3    25   119
+##  4    21   110
+##  5    31   107
+##  6    28   102
+##  7    10   100
+##  8    20   100
+##  9     5    99
+## 10     7    98
+## 11     2    95
+## 12    29    94
+## 13    14    91
+## 14    12    90
+## 15    24    90
+## 16     8    88
+## 17    15    88
+## 18    17    88
+## 19    16    87
+## 20     3    86
+## 21     4    86
+## 22     6    86
+## 23     9    85
+## 24    22    85
+## 25    26    84
+## 26    11    83
+## 27    27    82
+## 28    19    77
+## 29    30    74
+## 30    23    65</code></pre>
+<p>I will simulate 1 million multinomial trials of distributing 2782 movies to 30 days of the month. This type of distributions (k &gt; 2) are called <strong>multinomial distributions.</strong>xx`</p>
+<p>I created a function to find p values for each day. But it takes sometime to run. I will try to improve the runtime by <strong>optimizing my code</strong> and <strong>using parallel processing.</strong></p>
+<pre class="r"><code>multfun &lt;- function(x){ 
+  a &lt;- list()
+  avc &lt;- rmultinom(1000000, size=2782, prob=rep(1/30, 30))  # Create probability matrix
+  for (i in 1:30){ a[[i]] &lt;- mean(avc[i,1:1000000] &gt;=x) }   # Find probabilities for each day
+  ifelse(do.call(sum,a)/30 &lt;= 0.5, p_val &lt;-  2 * do.call(sum,a)/30, 
+                                   p_val &lt;- 2*(1 - do.call(sum,a)/30))
+}</code></pre>
+<p>multfun() uses rmultinom() function to produce a matrix of monte carlo simulations of 1.000.000 random multinomial distributions with 30 categories. Then calculates total probabilities of any given observation or rarer events at each day from this matrix.</p>
+<p>This actually translates into the p value for a given (n) observation.
+For example, when I run multfun(124), It will give me the p value for observing a day with at least 124 movie releases.</p>
+<pre class="r"><code># Run an example
+multfun(124)</code></pre>
+<pre><code>## [1] 0.001844267</code></pre>
+<p>To calculate the p values for the top 5 days with highest number of movie releases, I can run multfun() multiple times for each value.</p>
+<div id="execute-the-multfun-function-multiple-times" class="section level4">
+<h4>Execute the multfun() function multiple times</h4>
+<pre class="r"><code>system.time({
+multfun(124)
+multfun(119)
+multfun(110)
+multfun(107)
+multfun(102)
+})</code></pre>
+<pre><code>##    user  system elapsed 
+##   15.72    0.21   15.94</code></pre>
+<p>For few values it can be ok, but easier methods exist if you need to run your function repetitvely for a bigger number of inputs.</p>
+</div>
+<div id="using-lapply-function" class="section level4">
+<h4>Using lapply() function</h4>
+<p>Instead of running a function for different input values several times, you can use lapply() function. <strong>It loops over a given vector or list input (l in lapply comes from list), and applies the input function to each element in that list.</strong></p>
+<pre class="r"><code>system.time({
+lapply(c(124,119,119,197,102), multfun)
+})</code></pre>
+<pre><code>##    user  system elapsed 
+##   15.64    0.29   15.92</code></pre>
+</div>
+</div>
+</div>
+<div id="using-parallel-package-functions-parlapply" class="section level2">
+<h2>Using parallel package functions: parLapply()</h2>
+<p>If you have ever used any of lapply() or sapply function you are halfway in parallel processing.</p>
+<div id="preparation-for-parallel-processing" class="section level3">
+<h3>Preparation for parallel processing</h3>
+<p>You can use <strong>detectCores()</strong> function to find out how many cores are available in your CPU.</p>
+<p>Then, to create the clusters required apply <strong>makeCluster()</strong> with the number of cores you intend to use. In my computer, I have 6 cores and I will assign 5 cores as the multiple workers.</p>
+<div id="parallel-processing-parlapply" class="section level4">
+<h4>Parallel processing: parLapply</h4>
+<p>parLapply is the easiest way to parallelise computation. You first need to replace lapply with parLapply and enter an extra cluster argument.</p>
+<p>Then, an additional preparation step to create the clusters required. <strong>makeCluster()</strong> function creates the number of cluster that you intend to use. In my computer, I have 6 cores and I will assign 5 cores as the multiple workers.</p>
+<pre class="r"><code>library(parallel)
+system.time({
+n_cores &lt;- detectCores(logical=FALSE)
+cl &lt;- makeCluster(n_cores-1)
+parLapply(cl , c(124,119,119,197,102), multfun)
+})</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.02    0.01    4.54</code></pre>
+<pre class="r"><code>stopCluster(cl)</code></pre>
+<p>When done, include stopCluster() argument to avoid running R sessions in different clusters in the background.</p>
+<p>Theoretically, I can expect 5X quicker processing with 5 cores. But there are overhead costs. Additional preparation steps such as makecluster() function also takes time.</p>
+<p>We had much quicker execution by parallel processing. Is there a room for further improvement?</p>
+<p>Let’s look at our multfun function again…</p>
+<pre class="r"><code>multfun &lt;- function(x){ 
+  a &lt;- list()
+  avc &lt;- rmultinom(1000000, size=2782, prob=rep(1/30, 30))  # Create probability matrix
+  for (i in 1:30){ a[[i]] &lt;- mean(avc[i,1:1000000] &gt;=x) }   # Find probabilities for each day
+  ifelse(do.call(sum,a)/30 &lt;= 0.5, p_val &lt;-  2 * do.call(sum,a)/30, 
+                                   p_val &lt;- 2*(1 - do.call(sum,a)/30))
+                       }</code></pre>
+<p>In R, it is possible to do things in multiple ways. Sometimes we need more readable version and sometimes just fast code. I see that multfun uses a list and a for loop. If I find a way without using them I can get a faster run.</p>
+</div>
+</div>
+</div>
+<div id="improved-multfun-define-the-function-without-using-a-loop-and-list" class="section level2">
+<h2>Improved multfun: Define the function without using a loop and list</h2>
+<p>Mean function in R can be vectorized instead of looping.</p>
+<p>I can achieve the same result what the first multfun() was doing by including what for loop was doing inside the “[ ]”. Mean function will be applied find the total proportion of values equal or bigger than <code>x</code>.</p>
+<pre class="r"><code>multfun_opt &lt;- function(x){ 
+  avc &lt;- rmultinom(1000000, size=2782, rep(1/30, 30))
+  p &lt;- mean(avc[1:30, 1:1000000] &gt;=x)
+  ifelse(p &lt;= 0.5, p_val &lt;-  2 * p, p_val &lt;- 2*(1 - p))}</code></pre>
+<p>Let’s check whether improved multfun is faster.</p>
+<pre class="r"><code>system.time({
+n_cores &lt;- detectCores(logical=FALSE)
+cl &lt;- makeCluster(n_cores-1)
+parLapply(cl , c(124,119,119,197,102), multfun_opt)
+})</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.00    0.06    4.32</code></pre>
+<pre class="r"><code>stopCluster(cl)</code></pre>
+<p>Since rmultinom is the bottleneck here, we did not see very big improvement in overall function. We got 10-20% improvement. But it is good to know, what we can improve when we really need it.</p>
+<p>Let’s compare only the part of the function which uses the vectorized operation and the one with for loop.</p>
+<pre class="r"><code>avc &lt;- rmultinom(1000000, size=2782, prob=rep(1/30, 30)) 
+a &lt;- list()
+
+system.time({
+  for (i in 1:30){ a[[i]] &lt;- mean(avc[i,1:1000000] &gt;=124) }  
+  ifelse(do.call(sum,a)/30 &lt;= 0.5, p_val &lt;-  2 * do.call(sum,a)/30, 
+                                   p_val &lt;- 2*(1 - do.call(sum,a)/30)) })</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.41    0.01    0.42</code></pre>
+<pre class="r"><code>system.time({
+    p &lt;- mean(avc[1:30, 1:1000000] &gt;=124)
+  ifelse(p &lt;= 0.5, p_val &lt;-  2 * p, p_val &lt;- 2*(1 - p)) })</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.22    0.02    0.24</code></pre>
+<p>Vectorised version is twice faster!!</p>
+</div>
+<div id="further-improvement" class="section level2">
+<h2>Further Improvement</h2>
+<p>You can use Rprof() function to profile your process, it will return how much time each subprocess takes time.
+Let’s profile our function.</p>
+<pre class="r"><code>multfun_opt &lt;- function(x){ 
+  avc &lt;- rmultinom(1000000, size=2782, rep(1/30, 30))
+  p &lt;- mean(avc[1:30, 1:1000000] &gt;=x)
+  ifelse(p &lt;= 0.5, p_val &lt;-  2 * p, p_val &lt;- 2*(1 - p))
+  }
+
+Rprof()
+multfun_opt(124)</code></pre>
+<pre><code>## [1] 0.0018542</code></pre>
+<pre class="r"><code>Rprof(NULL)
+
+summaryRprof()$by.self</code></pre>
+<pre><code>##                self.time self.pct total.time total.pct
+## &quot;rmultinom&quot;         1.80    93.75       1.80     93.75
+## &quot;&gt;=&quot;                0.08     4.17       0.08      4.17
+## &quot;mean&quot;              0.02     1.04       0.12      6.25
+## &quot;mean.default&quot;      0.02     1.04       0.02      1.04</code></pre>
+<p>In profile summary, <strong>total.pct</strong> shows the total percentage of the duration of each task inside the function. We can see that <strong>rmultinom()</strong> part of takes more than 90% of the processing time.</p>
+<p>If we are looking further improvement we can focus on it. To improve rmultinom() part, I will isolate it by splitting the multfun into two functions.</p>
+<p>{{% alert note %}}
+In general, to be able to apply parallel processing we need to be able to dispatch our tasks as functions, with one task going to each processor. We can apply parLapply to execute multiple functions at the same time.
+{{% /alert %}}</p>
+<p>Above, first improvement was using parLapply instead of lapply and second replacing a loop with a faster vectorized operation. Now, we will utilize another approach, dividing a task into smaller pieces.</p>
+<p>I need to create a new rmultinom() function, which I call fastbinom. To keep things simple, it will take only one argument which I will use <strong>to divide 1.000.000 rmultinom simulations into 5 equal parts of 200.000 rmultinom simulations.</strong> Each will be handled by a different core in my CPU boosting my speed.</p>
+<pre class="r"><code>fastbinom &lt;- function(x) {
+  rmultinom(x, size=2782, rep(1/30,30)) 
+}
+
+multfun_fin &lt;- function(x){ 
+  p &lt;- mean(avc[1:30, 1:1000000] &gt;=x)
+  ifelse(p &lt;= 0.5, p_val &lt;-  2 * p, p_val &lt;- 2*(1 - p))
+}</code></pre>
+<p>Here comes an additional overhead. Since, multfun_fin will be executed on different cores, we need to export the data to each cluster. Windows rely on <strong>clusterExport()</strong> for data to be copied to each cluster.</p>
+<p>Test the final optimized code.</p>
+<pre class="r"><code># Final optimized code 
+system.time({
+cl &lt;- makeCluster(5)
+avc &lt;- parLapply(cl , c(200000, 200000, 200000, 200000, 200000), fastbinom)
+avc &lt;- do.call(cbind, avc)
+clusterExport(cl, varlist=&quot;avc&quot;, envir=environment())
+parLapply(cl, c(124,119,119,197,102), multfun_fin)
+})</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.60    0.61    3.05</code></pre>
+<pre class="r"><code>stopCluster(cl)</code></pre>
+<p>Quite a bit improvement!</p>
+</div>
+<div id="final-test" class="section level1">
+<h1>Final test</h1>
+<p>Let’s now put things together, I will test different versions I created so far. But this time for more input values, I will use my function for each of the 30 categories and by using up to 1.000.000 simulations.</p>
+<p>Let’s call the initial version: <code>original</code>, second <code>parLapply</code>, third <code>parLapply, optimized</code> and the last <code>parLapply/fastbinom</code></p>
+<pre class="r"><code>multfun &lt;- function(x){ 
+  a &lt;- list()
+  avc &lt;- rmultinom(1000000, size=2782, prob=rep(1/30, 30))  # Create probability matrix
+  for (i in 1:30){ a[[i]] &lt;- mean(avc[i,1:1000000] &gt;=x) }   # Find probabilities for each day 
+  ifelse(do.call(sum,a)/30 &lt;= 0.5, p_val &lt;-  2 * do.call(sum,a)/30, 
+                                   p_val &lt;- 2 * (1 - do.call(sum,a)/30))
+}
+
+
+# Original
+system.time({
+lapply(data$n, multfun)
+})</code></pre>
+<pre><code>##    user  system elapsed 
+##   92.37    1.43   93.82</code></pre>
+<pre class="r"><code># parLapply
+system.time({
+n_cores &lt;- detectCores(logical=FALSE)
+cl &lt;- makeCluster(n_cores-1)
+parLapply(cl , data$n, multfun)
+})</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.03    0.03   24.97</code></pre>
+<pre class="r"><code>stopCluster(cl)
+
+multfun_opt &lt;- function(x){ 
+  avc &lt;- rmultinom(1000000, size=2782, rep(1/30, 30))
+  p &lt;- mean(avc[1:30, 1:1000000] &gt;=x)
+  ifelse(p &lt;= 0.5, p_val &lt;-  2 * p, p_val &lt;- 2*(1 - p))
+  }
+
+# parLapply, optimized
+system.time({
+n_cores &lt;- detectCores(logical=FALSE)
+cl &lt;- makeCluster(n_cores-1)
+parLapply(cl , data$n, multfun_opt)
+})</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.00    0.03   21.75</code></pre>
+<pre class="r"><code>stopCluster(cl)
+
+multfun_fin &lt;- function(x){ 
+  p &lt;- mean(avc[1:30, 1:1000000] &gt;=x)
+  ifelse(p &lt;= 0.5, p_val &lt;-  2 * p, p_val &lt;- 2*(1 - p))
+}
+
+# parLapply, fastbinom
+system.time({
+cl &lt;- makeCluster(5)
+avc &lt;- parLapply(cl , c(200000, 200000, 200000, 200000, 200000), fastbinom)
+avc &lt;- do.call(cbind,avc)
+clusterExport(cl, varlist=&quot;avc&quot;, envir=environment())
+parLapply(cl, data$n, multfun_fin)
+})</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.56    0.60    4.10</code></pre>
+<pre class="r"><code>stopCluster(cl)</code></pre>
+<p>Here is an additonal comparision, testing time differences between different versions and to be more precise I simulated up to 10.000.000 multinomial distributions.</p>
+<pre class="r"><code>library(readxl)
+library(tidyverse)
+library(viridis)</code></pre>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<pre class="r"><code>speedtest &lt;- read_excel(&quot;posts_data/parallelprocessing_speed_tests.xlsx&quot;, sheet =3)</code></pre>
+<pre><code>## New names:
+## * `` -&gt; ...1</code></pre>
+<pre class="r"><code>speedtest &lt;- speedtest[-1]
+spd &lt;- gather(speedtest, version, seconds, -c(rmultinom,n))
+spd$version &lt;- factor(spd$version, labels = c(&quot;original&quot;, &quot;parlapply&quot;, &quot;parLapply/opt&quot;, &quot;parLapply/fastbinom&quot;))
+
+spdplot &lt;- spd %&gt;% filter(n &gt;5) %&gt;% 
+  ggplot(aes(x=rmultinom, y=seconds, color=version)) + 
+  geom_line() + 
+  theme(text = element_text(size=18)) +
+   labs(  x = &quot;Number of simulations&quot;, 
+          y = &quot;Time (seconds)&quot;)</code></pre>
+<pre class="r"><code>spdplot</code></pre>
+<p><img src="/post/2019-11-15-speed-boosting-in-r-writing-efficient-code-parallel-programming_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>spd %&gt;% filter(rmultinom ==10000000, n &gt;5) %&gt;%
+  ggplot(aes(x=version, y=seconds)) + geom_col() + 
+  theme(text = element_text(size=15)) + 
+  geom_label(aes(label = seconds), alpha = 0.5)</code></pre>
+<p><img src="/post/2019-11-15-speed-boosting-in-r-writing-efficient-code-parallel-programming_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<p>By splitting our original function into two and then applying parallel processing for each subtask we achieved more than 30X speed gain.</p>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>Parallel processing is easy and can get your tasks extremely faster.</p>
+<p>Until next time!</p>
+<p>Serdar</p>
+</div>
+</div>
