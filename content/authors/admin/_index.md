@@ -75,3 +75,11 @@ Hi, I am Serdar! here is my camp for Data science projects.
 Here, I try to solve problems that I find interesting using Data Science. It is my starting line. What is more is the challenges I faced and the lessons learned in my journey.  There were situations it was not easy to find the relevant guides or ways of doing. So I had to figure out from scratch. I share them too. And doing so spark new ideas as well! Most done in R. Some Python.
 
 Let’s dive in. 
+    
+**Recommended Data Science Blogs**
+
+* [R Bloggers](https://www.r-bloggers.com/)
+* [Towards Data Science](https://towardsdatascience.com/)
+* [R4Stats](http://r4stats.com/)
+* [R Weekly](https://rweekly.org/)
+* [SimplyStatistics]( https://simplystatistics.org/)
