@@ -248,17 +248,17 @@
   </url>
   
   <url>
-    <loc>/r/predict-diseases/</loc>
-    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/pima-indians/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/randomforest/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/r/predict-diseases/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   

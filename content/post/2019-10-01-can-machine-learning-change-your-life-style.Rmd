@@ -1,5 +1,5 @@
 ---
-title: Not everyone who smokes develop lung cancer or who eats a lot of sugar develop fatty liver disease. Predicting diseases with machine learning
+title: Why not everyone who smokes develop cancer or who eats a lot develop fatty liver disease? Predicting diseases with machine learning
 description: "predictive modeling algorithms - for learners"
 author: ''
 date: '2019-10-01'
