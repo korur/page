@@ -213,11 +213,6 @@
   </url>
   
   <url>
-    <loc>/r/predict-diseases/</loc>
-    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/data-quality-control/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
@@ -249,6 +244,11 @@
   
   <url>
     <loc>/tags/machine-learning/</loc>
+    <lastmod>2019-10-01T09:09:36+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/r/predict-diseases/</loc>
     <lastmod>2019-10-01T09:09:36+02:00</lastmod>
   </url>
   

@@ -1,5 +1,5 @@
 ---
-title: Can machine learning change your life? Predicting Diabetes
+title: Not everyone who smokes develop lung cancer or who eats a lot of sugar develop fatty liver disease. Predicting diseases with machine learning
 description: "predictive modeling algorithms - for learners"
 author: ''
 date: '2019-10-01'
@@ -31,7 +31,7 @@ image:
 projects: []
 ---
 
-We are much better at handling diseases than 30 years ago. For example [cancer survival rates](https://dataatomic.com/r/ggplot2-waffle/) are much higher now. The significant portion of the increase **can be attributed directly to our ability to detect and diagnose cancer earlier.** Also, use of insulin and other drugs to control blood glucose in diabetic patients reduced the risk of developing coronary diseases. 
+We are much better at handling diseases than 30 years ago. For example [cancer survival rates](https://dataatomic.com/r/ggplot2-waffle/) are much higher now. The significant portion of this increase **can be attributed directly to our ability to detect and diagnose cancer earlier.** Also, use of insulin and other drugs to control blood glucose in diabetic patients reduced the risk of developing coronary diseases. 
 
 We are at constant hunt for finding new evidence **which environmental factors put us at risk for which diseases.** Exposure to certain chemicals (smoking, industry workers) can cause certain types of cancer and our eating habits might put us at higher risk for developing diseases such us diabetes or liver fibrosis.
 ```{r, fig.cap="Photo by Heather Ford on Unsplash", echo=FALSE}
@@ -40,7 +40,7 @@ library(ggplot2)
 # All defaults
 include_graphics("/img/heather-ford-Fq54FqucgCE-unsplash.jpg")
 ```
-**But not everybody who smokes develop lung cancer or who eats a lot of sugar develop fatty liver disease.** Our genetic background makes us prone or immune to develop different diseases. **This is where data science might enable us with new insights connecting the risk factors to our genetic make up.** And the better we are at identifying high risk patients the better treatment for the patients.
+**But not everyone who smokes develop lung cancer or who eats a lot of sugar develop fatty liver disease.** Our genetic background makes us prone or immune to develop different diseases. **This is where data science might enable us with new insights connecting the risk factors to our genetic make up.** And the better we are at identifying high risk patients the better treatment for the patients.
 
 We are developing new technologies at lightning speed. We can now analyse genes from a single cell which was not even possible couple of years back, and extract the knowledge hidden in rare genes or rare cell types.
 
@@ -178,7 +178,7 @@ rows_with_zero <- unlist(zero_rows)
 rows_with_zero
 ```
 
-As a bonus, I- can recommend using dplyr package.
+As a bonus, I recommend using dplyr package.
 
 **Approach 2:** Much simpler with dplyr **summarise_all()** function
 
