@@ -25,6 +25,13 @@ projects: []
 
 My ambitious goal is to write a machine learning algorithm that predicts authors. But let's start with something simpler. An important part in a Data Science workflow is data preparation. **Clean it, reformat it and make it usable for further analysis.**
 
+```{r, fig.cap="Photo by Patrick Tomasso on Unsplash", echo=FALSE}
+library(knitr)
+library(ggplot2)
+# All defaults
+include_graphics("/img/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg")
+```
+
 I will work on a Poetry book called "New Poems" from D. H. Lawrence. You can download it from [Project Gutenberg website](https://www.gutenberg.org/) which is a library of over 60,000 free eBooks. 
 
 **The goal is to isolate each poem individually for text mining analysis.**  
@@ -59,7 +66,12 @@ Our file contains ```r length(lawrence)``` lines. With square brackets [ ] we ca
 lawrence[1:5]
 
 ```
-
+```{r, fig.cap="Photo by Thiebaud Faix on Unsplash", echo=FALSE}
+library(knitr)
+library(ggplot2)
+# All defaults
+include_graphics("/img/thiebaud-faix-eBkEJ9cH5b4-unsplash.jpg")
+```
 The [book](http://www.gutenberg.org/files/22726/22726-h/22726-h.htm) has 42 poems in total. Table of contents (TOC) starts with the line "CONTENTS" and ends with the line "ON THAT DAY".
 
 I will use those lines to extract the TOC. Stringr package comes in handy here. **str_which()** function returns line index numbers for a given term.

@@ -29,7 +29,7 @@
     
   
   <meta name="description" content="My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler. An important part in a Data Science workflow is data preparation. Clean it, reformat it and make it usable for further analysis.
-I will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from Project Gutenberg website which is a library of over 60,000 free eBooks.">
+Figure 1: Photo by Patrick Tomasso on UnsplashI will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from Project Gutenberg website which is a library of over 60,000 free eBooks.">
 
   
   <link rel="alternate" hreflang="en-us" href="/r/data-wrangling-text-mining/">
@@ -128,7 +128,7 @@ I will work on a Poetry book called “New Poems” from D. H. Lawrence. You can
   <meta property="og:url" content="/r/data-wrangling-text-mining/">
   <meta property="og:title" content="Data Wrangling for Text mining: Extract individual elements from a Book | SERDAR KORUR">
   <meta property="og:description" content="My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler. An important part in a Data Science workflow is data preparation. Clean it, reformat it and make it usable for further analysis.
-I will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from Project Gutenberg website which is a library of over 60,000 free eBooks."><meta property="og:image" content="/img/logo.png">
+Figure 1: Photo by Patrick Tomasso on UnsplashI will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from Project Gutenberg website which is a library of over 60,000 free eBooks."><meta property="og:image" content="/img/logo.png">
   <meta property="twitter:image" content="/img/logo.png"><meta property="og:locale" content="en-us">
   
     
@@ -191,7 +191,7 @@ I will work on a Poetry book called “New Poems” from D. H. Lawrence. You can
       "url": "/img/logo.png"
     }
   },
-  "description": "My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler. An important part in a Data Science workflow is data preparation. Clean it, reformat it and make it usable for further analysis.\nI will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from Project Gutenberg website which is a library of over 60,000 free eBooks."
+  "description": "My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler. An important part in a Data Science workflow is data preparation. Clean it, reformat it and make it usable for further analysis.\n\rFigure 1: Photo by Patrick Tomasso on Unsplash\r\rI will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from Project Gutenberg website which is a library of over 60,000 free eBooks."
 }
 </script>
 
@@ -567,6 +567,12 @@ I will work on a Poetry book called “New Poems” from D. H. Lawrence. You can
 
 
 <p>My ambitious goal is to write a machine learning algorithm that predicts authors. But let’s start with something simpler. An important part in a Data Science workflow is data preparation. <strong>Clean it, reformat it and make it usable for further analysis.</strong></p>
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<img src="/img/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg" alt="Photo by Patrick Tomasso on Unsplash"  />
+<p class="caption">
+Figure 1: Photo by Patrick Tomasso on Unsplash
+</p>
+</div>
 <p>I will work on a Poetry book called “New Poems” from D. H. Lawrence. You can download it from <a href="https://www.gutenberg.org/">Project Gutenberg website</a> which is a library of over 60,000 free eBooks.</p>
 <p><strong>The goal is to isolate each poem individually for text mining analysis.</strong></p>
 <p>Let’s figure out a solution.</p>
@@ -594,6 +600,12 @@ the html version <a href="http://www.gutenberg.org/files/22726/22726-h/22726-h.h
 ## [3] &quot;&quot;                                                                    
 ## [4] &quot;This eBook is for the use of anyone anywhere at no cost and with&quot;    
 ## [5] &quot;almost no restrictions whatsoever.  You may copy it, give it away or&quot;</code></pre>
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="/img/thiebaud-faix-eBkEJ9cH5b4-unsplash.jpg" alt="Photo by Thiebaud Faix on Unsplash"  />
+<p class="caption">
+Figure 2: Photo by Thiebaud Faix on Unsplash
+</p>
+</div>
 <p>The <a href="http://www.gutenberg.org/files/22726/22726-h/22726-h.htm">book</a> has 42 poems in total. Table of contents (TOC) starts with the line “CONTENTS” and ends with the line “ON THAT DAY”.</p>
 <p>I will use those lines to extract the TOC. Stringr package comes in handy here. <strong>str_which()</strong> function returns line index numbers for a given term.</p>
 <pre class="r"><code>start &lt;- str_which(lawrence, pattern = fixed(&quot;CONTENTS&quot;))
