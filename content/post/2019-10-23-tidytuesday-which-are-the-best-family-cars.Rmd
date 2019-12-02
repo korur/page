@@ -1,5 +1,5 @@
 ---
-title: '#TidyTuesday: Which are the best family cars for your weekend trip?'
+title: 'Latest trends in automobile industry, Which are the top family cars for your weekend trip?'
 author: ''
 date: '2019-10-23'
 output: pdf_document

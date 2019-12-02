@@ -7,11 +7,12 @@ output: html_document
 
 ```{r}
 library(tidyverse)
-days <- 1:365
-b <- rep(1.01, 365)
+days <- 1:380
+b <- rep(1.01, 380)
 results <- b^days
 logx_b <- log(days, b)
-logexp <- data.frame(days,b,results, logx_b)
+logexp <- data.frame(days, b, results, logx_b)
+
 
 logexp %>% 
   ggplot(aes(x=days, y=results)) +
@@ -19,8 +20,9 @@ logexp %>%
   theme_classic() +
    theme(text = element_text(size=16), 
          plot.title =element_text(hjust=0.5)) +
-  labs(title = "Improve 1% everyday", y = "% Improvement") + scale_y_continuous(labels = function(x) paste0(x, "00")) + coord_cartesian(xlim = c(0, 365), ylim = c(0, 40))
-
+  labs(title = "Improve 1% everyday", y = "Cumulative improvement") + scale_y_continuous(labels = function(x) paste0(x, "00%")) + geom_point(aes(x=365, y=37.78), size=5)
+  
+# geom_hline(yintercept=37.5, lty=2) + geom_vline(xintercept = 365, lty=2)
 
 logexp %>% 
   ggplot(aes(x=days, y=logx_b)) + 
@@ -52,6 +54,8 @@ ggplot(data = dat, aes(x = x, y = y)) +
   theme(text = element_text(size=16), 
          plot.title =element_text(hjust=0.5)) +
   labs(title = "Parkinson's Law", x = "time allowed", y = "effort") + coord_cartesian(xlim = c(0, 50))
+
+vec <- dat$y
 ```
 
 ```{r, Parkinson's Law, not easy}
