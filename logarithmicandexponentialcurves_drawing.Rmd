@@ -77,3 +77,39 @@ park <- data.frame(days, effort)
 park %>% ggplot(aes(x=days, y=effort)) + geom_point()
 ```
 
+# Derivation of Parkinson's law from gama distribution
+
+```{r, Derivaton of Parkinson's Law}
+a <- seq(0,8, by=0.1) / exp(seq(0,8, by=0.1) )
+plot(a)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+
+```
+

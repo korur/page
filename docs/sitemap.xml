@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/r/text-mining-tutorial/</loc>
+    <lastmod>2019-12-13T10:48:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/kindle/</loc>
+    <lastmod>2019-12-13T10:48:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/nlp/</loc>
+    <lastmod>2019-12-13T10:48:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2019-12-13T10:48:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/sentimentanalysis/</loc>
+    <lastmod>2019-12-13T10:48:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-12-13T10:48:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-12-13T10:48:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/texmining/</loc>
+    <lastmod>2019-12-13T10:48:17+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/for-loop/</loc>
     <lastmod>2019-11-15T15:29:24+01:00</lastmod>
   </url>
@@ -18,27 +58,12 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2019-11-15T15:29:24+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/rmultinom/</loc>
     <lastmod>2019-11-15T15:29:24+01:00</lastmod>
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2019-11-15T15:29:24+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/r/speed-boosting-in-r-writing-efficient-code-parallel-programming/</loc>
-    <lastmod>2019-11-15T15:29:24+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2019-11-15T15:29:24+01:00</lastmod>
   </url>
   
@@ -88,17 +113,17 @@
   </url>
   
   <url>
-    <loc>/r/tidytuesday-which-are-the-best-family-cars/</loc>
-    <lastmod>2019-10-23T10:04:49+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/data-visualization/</loc>
     <lastmod>2019-10-23T10:04:49+02:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/data-wrangling/</loc>
+    <lastmod>2019-10-23T10:04:49+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/r/tidytuesday-which-are-the-best-family-cars/</loc>
     <lastmod>2019-10-23T10:04:49+02:00</lastmod>
   </url>
   
@@ -421,6 +446,10 @@
   
   <url>
     <loc>/courses/</loc>
+  </url>
+  
+  <url>
+    <loc>/r/kindle_highlights_serdar/</loc>
   </url>
   
   <url>
