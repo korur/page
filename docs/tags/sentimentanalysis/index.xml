@@ -20,7 +20,8 @@
       <description>
 
 
-&lt;p&gt;&lt;img src=&#34;/img/kindlebat.png&#34; alt=&#34;configtoml&#34; /&gt;
+&lt;p&gt;&lt;em&gt;Reprinted from &lt;a href=&#34;https://towardsdatascience.com/an-accidental-side-effect-of-text-mining-4b43f8ee1273&#34; class=&#34;uri&#34;&gt;https://towardsdatascience.com/an-accidental-side-effect-of-text-mining-4b43f8ee1273&lt;/a&gt;&lt;/em&gt;
+&lt;img src=&#34;/img/kindlebat.png&#34; alt=&#34;configtoml&#34; /&gt;
 As I read on my kindle I highlight the passages that I like so that I can re-read them later. These annotations are stored on my Kindle and are backed up at Amazon. And after some time, they started to accumulate and became some kind of data.&lt;/p&gt;
 &lt;p&gt;I came up with an idea to analyze all those text I highlighted on my kindle, &lt;strong&gt;to figure out what kind of content I was most likely to highlight.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The plan was to use text mining and sentiment analysis, generate insights and compare them to my real opinions of those books. &lt;strong&gt;So I can have the first-hand test of how useful text mining is. With that knowledge, I can be more convinced when I apply the method to a business problem.&lt;/strong&gt;&lt;/p&gt;

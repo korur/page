@@ -20,6 +20,8 @@ image:
   preview_only: no
 projects: []
 ---
+
+*Reprinted from https://towardsdatascience.com/an-accidental-side-effect-of-text-mining-4b43f8ee1273*
 ![configtoml](/img/kindlebat.png)
 As I read on my kindle I highlight the passages that I like so that I can re-read them later. These annotations are stored on my Kindle and are backed up at Amazon. And after some time, they started to accumulate and became some kind of data.
 
