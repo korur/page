@@ -742,12 +742,14 @@ top &lt;- top_bigrams[1:25,]</code></pre>
  theme(legend.position = &quot;none&quot;,
  text = element_text(size=18))</code></pre>
 <p><img src="/post/2019-12-13-an-accidental-side-effect-of-text-mining_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p>For example, if you go back above in the top 10 most frequent words table 6th word was change. But we didn’t know what the change was about. And here we see that one of the most common bigram is behavioral change. It is making more sense. But it can improve to look at each book individually.</p>
-<p>We can also do what we did for the whole document for highlights from single books.</p>
-<p>But how can we capture them individually?</p>
+<p>I see that one of the most frequent bigrams is behavioral change. We can use this information to make sense of what we have found previously. For example, one of the most frequent word was change. And we saw with bigram analysis that the word change was used mostly in a context of behavioral change. <strong>So bigrams are useful tools to get deeper insights about the text content.</strong></p>
+<p>My highlighted text data come from 28 different books, and by looking at the most frequent words and bigrams in the whole document we got an overview of them.</p>
+<p>To see how the individual books differ we can repeat this procedure for each of them.</p>
+<p><strong>But how can we capture them individually?</strong></p>
 <p>Let’s first look at the text once more.<img src="/img/kindleclip.png" />Before each book <strong>“Your Kindle Notes For:”</strong> appears.</p>
 <p>Let’s find out the line numbers for the beginning and the end of each book and use those indexes for fishing out each book.</p>
-<p>We will reuse the data frame df we created above. <strong>str_which()</strong> function returns index numbers of the lines which contain a given pattern. In the last step, capturing the text between two consecutive indexes will give us the book between them.</p>
+<p>We will reuse the data frame df we created above. str_which() function returns line index numbers which contain an given input pattern.</p>
+<p>In the final step, a for loop to <strong>capture the text between two consecutive indexes will give us the book between them.</strong></p>
 <pre class="r"><code># Since I modified df above. I will recreate it again.
 df &lt;- data.frame(highlights)
 df$highlights &lt;- str_replace_all(df$highlights, &quot;’&quot;, &quot;&#39;&quot;)
@@ -786,7 +788,7 @@ for(i in 1:(length(indexes)-1)) {
 ## 4                               Roger Fisher and William Ury
 ## 5                 Last accessed on Saturday November 3, 2018
 ## 6                               266 Highlight(s) | 3 Note(s)</code></pre>
-<p>Now, we have the individual books captured. I will repeat the procedure we used to analyse the whole text above to analyze each of the 28 books by using a for loop.</p>
+<p>Now, we captured all 28 books and we can apply the same procedure to analyze each of them by another for loop.</p>
 <pre class="r"><code>top &lt;- list()
 for(i in 1:28){
 books[[i]] &lt;- books[[i]] %&gt;% unnest_tokens(word, word_column) %&gt;%
@@ -1761,10 +1763,10 @@ df_bigram[[i]] %&gt;%
 ## # ... with 1,601 more rows</code></pre>
 <p>If you want to see another example of this capturing process you can have a look at my recent post <a href="https://dataatomic.com/r/data-wrangling-text-mining/">here</a>.</p>
 <p>Looking at each book individually, he started to be more and more obsessed about the books in my kindle. He decided to order a couple of them.</p>
-<p><strong>Sentiment analysis</strong> is used to evaluate emotional charge in a text mining project. Most common uses are social media monitoring, customer experience management, and Voice of Customer, to understand how they feel.</p>
+<p>We can use <strong>sentiment analysis</strong> to evaluate emotional charge in a text data. Most common uses are social media monitoring, customer experience management, and Voice of Customer, to understand how they feel.</p>
 <p>The <strong>bing</strong> lexicon categorizes words into positive and negative categories, in a binary fashion. The <strong>nrc</strong> lexicon uses categories of positive, negative, anger, anticipation, disgust, fear, joy, sadness, surprise, and trust.</p>
 <p><strong>Using bing lexicon</strong></p>
-<p>This gives us the top words contributed to each emotional category. Some examples to note are success, effective, for positive and bad, hard and limits.<img src="/img/sentiment1.png" /></p>
+<p>I created a list of the words with highest contribution to each emotional category. For example success and effective for positive, bad and hard for negative sentiment.<img src="/img/sentiment1.png" /></p>
 <p>Here is how R produced the above plot:</p>
 <pre class="r"><code>df &lt;- data.frame(highlights)
 df$highlights &lt;- str_replace_all(df$highlights, &quot;’&quot;, &quot;&#39;&quot;)
@@ -1805,7 +1807,7 @@ bing &lt;- bing_word_counts %&gt;%
   coord_flip()
 bing</code></pre>
 <p><strong>Using nrc lexion</strong></p>
-<p>We see that I am more likely to highlight if a text is charged with positive rather than negative sentiment, and individually trust, anticipation and joy rather than fear and sadness.</p>
+<p>I am more likely to highlight a text if it is positive rather than negative. And also trust, anticipation and joy rather than sadness or anger.</p>
 <pre class="r"><code>df &lt;- data.frame(highlights)
 df$highlights &lt;- str_replace_all(df$highlights, &quot;’&quot;, &quot;&#39;&quot;)
 df &lt;- df %&gt;% unnest_tokens(word, highlights) %&gt;% 

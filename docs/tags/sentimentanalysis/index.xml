@@ -196,12 +196,14 @@ top &amp;lt;- top_bigrams[1:25,]&lt;/code&gt;&lt;/pre&gt;
  theme(legend.position = &amp;quot;none&amp;quot;,
  text = element_text(size=18))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-12-13-an-accidental-side-effect-of-text-mining_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;For example, if you go back above in the top 10 most frequent words table 6th word was change. But we didn’t know what the change was about. And here we see that one of the most common bigram is behavioral change. It is making more sense. But it can improve to look at each book individually.&lt;/p&gt;
-&lt;p&gt;We can also do what we did for the whole document for highlights from single books.&lt;/p&gt;
-&lt;p&gt;But how can we capture them individually?&lt;/p&gt;
+&lt;p&gt;I see that one of the most frequent bigrams is behavioral change. We can use this information to make sense of what we have found previously. For example, one of the most frequent word was change. And we saw with bigram analysis that the word change was used mostly in a context of behavioral change. &lt;strong&gt;So bigrams are useful tools to get deeper insights about the text content.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;My highlighted text data come from 28 different books, and by looking at the most frequent words and bigrams in the whole document we got an overview of them.&lt;/p&gt;
+&lt;p&gt;To see how the individual books differ we can repeat this procedure for each of them.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;But how can we capture them individually?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Let’s first look at the text once more.&lt;img src=&#34;/img/kindleclip.png&#34; /&gt;Before each book &lt;strong&gt;“Your Kindle Notes For:”&lt;/strong&gt; appears.&lt;/p&gt;
 &lt;p&gt;Let’s find out the line numbers for the beginning and the end of each book and use those indexes for fishing out each book.&lt;/p&gt;
-&lt;p&gt;We will reuse the data frame df we created above. &lt;strong&gt;str_which()&lt;/strong&gt; function returns index numbers of the lines which contain a given pattern. In the last step, capturing the text between two consecutive indexes will give us the book between them.&lt;/p&gt;
+&lt;p&gt;We will reuse the data frame df we created above. str_which() function returns line index numbers which contain an given input pattern.&lt;/p&gt;
+&lt;p&gt;In the final step, a for loop to &lt;strong&gt;capture the text between two consecutive indexes will give us the book between them.&lt;/strong&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Since I modified df above. I will recreate it again.
 df &amp;lt;- data.frame(highlights)
 df$highlights &amp;lt;- str_replace_all(df$highlights, &amp;quot;’&amp;quot;, &amp;quot;&amp;#39;&amp;quot;)
@@ -240,7 +242,7 @@ for(i in 1:(length(indexes)-1)) {
 ## 4                               Roger Fisher and William Ury
 ## 5                 Last accessed on Saturday November 3, 2018
 ## 6                               266 Highlight(s) | 3 Note(s)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now, we have the individual books captured. I will repeat the procedure we used to analyse the whole text above to analyze each of the 28 books by using a for loop.&lt;/p&gt;
+&lt;p&gt;Now, we captured all 28 books and we can apply the same procedure to analyze each of them by another for loop.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top &amp;lt;- list()
 for(i in 1:28){
 books[[i]] &amp;lt;- books[[i]] %&amp;gt;% unnest_tokens(word, word_column) %&amp;gt;%
@@ -1215,10 +1217,10 @@ df_bigram[[i]] %&amp;gt;%
 ## # ... with 1,601 more rows&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;If you want to see another example of this capturing process you can have a look at my recent post &lt;a href=&#34;https://dataatomic.com/r/data-wrangling-text-mining/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Looking at each book individually, he started to be more and more obsessed about the books in my kindle. He decided to order a couple of them.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Sentiment analysis&lt;/strong&gt; is used to evaluate emotional charge in a text mining project. Most common uses are social media monitoring, customer experience management, and Voice of Customer, to understand how they feel.&lt;/p&gt;
+&lt;p&gt;We can use &lt;strong&gt;sentiment analysis&lt;/strong&gt; to evaluate emotional charge in a text data. Most common uses are social media monitoring, customer experience management, and Voice of Customer, to understand how they feel.&lt;/p&gt;
 &lt;p&gt;The &lt;strong&gt;bing&lt;/strong&gt; lexicon categorizes words into positive and negative categories, in a binary fashion. The &lt;strong&gt;nrc&lt;/strong&gt; lexicon uses categories of positive, negative, anger, anticipation, disgust, fear, joy, sadness, surprise, and trust.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Using bing lexicon&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;This gives us the top words contributed to each emotional category. Some examples to note are success, effective, for positive and bad, hard and limits.&lt;img src=&#34;/img/sentiment1.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;I created a list of the words with highest contribution to each emotional category. For example success and effective for positive, bad and hard for negative sentiment.&lt;img src=&#34;/img/sentiment1.png&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Here is how R produced the above plot:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- data.frame(highlights)
 df$highlights &amp;lt;- str_replace_all(df$highlights, &amp;quot;’&amp;quot;, &amp;quot;&amp;#39;&amp;quot;)
@@ -1259,7 +1261,7 @@ bing &amp;lt;- bing_word_counts %&amp;gt;%
   coord_flip()
 bing&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;Using nrc lexion&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;We see that I am more likely to highlight if a text is charged with positive rather than negative sentiment, and individually trust, anticipation and joy rather than fear and sadness.&lt;/p&gt;
+&lt;p&gt;I am more likely to highlight a text if it is positive rather than negative. And also trust, anticipation and joy rather than sadness or anger.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- data.frame(highlights)
 df$highlights &amp;lt;- str_replace_all(df$highlights, &amp;quot;’&amp;quot;, &amp;quot;&amp;#39;&amp;quot;)
 df &amp;lt;- df %&amp;gt;% unnest_tokens(word, highlights) %&amp;gt;% 

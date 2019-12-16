@@ -202,17 +202,21 @@ top %>% ungroup() %>% mutate(bigram = fct_reorder(bigram, n)) %>%
  text = element_text(size=18))
 ```
 
-For example, if you go back above in the top 10 most frequent words table 6th word was change. But we didn't know what the change was about. And here we see that one of the most common bigram is behavioral change. It is making more sense. But it can improve to look at each book individually.
+I see that one of the most frequent bigrams is behavioral change. We can use this information to make sense of what we have found previously. For example, one of the most frequent word was change. And we saw with bigram analysis that the word change was used mostly in a context of behavioral change. **So bigrams are useful tools to get deeper insights about the text content.**
 
-We can also do what we did for the whole document for highlights from single books.
+My highlighted text data come from 28 different books, and by looking at the most frequent words and bigrams in the whole document we got an overview of them.
 
-But how can we capture them individually?
+To see how the individual books differ we can repeat this procedure for each of them.
+
+**But how can we capture them individually?**
 
 Let's first look at the text once more.![](/img/kindleclip.png)Before each book **"Your Kindle Notes For:"** appears. 
 
 Let's find out the line numbers for the beginning and the end of each book and use those indexes for fishing out each book.
 
-We will reuse the data frame df we created above. **str_which()** function returns index numbers of the lines which contain a given pattern. In the last step, capturing the text between two consecutive indexes will give us the book between them.
+We will reuse the data frame df we created above. str_which() function returns line index numbers which contain an given input pattern.
+
+In the final step, a for loop to **capture the text between two consecutive indexes will give us the book between them.**
 
 ```{r, message=FALSE, warning=FALSE}
 # Since I modified df above. I will recreate it again.
@@ -245,7 +249,7 @@ Let's check whether it worked, for example you can look up the 5th book on our l
 head(books[[5]])
 head(books[[15]])
 ```
-Now, we have the individual books captured. I will repeat the procedure we used to analyse the whole text above to analyze each of the 28 books by using a for loop.
+Now, we captured all 28 books and we can apply the same procedure to analyze each of them by another for loop.
 
 ```{r, message=FALSE, warning=FALSE}
 top <- list()
@@ -337,13 +341,13 @@ If you want to see another example of this capturing process you can have a look
 
 Looking at each book individually, he started to be more and more obsessed about the books in my kindle. He decided to order a couple of them.
 
-**Sentiment analysis** is used to evaluate emotional charge in a text mining project. Most common uses are social media monitoring, customer experience management, and Voice of Customer, to understand how they feel.
+We can use **sentiment analysis** to evaluate emotional charge in a text data. Most common uses are social media monitoring, customer experience management, and Voice of Customer, to understand how they feel.
 
 The **bing** lexicon categorizes words into positive and negative categories, in a binary fashion. The **nrc** lexicon uses categories of positive, negative, anger, anticipation, disgust, fear, joy, sadness, surprise, and trust.
 
 **Using bing lexicon**
 
-This gives us the top words contributed to each emotional category. Some examples to note are success, effective, for positive and bad, hard and limits.![](/img/sentiment1.png)
+I created a list of the words with highest contribution to each emotional category. For example success and effective for positive, bad and hard for negative sentiment.![](/img/sentiment1.png)
 
 Here is how R produced the above plot:
 
@@ -380,7 +384,7 @@ bing
 
 **Using nrc lexion**  
 
-We see that I am more likely to highlight if a text is charged with positive rather than negative sentiment, and individually trust, anticipation and joy rather than fear and sadness.
+I am more likely to highlight a text if it is positive rather than negative. And also trust, anticipation and joy rather than sadness or anger.
 
 ```{r}
 df <- data.frame(highlights)
