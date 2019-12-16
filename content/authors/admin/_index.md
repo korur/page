@@ -44,12 +44,16 @@ social:
 - icon: envelope
   icon_pack: fas
   link: "mailto:serdar.korur@gmail.com"
-- icon: linkedin
-  icon_pack: fab
-  link: https://www.linkedin.com/in/serdar-korur/
 - icon: github
   icon_pack: fab
   link: https://github.com/korur/
+- icon: linkedin
+  icon_pack: fab
+  link: https://www.linkedin.com/in/serdar-korur/
+- icon: medium
+  icon_pack: fab
+  link: https://medium.com/@serdarkorur
+  
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.  
 # - icon: cv
