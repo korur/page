@@ -23,32 +23,34 @@ projects: []
 
 
 
-<p><em>Reprinted from <a href="https://towardsdatascience.com/an-accidental-side-effect-of-text-mining-4b43f8ee1273" class="uri">https://towardsdatascience.com/an-accidental-side-effect-of-text-mining-4b43f8ee1273</a></em>
+<p><em>Extended version of <a href="https://towardsdatascience.com/an-accidental-side-effect-of-text-mining-4b43f8ee1273" class="uri">https://towardsdatascience.com/an-accidental-side-effect-of-text-mining-4b43f8ee1273</a></em>
 <img src="/img/kindlebat.png" alt="configtoml" />
-As I read on my kindle I highlight the passages that I like so that I can re-read them later. These annotations are stored on my Kindle and are backed up at Amazon. And after some time, they started to accumulate and became some kind of data.</p>
-<p>I came up with an idea to analyze all those text I highlighted on my kindle, <strong>to figure out what kind of content I was most likely to highlight.</strong></p>
-<p>The plan was to use text mining and sentiment analysis, generate insights and compare them to my real opinions of those books. <strong>So I can have the first-hand test of how useful text mining is. With that knowledge, I can be more convinced when I apply the method to a business problem.</strong></p>
-<p>Now to be objective, I will create an independent character called “the bat”. He is a hacker and he is not the bookworm type but his unfortunate fate gave him a challenge.</p>
-<p>His next mission is to hack my data and analyze it to gather insights for selling me more books.
-The room was in a mess when he entered. As he plugged the USB drive on his laptop, he barely heard the radio which was still on.</p>
-<p>The reporter:</p>
+<strong><em>“The end of our exploring will be to arrive at where we started, and to know the place for the first time.”
+— T. S. Eliot</em></strong></p>
+<p>I was reading lately lots of books on productivity and self-development and often I found pieces of advice that I want to re-read later. The highlighting option on kindle makes this very easy. By reading and highlighting consistently <strong>I accumulated a sizeable amount text which was a good representation of the books I read.</strong></p>
+<p>Since I know the content very well. I want to apply <strong>text mining</strong> and <strong>sentiment analysis</strong> to this data so that I can compare the results to my real opinion about the books. <strong>And if they match I will be more convinced to apply it to my next business problem.</strong></p>
+<p>In part, this is also <strong>a self-exploration,</strong> since I could answer questions such as what kind of content I like more, what was their emotional charge?</p>
+<p><strong>Let’s find the answers.</strong></p>
+<p>To be objective, I will create an independent character called “the bat”. His next mission is to hack my data and analyze it to gather insights for selling me more books. Unfortunately, reading is not his specialty.</p>
+<p>The room was in a mess when he entered. As he plugged the USB drive on his laptop, he barely heard the radio which was still on. The reporter:</p>
 <blockquote>
 <p>From the moment we switch on the early morning our cell phones to deal with the flood of information in some form of a whatsapp or facebook message or a tweet until we fall asleep at night overwriting or reading a product review we leave bread crumbs to our personal flavors on internet.</p>
 </blockquote>
 <blockquote>
 <p>Many businesses use this unstructured data to drive their sales by better marketing through targeted product recommendations or to segregate their customers…</p>
 </blockquote>
-<p>He squeezed his teeth when he saw the data of 21000 lines of text from 28 books. His first encounter was the book “Mindset” by Carol Dweck, where she introduces the concept of growth mindset.</p>
-<p>Long lines of text made him tired, he didn’t realize how the time passed. <strong>He decided to learn text mining</strong>. This might sound quite a bit investment but now he is a man of growth.</p>
-<p>He continued to learn R packages needed for text mining, he didn’t like the package name tidytext but he was slightly losing his prejudices. It was a long night. He fell asleep on his table as the sun slowly rose.
-It was lightning my back garden where</p>
+<p>He squeezed his teeth when he saw the data of 21000 lines of text from 28 books. His first encounter was the book “Mindset” by Carol Dweck, where she introduces the concept of <strong>growth mindset.</strong> The idea behind is people who have the growth mindset believe their abilities can be improved by putting effort whereas the people with the fixed mindset believe that their abilities are fixed at birth. As a consequence, people who has the fixed mindset miss the opportunity to get better at many things even though they can. <strong>Simply, because they don’t believe in it in the first place.</strong></p>
+<p>If you are not familiar with the concept, here is a <a href="https://youtu.be/hiiEeMN7vbQ">video</a> of Carol Dweck explaining her research on growth mindset.</p>
+<p>Long lines of text made him tired, he didn’t realize how the time passed. Now, he was a man of growth. <strong>He decided to learn text mining.</strong></p>
+<p>He started to learn the R packages for text mining, he didn’t like the package name tidytext but he was slightly losing his prejudices. It was a long night. He fell asleep on his table as the sun slowly rose.
+…</p>
+<p>It was lighting my back garden where I could glance from time to time to the trees painted by the snow overnight ⛄️. Without an idea about how things went on the another part of the town, I continued to read and highlight my kindle as I zip from a glass of red wine 🍷.</p>
 <p>…</p>
-<p>I could glance from time to time to the trees painted by the snow overnight ⛄️. Without an idea about how things went on the another part of the town, I continued to read and highlight my kindle as I zip from a glass of red wine 🍷.</p>
-<p>…</p>
-<p>This is how the exported kindle highlights look like.</p>
-<p><img src="/img/kindleclip.png" alt="configtoml" /><strong>The hacker’s notes</strong></p>
-<p>He noted down each step of his text mining plan carefully. Let me help you go through them.
-Reading and parsing the text file</p>
+<p>We will know what happened to our hacker later. First, let’s go together through his notebook.</p>
+<p><strong>The hacker’s notes</strong></p>
+<p>He noted down each step of his text mining plan carefully. Let me help you go through them.</p>
+<p>This is how the exported kindle highlights look like.<img src="/img/kindleclip.png" alt="configtoml" /></p>
+<p>Reading and parsing the text file</p>
 <pre class="r"><code># Use readLines function to parse the text file
 
 highlights &lt;- readLines(&quot;posts_data/Kindle_highlights_Serdar.Rmd&quot;, encoding = &quot;UTF-8&quot;)
@@ -62,7 +64,7 @@ df &lt;- data.frame(highlights)
 library(tidyverse)   # includes ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats
 library(tidytext)
 library(wordcloud2)</code></pre>
-<p>In every data science project, there is some sort of data preparation. <strong>Stop words</strong> are generally the most common words in a language and are usually filtered out before processing of text data.</p>
+<p>Every data science project requires some sort of data preparation. <strong>Stop words</strong> are generally the most common words in a language and are usually filtered out before processing of text data.</p>
 <p>Let’s look at the stop_words dataset from the tidytext package. Since it is a long list of words (&gt;1K) <strong>I will print every fifth word as an example.</strong></p>
 <pre class="r"><code>data(stop_words)
 
@@ -97,14 +99,13 @@ stop_words_small %&gt;% print(n=50)</code></pre>
 ## 21 parted     onix    
 ## 22 since      onix    
 ## 23 under      onix</code></pre>
-<p>Sometimes even a small dot can have big influence on your results. <strong>Looking carefully I see that stop_words uses single quotes whereas in the text file used apostrophes (‘).</strong></p>
+<p>Every data science project requires some sort of data preparation. Stop words are generally the most common words in a language and are usually filtered out before processing of text data.</p>
 <p>e.g. they’ll in stop_words</p>
 <p>And how the word they’ll appears in the text:</p>
 <p>Yellow highlight | Page: 200
 Memories are continually revised, along with the meaning we derive from them, so that in the future they’ll be of even more use.</p>
-<p>This incompatibility will prevent some of the stop_words such as they’ll, don’t, can’t e.g. getting filtered. To prevent this we have to replace them.</p>
-<p><strong>He quickly spotted that.</strong></p>
-<p>str_replace_all() function from Stringr will do that.</p>
+<p>We have to make stop_words and our data compatible, otherwise some words such as they’ll, don’t, can’t might appear in our results.</p>
+<p>We can use <strong>str_replace_all()</strong> function from stringr package to find all the apostrophes and convert them into single quotes.</p>
 <pre class="r"><code>df$highlights &lt;- str_replace_all(df$highlights, &quot;’&quot;, &quot;&#39;&quot;)</code></pre>
 <p>Now, the text is ready for the frequency analysis. Words in a text mining project are called tokens. We can split the text into single words by unnest_tokens() function from tidytext package, filter the stop_words and count.</p>
 <pre class="r"><code>df &lt;- df %&gt;% unnest_tokens(word, highlights) %&gt;%
@@ -134,12 +135,12 @@ Memories are continually revised, along with the meaning we derive from them, so
 ##  9 person   170
 ## 10 habits   157
 ## # ... with 12,423 more rows</code></pre>
-<p>Wordclouds are a good alternative to long lists of words for visualizing text data. Wordcloud2 package allows you to use any image as the markup.<img src="/img/h7.png" alt="configtoml" /></p>
+<p>If you don’t like to look at long list of words wordclouds are a good alternative. Wordcloud2 package gives additional customization options for your wordclouds, for example you can use any image as a markup.<img src="/img/h7.png" alt="configtoml" /></p>
 <pre class="r"><code>wordcloud2(top_kindle_highlights, figPath = bat, size = 1, backgroundColor = &quot;white&quot;, color = color_vector(data$freq) )</code></pre>
 <p>Some ideas started to get shaped in his mind. He thought who made those highlights is someone interested in storytelling, writing and good communication, good habits, and people. <strong>Someone who wants to influence his life in a positive way. He was becoming more and more interested in the books.</strong></p>
 <p>He wanted to dig deeper.</p>
 <p><strong>Bigram Analysis</strong></p>
-<p>Single words are a good starting point what the books were about. <strong>But they are not very informative without context.</strong> Frequency analysis can also be performed to measure how often pairs of two words <strong>(bigrams)</strong> occur in the text. This allows us to capture finer details in the text.</p>
+<p>Single words are a good starting point what the books were about. <strong>But they are limited without the context.</strong> Frequency analysis can also be performed to measure how often word pairs (bigrams) occur in the text. This allows us to capture finer details in the text.</p>
 <p>To do this he combined the unnested single tokens which is isolated above back into a continuous text and then performed bigram analysis. You can use <strong>str_c()</strong> function from stringr package to concatenate the single words.</p>
 <pre class="r"><code># Recreate the df
 df &lt;- data.frame(highlights)
@@ -153,7 +154,7 @@ df &lt;- df %&gt;% unnest_tokens(word, highlights) %&gt;%
 
 df_com &lt;- str_c(df$word, &quot; &quot;) 
 df_com &lt;- data.frame(df_com)</code></pre>
-<p>Let’s split the text into bigrams and count the most common two word pairs.</p>
+<p>Let’s split the text into bigrams and count the most common word pairs.</p>
 <pre class="r"><code>df_bigram &lt;- df_com %&gt;% 
  unnest_tokens(bigram, df_com, token = &quot;ngrams&quot;, 
  n = 3, n_min = 2)
@@ -1251,7 +1252,6 @@ bing_word_counts</code></pre>
 ## # ... with 1,844 more rows</code></pre>
 <pre class="r"><code># Top contributors to positive and negative sentiment
 
-
 bing &lt;- bing_word_counts %&gt;% 
   group_by(sentiment) %&gt;% 
   top_n(10) %&gt;% 
@@ -1261,7 +1261,6 @@ bing &lt;- bing_word_counts %&gt;%
   labs(y= &quot;Contribution to sentiment&quot;, x = NULL) +
   coord_flip()
 bing</code></pre>
-<p><img src="/post/2019-12-13-an-accidental-side-effect-of-text-mining_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p><strong>Using nrc lexion</strong></p>
 <p>We see that I am more likely to highlight if a text is charged with positive rather than negative sentiment, and individually trust, anticipation and joy rather than fear and sadness.</p>
 <pre class="r"><code>df &lt;- data.frame(highlights)
@@ -2052,14 +2051,13 @@ all_bound %&gt;% ggplot(aes(x= book_names, y=n2)) +
         axis.text.x = element_blank()) + 
   xlab(&quot;Books&quot;) + 
   ylab(&quot;Positivity score&quot;)</code></pre>
-<p><img src="/post/2019-12-13-an-accidental-side-effect-of-text-mining_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-<p>The lowest positivity score was found in the book <strong>“Man’s search for meaning”.</strong> This is also kind of expected. Since the book is based on Victor Frankl sufferings during the second world war.</p>
+<p><img src="/post/2019-12-13-an-accidental-side-effect-of-text-mining_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>Let’s look at the book with the lowest positivity score. <strong>“Man’s search for meaning”.</strong> This <a href="https://www.amazon.com/Mans-Search-Meaning-Viktor-Frankl/dp/080701429X">book</a> is based on Victor Frankl sufferings during the second world war. This is also kind of expected.</p>
 <blockquote>
 <p>I am getting more and more convinced text mining is giving good insights.</p>
 </blockquote>
 <p>The book “The Outliers” appeared on the top of the positivity plot was a real outlier here. 😮</p>
-<p>No panic.</p>
-<p>Let’s look at the word count in our Outlier.</p>
+<p>It is hard to know everything from the beginning and we will go back to make some additional cleaning. The word count from the book “The Outliers” is 107. This is really low. So in the next iteration, I would remove it from the analysis since it will not be reliable.</p>
 <pre class="r"><code>book_names[[27]]</code></pre>
 <pre><code>## [1] &quot;Outliers: The Story of Success&quot;</code></pre>
 <pre class="r"><code>top[[27]]</code></pre>
@@ -2082,11 +2080,11 @@ all_bound %&gt;% ggplot(aes(x= book_names, y=n2)) +
 <p>…</p>
 <div id="summary" class="section level3">
 <h3>Summary</h3>
-<p>It is not feasible to read millions of pages to check whether text mining is reliable. But here I got some data that I know the content and I applied text mining approaches and sentiment analysis.
-Both the monograms or bigrams pointed to similar ideas what the books were about. And the sentiments made sense with the genres of the books in my kindle.</p>
+<p>It is not feasible to read millions of pages to check whether text mining is reliable. But here I got some data that I know the content and I applied text mining approaches and sentiment analysis.</p>
+<p>Both the monograms or bigrams pointed to similar ideas what the books were about. And the sentiments made sense with the genres of the books in my kindle.</p>
 <p>Let’s come back to our hacker.</p>
-<p>He was affected by an unanticipated side effect of the text analyses. As he continued the project, the insights from the frequent ngrams made him more and more interested in the content. He started reading again and the more he read the more world look differently.</p>
-<p>He was transformed into a better version of himself.</p>
+<p>An unanticipated side effect of text mining changed him forever. Analyzing my books and gaining the insights made him more and more interested in reading. And he started to care about the world around him. The world was different.</p>
+<p>What I was trying to do for myself, he did for himself. He transformed into a better version of himself.</p>
 <p>The world was brighter. ☀️</p>
 <p>The radio disrupted the silence.</p>
 <blockquote>
@@ -2095,8 +2093,7 @@ Both the monograms or bigrams pointed to similar ideas what the books were about
 <p>I woke up.</p>
 <p>…</p>
 <p>Thank you for reading. I hope you’ve learned something or got inspiration from this. Please feel free to leave comments, suggestions, and questions. (You can always contact me by email at <a href="mailto:serdar.korur@gmail.com" class="email">serdar.korur@gmail.com</a>)</p>
-<p>If you would like to use the data I will make it available on my <a href="https://github.com/korur/textmining">github</a>.</p>
-<p>I would be more encouraged to write more if you liked the story and follow or clap me on <a href="https://towardsdatascience.com/an-accidental-side-effect-of-text-mining-4b43f8ee1273">medium!</a></p>
+<p>You can find the data and the code in my <a href="https://github.com/korur/textmining">github</a>.</p>
 <p>Until next time!</p>
 <p>Serdar</p>
 </div>
