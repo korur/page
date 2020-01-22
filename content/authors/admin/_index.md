@@ -10,11 +10,11 @@ authors:
 superuser: true
 
 # Role/position
-role: Senior Scientist in Drug Discovery
+role: Data Scientist
 
 # Organizations/Affiliations
 organizations:
-- name: Oncoarendi Therapeutics
+- name: 
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
