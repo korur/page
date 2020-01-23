@@ -22,32 +22,36 @@ image:
 projects: []
 ---
 
-Last week, I came across a data that I thought it is a great opportunity to write about Binomial probability distributions. 
+Learn. It is all about success and failure.
 
 
-# What is a binomial distribution and why we need to know it?
+# What are binomial distributions and why are they so useful?
 
-**Binomial distributions** are formed when we repeat a set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are usually described as **Success** or **no Success**. A "yes" or "no".  
+When we repeat a set of events like 10 times coin flipping and each single event in a set has two possible outcomes (head or tails) think about **Binomial distributions.** Each single event here is known as a Bernoulli Trial.
 
-For example, in flipping coins, the two possibilities are getting a head (success) or tails (no success) or vice versa. And one set can be, e.g. 10 or 50 times coin flipping. We can repeat this set as many times as we like and record how many times we got heads (success) in each repetition.
+Bi- in binomial distributions refers to the two outcomes usually described as **Success** or **no Success.** A “yes” or “no”.
+
+**Probability distributions in general are used to predict future events** and often based on nasty looking mathematical formulas. But, there is also a beautiful thing here. For example the specific binomial distribution mathematical function can be used to predict the outcomes of any real life event which has two outcomes.
+
+Let’s start with a simple example.
 
 ## Why is this interesting?
 
-What is the probability of getting 25 heads out of 50 coin flips? This is not very unusual. **But how about getting 49 heads out of 50 flips? Is this really possible?**
+For example, playing with the coins, the two possibilities are getting heads (success) or tails (no success). And let’s say you have a of e.g. 50 times coin flipping. We can repeat this set as many times as we like and record how many times we got heads (success) in each repetition.
 
-Let's figure it out. We can repeat this set of 50 times coin flipping 100.000 times and record the results of each set.
+And if plot the results we will have a probability distribution plot. And if you make enough repetitions you will approach a binomial probability distribution curve. We will do this in a minute. But, first generate data to draw our plot.
 
-Luckily, we can simulate this in R.
+We can use R to generate the data. We will generate random data from repeating set of 50-times coin flipping 100000 times and record the number of successes in each repetition.
 
-We can simulate a given number of repeated (here 100.000) sets (50 times of coin flipping) of experiments with **rbinom()** function. It takes 3 arguments.
+**rbinom() function** can generate a given number of repeated (here 100.000) sets (50 times of coin flipping) of experiments. It requires 3 arguments.
+
 
 **rbinom(**  
 n = number of repetitions = 100.000,  
 size = sample size = 50,  
 p = the probability of success (chance of throwing heads is 0.5)**)**  
 
-Let's compare the probabilities of getting more than 25, 35 or even 49 heads. You can combine rbinom with mean function to find the percentage of the events with a chosen outcome.
-
+R code can be used to find the exact probabilities. Let’s compare the probabilities of getting more than 25, 35 or even 49 heads. You can combine rbinom with mean function to find the percentage of the events with a chosen outcome.
 
 ```{r Install packages, message=FALSE, warning=FALSE}
 
@@ -61,6 +65,7 @@ mean(rbinom(100000, 50, .5) >= 35)
 mean(rbinom(100000, 50, .5) >= 49)
 
 ```
+
 
 We found the probability of throwing 49 or more heads to be 0. But to be technically precise it is one in 375 trillion times 
 (= $1/((1/(2^{49}) + (1/2^{50})))$).
@@ -86,32 +91,30 @@ heads %>%  ggplot(aes(x=heads, fill = events)) +
 
 ```
 
-Even to get 35 or more heads has very low probability. Most of the events will be an integer between 15 and 35.
 
-Binomial probability distributions help us to understand the likelihood of such rare events.
+> Binomial probability distributions help us to understand the likelihood of rare events and to set probable expected ranges.
 
-You can also see here a key difference of a binomial distribution with normal distribution is that they can take only discrete values. It is not possible to have 35.5 heads. Although, there are differences, **when the sample size is large enough their shape will be similar and normal distributions can be used to estimate binomial probabilities**.
-
+The above plot illustrates if we randomly flip a coin 50 times, we will most likely get between 20 to 30 successes (heads) and events such as having more more than 35 successes (heads) out of 50 trials are very unlikely. The bars in **red** represents the sets which had 35 or more heads.
 
 **So what are all those will be useful for?**
 
-Coin flipping expertise may have limited real life applications but let's give some other examples.
+You can impress your friends with your ability to use binomial distributions to predict coin flipping outcomes, but let’s look at other real life applications of them.
 
-* **Binomial distributions in machine learning**
+* **The performance of a machine learning model**
 
-You built a machine learning model with a binary outcome. Let's say pathological image recognition algorithm for liver cancer that works with 90% accuracy. You tested 100 patients and you want to know your 95% confidence interval? Or your new results showed that your model detected less than 70 patients correctly. Is it possible? Or you should start optimizing your parameters again?
+You built a machine learning model with a binary outcome. Let’s say pathological image recognition algorithm for liver cancer that is 90% accurate. You tested 100 patients and you want to know your 95% confidence interval? Or your new results showed that your model detected less than 70 patients correctly. Is it possible? Or you should start optimizing your parameters again?
 
 * **Number of patients responding to a treatment.**
 
-Let's say you have a new therapy for cancer which has 10% probability to cure a patient. You have 500 patients which took the drug. The expected number of recovering patients is 50. But you found that 75 patients responded. Is that due to chance or a significant effect? Or you should start looking underlying factors if there is something about the therapy or the patient group?
+Let’s say you have a new therapy for cancer which has 10% probability to cure a patient. You have 500 patients which took the drug. The expected number of recovering patients is 50. But in your trial 75 patients responded. Is this due to chance or a significant effect? Or you should start looking underlying factors if there is something about the therapy or the patient group?
 
 * **Think about a hospital emergency station.**
 
-You are a hospital manager and you want to organize the staff numbers correctly for different weekdays. You know total number of patients came in to a emergency station because of alcohol poisoning in a given time period. You can analyse the distribution of patient numbers for each day of the week. Most likely you will have more such cases in the weekend and you need larger staff.
+You are a hospital manager and you want to organize the staff numbers correctly for different weekdays. You know total number of patients came in to a emergency station because of alcohol poisoning in a given time period. You can analyse the distribution of patient numbers for each day of the week. Most likely you will have more such cases in the weekends and you need larger staff.
 
-This will be also true for other businesses. They can use binomial distributions to calculate changes in demand and plan accordingly.
+**This will be also true for other businesses. They can use binomial distributions to calculate changes in demand and plan accordingly.**
 
-* **If you are running a webserver.** 
+* **If you are running a Webserver.** 
 
 You can allocate your resources better by identifying times when traffic will be higher.
 
@@ -123,13 +126,29 @@ Some other questions in which binomial distributions will come in handy are:
 * **Number of defective products in a production run.**
 
 
-> Binomial distributions are common and they have many applications of real life situations. 
+> Binomial distributions are common and they have many applications of real life situations.
+
+We can expand binomial distributions to multinomial distributions when instead there are more than two outcomes for the single event.
+
+Such as there are 6 outcomes when rolling a die, or analyzing distributions of eye color types (Black, blue, green etc) in a population. When it is about distributions for events with multiple categories think about **multinomial distributions.**
+
+If the number of observations(n) are large we can think of a multinomial draw as being a series of binomial draws (Gentle, 2003, pp. 198–199). For example, when rolling a die the 6 categories can be thought of a combination of 6 different binomial trials (getting 1, 2 ,3 and so on).
+
+If you are not convinced just by reading this, I will simulate how the shape of a multinomial event changes by increasing the number of trials.![multinomial](/img/multinomial.gif) 
 
 Let's use some real life data to apply our knowledge so far. The data comes from TidyTuesday which I introduced in my last [post](https://dataatomic.com/r/tidytuesday-which-are-the-best-family-cars/). 
 
-It contains information about Horror Movies released since 2012. And the question I asked was whether horror movies are more likely be released at the 13th each month?
+It contains data about Horror Movies released since 2012. And what I asked was whether horror movies are more likely be released at the 13th each month?
 
-Being in **the right mindset** for anything gives us a better feeling of it. **If you go to the cinema at the 13th to watch a horror movie, do you like it more than other days?** We don't know if this is true but movie makers might be counting on that. I analyzed Horror movies data and calculated number of releases in different days of the month. **This is a good example of a binomial probability distribution.** Let's look at the data.
+If you are in **the right mindset** anything feels better and if you are not in the mood nothing will make us happy. **The mindset we have prior to an event influences what we will feel about an event.** This is at least what behavioral scientist [Robert Cialdini’s]("https://www.amazon.com/Pre-Suasion-Revolutionary-Way-Influence-Persuade-ebook/dp/B01C36E2YS) research says.
+
+Imagine you are a horror movie fan and you went to the cinema. On the screen couple of ads are running just before the movie starts. You approach your mobile to turn off the voice and the date catches your attention, it is the 13th.
+
+**And usually with the number 13 we associate cursed events. Do you think it will influence your impression about the movie?**
+
+We don’t know if this is true but **I wanted to test whether movie makers have similar ideas and selected 13th as the release date more often than other days.** So, I explored Horror movies data and calculated number of releases in different days of the month.
+
+Let's look at the data.
 
 
 ```{r Data preparation, message=FALSE, warning=FALSE}
@@ -169,7 +188,7 @@ horror_date_table <-  horror_date_table %>%
 horror_date_table
 ```
 
-Let's visualize the data. 
+Let's visualize. 
 
 
 ```{r, fig.width=12, fig.height=8, warning = FALSE, Message=FALSE}
@@ -211,7 +230,11 @@ p
 
 In the data, there were **2782** movies associated with a release date. So expected movie release per day is **92** (2782 / 30).
 
-But, we see above that some days are much higher than that. What we want to know is, which days are in the **range of random chance** and which days there is a **significant preference or an aversion** to release a movie. So that we can conclude our insight about movie makers.
+**This is a good example of a multinomial probability distribution with 30 categories, and since the number of samples are large it will approximate a binomial distribution.**
+
+Thus, we can apply binomial probability distributions for calculating the probabilities in our multinomial data.
+
+We saw above that in some days more movies are released than the expected value. What we want to know is, which days are in the **range of random chance** and which days there is a **significant preference or an aversion** to release a movie.
 
 
 ```{r, 1}
@@ -246,6 +269,7 @@ Mean = size * p
 Variance = size * p * (1 - p)   
 
 Let's calculate.
+
 ```{r, 3}
 # Theoretical statistics
 
@@ -261,9 +285,9 @@ Great, simulated and theoretical values are almost the same. So, I can use my si
 
 I will define an interval that contains 95% of probabilities in our simulated distributions. And the values outside will be the ones which were not due to random chance. To do this I need 2.5th and 97.5th quantiles of the distribution.
 
-We can do this by the qbinom() function in r. For example qbinom(0.975, size, p) will return the value which will define the cut off which contains 0.975 of the probabilities. And our confidence interval will be the interval between:
+We can do this by the **qbinom()** function in r. For example qbinom(0.975, size, p) will return the value which will define the cut off which contains 0.975 of the probabilities. And our confidence interval will be the interval between:
 
-qbinom(0.025, size, p) < Confidence Interval < qbinom(0.975, size, p)
+**qbinom(0.025, size, p)** < Confidence Interval < **qbinom(0.975, size, p)**
 
 ```{r, 4}
 # Boundaries for p values smaller than 0.05
@@ -289,12 +313,12 @@ movies %>%  ggplot(aes(x=movies, fill = events)) +
 ```
 
 
-95% of the time, days in one month will have between 75 and 112 movie releases. Higher or lower values than this range can not happen due to random chance according to our binomial distribution.
+95% of the time, a specific day of month will have between 75 and 112 movie releases. Higher or lower values than this range can not happen due to random chance according to our probability distribution.  
+
+124 movies released at the 13th of any month. This value is above the 97.5th quantile. So it is significant. But what is the exact p value? Let’s define p value first.
 
 
 # How to calculate the p-value for a binomial test using pbinom?
-
-Our observed value for the 13th is 124. Above the 97.5th quantile. So it is significant. But what is the exact p value? Let's define p value first.
 
 {{% alert note %}}
 P value is the sum of the probability of that event plus the sum of the probabilities of similar events that are equally likely or less likely.
@@ -360,9 +384,9 @@ p_ci
 ```
 
 
-We performed a hypothesis testing by calculating the p value by using the pbinom() function and found couple of other days where movies are more or less likely to be released.
+We tested our hypothesis about movie makers and calculated the p value and used the pbinom() function and found couple of other days where movies are more or less likely to be released.
 
-**However, another widely used way to do so is to calculate the mean (the expected probability) of our distribution and its standard deviation and to verify how many standard deviations the observed value is away from the mean (the z score).**
+**However, another widely used way to calculate p values is to calculate the mean of the distribution and its standard deviation and to verify how many standard deviations the observed value is away from the mean (the z score).**
 
 ### Calculating the p-value by normal approximation
 
