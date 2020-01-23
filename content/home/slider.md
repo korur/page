@@ -17,7 +17,7 @@ height = "700px"
 # Duplicate an `[[item]]` block to add more slides.
 [[item]]
   title = "Genomic tools"
-  content = "Shiny dashboard: Genomic landscape of cancers"
+  content = "Shiny dashboard: Explore TCGA Genome database"
   align = "left"  # Choose `center`, `left`, or `right`.
 
   # Overlay a color or image (optional).
@@ -36,7 +36,7 @@ height = "700px"
 
 [[item]]
   title = "Natural language processing"
-  content = "Extract information from Biotech press releases"
+  content = "Extract key information from Biotech press releases"
   align = "left"  # Choose `center`, `left`, or `right`.
 
   # Overlay a color or image (optional).
@@ -55,7 +55,7 @@ height = "700px"
   
 [[item]]
   title = "Design with Mathematics"
-  content = "Create a unique pattern"
+  content = "Create a unique pattern with ggplot2 and Math"
   align = "left"  # Choose `center`, `left`, or `right`.
 
   # Overlay a color or image (optional).
