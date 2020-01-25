@@ -7,3 +7,5 @@ content/post/posts_data/
 blogdown/
 DAPP*
 test*
+.httr-oauth
+.RDataTmp
