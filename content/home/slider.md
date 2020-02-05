@@ -30,7 +30,7 @@ height = "700px"
   #   Activate the button by specifying a URL and button label below.
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
   cta_label = "Go to the tool"
-  cta_url = "https://korur.shinyapps.io/CoronaOutbreak/"
+  cta_url = "http://dataatomic-tools.com/shiny/CoronaOutbreak/"
   cta_icon_pack = "fas"
   cta_icon = "dna"
 
