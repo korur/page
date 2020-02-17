@@ -30,7 +30,7 @@ height = "700px"
   #   Activate the button by specifying a URL and button label below.
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
   cta_label = "Go to the tool"
-  cta_url = "http://dataatomic-tools.com/shiny/CoronaOutbreak/"
+  cta_url = "http://tools.dataatomic.com/shiny/CoronaOutbreak/"
   cta_icon_pack = "fas"
   cta_icon = "dna"
 
@@ -49,7 +49,7 @@ height = "700px"
   #   Activate the button by specifying a URL and button label below.
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
   cta_label = "Go to the tool"
-  cta_url = "http://dataatomic-tools.com/shiny/TCGA_dashboard_on_server/"
+  cta_url = "http://tools.dataatomic.com/shiny/TCGA_dashboard_on_server/"
   cta_icon_pack = "fas"
   cta_icon = "dna"
 
@@ -68,7 +68,7 @@ height = "700px"
   #   Activate the button by specifying a URL and button label below.
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
   cta_label = "Go to the tool"
-  cta_url = "http://dataatomic-tools.com/shiny/autotext/"
+  cta_url = "http://tools.dataatomic.com/shiny/autotext/"
   cta_icon_pack = "fas"
   cta_icon = "file-alt"
   
