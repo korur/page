@@ -10,3 +10,5 @@ test*
 .httr-oauth
 .RDataTmp
 .RDataTmp1
+.RDataTmp*
+.RDataTmp/*

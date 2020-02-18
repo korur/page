@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Data Scientist
+role: Data Scientist and PhD in Molecular Biology
 
 # Organizations/Affiliations
 organizations:
@@ -21,19 +21,10 @@ organizations:
 bio: Serdar is a Data Scientist and PhD in Cell Biology
 
 interests:
-- Machine learning
-- Personalized medicine
-- Drug discovery
-- Statistics
+
 
 education:
-  courses:
-  - course: PhD in Cell Biology
-    institution: Basel University, Switzerland
-    year: 
-  - course: MSc in Molecular Biology and Genetics
-    institution: Bogazici University, Turkey
-    year: 
+
   
 
 # Social/Academic Networking
@@ -74,11 +65,25 @@ Things get easier after the first step. Because the mind actually stops wanderin
 
 Whatever your ambition is take that first step now. Imagining creates the vision, doing creates the product. 
 
-Hi, I am Serdar! here is my camp for Data science projects.
+Imagine a tool that can help you save time, We build it.
 
-Here, I try to solve problems that I find interesting using Data Science. It is my starting line. What is more is the challenges I faced and the lessons learned in my journey.  There were situations it was not easy to find the relevant guides or ways of doing. So I had to figure out from scratch. I share them too. And doing so spark new ideas as well! Most done in R. Some Python.
+At Dataatomic, we are developing customized and automated analytical apps for start ups and biotech companies.
 
-Let’s dive in. 
+We can help you with automating repetitive tasks (Robotic process automation), gather and analyze wide variety unstructured data, apply predictive algorithms to improve your profits or lower your costs.
+
+
+Let's build tools together. Customized to your needs.
+
+* Automation
+* Analytics
+* Prediction / Machine learning / AI
+* Text mining / Web scraping / Natural language processing
+* Customized analytical tools
+
+
+Let's [continue](mailto:serdar.korur@gmail.com) the conversation.
+    
+    
     
 **Recommended Data Science Blogs**
 
