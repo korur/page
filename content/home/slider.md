@@ -51,7 +51,7 @@ height = "700px"
   cta_label = "Go to the tool"
   cta_url = "http://tools.dataatomic.com/shiny/mobilequake/"
   cta_icon_pack = "fas"
-  cta_icon = "bahai"
+  cta_icon = "mobile-alt"
   
 [[item]]
   title = "Genomic tools"
