@@ -35,6 +35,25 @@ height = "700px"
   cta_icon = "dna"
 
 [[item]]
+  title = "Real-time Earthquake Tracker"
+  content = "Built with ShinyMobile & echarts4r & leaflet"
+  align = "left"  # Choose `center`, `left`, or `right`.
+
+  # Overlay a color or image (optional).
+  #   Deactivate an option by commenting out the line, prefixing it with `#`.
+  overlay_color = "#666"  # An HTML color value.
+  overlay_img = "headers/mq.png"  # Image path relative to your `static/img/` folder.
+  overlay_filter = 0.5  # Darken the image. Value in range 0-1.
+
+  # Call to action button (optional).
+  #   Activate the button by specifying a URL and button label below.
+  #   Deactivate by commenting out parameters, prefixing lines with `#`.
+  cta_label = "Go to the tool"
+  cta_url = "http://tools.dataatomic.com/shiny/mobilequake/"
+  cta_icon_pack = "fas"
+  cta_icon = "bahai"
+  
+[[item]]
   title = "Genomic tools"
   content = "Shiny dashboard: Explore TCGA Genome database"
   align = "left"  # Choose `center`, `left`, or `right`.
