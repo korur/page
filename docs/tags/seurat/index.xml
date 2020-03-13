@@ -103,6 +103,8 @@ VlnPlot(object = Fib, features = c(&amp;quot;nFeature_RNA&amp;quot;, &amp;quot;n
 plot1 &amp;lt;- FeatureScatter(object = Fib, feature1 = &amp;quot;nCount_RNA&amp;quot;, feature2 = &amp;quot;percent.mt&amp;quot;) 
 plot2 &amp;lt;- FeatureScatter(object = Fib, feature1 = &amp;quot;nCount_RNA&amp;quot;, feature2 = &amp;quot;nFeature_RNA&amp;quot;) 
 CombinePlots(plots = list(plot1,plot2))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: CombinePlots is being deprecated. Plots should now be combined using
+## the patchwork system.&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2019-09-17-genomics-at-superresolution-advances-in-sequencing-technologies_files/figure-html/qc2-2.png&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# As you see on the left plot cells with high percentage of mitochondrial genes
 # have very low numbers of RNA indicating that they are low quality/dead cells.
