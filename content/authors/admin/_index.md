@@ -61,28 +61,35 @@ user_groups:
 - Visitors
 ---
 
-Things get easier after the first step. Because the mind actually stops wandering and starts building things. How can you run a marathon if you don't know where the start line is?
+Every business generates data, and in most cases, they underestimate the value of it.  We are helping companies at all levels to learn how to use their data and **make better decisions.** 
 
-Whatever your ambition is take that first step now. Imagining creates the vision, doing creates the product. 
+First level is **Guidance.**  
 
-Imagine a tool that can help you save time, We build it.
+You want to learn about the tools that can help you understand and benefit from data. We help you identify the real value of your data and guide you to our recommened solutions.
 
-At Dataatomic, we are developing customized and automated analytical apps for start ups and biotech companies.
+Second level is **Solutions.**
 
-We can help you with automating repetitive tasks (Robotic process automation), gather and analyze wide variety unstructured data, apply predictive algorithms to improve your profits or lower your costs.
+We **connect** your **business to the latest Data Science technologies.** Starting from how to generate, handle and store your data to creation of analytical tools. All you need to do is generate business insights with **a few clicks.**
 
+Third level is **Optimize & Automate.**
 
-Let's build tools together. Customized to your needs.
+We optimize your existing tools, expand and automate them. We provide you alternative solutions to expand bottlenecks you face. Robotic process automation which is basically the opposite of manual work can help you reduce time on many tasks. 
+
+We build tools that make your life easier. 
 
 * Automation
 * Analytics
-* Prediction / Machine learning / AI
+* Prediction / Statistics /Machine learning / AI
 * Text mining / Web scraping / Natural language processing
 * Customized analytical tools
 
+Want to find out more? Please contact: serdar.korur@gmail.com or +48576537764 for a chat.
 
-Let's [continue](mailto:serdar.korur@gmail.com) the conversation.
-    
+  
+![](/img/turbina_z.gif)  
+
+  
+  
     
     
 **Recommended Data Science Blogs**
