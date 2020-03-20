@@ -71,7 +71,7 @@ Second level is **Solutions.**
 
 We **connect** your **business to the latest Data Science technologies.** Starting from how to generate, handle and store your data to creation of analytical tools. All you need to do is generate business insights with **a few clicks.**
 
-Third level is **Optimize & Automate.**
+Third level is **Optimization & Automation.**
 
 We optimize your existing tools, expand and automate them. We provide you alternative solutions to expand bottlenecks you face. Robotic process automation which is basically the opposite of manual work can help you reduce time on many tasks. 
 
