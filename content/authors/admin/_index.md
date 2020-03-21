@@ -79,7 +79,7 @@ We build tools that make your life easier.
 
 * Automation
 * Analytics
-* Prediction / Statistics /Machine learning / AI
+* Prediction / Statistics / Machine learning / AI
 * Text mining / Web scraping / Natural language processing
 * Customized analytical tools
 
