@@ -1,13 +1,8 @@
 ---
-commentable: false
-date: "2020-04-19T00:00:00+01:00"
-draft: false
-editable: false
-header:
-  caption: ""
-  image: ""
-share: false
-title: Privacy Policy
+title: "Privacy_policy"
+author: "Dataatomic"
+date: "4/20/2020"
+output: html_document
 ---
 
 # Overview

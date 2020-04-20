@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>SERDAR KORUR</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 13 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 19 Apr 2020 00:00:00 +0100</lastBuildDate>
     <image>
       <url>/img/logo.png</url>
       <title>SERDAR KORUR</title>
@@ -13,29 +13,349 @@
     </image>
     
     <item>
-      <title>Posts</title>
-      <link>/post/</link>
-      <pubDate>Fri, 13 Dec 2019 00:00:00 +0000</pubDate>
-      <guid>/post/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Privacy Policy</title>
       <link>/privacy/</link>
-      <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
+      <pubDate>Sun, 19 Apr 2020 00:00:00 +0100</pubDate>
       <guid>/privacy/</guid>
-      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
+      <description>
+
+&lt;h1 id=&#34;overview&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Dataatomic.com (“Dataatomic”, “we”, “us” or “our”) is committed to protecting your privacy. This Privacy Policy applies to the information that we obtain through your use of our products and/or services, our websites, including tools.dataatomic.com &amp;amp; www.dataatomic.com or when you otherwise interact with Dataatomic apps. This policy sets forth our policies and procedures regarding the collection, use and disclosure of Personal Information we receive from you. By using our products, services and/or Websites, you consent to the collection, transfer, processing, storage, disclosure and other uses described in this Privacy Policy. If you do not agree to the terms set forth herein, please do not use our products, services or Websites.&lt;/p&gt;
+
+&lt;p&gt;Please take the time to read this Privacy Policy. Unless stated otherwise, our current Privacy Policy applies to all personal information (“Personal Information”) you have provided to us.&lt;/p&gt;
+
+&lt;h1 id=&#34;changes-to-this-privacy-policy&#34;&gt;Changes to this Privacy Policy&lt;/h1&gt;
+
+&lt;p&gt;We may change this Privacy Policy from time to time. If we make any changes, we will notify you by revising the “Last Updated” date at the top of this Privacy Policy and, in some cases, where appropriate we may provide you with additional notice (such as adding a statement to the login screen or sending you an email notification). We encourage you to review our Privacy Policy whenever you use our products, services and/or Websites to stay informed about our information practices and the ways you can help protect your privacy. Using our products, services and/or Websites or continuing to provide personal information to us after a notice of changes has been sent to you or published on our Websites shall constitute consent to the changed terms and practices. If you disagree with any changes to this Privacy Policy, you will need to stop using our products, services and/or Websites and deactivate your account(s).&lt;/p&gt;
+
+&lt;h1 id=&#34;children&#34;&gt;Children&lt;/h1&gt;
+
+&lt;p&gt;Children are not eligible to use our Websites and we ask that minors (under the age of 18) do not submit any personal information to us or use our Websites. Our Websites are not directed to children under 18 years of age. We do not knowingly collect personally identifiable information from children under 13. If a parent or guardian becomes aware that his or her child has provided us with Personal Information without their consent, he or she should contact us at privacy@dataatomic.com. If we become aware that a child under 13 has provided us with Personal Information, we will delete such information from our files.&lt;/p&gt;
+
+&lt;h1 id=&#34;contact-us&#34;&gt;Contact Us&lt;/h1&gt;
+
+&lt;p&gt;If you have any questions about this Privacy Policy or our treatment of the information you provide us, please write to us by email at privacy@dataatomic.com.&lt;/p&gt;
+
+&lt;h1 id=&#34;information-we-collect&#34;&gt;Information We Collect&lt;/h1&gt;
+
+&lt;h2 id=&#34;personal-information&#34;&gt;Personal Information.&lt;/h2&gt;
+
+&lt;p&gt;By using our Websites or purchasing products or services from us, you voluntarily and willingly provide us with certain information, including Personal Information, which we collect in order to provide the Websites and/or the products or services you may order. Personal Information refers to information about you that can be used to contact or identify you, and information on your use of and activities at our Websites that may be connected with you. Personal Information that we collect may include, but is not limited to, your email address and location information. Personal Information may also include information you supply to us concerning your preferences and interests expressed in the course of use of our Websites and products or services. From time to time in the future, we may offer additional products, features, services and promotional opportunities that would require you to submit Personal Information to us in order to participate. If you are unsure whether you would like to provide information to us and/or having your information used as permitted in this Privacy Policy, you should not use our Websites or otherwise provide this information to us.&lt;/p&gt;
+
+&lt;h2 id=&#34;account-and-profile-information&#34;&gt;Account and Profile Information.&lt;/h2&gt;
+
+&lt;p&gt;We collect information about you and your company as you register for an account, create or modify your profile, make purchases through, use, access, or interact with our Websites and/or our products and services (including but not limited to when you upload, download, collaborate on or share Content). If you are providing information (including Personal Information) about someone else, you confirm that you have the authority to act for them and to consent to the collection and use of their Personal Information as described in this Privacy Policy.&lt;/p&gt;
+
+&lt;h2 id=&#34;content&#34;&gt;Content.&lt;/h2&gt;
+
+&lt;p&gt;We collect and store Content that you create, input, submit, post, upload, transmit, store or display in the process of using our products, services or Websites. Such Content includes any Personal Information or other sensitive information that you choose to include (“passively-collected Personal Information”).&lt;/p&gt;
+
+&lt;h2 id=&#34;navigational-information&#34;&gt;Navigational Information.&lt;/h2&gt;
+
+&lt;p&gt;We also collect “Navigational Information” such as your IP address as well as browser type, internet service provider, URLs of referring/exit pages, operating system, date/time stamp, information you search for, locale and language preferences, identification numbers associated with your devices, your mobile carrier, and system configuration information. Some Navigational Information may be associated with Personal Information.&lt;/p&gt;
+
+&lt;h2 id=&#34;analytics-information&#34;&gt;Analytics Information.&lt;/h2&gt;
+
+&lt;p&gt;We and our analytics provider collect and store analytics information when you use our Websites and/or our products and services to help us improve our Websites, products and services. This analytics information consists of web browsing behavior collected through a combination of HTTP beacons and cookies. Analytics information also consists of data we collect as a result of running queries against Content across our user base for the purposes of generating Usage Data. “Usage Data” is aggregated data about a group or category of services, features or users that does not contain Personal Information. Though we may happen upon sensitive or Personal Information as we compile Usage Data from Content across user instances, this is a byproduct of our efforts to understand broader patterns and trends. It is not a concerted effort by us to examine the Content of any particular customer. Some of our products contain a feature that sends information about the version of the products on your systems (“System Information”) to us. System Information includes information about (i) the server environment in which the product is operating: OS type and version, language and locale settings; (ii) user client information, for example: browser type and version, native client type and version, and client device specifications (e.g. screen resolution, OS version, device type, etc.). You can disable our collection of analytics information from products via the administrator settings or by blocking collection at the local network level.&lt;/p&gt;
+
+&lt;p&gt;As of the date this policy went into effect, we use Google Analytics as an analytics provider. To learn more about the privacy policy of Google Analytics, refer to Google’s Policies and Principles. Use the Google Analytics Opt-out Browser Add-on to prevent to analytics information from being sent to Google Analytics. We also may use Marketo’s tool to help us with our automated marketing efforts, please refer to &lt;a href=&#34;http://www.marketo.com/trust/legal/privacy&#34; target=&#34;_blank&#34;&gt;http://www.marketo.com/trust/legal/privacy&lt;/a&gt; to read about Marketo’s privacy policy.&lt;/p&gt;
+
+&lt;h1 id=&#34;how-we-collect-information&#34;&gt;How We Collect Information&lt;/h1&gt;
+
+&lt;p&gt;We collect your information in the following ways:&lt;/p&gt;
+
+&lt;h2 id=&#34;log-files&#34;&gt;Log Files.&lt;/h2&gt;
+
+&lt;p&gt;We may collect anonymous demographic information, which is not unique to you, such as your ZIP code, age, gender, preferences, interests and favorites using log files, when you use our Websites and/or our products and services. There is also information about your computer hardware and software that is automatically collected by our Websites. This information may include, but is not limited to, your computer’s Internet Protocol address, browser type, the web page you were visiting before you came to our site, information you search for, domain names, access times and referring website addresses. We may also collect information about the fact that you use certain features and functionality of our service and your responses to our surveys and research initiatives. This information is used by us for the operation of the Websites, to maintain quality of the Websites, and to provide general statistics regarding use of the Website. For these purposes, we do link this automatically-collected data to Personal Information such as name, email address, address, and phone number.&lt;/p&gt;
+
+&lt;h2 id=&#34;cookies&#34;&gt;Cookies.&lt;/h2&gt;
+
+&lt;p&gt;Like most websites, we use “cookies” and web log files to collect information to track site usage and trends, to improve our service, and to deliver a customized experience when you use our Websites and/or our products and services. A cookie is a small data file that is placed on your computer, mobile phone or other device by a web server and enables us to recognize you when you return to our site or log into our service. Cookies are uniquely assigned to you, and can only be read by a web server in the domain that issued the cookie to you. One of the primary purposes of cookies is to provide a convenience feature to save you time – for example, when you return to the same website, the information you previously provided can be retrieved, so you can easily use the features that you customized. We may use “persistent cookies” to save your registration ID and login password for future logins to the site. We may also use “session ID cookies”, which expire after a short period of time or when you close your browser. Session ID cookies are used to identify a particular visit and are used to enable certain features of the site or service, to better understand how you interact with the site and service, and to monitor aggregate usage and web traffic routing on the site. We set a cookie and use local storage in your browser that contains information that we use to identify you for the functional site features described below with respect to our current third party vendors Marketo, LinkedIn,  Twitter, YouTube, Zendesk, Google AdWords, Google Tag Manager, and Google Analytics. You have the ability to accept or decline cookies. Most Web browsers automatically accept cookies, but you can usually modify your browser setting to decline cookies if you prefer. If you choose to decline cookies, you may not be able to fully experience the interactive features of the Websites. We keep track of the pages you visit on the Websites, in order to determine what parts of our store and the Websites are the most popular. This data is used to deliver customized content and advertising on the Websites to visitors whose behavior indicates that they are interested in a particular subject area.&lt;/p&gt;
+
+&lt;h3 id=&#34;during-installation-of-our-products&#34;&gt;During Installation of Our Products.&lt;/h3&gt;
+
+&lt;p&gt;During installation, our software products and services may ask you to “opt-in” to the collection of diagnostic information regarding your use of our software or hardware in order to help our engineers improve our products or services. If you opt in, you agree that we may collect, maintain, and use information about the operation of our products and services.&lt;/p&gt;
+
+&lt;h3 id=&#34;while-browsing-our-website&#34;&gt;While Browsing our Website.&lt;/h3&gt;
+
+&lt;p&gt;We use vendors that may collect Personal Information on our behalf. Please see the list of vendors that we currently use and how they may access and use your data, including links to their respective privacy policies at the end of this Privacy Policy.&lt;/p&gt;
+
+&lt;h3 id=&#34;service-providers&#34;&gt;Service Providers.&lt;/h3&gt;
+
+&lt;p&gt;We monitor the activity on our Website using common software tools and third party service providers. We collect and track information on use of the Website including referral sources, search terms, network information, IP addresses, computer and browser types, and content viewed. Unless combined with Personal Information, this other data does not personally identify any user of the Website. We may also use third party service providers to collect and track statistical information regarding the use of the Website, and to prevent our servers from being abused.&lt;/p&gt;
+
+&lt;h1 id=&#34;how-we-use-information-we-collect&#34;&gt;How We Use Information We Collect&lt;/h1&gt;
+
+&lt;p&gt;We use the information we collect only in compliance with this Privacy Policy.&lt;/p&gt;
+
+&lt;h3 id=&#34;consent-to-use-of-your-information&#34;&gt;Consent to Use of Your Information.&lt;/h3&gt;
+
+&lt;p&gt;By submitting information, including Personal Information, to us, you are expressly and voluntarily accepting the terms and conditions of this Privacy Policy. You have the right to withdraw your consent to our collection and use of your information, but your withdrawal of consent will not be retroactive. We post customer testimonials and comments on our Websites, which may contain Personal Information. We obtain each customer’s consent via email prior to posting the customer’s name and testimonial.&lt;/p&gt;
+
+&lt;h1 id=&#34;general&#34;&gt;General.&lt;/h1&gt;
+
+&lt;p&gt;We use the information we collect about you (including Personal Information to the extent applicable) for a variety of purposes, including to:&lt;/p&gt;
+
+&lt;p&gt;Provide, operate, maintain, improve, and promote our products and services;
+Enable you to access and use our products and services;
+Process and complete transactions, and send you related information, including purchase confirmations and invoices;
+Communicate with you, including responding to your comments, questions, and requests; providing customer service and support; providing you with information about services, features, surveys, newsletters, offers, promotions, contests and events; providing other news or information about us and our select partners; and sending you technical notices, updates, security alerts, and support and administrative messages. Generally, you have the ability to opt out of receiving any promotional communications as described below;
+Monitor and analyze trends, usage, and activities in connection with our products and services and for marketing or advertising purposes;
+Investigate and prevent fraudulent transactions, unauthorized access to our products and services, and other illegal activities;&lt;/p&gt;
+
+&lt;p&gt;For other purposes about which we notify you.&lt;/p&gt;
+
+&lt;p&gt;Use of Personal Information. We may use your Personal Information and other information you provide us to (i) provide our Websites and our products and services to you and administer your use of our Websites and our products and services, (ii) to provide you with products or services that you purchase from our online store, (iii) to communicate with you and fulfill requests you may make, including requests for technical support, (iv) to provide you with information and announcements with respect to our products or services, (v) to provide you with further information and offers from us or carefully selected third parties that we believe you may find useful or interesting, including newsletters, marketing or promotional materials and other information on services and products offered by us or third parties, and (iv) provide other companies with statistical information about our users – but this information will not be used to identify any individual user. We may also use the information provided by you or obtained through your use of our Websites or our products or services to improve our products, services and Websites, and improve your browsing experience by personalizing the Websites.&lt;/p&gt;
+
+&lt;h1 id=&#34;use-of-navigational-information&#34;&gt;Use of Navigational Information.&lt;/h1&gt;
+
+&lt;p&gt;We use Navigational Information to operate and improve the Websites. We may also use Navigational Information alone or in combination with Personal Information to provide you with personalized information about us and our products and services. We use Navigational Information we obtain by technical means (such as the automatic recording performed by our servers or through the use of cookies) for the above purposes as well as to monitor, measure and analyze use of the Websites and our products and services, and to generate and derive useful data and information concerning the interests, characteristics and use behavior of our customers and visitors to our Websites and their use of our products and services.&lt;/p&gt;
+
+&lt;h1 id=&#34;use-of-credit-card-information&#34;&gt;Use of Credit Card Information.&lt;/h1&gt;
+
+&lt;p&gt;If you give us credit card information, we use it solely to check your financial qualifications and collect payment from you. We use a third-party service provider to manage credit card processing. This service provider is not permitted to store, retain, or use information you provide except for the sole purpose of credit card processing on our behalf.&lt;/p&gt;
+
+&lt;h1 id=&#34;sharing-of-your-personal-information&#34;&gt;Sharing of Your Personal Information&lt;/h1&gt;
+
+&lt;p&gt;We Never Sell Personal Information. We will never sell, rent or otherwise provide your Personal Information to any third party for marketing purposes.&lt;/p&gt;
+
+&lt;h1 id=&#34;sharing-information-with-third-parties&#34;&gt;Sharing Information with Third Parties.&lt;/h1&gt;
+
+&lt;p&gt;We only share your Personal Information with third parties as described in this Privacy Policy, to carry out your instructions, as may be compelled by law, or as necessary to protect our rights or property. For example, we may share data with trusted partners to help us process information, extend credit, fulfill orders for our products and services, sell or deliver products and services to you, provide customer service, assess your interest in products and services, conduct customer research or satisfaction surveys, or help us perform statistical analysis. Such third parties are prohibited from using your Personal Information except for these purposes, and they are required to maintain the confidentiality of your information. We also employ other companies and people to provide services to visitors to our Websites on our behalf and may need to share your information with them to provide information, products or services to you. Examples may include removing repetitive information from prospect lists, analyzing data, providing marketing assistance, processing credit card payments, and providing customer service. In all cases where we share your information with such agents, we explicitly require the agent to acknowledge and adhere to our privacy and customer data handling policies. Dataatomic may be liable if third parties fail to meet Privacy Shield obligations unless we prove we are not responsible for the event giving rise to the damage.&lt;/p&gt;
+
+&lt;h1 id=&#34;community&#34;&gt;Community.&lt;/h1&gt;
+
+&lt;p&gt;Our Websites offer publicly accessible community services such as blogs and posts. You should be aware that any information or content you provide in these areas may be made public and read, collected, and used by others who access them. Your posts may remain even after you cancel your account.&lt;/p&gt;
+
+&lt;h1 id=&#34;compliance-with-legal-process&#34;&gt;Compliance with Legal Process.&lt;/h1&gt;
+
+&lt;p&gt;We may be required to disclose your Personal Information and/or information with respect to your use of our Websites, products and services in response to lawful requests by governmental or regulatory agency or by court order, subpoena or other legal process or requirement, including to meet national security or law enforcement requirements, or if we reasonably believe that such disclosure is necessary (i) to investigate, prevent or take action with respect to suspected or actual illegal activities or to assist government enforcement agencies, (ii) to protect the safety of any person from death or serious bodily injury, (iii) to prevent fraud or abuse of our Websites, products and services or infringement of our intellectual property rights in our Websites, products and services, (iv) to enforce our terms of use or your agreements with us, or (v) to investigate and defend ourselves against any third party claims or allegations.&lt;/p&gt;
+
+&lt;h1 id=&#34;business-transfers&#34;&gt;Business Transfers.&lt;/h1&gt;
+
+&lt;p&gt;We may sell, transfer or otherwise share your information to a third party in connection with a merger, acquisition, reorganization or sale of assets of Dataatomic or in the event of bankruptcy of Dataatomic and you agree that any such third party will have the right to continue to use your Personal Information and other information that you provide to us or which we obtain through your use of the service.&lt;/p&gt;
+
+&lt;p&gt;Aggregated or Anonymized Data. We may also share aggregated or anonymized information that does not directly identify you with the third parties described above.&lt;/p&gt;
+
+&lt;p&gt;With Your Consent. We will share your personal information with third parties when we have your consent to do so.&lt;/p&gt;
+
+&lt;h1 id=&#34;accessing-your-information&#34;&gt;Accessing Your Information.&lt;/h1&gt;
+
+&lt;p&gt;You may access, review, revise, correct, or delete the Personal Information provided in your registration or account profile by changing your “account settings.” If you update any of your information, we may keep a copy of the information that you originally provided to us in our archives for uses documented in this Privacy Policy.&lt;/p&gt;
+
+&lt;h1 id=&#34;security-and-retention-of-your-personal-information&#34;&gt;Security and Retention of Your Personal Information&lt;/h1&gt;
+
+&lt;p&gt;We use a variety of security technologies and procedures to help protect your Personal Information from unauthorized access, use or disclosure. When sensitive Personal Information (such as a credit card information) is collected on our store, it is protected by our third-party credit card processor. Although we use industry standard security measures, the Internet is not a 100% secure environment and we cannot, and do not, ensure or warrant the security of any information you transmit or store using the Websites. There is no guarantee that your information may not be accessed, disclosed, altered or destroyed by breach of any of our physical, technical or managerial safeguards and we are not responsible for third party circumvention of your privacy settings or our security measures. You are responsible for maintaining the secrecy of your unique password and account information and for controlling access to your account.&lt;/p&gt;
+
+&lt;p&gt;We retain Personal Information that you provide us as long as we consider it potentially useful in contacting you about our company, products or services. We retain information about our customers for as long as we need it to provide service to the customer. We will delete this information from our servers at an earlier date if you so request, as described in “Opting-Out and Unsubscribing” below.&lt;/p&gt;
+
+&lt;p&gt;If you have submitted a valid GDPR data subject access request to exercise your right to be forgotten we will delete your personal data within 30 days of the request.&lt;/p&gt;
+
+&lt;p&gt;If you are an individual based in the EU you can request a copy of your personal data and you can update any incorrect information.&lt;/p&gt;
+
+&lt;p&gt;If you are an individual based in the EU, you can ask to have your personal data removed, or in some cases limit our processing of personal data. This does not apply when we need to keep your personal data for legal reasons.&lt;/p&gt;
+
+&lt;h1 id=&#34;external-websites&#34;&gt;External Websites&lt;/h1&gt;
+
+&lt;p&gt;Our Websites provide links to other websites. We do not control, and are not responsible for, the content or practices of these other websites. Our provision of such links does not constitute our endorsement of these other websites, their content, their owners, or their practices. This Privacy Policy does not apply to these other websites, which are subject to any privacy and other policies they may have. You should use caution and review the privacy policies of any web sites, services or third party providers that you visit from our Websites or our products to learn more about their information practices, which may be significantly different from ours.&lt;/p&gt;
+
+&lt;h1 id=&#34;public-forums&#34;&gt;Public Forums&lt;/h1&gt;
+
+&lt;p&gt;We may offer publicly accessible message boards, blogs, and community forums. Please keep in mind that if you directly disclose any information through our public message boards, blogs, or forums, this information may be made public and may be collected and used by others. We will correct or delete any information you have posted on our servers if you so request, as described in “Opting-Out and Unsubscribing” below.&lt;/p&gt;
+
+&lt;p&gt;Compliance with privacy laws and regulations
+Dataatomic is subject to the investigatory and enforcement powers of the Federal Trade Commission (FTC). You agree not to use our Websites, products or services in a manner that would violate laws protecting an individual’s privacy rights, health or financial data, including the Health Insurance Portability and Accountability Act of 1996 as amended (HIPAA) and the Gramm-Leach-Bliley Act and its implementing regulations, the Privacy Rule and the Safeguards Rule.&lt;/p&gt;
+
+&lt;h2 id=&#34;your-rights-as-an-individual-based-in-the-eu&#34;&gt;Your Rights as an Individual Based in the EU&lt;/h2&gt;
+
+&lt;p&gt;In compliance with the Privacy Shield Principles, Dataatomic commits to resolve complaints about our collection or use of your personal information. EU individuals with inquiries or complaints regarding our Privacy Shield policy should first contact Dataatomic at: privacy@dataatomic.com.&lt;/p&gt;
+
+&lt;p&gt;Access to your information: You have the right to request a copy of the personal data we hold about you.&lt;/p&gt;
+
+&lt;p&gt;Correcting your information: We want to have accurate data. Please contact us if you think the personal data you provided to us is not up to date or correct.&lt;/p&gt;
+
+&lt;p&gt;Deletion of your information: You have the right to ask us to delete personal data about you if it no longer is required for the purpose it was collected, you have withdrawn your consent, you have a valid objection to us using your personal data, or our use of your personal data is contrary to law or our other legal obligations.&lt;/p&gt;
+
+&lt;p&gt;Objecting to how we may use your information: You have the right at any time to require us to stop using your personal data for direct marketing purposes. In addition, where we use your personal data to perform tasks carried out in the public interest then, if you ask us to, we will stop using that personal data unless there are overriding legitimate grounds to continue.&lt;/p&gt;
+
+&lt;p&gt;Restricting how we may use your information: In some cases, you may ask us to restrict how we use your personal data. This right might apply, for example, where we are checking the accuracy of personal data about you that we hold or assessing the validity of any objection you have made to our use of your personal data. The right might also apply where this is no longer a basis for using your personal data but you don’t want us to delete the data. Where this right is validly exercised, we may only use the relevant personal data with your consent, for legal claims or where there are other public interest grounds to do so.&lt;/p&gt;
+
+&lt;p&gt;Automated processing: If we use your personal data on an automated basis to make decisions which significantly affect you, you have the right to ask that the decision be reviewed by an individual to whom you may make representations and contest the decision. This right only applies where we use your personal data with your consent or as part of a contractual relationship with you.&lt;/p&gt;
+
+&lt;p&gt;Withdrawing consent using your information: Where we use your personal data with your consent you may withdraw that consent at any time and we will stop using your personal data for the purpose(s) for which consent was given.&lt;/p&gt;
+
+&lt;p&gt;Please contact if you wish to exercise any of these rights. You can find the contact details below under “Opting-Out and Unsubscribing”.&lt;/p&gt;
+
+&lt;p&gt;To review the user information that you have supplied to us
+To request that we correct any errors, outdated information, or omissions in user information that you have supplied to us
+To request that your user information not be used to contact you
+To request that your user information be removed from any solicitation list that we use
+To request that your user information be deleted from our records
+To otherwise opt out of receiving solicitations
+To exercise any of these rights, please contact us at privacy@dataatomic.com.&lt;/p&gt;
+
+&lt;p&gt;We will promptly change, correct, or delete your information.&lt;/p&gt;
+
+&lt;p&gt;To Unsubscribe From Our Communications. You may unsubscribe from our marketing communications by clicking on the “unsubscribe” link located on the bottom of our emails or by sending us email us at privacy@dataatomic.com&lt;/p&gt;
+
+&lt;p&gt;How You Can Opt Out of Web Tracking. There are several ways to opt out of web tracking:&lt;/p&gt;
+
+&lt;p&gt;Most browsers allow you to block third-party cookies or prevent cross-domain tracking. This will limit the cookies that can be set by third-party scripts. This will not completely eliminate tracking by some third-party services though as they may use first-party cookies.&lt;/p&gt;
+
+&lt;p&gt;Most browsers also allow you ask not to be tracked (it sends the “Do Not Track” request header). If you have enabled this feature, we will not track the pages you visit in a way that enables us to connect them to your personal information. Your page views may still be collected anonymously though. Many of the third-party services we use for collecting anonymous data also respect the Do Not Track setting.&lt;/p&gt;
+
+&lt;h1 id=&#34;third-party-vendors&#34;&gt;Third Party Vendors.&lt;/h1&gt;
+
+&lt;p&gt;Some of the vendors we use that may collect Personal Information on our behalf are as follows:&lt;/p&gt;
+
+&lt;p&gt;LinkedIn: We use LinkedIn in conjunction with metadata.io to reach target audiences via LinkedIn Ads and their inbox. Read LinkedIn’s privacy policy here. &lt;a href=&#34;https://www.linkedin.com/legal/preview/privacy-policy&#34; target=&#34;_blank&#34;&gt;https://www.linkedin.com/legal/preview/privacy-policy&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Google Analytics: We use Google Analytics to review data on website visits including: geographical information, browser information, platform information, page information, visit duration, referring site, time of visits, click throughs. The data is used to improve our site. Read the Google Analytics privacy policy here. &lt;a href=&#34;https://policies.google.com/privacy?hl=en&#34; target=&#34;_blank&#34;&gt;https://policies.google.com/privacy?hl=en&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Google Tag Manager: We use Google Tag Manager to manage and deploy marketing tags (snippets of code or tracking pixels) on our website. Read Google Tag Manager’s privacy policy here. &lt;a href=&#34;https://www.google.com/analytics/tag-manager/use-policy/&#34; target=&#34;_blank&#34;&gt;https://www.google.com/analytics/tag-manager/use-policy/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;YouTube: We use YouTube as a host to reach more people with our video content. Read YouTube’s privacy policy here. &lt;a href=&#34;https://www.youtube.com/static?template=privacy_guidelines&#34; target=&#34;_blank&#34;&gt;https://www.youtube.com/static?template=privacy_guidelines&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Marketo: We use Marketo to manage registrations on our websites, to collect and store consent, and to send consent-based email communications. We also use Marketo to track web visits if you have registered on our website. Read Marketo’s privacy policy here.&lt;/p&gt;
+
+&lt;p&gt;Twitter: We use Twitter on our websites to enable Twitter’s audience to share our content and follow our Twitter accounts. Read Twitter’s privacy policy here.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Terms</title>
       <link>/terms/</link>
-      <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
+      <pubDate>Sun, 19 Apr 2020 00:00:00 +0100</pubDate>
       <guid>/terms/</guid>
-      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
+      <description>&lt;ol&gt;
+&lt;li&gt;Acceptance of Terms and Conditions of Use.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;These Website Terms and Conditions of Use (the “Terms of Use”) apply to the Dataatomic,  web site located at www.dataatomic.com and all associated sites linked to www.dataatomic.com by Dataatomic, its subsidiaries and affiliates (collectively, the “Site”). The Site is the property of Dataatomic. BY USING THE SITE, YOU AGREE TO THESE TERMS OF USE; IF YOU DO NOT AGREE, DO NOT USE THE SITE.&lt;/p&gt;
+
+&lt;p&gt;Dataatomic reserves the right, at its sole discretion, to change, modify, add or remove portions of these Terms of Use, at any time. It is your responsibility to check these Terms of Use periodically for changes. Your continued use of the Site following the posting of changes will mean that you accept and agree to the changes.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Content.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;All text, graphics, user interfaces, visual interfaces, photographs, trademarks, logos, sounds, music, artwork and computer code (collectively, “Content”), including but not limited to the design, structure, selection, coordination, expression, “look and feel” and arrangement of such Content, contained on the Site is owned, controlled or licensed by or to Dataatomic, and is protected by trade dress, copyright, patent and trademark laws, and various other intellectual property rights and unfair competition laws.&lt;/p&gt;
+
+&lt;p&gt;Except as expressly provided in these Terms of Use, no part of the Site and no Content may be copied, reproduced, republished, uploaded, posted, publicly displayed, encoded, translated, transmitted or distributed in any way (including “mirroring”) to any other computer, server, Web site or other medium for publication or distribution or for any commercial enterprise, without Dataatomic’s express prior written consent.&lt;/p&gt;
+
+&lt;p&gt;You may use information on Dataatomic products and services purposely made available by Dataatomic for downloading from the Site, provided that you (1) not remove any proprietary notice language in all copies of such documents, (2) use such information only for your personal, non-commercial informational purpose and do not copy or post such information on any networked computer or broadcast it in any media, (3) make no modifications to any such information, and (4) not make any additional representations or warranties relating to such documents.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Purchases; Other Terms and Conditions&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Additional terms and conditions may apply to purchases of goods or services, downloads of software, and to specific portions or features of the Site, including community forums, contests, promotions or other similar features, all of which terms are made a part of these Terms of Use by this reference, such as and including without limitation EULA,  Dataatomic Service Terms of Use, Individual Contributor Agreement , Corporate Contributor Agreement, Connect Beta Terms of Use  among others.&lt;/p&gt;
+
+&lt;p&gt;You agree to abide by such other terms and conditions, including where applicable representing that you are of sufficient legal age to purchase, use or participate in such service or feature. If there is a conflict between these Terms of Use and the terms posted for or applicable to a specific portion of the Site or for any service offered on or through the Site, the latter terms shall control with respect to your use of that portion of the Site or the specific service.&lt;/p&gt;
+
+&lt;p&gt;Dataatomic&amp;rsquo;s obligations, if any, with regard to its products and services are governed solely by the agreements pursuant to which they are provided, and nothing on this Site should be construed to alter such agreements.&lt;/p&gt;
+
+&lt;p&gt;Dataatomic may make changes to any products or services offered on the Site, or to the applicable prices for any such products or services, at any time, without notice. The materials on the Site with respect to products and services may be out of date, and Dataatomic makes no commitment to update the materials on the Site with respect to such products and services.&lt;/p&gt;
+
+&lt;p&gt;To the extent Dataatomic makes available third party applications, products, software, services, data, content or resources or other third party goods or services on the Site or links to third party websites, Dataatomic does so for your convenience and makes no representations or warranties with respect to any of the foregoing, all of which is provided “as is” and without warranty.  Dataatomic disclaims all liability arising from your download or use of the foregoing. Such third party materials may be subject to additional terms and conditions and licenses between you and the third party. YOU AGREE THAT IN NO EVENT WILL WE BE LIABLE TO YOU IN CONNECTION WITH THE WEBSITES, CONTENT, APPLICATIONS, PACKAGES, COMPONENTS, SERVICES, DATA, CONTENT, RESOURCES, MATERIALS OR PRACTICES OF ANY THIRD PARTY.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Communications.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Except for any disclosure by you for technical support purposes, or as specified in our Privacy Policy, all communications from you to Dataatomic will be considered non-confidential and non-proprietary. You agree that any and all comments, information, feedback and ideas regarding Dataatomic, its products or services, that you communicate to Dataatomic (“Feedback”) will be deemed, at the time of communication to Dataatomic, the property of Dataatomic, and Dataatomic shall be entitled to full rights of ownership, including without limitation, unrestricted right to use or disclose such Feedback in any form, medium or technology now known or later developed, and for any purpose, commercial or otherwise, without compensation to you.&lt;/p&gt;
+
+&lt;p&gt;You are solely responsible for the content of your communications and their legality under all laws and regulations. You agree not to use this Site to distribute, link to or solicit content that is defamatory, harassing, unlawful, libelous, harmful to minors, threatening, obscene, false, misleading, or infringing a third party intellectual or privacy rights.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Access to Password Protected or Secured Areas; Privacy.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Access to and use of password protected or secured areas of this Site is restricted to authorized users only and certain features or services offered on or through the Site may require you to open an account (including setting up an Dataatomic ID and password). You are entirely responsible for maintaining the confidentiality of your account information, including your password, and for any and all activity that occurs under your account. You agree to notify Dataatomic immediately of any unauthorized use of your account or password, or any other breach of security. However, you may be held liable for losses incurred by Dataatomic or any other user of or visitor to the Site due to someone else using your Dataatomic ID, password or account. You will not misuse or share your username or password, misrepresent your identity or your affiliation with an entity, impersonate any person or entity, or misstate the origin of any Content you are exposed to through this Site.&lt;/p&gt;
+
+&lt;p&gt;Dataatomic’s Privacy Policy applies to use of this Site, and its terms are made a part of these Terms of Use by this reference. Additionally, by using the Site, you acknowledge and agree that Internet transmissions are never completely private or secure. You understand that any message or information you send to the Site may be read or intercepted by others, even if there is a special notice that a particular transmission (for example, credit card information) is encrypted.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Monitoring.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Dataatomic reserves the right to review your communications on this Site to determine whether you comply with these Terms of Use and any other applicable polices or terms and conditions of Dataatomic applicable to your use of the Site. Dataatomic will not have any liability or responsibility for the content of any communications you post to this Site, or for any errors or violations of any laws or regulations by you. Dataatomic will comply with any court order in disclosing the identity of any person posting communications on this Site. It is advisable that you review our Privacy Statement before posting any such communications.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Links to Other Sites.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This Site may link to other third party sites which are not under the control of Dataatomic. Dataatomic is not responsible for the content of any linked site or any link contained in a linked site. Dataatomic reserves the right to terminate any link at any time. Dataatomic may provide links from this Site to other sites as a convenience to you and in no way should this be interpreted as an endorsement of any company, content or products to which it links. If you decide to access any of the third party sites linked to this Site, you do this entirely at your own risk. Please note that when you conduct transactions with other companies providing content via this Site, you will also be subject to their privacy policies.  Dataatomic DISCLAIMS ANY AND ALL WARRANTIES, EXPRESS OR IMPLIED, TO ANY SUCH LINKED SITES, INCLUDING BUT NOT LIMITED TO ANY TERMS AS TO THE ACCURACY, OWNERSHIP, VALIDITY OR LEGALITY OF ANY CONTENT OF A LINKED SITE.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Trademarks.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The trademarks, service marks and logos of Dataatomic used through the Site (“Trademarks”) are the property of Dataatomic. You have no right to use any such Trademarks, and nothing contained in this Site or the Terms of Use grants any right to use (by implication, waiver, estoppel or otherwise) any Trademarks without the prior written permission of Dataatomic.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Indemnification.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;You agree to indemnify, defend and hold Dataatomic, its officers, directors, shareholders, predecessors, successors in interest, employees, agents, subsidiaries and affiliates, harmless from and against any demands, loss, liability, claims or expenses (including attorneys’ fees) arising out of, based on or in connection with your access and/or use of this Site&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Limitation of Liability.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;EXCEPT WHERE PROHIBITED BY LAW, IN NO EVENT WILL DATAATOMIC BE LIABLE TO YOU FOR ANY INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL OR PUNITIVE DAMAGES, INCLUDING LOST PROFITS, EVEN IF DATAATOMIC HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.&lt;/p&gt;
+
+&lt;p&gt;IF, NOTWITHSTANDING THE OTHER PROVISIONS OF THESE TERMS OF USE, DATAATOMIC IS FOUND TO BE LIABLE TO YOU FOR ANY DAMAGE OR LOSS WHICH ARISES OUT OF OR IS IN ANY WAY CONNECTED WITH YOUR USE OF THE SITE OR ANY CONTENT, DATAATOMIC’S LIABILITY SHALL IN NO EVENT EXCEED THE GREATER OF (1) THE TOTAL OF ANY SUBSCRIPTION OR SIMILAR FEES WITH RESPECT TO ANY SERVICE OR FEATURE OF OR ON THE SITE PAID IN THE SIX MONTHS PRIOR TO THE DATE OF THE INITIAL CLAIM MADE AGAINST DATAATOMIC, OR (2) US$100.00. SOME JURISDICTIONS DO NOT ALLOW LIMITATIONS OF LIABILITY, SO THE FOREGOING LIMITATION MAY NOT APPLY TO YOU.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Disclaimer.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;DATAATOMIC DOES NOT PROMISE THAT THE SITE OR ANY CONTENT, SERVICE OR FEATURE OF THE SITE WILL BE ERROR-FREE OR UNINTERRUPTED, OR THAT ANY DEFECTS WILL BE CORRECTED, OR THAT YOUR USE OF THE SITE WILL PROVIDE SPECIFIC RESULTS. THE SITE AND ITS CONTENT ARE DELIVERED ON AN “AS-IS” AND “AS-AVAILABLE” BASIS. ALL INFORMATION PROVIDED ON THE SITE IS SUBJECT TO CHANGE WITHOUT NOTICE. DATAATOMIC CANNOT ENSURE THAT ANY FILES OR OTHER DATA YOU DOWNLOAD FROM THE SITE WILL BE FREE OF VIRUSES OR CONTAMINATION OR DESTRUCTIVE FEATURES. DATAATOMIC DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING ANY WARRANTIES OF ACCURACY, NON-INFRINGEMENT, MERCHANTABILITY, TITLE AND FITNESS FOR A PARTICULAR PURPOSE. DATAATOMIC DISCLAIMS ANY AND ALL LIABILITY FOR THE ACTS, OMISSIONS AND CONDUCT OF ANY THIRD PARTIES IN CONNECTION WITH OR RELATED TO YOUR USE OF THE SITE AND/OR ANY DATAATOMIC SERVICES. YOU ASSUME TOTAL RESPONSIBILITY FOR YOUR USE OF THE SITE AND ANY LINKED SITES. YOUR SOLE REMEDY AGAINST DATAATOMIC FOR DISSATISFACTION WITH THE SITE OR ANY CONTENT IS TO STOP USING THE SITE OR ANY SUCH CONTENT. THIS LIMITATION OF RELIEF IS AN ESSENTIAL PART OF THE BARGAIN BETWEEN THE PARTIES.&lt;/p&gt;
+
+&lt;p&gt;The above disclaimer applies to any damages, liability or injuries caused by any failure of performance, error, omission, interruption, deletion, defect, delay in operation or transmission, computer virus, communication line failure, theft or destruction of or unauthorized access to, alteration of, or use, whether for breach of contract, tort, negligence or any other cause of action.&lt;/p&gt;
+
+&lt;p&gt;Dataatomic reserves the right to do any of the following, at any time, without notice: (1) to modify, suspend or terminate operation of or access to the Site, or any portion of the Site, for any reason; (2) to modify or change the Site, or any portion of the Site, and any applicable policies or terms; and (3) to interrupt the operation of the Site, or any portion of the Site, as necessary to perform routine or non-routine maintenance, error correction, or other changes.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Violations of these Terms of Use&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Dataatomic may disclose any information we have about you (including your identity) if we determine that such disclosure is necessary in connection with any investigation or complaint regarding your use of the Site, or to identify, contact or bring legal action against someone who may be causing injury to or interference with (either intentionally or unintentionally) Dataatomic’s rights or property, or the rights or property of visitors to or users of the Site, including Dataatomic customers. Dataatomic reserves the right at all times to disclose any information that Dataatomic deems necessary to comply with any applicable law, regulation, legal process or governmental request. Dataatomic also may disclose your information when Dataatomic determines that applicable law requires or permits such disclosure, including exchanging information with other companies and organizations for fraud protection purposes.&lt;/p&gt;
+
+&lt;p&gt;You acknowledge and agree that Dataatomic may preserve any transmittal or communication by you with Dataatomic through the Site or any service offered on or through the Site, and may also disclose such data if required to do so by law or Dataatomic determines that such preservation or disclosure is reasonably necessary to (1) comply with legal process, (2) enforce these Terms of Use, (3) respond to claims that any such data violates the rights of others, or (4) protect the rights, property or personal safety of Dataatomic, its employees, users of or visitors to the Site, and the public.&lt;/p&gt;
+
+&lt;p&gt;You agree that Dataatomic may, in its sole discretion and without prior notice, terminate your access to the Site and/or block your future access to the Site if we determine that you have violated these Terms of Use or other agreements or guidelines which may be associated with your use of the Site. You also agree that any violation by you of these Terms of Use will constitute an unlawful and unfair business practice, and will cause irreparable harm to Dataatomic, for which monetary damages would be inadequate, and you consent to Dataatomic obtaining any injunctive or equitable relief that Dataatomic deems necessary or appropriate in such circumstances. These remedies are in addition to any other remedies Dataatomic may have at law or in equity.&lt;/p&gt;
+
+&lt;p&gt;You agree that Dataatomic may, in its sole discretion and without prior notice, terminate your access to the Site, for cause, which includes (but is not limited to) (1) requests by law enforcement or other government agencies, (2) a request by you (self-initiated account deletions), (3) discontinuance or material modification of the Site or any service offered on or through the Site, or (4) unexpected technical issues or problems.&lt;/p&gt;
+
+&lt;p&gt;If Dataatomic does take any legal action against you as a result of your violation of these Terms of Use, Dataatomic will be entitled to recover from you, and you agree to pay, all reasonable attorneys’ fees and costs of such action, in addition to any other relief granted to Dataatomic. You agree that Dataatomic will not be liable to you or to any third party for termination of your access to the Site as a result of any violation of these Terms of Use.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Applicable Laws.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;All matters relating to your access and use of Site shall be governed by the federal laws of the United States and the laws of The Commonwealth of Massachusetts, without regard to its conflicts of laws provisions. You agree to the personal jurisdiction and venue in the federal and state courts located in Boston, Massachusetts, and waive any objection to such jurisdiction or venue. Any claim under these Terms of Use must be brought within one (1) year after the cause of action arises, or such claim or cause of action is barred. No recovery may be sought or received for damages other than out-of-pocket expenses, except that the prevailing party will be entitled to costs and attorneys’ fees. In the event of any controversy or dispute between Dataatomic and you arising out of or in connection with your use of the Site, the parties shall attempt, promptly and in good faith, to resolve any such dispute. If we are unable to resolve any such dispute within a reasonable time (not to exceed thirty (30) days), then either party may submit such controversy or dispute to mediation. If the dispute cannot be resolved through mediation, then the parties shall be free to pursue any right or remedy available to them under applicable law.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;General.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Although the Site is accessible worldwide, not all features, products or services discussed, referenced, provided or offered through or on the Site are available to all persons or in all geographic locations, or appropriate or available for use outside the United States. Dataatomic reserves the right to limit, in its sole discretion, the provision and quantity of any feature, product or service to any person or geographic area. Any offer for any feature, product or service made on the Site is void where prohibited. If you choose to access the Site from outside the United States, you do so on your own initiative and you are solely responsible for complying with applicable local laws.&lt;/p&gt;
+
+&lt;p&gt;If any of the provisions of these Terms of Use are held by a court or other tribunal of competent jurisdiction to be void or unenforceable, such provisions shall be limited or eliminated to the minimum extent necessary and replaced with a valid provision that best embodies the intent of these Terms of Use, so that these Terms of Use shall remain in full force and effect. These Terms of Use and any other applicable Dataatomic policies and terms and conditions applicable to you constitute the entire agreement between you and Dataatomic with regard to your use of the Site, and any and all other written or oral agreements or understandings previously existing between you and Dataatomic with respect to such use are hereby superseded and cancelled. Dataatomic will not accept any counter-offers to these Terms of Use, and all such offers are hereby categorically rejected. Dataatomic’s failure to insist on or enforce strict performance of these Terms of Use shall not be construed as a waiver by Dataatomic of any provision or any right it has to enforce these Terms of Use, nor shall any course of conduct between Dataatomic and you or any other party be deemed to modify any provision of these Terms of Use. These Terms of Use shall not be interpreted or construed to confer any rights or remedies on any third parties.&lt;/p&gt;
+
+&lt;p&gt;If you have any questions regarding the Terms of Use, please contact us at privacy@Dataatomic.com.&lt;/p&gt;
 </description>
+    </item>
+    
+    <item>
+      <title>Posts</title>
+      <link>/post/</link>
+      <pubDate>Fri, 13 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>/post/</guid>
+      <description></description>
     </item>
     
     <item>

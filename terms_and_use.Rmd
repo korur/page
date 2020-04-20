@@ -1,13 +1,8 @@
 ---
-commentable: false
-date: "2020-04-19T00:00:00+01:00"
-draft: false
-editable: false
-header:
-  caption: ""
-  image: ""
-share: false
-title: Terms
+title: "terms_and_conditions"
+author: "Dataatomic"
+date: "4/20/2020"
+output: html_document
 ---
 
 1. Acceptance of Terms and Conditions of Use.
