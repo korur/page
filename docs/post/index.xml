@@ -5,12 +5,20 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 13 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 01 Jun 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/logo.png</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
+    
+    <item>
+      <title>How to build a health tracking app with R Shiny and firebase</title>
+      <link>/r/health-tracker/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>/r/health-tracker/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>An accidental side effect of text mining</title>
@@ -3385,7 +3393,7 @@ p + geom_point(position =posn.jd)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I will create one function to calculate the &lt;strong&gt;median&lt;/strong&gt; and the &lt;strong&gt;interquartile range(IQR) 1-3&lt;/strong&gt;, and another to calculate min(), max() values.&lt;/p&gt;
 &lt;p&gt;&lt;div class=&#34;alert alert-warning&#34;&gt;
   &lt;div&gt;
-    In order to use the results of a function directly in ggplot2 we need to &lt;strong&gt;ensure that the names of the variables match the aesthetics needed for our respective geoms&lt;/strong&gt;.
+    In order to use the results of a function directly in ggplot2 we need to &lt;!-- raw HTML omitted --&gt;ensure that the names of the variables match the aesthetics needed for our respective geoms&lt;!-- raw HTML omitted --&gt;.
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;/p&gt;
@@ -4323,7 +4331,7 @@ fullanimation&lt;/code&gt;&lt;/pre&gt;
 But in ggplot’s world how things look is just an &lt;strong&gt;attribute.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
-    Aesthetics do not refer how something looks, &lt;strong&gt;but to which variable is mapped onto it.&lt;/strong&gt;
+    Aesthetics do not refer how something looks, &lt;!-- raw HTML omitted --&gt;but to which variable is mapped onto it.&lt;!-- raw HTML omitted --&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;/p&gt;
@@ -5756,7 +5764,7 @@ Figure 1: Photo by Patrick Tomasso on Unsplash
 &lt;p&gt;Let’s figure out a solution.&lt;/p&gt;
 &lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
-    I will use the table of contents section to &lt;strong&gt;fish out each poem separately&lt;/strong&gt; by using two &lt;strong&gt;for loops.&lt;/strong&gt;
+    I will use the table of contents section to &lt;!-- raw HTML omitted --&gt;fish out each poem separately&lt;!-- raw HTML omitted --&gt; by using two &lt;!-- raw HTML omitted --&gt;for loops.&lt;!-- raw HTML omitted --&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;/p&gt;

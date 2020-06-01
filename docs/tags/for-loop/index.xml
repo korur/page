@@ -379,7 +379,7 @@ Figure 1: Photo by Patrick Tomasso on Unsplash
 &lt;p&gt;Let’s figure out a solution.&lt;/p&gt;
 &lt;p&gt;&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
-    I will use the table of contents section to &lt;strong&gt;fish out each poem separately&lt;/strong&gt; by using two &lt;strong&gt;for loops.&lt;/strong&gt;
+    I will use the table of contents section to &lt;!-- raw HTML omitted --&gt;fish out each poem separately&lt;!-- raw HTML omitted --&gt; by using two &lt;!-- raw HTML omitted --&gt;for loops.&lt;!-- raw HTML omitted --&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;/p&gt;

@@ -1,6 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/r/health-tracker/</loc>
+    <lastmod>2020-06-01T08:48:31+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-06-01T08:48:31+02:00</lastmod>
+  </url>
   
   <url>
     <loc>/privacy/</loc>
@@ -33,11 +43,6 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2019-12-13T10:48:17+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/sentimentanalysis/</loc>
     <lastmod>2019-12-13T10:48:17+01:00</lastmod>
   </url>
@@ -64,6 +69,11 @@
   
   <url>
     <loc>/tags/parallel-programming/</loc>
+    <lastmod>2019-11-15T15:29:24+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
     <lastmod>2019-11-15T15:29:24+01:00</lastmod>
   </url>
   
@@ -344,11 +354,6 @@
   
   <url>
     <loc>/tags/pca/</loc>
-    <lastmod>2019-09-17T21:23:26+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
     <lastmod>2019-09-17T21:23:26+02:00</lastmod>
   </url>
   
