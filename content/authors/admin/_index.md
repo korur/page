@@ -61,29 +61,32 @@ user_groups:
 - Visitors
 ---
 
-Every business generates data, and in most cases, they underestimate the value of it.  We are helping companies at all levels to learn how to use their data and **make better decisions.** 
+We generate data everyday, how we can use it in the best possible way that improves our business decisions?  We help companies to make most out of their their data and **make better decisions.** 
 
-First level is **Guidance.**  
+**Better Data generation and Analytics**  
 
-You want to learn about the tools that can help you understand and benefit from data. We help you identify the real value of your data and guide you to our recommened solutions.
+We guide you starting from how to generate, handle and store your data to creation of analytical tools.
+ 
+**Reduce manual tasks**
 
-Second level is **Solutions.**
+With our analytical solutions reduce the manual work. Automate tasks so you can focus on generating business insights with our **custom apps.**
 
-We **connect** your **business to the latest Data Science technologies.** Starting from how to generate, handle and store your data to creation of analytical tools. All you need to do is generate business insights with **a few clicks.**
+**Custom solutions**
 
-Third level is **Optimization & Automation.**
+We provide custom solutions which best fit in your workflow. We optimize your existing tools, expand and automate them. We provide alternative solutions to the bottlenecks you face. 
 
-We optimize your existing tools, expand and automate them. We provide you alternative solutions to expand bottlenecks you face. Robotic process automation which is basically the opposite of manual work can help you reduce time on many tasks. 
 
-We build tools that make your life easier. 
+Let's build tools that drive you to better decisions. 
 
-* Automation
-* Analytics
-* Prediction / Statistics / Machine learning / AI
+* Data annotation tools
+* Consultance on Prediction / Statistics / Machine learning / AI
 * Text mining / Web scraping / Natural language processing
 * Customized analytical tools
 
-Want to find out more? Please contact: serdar.korur@gmail.com or +48576537764 for a chat.
+Want to find out more? Please contact: serdar.korur@dataatomic.com or +48576537764 for a chat.
+
+
+
 
   
 ![](/img/turbina_z.gif)  
