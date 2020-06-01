@@ -13,14 +13,6 @@
     </image>
     
     <item>
-      <title>Posts</title>
-      <link>/post/</link>
-      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
-      <guid>/post/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Privacy Policy</title>
       <link>/privacy/</link>
       <pubDate>Sun, 19 Apr 2020 00:00:00 +0100</pubDate>
@@ -215,6 +207,14 @@ To exercise any of these rights, please contact us at &lt;a href=&#34;mailto:pri
 &lt;p&gt;If any of the provisions of these Terms of Use are held by a court or other tribunal of competent jurisdiction to be void or unenforceable, such provisions shall be limited or eliminated to the minimum extent necessary and replaced with a valid provision that best embodies the intent of these Terms of Use, so that these Terms of Use shall remain in full force and effect. These Terms of Use and any other applicable Dataatomic policies and terms and conditions applicable to you constitute the entire agreement between you and Dataatomic with regard to your use of the Site, and any and all other written or oral agreements or understandings previously existing between you and Dataatomic with respect to such use are hereby superseded and cancelled. Dataatomic will not accept any counter-offers to these Terms of Use, and all such offers are hereby categorically rejected. Dataatomic’s failure to insist on or enforce strict performance of these Terms of Use shall not be construed as a waiver by Dataatomic of any provision or any right it has to enforce these Terms of Use, nor shall any course of conduct between Dataatomic and you or any other party be deemed to modify any provision of these Terms of Use. These Terms of Use shall not be interpreted or construed to confer any rights or remedies on any third parties.&lt;/p&gt;
 &lt;p&gt;If you have any questions regarding the Terms of Use, please contact us at &lt;a href=&#34;mailto:privacy@Dataatomic.com&#34;&gt;privacy@Dataatomic.com&lt;/a&gt;.&lt;/p&gt;
 </description>
+    </item>
+    
+    <item>
+      <title>Posts</title>
+      <link>/post/</link>
+      <pubDate>Fri, 13 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>/post/</guid>
+      <description></description>
     </item>
     
     <item>
