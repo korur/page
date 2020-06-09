@@ -68,7 +68,7 @@ To be able to publish the website on github we need to specify a **docs** folder
   
 Open your **config.toml** file under the Website folder, and add the lines; <a id="editconfig"></a>  
 
-```baseurl: "https://yourusername.github.io/page/"```  
+```baseurl = "https://yourusername.github.io/page/"```  
 ```publishDir = "docs"```
 ![configtoml](/img/configtoml.jpg) 
 

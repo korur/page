@@ -34,7 +34,7 @@ education:
 social:
 - icon: envelope
   icon_pack: fas
-  link: "mailto:serdar.korur@gmail.com"
+  link: "mailto:serdar.korur@dataatomic.com"
 - icon: github
   icon_pack: fab
   link: https://github.com/korur/

@@ -5,12 +5,65 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 13 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 03 Jun 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/img/logo.png</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
+    
+    <item>
+      <title>How to build a survey based health tracker app with R Shiny</title>
+      <link>/r/health-tracking/</link>
+      <pubDate>Wed, 03 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>/r/health-tracking/</guid>
+      <description>
+
+
+&lt;p&gt;&lt;img src=&#34;/img/cRew_iphone.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;It is all about being positive or negative.&lt;/p&gt;
+&lt;p&gt;May be this sentence is enough to summarise our experiences from the last couple of months. Covid-19 pandemic caught us off-guard.&lt;/p&gt;
+&lt;p&gt;Going through this topic, I created an R Shiny app, which allows users to fill in a health/behaviour survey which is then converted into a location based risk score through a data analytics module. To achieve this the app:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;uses google firebase authentication&lt;/li&gt;
+&lt;li&gt;asks users permission to track location via a javascript code&lt;/li&gt;
+&lt;li&gt;creates a risk score around users location&lt;/li&gt;
+&lt;li&gt;allows users to store and review their previous data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When users from a given location submit their health data, the app can assess the number of symptomatic vs healthy people and record the daily changes in the risk score around the location.&lt;/p&gt;
+&lt;p&gt;You can access the app here: &lt;a href=&#34;http://tools.dataatomic.com/shiny/cRew&#34;&gt;cRew symptomTracker&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The app will need location information and user provided health parameters as input to calculate real-time risks. You can still test the app without providing your location. If location is not provided the app will locate you automatically in a remote place. Guess where?&lt;/p&gt;
+&lt;p&gt;The green circles on the map denotes healthy and red circle denotes the people with flu like symptoms.&lt;/p&gt;
+&lt;p&gt;The risk score is a value from 0 to 25, the maximum score you can get without any disease symptoms is 4. Thus, a value higher than 4 signals a risk. If you have all of the three symptoms in the survey like coughing, high fever and breathing difficulties and going to work then the algorithm will assess your risk score as max at 25.&lt;/p&gt;
+&lt;div id=&#34;to-create-an-health-tracking-app-we-need-to-store-user-submitted-data.&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;To create an health tracking app we need to store user submitted data.&lt;/h3&gt;
+&lt;p&gt;I used &lt;a href=&#34;https://firebase.john-coene.com/&#34;&gt;firebase R package&lt;/a&gt; from John Coene to set up google firebase authentication so that users can sign in the app via their &lt;strong&gt;gmail&lt;/strong&gt; or &lt;strong&gt;twitter&lt;/strong&gt; accounts. If you want to set up firebase authentication for your shiny app please visit the package website, it is very descriptive and easy to understand.&lt;/p&gt;
+&lt;p&gt;For data storage, I used google firebase realtime database. User specific variables created during the authentication process can be used to set up &lt;strong&gt;user specific folders&lt;/strong&gt; in the firebase database. Thus, users can access and only access their own data.&lt;/p&gt;
+&lt;p&gt;If you want to know more about how this process you can look at the &lt;a href=&#34;https://github.com/korur/cRew#readme&#34;&gt;readme&lt;/a&gt; of the R package (cRew).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;using-modules-or-packaging-shiny-apps-make-them-much-more-manageable-when-the-complexity-increases.&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Using modules or packaging Shiny apps make them much more manageable when the complexity increases.&lt;/h3&gt;
+&lt;p&gt;If you have not used modules or packaged your Shiny apps here are some links to get you started:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://shiny.rstudio.com/articles/modules.html&#34;&gt;Modularizing Shiny code&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://engineering-shiny.org/golem.html&#34;&gt;Packaging Shiny apps&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Going through some example Shiny apps which utilized Golem and modules will be very helpful:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You can check Coronavirus Tracker from &lt;a href=&#34;https://shiny.john-coene.com/coronavirus/&#34;&gt;John Coene&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;or if you want to start from something simpler this &lt;a href=&#34;https://github.com/korur/mobilequake&#34;&gt;one&lt;/a&gt; and go through the code files in the R folder.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;future-thoughts&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Future thoughts&lt;/h1&gt;
+&lt;p&gt;R Shiny framework is really versatile and allows you create beautiful apps with advanced features.&lt;/p&gt;
+&lt;p&gt;Instead of location, the app can also be applied to track health status of employees in big organizations. The organization may provide access to employees and they will enter their data regulary, this might help to warn individuals working in same departments or floors if some employees started to show disease symptoms. This can help to warn individuals and prevent further spread.&lt;/p&gt;
+&lt;p&gt;The survey data also can be easily integrated into a statistical/analytics pipeline to assess the results in real-time.&lt;/p&gt;
+&lt;p&gt;Until next time!&lt;/p&gt;
+&lt;p&gt;Serdar&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>An accidental side effect of text mining</title>
@@ -6412,7 +6465,7 @@ Replace its &lt;strong&gt;repository name&lt;/strong&gt; with “&lt;strong&gt;g
 &lt;h4&gt;Prepare for GitHub compatibility&lt;/h4&gt;
 &lt;p&gt;To be able to publish the website on github we need to specify a &lt;strong&gt;docs&lt;/strong&gt; folder instead of the default public folder where the website is created.&lt;/p&gt;
 &lt;p&gt;Open your &lt;strong&gt;config.toml&lt;/strong&gt; file under the Website folder, and add the lines; &lt;a id=&#34;editconfig&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;baseurl: &#34;https://yourusername.github.io/page/&#34;&lt;/code&gt;&lt;br /&gt;
+&lt;p&gt;&lt;code&gt;baseurl = &#34;https://yourusername.github.io/page/&#34;&lt;/code&gt;&lt;br /&gt;
 &lt;code&gt;publishDir = &#34;docs&#34;&lt;/code&gt;
 &lt;img src=&#34;/img/configtoml.jpg&#34; alt=&#34;configtoml&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Save the config file. This will rebuild the site and create the docs folder.

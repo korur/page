@@ -1,0 +1,79 @@
+---
+title: How to build a survey based health tracker app with R Shiny
+author: ''
+date: '2020-06-03'
+slug: health-tracking
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-06-03T20:59:23+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+![](/img/cRew_iphone.png)
+
+
+It is all about being positive or negative.
+
+May be this sentence is enough to summarise our experiences from the last couple of months. Covid-19 pandemic caught us off-guard. 
+
+Going through this topic, I created an R Shiny app, which allows users to fill in a health/behaviour survey which is then converted into a location based risk score through a data analytics module. To achieve this the app:
+
+- uses google firebase authentication
+- asks users permission to track location via a javascript code
+- creates a risk score around users location 
+- allows users to store and review their previous data 
+
+When users from a given location submit their health data, the app can assess the number of symptomatic vs healthy people and record the daily changes in the risk score around the location.  
+
+You can access the app here: [cRew symptomTracker](http://tools.dataatomic.com/shiny/cRew) 
+
+The app will need location information and user provided health parameters as input to calculate real-time risks. You can still test the app without providing your location. If location is not provided the app will locate you automatically in a remote place. Guess where?
+
+The green circles on the map denotes healthy and red circle denotes the people with flu like symptoms.
+
+The risk score is a value from 0 to 25, the maximum score you can get without any disease symptoms is 4. Thus, a value higher than 4 signals a risk. If you have all of the three symptoms in the survey like coughing, high fever and breathing difficulties and going to work then the algorithm will assess your risk score as max at 25. 
+
+### To create an health tracking app we need to store user submitted data. 
+
+I used [firebase R package](https://firebase.john-coene.com/) from John Coene to set up google firebase authentication so that users can sign in the app via their **gmail** or **twitter** accounts. If you want to set up firebase authentication for your shiny app please visit the package website, it is very descriptive and easy to understand. 
+
+For data storage, I used google firebase realtime database. User specific variables created during the authentication process can be used to set up **user specific folders** in the firebase database. Thus, users can access and only access their own data. 
+
+If you want to know more about how this process you can look at the [readme](https://github.com/korur/cRew#readme) of the R package (cRew). 
+
+### Using modules or packaging Shiny apps make them much more manageable when the complexity increases.
+
+
+If you have not used modules or packaged your Shiny apps here are some links to get you started:
+
+* [Modularizing Shiny code](https://shiny.rstudio.com/articles/modules.html)
+
+* [Packaging Shiny apps](https://engineering-shiny.org/golem.html)
+
+
+Going through some example Shiny apps which utilized Golem and modules will be very helpful:
+
+* You can check Coronavirus Tracker from [John Coene](https://shiny.john-coene.com/coronavirus/) 
+* or if you want to start from something simpler this [one](https://github.com/korur/mobilequake) and go through the code files in the R folder. 
+
+
+# Future thoughts 
+
+R Shiny framework is really versatile and allows you create beautiful apps with advanced features.
+
+Instead of location, the app can also be applied to track health status of employees in big organizations. The organization may provide access to employees and they will enter their data regulary, this might help to warn individuals working in same departments or floors if some employees started to show disease symptoms. This can help to warn individuals and prevent further spread. 
+
+The survey data also can be easily integrated into a statistical/analytics pipeline to assess the results in real-time.
+
+
+Until next time!
+
+Serdar

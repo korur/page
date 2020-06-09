@@ -688,7 +688,7 @@ Replace its &lt;strong&gt;repository name&lt;/strong&gt; with “&lt;strong&gt;g
 &lt;h4&gt;Prepare for GitHub compatibility&lt;/h4&gt;
 &lt;p&gt;To be able to publish the website on github we need to specify a &lt;strong&gt;docs&lt;/strong&gt; folder instead of the default public folder where the website is created.&lt;/p&gt;
 &lt;p&gt;Open your &lt;strong&gt;config.toml&lt;/strong&gt; file under the Website folder, and add the lines; &lt;a id=&#34;editconfig&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;baseurl: &#34;https://yourusername.github.io/page/&#34;&lt;/code&gt;&lt;br /&gt;
+&lt;p&gt;&lt;code&gt;baseurl = &#34;https://yourusername.github.io/page/&#34;&lt;/code&gt;&lt;br /&gt;
 &lt;code&gt;publishDir = &#34;docs&#34;&lt;/code&gt;
 &lt;img src=&#34;/img/configtoml.jpg&#34; alt=&#34;configtoml&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Save the config file. This will rebuild the site and create the docs folder.

@@ -28,14 +28,13 @@
   
     
   
-  <meta name="description" content="ggplot2 is a powerful data visualization tool of R. Make quick visualizations to explore or share your insights.
-Learning how aesthetics and attributes are defined in ggplot will give you an edge to develop your skills quickly.
-ggplot2 tips: distinction between aesthetics and attributesAesthetics are defined inside aes() in ggplot syntax and attributes are outside the aes().
-e.g. ggplot(data, aes(x, y, color=var1) &#43; geom_point(size=6)
-We typically understand aesthetics as how something looks, color, size etc.">
+  <meta name="description" content="It is all about being positive or negative.
+May be this sentence is enough to summarise our experiences from the last couple of months. Covid-19 pandemic caught us off-guard.
+Going through this topic, I created an R Shiny app, which allows users to fill in a health/behaviour survey which is then converted into a location based risk score through a data analytics module. To achieve this the app:
+uses google firebase authenticationasks users permission to track location via a javascript codecreates a risk score around users locationallows users to store and review their previous dataWhen users from a given location submit their health data, the app can assess the number of symptomatic vs healthy people and record the daily changes in the risk score around the location.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/r/ggplot-shiny-app/">
+  <link rel="alternate" hreflang="en-us" href="/r/health-tracking/">
 
   
 
@@ -111,7 +110,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
   <link rel="icon" type="image/png" href="/img/icon-32.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="/r/ggplot-shiny-app/">
+  <link rel="canonical" href="/r/health-tracking/">
 
   
   
@@ -127,19 +126,18 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
   <meta property="twitter:creator" content="@dataatomic">
   
   <meta property="og:site_name" content="SERDAR KORUR">
-  <meta property="og:url" content="/r/ggplot-shiny-app/">
-  <meta property="og:title" content="What is aesthetics and attributes in ggplot&#39;s world? | SERDAR KORUR">
-  <meta property="og:description" content="ggplot2 is a powerful data visualization tool of R. Make quick visualizations to explore or share your insights.
-Learning how aesthetics and attributes are defined in ggplot will give you an edge to develop your skills quickly.
-ggplot2 tips: distinction between aesthetics and attributesAesthetics are defined inside aes() in ggplot syntax and attributes are outside the aes().
-e.g. ggplot(data, aes(x, y, color=var1) &#43; geom_point(size=6)
-We typically understand aesthetics as how something looks, color, size etc."><meta property="og:image" content="/img/logo.png">
+  <meta property="og:url" content="/r/health-tracking/">
+  <meta property="og:title" content="How to build a survey based health tracker app with R Shiny | SERDAR KORUR">
+  <meta property="og:description" content="It is all about being positive or negative.
+May be this sentence is enough to summarise our experiences from the last couple of months. Covid-19 pandemic caught us off-guard.
+Going through this topic, I created an R Shiny app, which allows users to fill in a health/behaviour survey which is then converted into a location based risk score through a data analytics module. To achieve this the app:
+uses google firebase authenticationasks users permission to track location via a javascript codecreates a risk score around users locationallows users to store and review their previous dataWhen users from a given location submit their health data, the app can assess the number of symptomatic vs healthy people and record the daily changes in the risk score around the location."><meta property="og:image" content="/img/logo.png">
   <meta property="twitter:image" content="/img/logo.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2019-10-08T00:00:00&#43;00:00">
+      <meta property="article:published_time" content="2020-06-03T00:00:00&#43;00:00">
     
-    <meta property="article:modified_time" content="2019-10-08T12:38:02&#43;02:00">
+    <meta property="article:modified_time" content="2020-06-03T20:59:23&#43;02:00">
   
 
   
@@ -176,12 +174,12 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/r/ggplot-shiny-app/"
+    "@id": "/r/health-tracking/"
   },
-  "headline": "What is aesthetics and attributes in ggplot's world?",
+  "headline": "How to build a survey based health tracker app with R Shiny",
   
-  "datePublished": "2019-10-08T00:00:00Z",
-  "dateModified": "2019-10-08T12:38:02+02:00",
+  "datePublished": "2020-06-03T00:00:00Z",
+  "dateModified": "2020-06-03T20:59:23+02:00",
   
   "author": {
     "@type": "Person",
@@ -196,7 +194,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
       "url": "/img/logo.png"
     }
   },
-  "description": "ggplot2 is a powerful data visualization tool of R. Make quick visualizations to explore or share your insights.\nLearning how aesthetics and attributes are defined in ggplot will give you an edge to develop your skills quickly.\nggplot2 tips: distinction between aesthetics and attributes\rAesthetics are defined inside aes() in ggplot syntax and attributes are outside the aes().\n\re.g. ggplot(data, aes(x, y, color=var1) + geom_point(size=6)\n\rWe typically understand aesthetics as how something looks, color, size etc."
+  "description": "It is all about being positive or negative.\nMay be this sentence is enough to summarise our experiences from the last couple of months. Covid-19 pandemic caught us off-guard.\nGoing through this topic, I created an R Shiny app, which allows users to fill in a health/behaviour survey which is then converted into a location based risk score through a data analytics module. To achieve this the app:\n\ruses google firebase authentication\rasks users permission to track location via a javascript code\rcreates a risk score around users location\rallows users to store and review their previous data\r\rWhen users from a given location submit their health data, the app can assess the number of symptomatic vs healthy people and record the daily changes in the risk score around the location."
 }
 </script>
 
@@ -214,7 +212,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
 
 
 
-  <title>What is aesthetics and attributes in ggplot&#39;s world? | SERDAR KORUR</title>
+  <title>How to build a survey based health tracker app with R Shiny | SERDAR KORUR</title>
 
 </head>
 
@@ -438,7 +436,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
   
   
 <div class="article-container pt-3">
-  <h1>What is aesthetics and attributes in ggplot&#39;s world?</h1>
+  <h1>How to build a survey based health tracker app with R Shiny</h1>
 
   
 
@@ -460,7 +458,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
           Last updated on
       
     
-    Oct 8, 2019
+    Jun 3, 2020
   </span>
   
 
@@ -477,7 +475,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
   
   
   <span class="middot-divider"></span>
-  <a href="/r/ggplot-shiny-app/#disqus_thread"></a>
+  <a href="/r/health-tracking/#disqus_thread"></a>
   
 
   
@@ -496,7 +494,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/r/ggplot-shiny-app/&amp;text=What%20is%20aesthetics%20and%20attributes%20in%20ggplot&amp;#39;s%20world?" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/r/health-tracking/&amp;text=How%20to%20build%20a%20survey%20based%20health%20tracker%20app%20with%20R%20Shiny" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -509,7 +507,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/r/ggplot-shiny-app/&amp;t=What%20is%20aesthetics%20and%20attributes%20in%20ggplot&amp;#39;s%20world?" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/r/health-tracking/&amp;t=How%20to%20build%20a%20survey%20based%20health%20tracker%20app%20with%20R%20Shiny" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook-f"></i>
         </a>
       </li>
@@ -522,7 +520,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
       
       
       <li>
-        <a href="mailto:?subject=What%20is%20aesthetics%20and%20attributes%20in%20ggplot&amp;#39;s%20world?&amp;body=/r/ggplot-shiny-app/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=How%20to%20build%20a%20survey%20based%20health%20tracker%20app%20with%20R%20Shiny&amp;body=/r/health-tracking/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -535,7 +533,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/r/ggplot-shiny-app/&amp;title=What%20is%20aesthetics%20and%20attributes%20in%20ggplot&amp;#39;s%20world?" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/r/health-tracking/&amp;title=How%20to%20build%20a%20survey%20based%20health%20tracker%20app%20with%20R%20Shiny" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -548,7 +546,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=What%20is%20aesthetics%20and%20attributes%20in%20ggplot&amp;#39;s%20world?%20/r/ggplot-shiny-app/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=How%20to%20build%20a%20survey%20based%20health%20tracker%20app%20with%20R%20Shiny%20/r/health-tracking/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -561,7 +559,7 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/r/ggplot-shiny-app/&amp;title=What%20is%20aesthetics%20and%20attributes%20in%20ggplot&amp;#39;s%20world?" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=/r/health-tracking/&amp;title=How%20to%20build%20a%20survey%20based%20health%20tracker%20app%20with%20R%20Shiny" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
@@ -600,96 +598,47 @@ ggplot2 tips: distinction between aesthetics and attributesAesthetics are defin
       
 
 
-<p>ggplot2 is a powerful data visualization tool of R. Make quick visualizations to explore or share your insights.</p>
-<p>Learning how aesthetics and attributes are defined in ggplot will give you an edge to develop your skills quickly.</p>
-<div id="ggplot2-tips-distinction-between-aesthetics-and-attributes" class="section level3">
-<h3>ggplot2 tips: distinction between aesthetics and attributes</h3>
-<p>Aesthetics are defined inside <strong>aes()</strong> in ggplot syntax and attributes are outside the aes().</p>
-<blockquote>
-<p>e.g. ggplot(data, aes(x, y, <strong>color=var1</strong>) + geom_point<strong>(size=6)</strong></p>
-</blockquote>
-<p>We typically understand <strong>aesthetics</strong> as how something looks, color, size etc.<br />
-But in ggplot’s world how things look is just an <strong>attribute.</strong></p>
-<p><div class="alert alert-note">
-  <div>
-    Aesthetics do not refer how something looks, <!-- raw HTML omitted -->but to which variable is mapped onto it.<!-- raw HTML omitted -->
-  </div>
+<p><img src="/img/cRew_iphone.png" /></p>
+<p>It is all about being positive or negative.</p>
+<p>May be this sentence is enough to summarise our experiences from the last couple of months. Covid-19 pandemic caught us off-guard.</p>
+<p>Going through this topic, I created an R Shiny app, which allows users to fill in a health/behaviour survey which is then converted into a location based risk score through a data analytics module. To achieve this the app:</p>
+<ul>
+<li>uses google firebase authentication</li>
+<li>asks users permission to track location via a javascript code</li>
+<li>creates a risk score around users location</li>
+<li>allows users to store and review their previous data</li>
+</ul>
+<p>When users from a given location submit their health data, the app can assess the number of symptomatic vs healthy people and record the daily changes in the risk score around the location.</p>
+<p>You can access the app here: <a href="http://tools.dataatomic.com/shiny/cRew">cRew symptomTracker</a></p>
+<p>The app will need location information and user provided health parameters as input to calculate real-time risks. You can still test the app without providing your location. If location is not provided the app will locate you automatically in a remote place. Guess where?</p>
+<p>The green circles on the map denotes healthy and red circle denotes the people with flu like symptoms.</p>
+<p>The risk score is a value from 0 to 25, the maximum score you can get without any disease symptoms is 4. Thus, a value higher than 4 signals a risk. If you have all of the three symptoms in the survey like coughing, high fever and breathing difficulties and going to work then the algorithm will assess your risk score as max at 25.</p>
+<div id="to-create-an-health-tracking-app-we-need-to-store-user-submitted-data." class="section level3">
+<h3>To create an health tracking app we need to store user submitted data.</h3>
+<p>I used <a href="https://firebase.john-coene.com/">firebase R package</a> from John Coene to set up google firebase authentication so that users can sign in the app via their <strong>gmail</strong> or <strong>twitter</strong> accounts. If you want to set up firebase authentication for your shiny app please visit the package website, it is very descriptive and easy to understand.</p>
+<p>For data storage, I used google firebase realtime database. User specific variables created during the authentication process can be used to set up <strong>user specific folders</strong> in the firebase database. Thus, users can access and only access their own data.</p>
+<p>If you want to know more about how this process you can look at the <a href="https://github.com/korur/cRew#readme">readme</a> of the R package (cRew).</p>
 </div>
-</p>
-<p>I will create an imaginary data frame to apply those concepts.</p>
-<pre class="r"><code>library(ggplot2)
-points &lt;- 500
-# Defining the Golden Angle
-angle &lt;- pi*(3-sqrt(5))
-t &lt;- (1:points) * angle
-x &lt;- sin(t/2)
-y &lt;-cos(t/2)
-z &lt;- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
-w &lt;- rep(c(1,2), times=250)
-df &lt;- data.frame(t, x, y, z, w)
-# Have a look at the data
-head(df)</code></pre>
-<pre><code>##           t          x           y z w
-## 1  2.399963  0.9320324  0.36237489 1 1
-## 2  4.799926  0.6754903 -0.73736888 2 2
-## 3  7.199890 -0.4424710 -0.89678282 3 1
-## 4  9.599853 -0.9961710  0.08742572 4 2
-## 5 11.999816 -0.2795038  0.96014460 5 1
-## 6 14.399779  0.7936008  0.60843886 6 2</code></pre>
-<p>The dataframe we created has 3 numeric (t, x, y) variables and 2 discrete variables (z, w). With ggplot2 I can map any of the variables on my plot by defining them inside the <strong>aes().</strong></p>
-<pre class="r"><code># Make a scatter plot of points of a spiral
-p &lt;- ggplot(df, aes(x*t, y*t))
-p + geom_point()</code></pre>
-<p><img src="/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/ggplot%20main%20spiral-1.png" width="672" /></p>
+<div id="using-modules-or-packaging-shiny-apps-make-them-much-more-manageable-when-the-complexity-increases." class="section level3">
+<h3>Using modules or packaging Shiny apps make them much more manageable when the complexity increases.</h3>
+<p>If you have not used modules or packaged your Shiny apps here are some links to get you started:</p>
+<ul>
+<li><p><a href="https://shiny.rstudio.com/articles/modules.html">Modularizing Shiny code</a></p></li>
+<li><p><a href="https://engineering-shiny.org/golem.html">Packaging Shiny apps</a></p></li>
+</ul>
+<p>Going through some example Shiny apps which utilized Golem and modules will be very helpful:</p>
+<ul>
+<li>You can check Coronavirus Tracker from <a href="https://shiny.john-coene.com/coronavirus/">John Coene</a></li>
+<li>or if you want to start from something simpler this <a href="https://github.com/korur/mobilequake">one</a> and go through the code files in the R folder.</li>
+</ul>
 </div>
-<div id="example-use-of-an-aesthetics" class="section level3">
-<h3>Example use of an aesthetics</h3>
-<p>By defining col=factor(z) inside aes(), I can map z to colors. So now the graph shows x, y and also values z.</p>
-<pre class="r"><code># Make a scatter plot of points in a spiral
-p &lt;- ggplot(df, aes(x*t, y*t, col=factor(z)))
-p + geom_point()</code></pre>
-<p><img src="/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/Map%20z%20on%20color-1.png" width="672" /></p>
-<p>Each different color now represents different values of z.</p>
-</div>
-<div id="example-use-of-an-attribute" class="section level3">
-<h3>Example use of an attribute</h3>
-<p>Attribute is how somethings looks. e.g. you can the points bigger by defining size=4. But it does not give any extra information about data.</p>
-<pre class="r"><code># Make a scatter plot of points in a spiral
-p &lt;- ggplot(df, aes(x*t, y*t, col=factor(z)))
-p + geom_point(size = 4)</code></pre>
-<p><img src="/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/main%20spiral%20colored-1.png" width="672" /></p>
-</div>
-<div id="use-shape-as-an-attribute" class="section level3">
-<h3>Use shape as an attribute</h3>
-<p>Same goes here. I am changing how something looks like. The data point shape change to 24 which defines a empty triangle. But nothing is mapped onto it. It is just an attribute.</p>
-<pre class="r"><code># Make a scatter plot of points in a spiral
-p &lt;- ggplot(df, aes(x*t, y*t, color=factor(z)))
-p + geom_point(shape=24, size=4)</code></pre>
-<p><img src="/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/spiral%20colors%20with%20triangles-1.png" width="672" />
-Here, x<em>t, y</em>t and factor(z) is mapped on to our graph.</p>
-</div>
-<div id="using-shape-as-an-aesthetics" class="section level3">
-<h3>Using shape as an aesthetics</h3>
-<p>By defining shape and color inside aes() I can map w and z to my plot as well.</p>
-<pre class="r"><code>points &lt;- 500
-# Defining the Golden Angle
-angle &lt;- pi*(3-sqrt(5))
-t &lt;- (1:points) * angle
-x &lt;- sin(t)
-y &lt;-cos(t)
-z &lt;- rep(c(1,2,3,4,5,6,7,8,9,10), times=50)
-w &lt;- rep(c(1,2), times=250)
-df &lt;- data.frame(t, x, y, z, w)
-
-p &lt;- ggplot(df, aes(x*t, y*t, shape=factor(w), color=factor(z)))
-p + geom_point(size=3)</code></pre>
-<p><img src="/post/2019-10-08-what-is-aesthetics-and-atributes-in-ggplot-s-world_files/figure-html/aa-1.png" width="672" /></p>
-<p>Spirals look nice and we got some basics of ggplot. Now let’s use it to create a pattern designer, with Shiny. Many patterns in Nature can be explained by mathematical terms, Shapes of sunflowers, dandelions or snowflakes etc.</p>
-<p>I will tell the rest of the story in the next update. Now you can play with the app to create your patterns!</p>
-<iframe width="1000" height="800" scrolling="no" frameborder="no" src="https://korur.shinyapps.io/designapattern/">
-</iframe>
-<p>Until next time!<br />
-Serdar</p>
+<div id="future-thoughts" class="section level1">
+<h1>Future thoughts</h1>
+<p>R Shiny framework is really versatile and allows you create beautiful apps with advanced features.</p>
+<p>Instead of location, the app can also be applied to track health status of employees in big organizations. The organization may provide access to employees and they will enter their data regulary, this might help to warn individuals working in same departments or floors if some employees started to show disease symptoms. This can help to warn individuals and prevent further spread.</p>
+<p>The survey data also can be easily integrated into a statistical/analytics pipeline to assess the results in real-time.</p>
+<p>Until next time!</p>
+<p>Serdar</p>
 </div>
 
     </div>
@@ -698,28 +647,6 @@ Serdar</p>
 
 
     
-
-<div class="article-tags">
-  
-  <a class="badge badge-light" href="/tags/aesthetics/">aesthetics</a>
-  
-  <a class="badge badge-light" href="/tags/attributes/">attributes</a>
-  
-  <a class="badge badge-light" href="/tags/data-visualization/">data visualization</a>
-  
-  <a class="badge badge-light" href="/tags/ggplot2/">ggplot2</a>
-  
-  <a class="badge badge-light" href="/tags/pattern-designer/">pattern designer</a>
-  
-  <a class="badge badge-light" href="/tags/phyllotaxis/">phyllotaxis</a>
-  
-  <a class="badge badge-light" href="/tags/rstudio/">RStudio</a>
-  
-  <a class="badge badge-light" href="/tags/shiny/">Shiny</a>
-  
-  <a class="badge badge-light" href="/tags/web-app/">web app</a>
-  
-</div>
 
 
 
@@ -829,18 +756,6 @@ Serdar</p>
 
 
       
-      
-      <div class="article-widget">
-        <div class="hr-light"></div>
-        <h3>Related</h3>
-        <ul>
-          
-          <li><a href="/r/data-wrangling-text-mining/">Data Wrangling for Text mining: Extract individual elements from a Book</a></li>
-          
-          <li><a href="/r/deploy-your-blog-in-5-minutes/">Start blogging in 5 minutes on Netlify with Hugo and blogdown (September 2019 Update)</a></li>
-          
-        </ul>
-      </div>
       
     
 
